@@ -38,6 +38,7 @@ public class Frm_ReportedeVentas extends javax.swing.JDialog {
     cbxTipoReporte.updateUI();
     }
     
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +53,7 @@ public class Frm_ReportedeVentas extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         cbxTipoReporte = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        PanelGrafico = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -76,10 +78,14 @@ public class Frm_ReportedeVentas extends javax.swing.JDialog {
         PanelGeneral.add(jButton1);
         jButton1.setBounds(360, 50, 140, 30);
 
-        getContentPane().add(PanelGeneral);
-        PanelGeneral.setBounds(0, 0, 770, 360);
+        PanelGrafico.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        PanelGeneral.add(PanelGrafico);
+        PanelGrafico.setBounds(10, 120, 500, 230);
 
-        setSize(new java.awt.Dimension(778, 393));
+        getContentPane().add(PanelGeneral);
+        PanelGeneral.setBounds(0, 0, 560, 360);
+
+        setSize(new java.awt.Dimension(568, 393));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -127,6 +133,7 @@ public class Frm_ReportedeVentas extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelGeneral;
+    private javax.swing.JPanel PanelGrafico;
     private javax.swing.JComboBox<String> cbxTipoReporte;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
