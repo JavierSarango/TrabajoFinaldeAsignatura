@@ -18,7 +18,7 @@ public class Ventas {
     private Date fechaVenta;
     private Double valor;
     private Boolean estado;
-    private Object producto;
+    private Object producto; 
 
     public Ventas() {
     }
