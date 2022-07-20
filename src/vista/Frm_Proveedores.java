@@ -12,7 +12,7 @@ package vista;
 public class Frm_Proveedores extends javax.swing.JFrame {
 
     /**
-     * Creates new form Frm_Ventas
+     * Creates new form Frm_Proveedores
      */
     public Frm_Proveedores() {
         initComponents();
@@ -27,259 +27,11 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        txtCliente = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtCod = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtCed = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtProducto = new javax.swing.JTextField();
-        BtnBProd = new javax.swing.JButton();
-        BtnBuscarC = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        cbxCantidad = new javax.swing.JComboBox<>();
-        date = new com.toedter.calendar.JDateChooser();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtNroVenta = new javax.swing.JTextField();
-        BtnGuardar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        txtValor = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        tblVentas = new javax.swing.JTable();
-        BtnCancelar = new javax.swing.JButton();
-        BtnEliminar = new javax.swing.JButton();
-        BtnEditar = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("VENTAS");
         getContentPane().setLayout(null);
-
-        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel1.setLayout(null);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("VENTAS");
-        jPanel2.add(jLabel7);
-        jLabel7.setBounds(180, 10, 260, 30);
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 10, 640, 60);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.setLayout(null);
-
-        txtCliente.setEditable(false);
-        txtCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClienteActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txtCliente);
-        txtCliente.setBounds(440, 50, 180, 30);
-
-        jLabel1.setText("C.I.");
-        jPanel3.add(jLabel1);
-        jLabel1.setBounds(10, 50, 60, 30);
-
-        jLabel2.setText("CANTIDAD");
-        jPanel3.add(jLabel2);
-        jLabel2.setBounds(350, 10, 60, 30);
-
-        txtCod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txtCod);
-        txtCod.setBounds(120, 100, 130, 30);
-
-        jLabel3.setText("CLIENTE");
-        jPanel3.add(jLabel3);
-        jLabel3.setBounds(350, 50, 60, 30);
-
-        txtCed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCedActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txtCed);
-        txtCed.setBounds(120, 50, 130, 30);
-
-        jLabel4.setText("FECHA");
-        jPanel3.add(jLabel4);
-        jLabel4.setBounds(350, 150, 60, 30);
-
-        txtProducto.setEditable(false);
-        txtProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductoActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txtProducto);
-        txtProducto.setBounds(440, 100, 180, 30);
-
-        BtnBProd.setText("...");
-        jPanel3.add(BtnBProd);
-        BtnBProd.setBounds(260, 100, 40, 30);
-
-        BtnBuscarC.setText("...");
-        jPanel3.add(BtnBuscarC);
-        BtnBuscarC.setBounds(260, 50, 40, 30);
-
-        jLabel5.setText("COD. PRODUCTO");
-        jPanel3.add(jLabel5);
-        jLabel5.setBounds(10, 100, 90, 30);
-
-        cbxCantidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69 ", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89 ", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100" }));
-        cbxCantidad.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jPanel3.add(cbxCantidad);
-        cbxCantidad.setBounds(440, 10, 180, 30);
-        jPanel3.add(date);
-        date.setBounds(440, 150, 180, 30);
-
-        jLabel6.setText("PRODUCTO");
-        jPanel3.add(jLabel6);
-        jLabel6.setBounds(350, 100, 60, 30);
-
-        jLabel8.setText("NRO. VENTA");
-        jPanel3.add(jLabel8);
-        jLabel8.setBounds(10, 10, 100, 30);
-
-        txtNroVenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNroVentaActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txtNroVenta);
-        txtNroVenta.setBounds(120, 10, 180, 30);
-
-        BtnGuardar.setText("GUARDAR");
-        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGuardarActionPerformed(evt);
-            }
-        });
-        jPanel3.add(BtnGuardar);
-        BtnGuardar.setBounds(260, 190, 130, 30);
-
-        jLabel9.setText("VALOR");
-        jPanel3.add(jLabel9);
-        jLabel9.setBounds(10, 150, 100, 30);
-
-        txtValor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txtValor);
-        txtValor.setBounds(120, 150, 180, 30);
-
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(10, 90, 640, 230);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel4.setLayout(null);
-
-        tblVentas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tblVentas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jPanel4.add(tblVentas);
-        tblVentas.setBounds(10, 10, 490, 160);
-
-        BtnCancelar.setText("CANCELAR");
-        BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCancelarActionPerformed(evt);
-            }
-        });
-        jPanel4.add(BtnCancelar);
-        BtnCancelar.setBounds(510, 120, 120, 30);
-
-        BtnEliminar.setText("ELIMINAR");
-        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEliminarActionPerformed(evt);
-            }
-        });
-        jPanel4.add(BtnEliminar);
-        BtnEliminar.setBounds(510, 70, 120, 30);
-
-        BtnEditar.setText("EDITAR");
-        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEditarActionPerformed(evt);
-            }
-        });
-        jPanel4.add(BtnEditar);
-        BtnEditar.setBounds(510, 20, 120, 30);
-
-        jPanel1.add(jPanel4);
-        jPanel4.setBounds(10, 330, 640, 180);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 660, 520);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtClienteActionPerformed
-
-    private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodActionPerformed
-
-    private void txtCedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedActionPerformed
-
-    private void txtProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductoActionPerformed
-
-    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnCancelarActionPerformed
-
-    private void txtNroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNroVentaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNroVentaActionPerformed
-
-    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnGuardarActionPerformed
-
-    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnEliminarActionPerformed
-
-    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnEditarActionPerformed
-
-    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,7 +59,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Frm_Proveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -318,33 +69,5 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnBProd;
-    private javax.swing.JButton BtnBuscarC;
-    private javax.swing.JButton BtnCancelar;
-    private javax.swing.JButton BtnEditar;
-    private javax.swing.JButton BtnEliminar;
-    private javax.swing.JButton BtnGuardar;
-    private javax.swing.JComboBox<String> cbxCantidad;
-    private com.toedter.calendar.JDateChooser date;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JTable tblVentas;
-    private javax.swing.JTextField txtCed;
-    private javax.swing.JTextField txtCliente;
-    private javax.swing.JTextField txtCod;
-    private javax.swing.JTextField txtNroVenta;
-    private javax.swing.JTextField txtProducto;
-    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }
