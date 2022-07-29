@@ -9,14 +9,16 @@ package modelo;
  *
  * @author Nathaly
  */
-public class Proveedores {
+public class Proveedores extends Persona{
 
     private Integer id_Proveedor;
     private String agenteResponsable;
     private String provincia;
+    private String producto;
     private Boolean credito;
-    private String banco; 
-    private String cuentaBancaria; 
+    private String banco;
+    private String cuentaBancaria;
+    
 
     public Proveedores() {
     }
@@ -45,6 +47,15 @@ public class Proveedores {
         this.provincia = provincia;
     }
 
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    
     public Boolean getCredito() {
         return credito;
     }
@@ -80,7 +91,8 @@ public class Proveedores {
 
     @Override
     public String toString() {
-        return  id_Proveedor + "id" + agenteResponsable + "agente rwaponsable" + provincia + "provincia " + credito + "credito" + banco + "banco" + cuentaBancaria + "cuentaBancaria";//To change body of generated methods, choose Tools | Templates.
+        return id_Proveedor + "id" + agenteResponsable + "agente rwaponsable" + provincia + "provincia " + credito + "credito" + banco + "banco" + cuentaBancaria + "cuentaBancaria";//To change body of generated methods, choose Tools | Templates.
     }
+
 
 }
