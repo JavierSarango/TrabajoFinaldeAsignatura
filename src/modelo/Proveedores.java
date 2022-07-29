@@ -5,21 +5,27 @@
  */
 package modelo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Nathaly
  */
-public class Proveedores extends Persona{
+@XmlRootElement
+public class Proveedores extends Persona {
 
     private Integer id_Proveedor;
     private String agenteResponsable;
     private String provincia;
-    private String producto;
+    private String direccion;
     private Boolean credito;
     private String banco;
     private String cuentaBancaria;
+    private String WhatsApp;
+    private String redsocial;
+    private String tipoc;
+    private String contacto;
     
-
     public Proveedores() {
     }
 
@@ -47,15 +53,14 @@ public class Proveedores extends Persona{
         this.provincia = provincia;
     }
 
-    public String getProducto() {
-        return producto;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    
     public Boolean getCredito() {
         return credito;
     }
@@ -80,19 +85,52 @@ public class Proveedores extends Persona{
         this.cuentaBancaria = cuentaBancaria;
     }
 
-    public Proveedores(Integer id_Proveedor, String agenteResponsable, String provincia, Boolean credito, String banco, String cuentaBancaria) {
+    public String getWhatsApp() {
+        return WhatsApp;
+    }
+
+    public void setWhatsApp(String WhatsApp) {
+        this.WhatsApp = WhatsApp;
+    }
+
+    public String getRedsocial() {
+        return redsocial;
+    }
+
+    public void setRedsocial(String redsocial) {
+        this.redsocial = redsocial;
+    }
+
+    public String getTipoc() {
+        return tipoc;
+    }
+
+    public void setTipoc(String tipoc) {
+        this.tipoc = tipoc;
+    }
+
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
+    public Proveedores(Integer id_Proveedor, String agenteResponsable, String provincia, String direccion, Boolean credito, String banco, String cuentaBancaria, String WhatsApp, String redsocial, String tipoc, String contacto) {
         this.id_Proveedor = id_Proveedor;
         this.agenteResponsable = agenteResponsable;
         this.provincia = provincia;
+        this.direccion = direccion;
         this.credito = credito;
         this.banco = banco;
         this.cuentaBancaria = cuentaBancaria;
+        this.WhatsApp = WhatsApp;
+        this.redsocial = redsocial;
+        this.tipoc = tipoc;
+        this.contacto = contacto;
     }
 
-    @Override
-    public String toString() {
-        return id_Proveedor + "id" + agenteResponsable + "agente rwaponsable" + provincia + "provincia " + credito + "credito" + banco + "banco" + cuentaBancaria + "cuentaBancaria";//To change body of generated methods, choose Tools | Templates.
-    }
-
-
+   
+    
 }

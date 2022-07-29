@@ -1,11 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-
-<root>
-    
-</root>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<listaEnlazada>
+    <cabecera>
+        <dato xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="proveedores">
+            <correo>dd</correo>
+            <direccion>Ingrese producto</direccion>
+            <provincia>Azuay</provincia>
+            <razonSocial>Ingrese razón social</razonSocial>
+            <telefono>Ingrese telefono de proveedor</telefono>
+            <agenteResponsable>Ingrese agente responsable</agenteResponsable>
+            <banco>ee</banco>
+            <contacto>dd</contacto>
+            <credito>false</credito>
+            <cuentaBancaria>ww</cuentaBancaria>
+            <id_Proveedor>1</id_Proveedor>
+            <redsocial>dd</redsocial>
+            <tipoc>Corriente</tipoc>
+            <whatsApp>Ingrese correo electrónico</whatsApp>
+        </dato>
+    </cabecera>
+</listaEnlazada>

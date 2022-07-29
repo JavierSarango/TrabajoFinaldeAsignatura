@@ -23,15 +23,6 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
         listado();
     }
 
-    public ListaEnlazadaServices<Proveedores> getListaProveedores() {
-
-        return listaProveedor;
-    }
-
-    public void setListaProveedores(ListaEnlazadaServices<Proveedores> listaProveedores) {
-        this.listaProveedor = listaProveedor;
-    }
-
     public Proveedores getProveedores() {
         if (this.proveedores == null) {
             this.proveedores = new Proveedores();
@@ -42,6 +33,16 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
     public void setProveedores(Proveedores proveedores) {
         this.proveedores = proveedores;
     }
+
+    public ListaEnlazadaServices<Proveedores> getListaProveedor() {
+        return listaProveedor;
+    }
+
+    public void setListaProveedor(ListaEnlazadaServices<Proveedores> listaProveedor) {
+        this.listaProveedor = listaProveedor;
+    }
+
+ 
 
     public Boolean guardar() {
         try {
@@ -66,7 +67,7 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
     }
 
     public ListaEnlazadaServices<Proveedores> listado() {
-        setListaProveedores(listar());
+        setListaProveedor(listar());
         return listaProveedor;
     }
 }

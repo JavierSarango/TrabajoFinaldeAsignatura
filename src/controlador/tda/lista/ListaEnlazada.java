@@ -11,11 +11,13 @@ import controlador.utiles.Utilidades;
 import static controlador.utiles.Utilidades.getMethod;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jona
  */
+@XmlRootElement
 public class ListaEnlazada<E> {
 
      private NodoLista<E> cabecera;

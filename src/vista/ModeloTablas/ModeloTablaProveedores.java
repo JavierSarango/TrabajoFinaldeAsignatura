@@ -32,7 +32,7 @@ public class ModeloTablaProveedores extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 14;
     }
 
     @Override
@@ -47,11 +47,27 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             case 2:
                 return p.getTelefono();
             case 3:
-                return p.getProducto();
+                return p.getDireccion();
             case 4:
                 return p.getRazonSocial();
             case 5:
+                return p.getWhatsApp();
+            case 6:
+                return p.getContacto();
+            case 7:
                 return p.getCorreo();
+            case 8:
+                return p.getCorreo();
+            case 9:
+                return p.getBanco();
+            case 10:
+                return p.getTipoc();
+            case 11:
+                return p.getCuentaBancaria();
+            case 12:
+                return p.getCredito();
+            case 13:
+                return p.getRedsocial();
 
             default:
                 return null;
@@ -68,11 +84,27 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             case 2:
                 return "TELEFONO";
             case 3:
-                return "PRODUCTO";
+                return "DIRECCION";
             case 4:
                 return "RUC";
             case 5:
                 return "CORREO";
+            case 6:
+                return "WHATSAPP";
+            case 7:
+                return "CONTACTO";
+            case 8:
+                return "CORREO";
+            case 9:
+                return "BANCO";
+            case 10:
+                return "TIPO CUENTA";
+            case 11:
+                return "NRO CUENTA";
+            case 12:
+                return "CREDITO";
+            case 13:
+                return "RED SOCIAL";
 
             default:
                 return null;
