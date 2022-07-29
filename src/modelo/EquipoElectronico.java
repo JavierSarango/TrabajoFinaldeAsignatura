@@ -11,12 +11,14 @@ package modelo;
  */
 public class EquipoElectronico {
     
-     private Integer id;
+     private Integer id_equipo;
      private String marca;
      private String modelo;
      private Boolean cargador;
-     private String observaciones;
-     private String tipoProblema;
+     private String estado_ingreso;
+     private String descripcion_problema;
+     private TipoEquipo tipo_equipo;
+     private Double precio_servicio;
     
 
      public Integer getId() {
