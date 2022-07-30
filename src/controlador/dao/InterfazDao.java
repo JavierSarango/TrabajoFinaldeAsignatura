@@ -13,7 +13,10 @@ import controlador.tda.lista.ListaEnlazadaServices;
  * @author Nathaly
  */
 public interface InterfazDao <T> {
+    
+    
     public void guardar(T dato) throws Exception;
-    public void modificar(T dato, Integer pos) throws Exception;
-    public ListaEnlazadaServices<T> listar();
+    public void modificar(T dato) throws Exception;
+    public ListaEnlazada<T> listar();
+    public T obtener(Integer id) throws Exception;
 }
