@@ -5,6 +5,7 @@
  */
 package vista.ModeloTablas;
 
+import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.ListaEnlazadaServices;
 import javax.swing.table.AbstractTableModel;
 import modelo.Proveedores;
@@ -15,13 +16,13 @@ import modelo.Proveedores;
  */
 public class ModeloTablaProveedores extends AbstractTableModel {
 
-    ListaEnlazadaServices<Proveedores> lista;
+    ListaEnlazada<Proveedores> lista;
 
-    public ListaEnlazadaServices<Proveedores> getLista() {
+    public ListaEnlazada<Proveedores> getLista() {
         return lista;
     }
 
-    public void setLista(ListaEnlazadaServices<Proveedores> lista) {
+    public void setLista(ListaEnlazada<Proveedores> lista) {
         this.lista = lista;
     }
 
@@ -37,41 +38,45 @@ public class ModeloTablaProveedores extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int i, int i1) {
-        Proveedores p = lista.obtenerDato(i);
-        switch (i1) {
+        try {
+            Proveedores p = lista.obtenerDato(i);
+            switch (i1) {
 
-            case 0:
-                return p.getAgenteResponsable();
-            case 1:
-                return p.getProvincia();
-            case 2:
-                return p.getTelefono();
-            case 3:
-                return p.getDireccion();
-            case 4:
-                return p.getRazonSocial();
-            case 5:
-                return p.getWhatsApp();
-            case 6:
-                return p.getContacto();
-            case 7:
-                return p.getCorreo();
-            case 8:
-                return p.getCorreo();
-            case 9:
-                return p.getBanco();
-            case 10:
-                return p.getTipoc();
-            case 11:
-                return p.getCuentaBancaria();
-            case 12:
-                return p.getCredito();
-            case 13:
-                return p.getRedsocial();
+                case 0:
+                    return p.getAgenteResponsable();
+                case 1:
+                    return p.getProvincia();
+                case 2:
+                    return p.getTelefono();
+                case 3:
+                    return p.getDireccion();
+                case 4:
+                    return p.getRazonSocial();
+                case 5:
+                    return p.getWhatsApp();
+                case 6:
+                    return p.getContacto();
+                case 7:
+                    return p.getCorreo();
+                case 8:
+                    return p.getCorreo();
+                case 9:
+                    return p.getBanco();
+                case 10:
+                    return p.getTipoc();
+                case 11:
+                    return p.getCuentaBancaria();
+                case 12:
+                    return p.getCredito();
+                case 13:
+                    return p.getRedsocial();
 
-            default:
-                return null;
+                default:
+                    return null;
+            }
+        } catch (Exception e) {
         }
+ return null;
     }
 
     @Override

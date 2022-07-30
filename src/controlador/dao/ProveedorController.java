@@ -6,6 +6,7 @@
 package controlador.dao;
 
 import controlador.DAO.AdaptadorDao;
+import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.ListaEnlazadaServices;
 import modelo.Proveedores;
 
@@ -16,7 +17,7 @@ import modelo.Proveedores;
 public class ProveedorController extends AdaptadorDao<Proveedores>{
 
     private Proveedores proveedores;
-    private ListaEnlazadaServices<Proveedores> listaProveedor;
+    private ListaEnlazada<Proveedores> listaProveedor;
 
     public  ProveedorController() {
         super(Proveedores.class);
@@ -34,11 +35,11 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
         this.proveedores = proveedores;
     }
 
-    public ListaEnlazadaServices<Proveedores> getListaProveedor() {
+    public ListaEnlazada<Proveedores> getListaProveedor() {
         return listaProveedor;
     }
 
-    public void setListaProveedor(ListaEnlazadaServices<Proveedores> listaProveedor) {
+    public void setListaProveedor(ListaEnlazada<Proveedores> listaProveedor) {
         this.listaProveedor = listaProveedor;
     }
 
@@ -58,7 +59,7 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
     public Boolean modificar(Integer pos) {
         try {
 
-            modificar(getProveedores(), pos);
+            modificar(getProveedores());
             return true;
         } catch (Exception e) {
             System.out.println("Error en modificar" + e);
@@ -66,7 +67,7 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
         return false;
     }
 
-    public ListaEnlazadaServices<Proveedores> listado() {
+    public ListaEnlazada<Proveedores> listado() {
         setListaProveedor(listar());
         return listaProveedor;
     }
