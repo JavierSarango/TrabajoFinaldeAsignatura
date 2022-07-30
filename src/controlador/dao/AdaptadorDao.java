@@ -107,7 +107,14 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         System.out.println(comando);
 
     }
-
+    @Override
+    public void eliminar(T dato){
+    
+    
+    
+    
+    }
+    
     @Override
     public ListaEnlazada<T> listar() {
         ListaEnlazada<T> lista = new ListaEnlazada<>();

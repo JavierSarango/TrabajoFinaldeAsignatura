@@ -154,7 +154,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         fila = tbl_proveedores.getSelectedRow();
         try {
             if (fila >= 0) {
-                proveedordao.eliminarDatos(fila);
+//                proveedordao.eliminarDatos(fila);
                 JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
             } else {
