@@ -109,10 +109,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
     @Override
     public void eliminar(T dato){
-    
-    
-    
-    
+        
     }
     
     @Override
@@ -219,8 +216,9 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         }
 
         return aux;
-    }
+    
 
+}
     
  
 }
