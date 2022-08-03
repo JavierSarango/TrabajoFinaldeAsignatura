@@ -24,15 +24,18 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     private ProveedorController proveedordao = new ProveedorController();
     private ModeloTablaProveedores modelotablaproveedor = new ModeloTablaProveedores();
+    //Variables
     private int pos = -1;
     File fichero;
     private int fila = -1;
+    //Iconos a botones
     ImageIcon guardar = new ImageIcon("src/RecursosMultimedia/fac_save.png");
     ImageIcon eliminar = new ImageIcon("src/RecursosMultimedia/fac_remove.png");
     ImageIcon modificar = new ImageIcon("src/RecursosMultimedia/Edit-Male-User-icon (1).png");
     ImageIcon nuevo = new ImageIcon("src/RecursosMultimedia/Actions-list-add-user-icon.png");
     ImageIcon cargar = new ImageIcon("src/RecursosMultimedia/jpeg-file-icon (1).png");
     ImageIcon lbl = new ImageIcon("src/RecursosMultimedia/user-icon.png");
+   
 
     /**
      * Creates new form Prov
@@ -42,6 +45,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         cargarTabla();
         Iconos();
         limpiar();
+        
     }
 
     //Iconos
@@ -384,15 +388,15 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtfacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         jTabbedPane1.addTab("Datos contacto", jPanel2);
