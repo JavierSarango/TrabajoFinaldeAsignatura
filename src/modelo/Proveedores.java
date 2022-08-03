@@ -5,13 +5,13 @@
  */
 package modelo;
 
-import javax.xml.bind.annotation.XmlRootElement;
+//import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Nathaly
  */
-@XmlRootElement
+//@XmlRootElement
 public class Proveedores extends Persona {
 
     private Integer id_Proveedor;
