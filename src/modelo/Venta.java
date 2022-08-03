@@ -9,32 +9,32 @@ package modelo;
  * @author Gigabyte
  */
 public class Venta {
-    private Integer idVenta;
-    private Integer idProducto;
-    private String nombreProducto;
+    private Integer id_Venta;
+    private Integer id_Producto;
+    private Integer id_Cliente;    
     private Integer cantidad;
     private Double precioUnitario;
     private Double subTotal;
-    private Integer iva;
+    private Double iva;
     private Double totalPagar;
-    private Integer descuento;
+    private Double descuento;
 
     public Venta() {
-        this.idVenta = 0;
-        this.idProducto = 0;
-        this.nombreProducto = "";
+        this.id_Venta = 0;
+        this.id_Producto = 0;
+        this.id_Cliente = 0;
         this.cantidad = 0;
-        this.precioUnitario = 0.0;
-        this.subTotal = 0.0;
-        this.iva = 0;
-        this.totalPagar = 0.0;
-        this.descuento = 0;
+        this.precioUnitario = 0.00;
+        this.subTotal = 0.00;
+        this.iva = 0.00;
+        this.totalPagar = 0.00;
+        this.descuento = 0.00;
     }
 
-    public Venta(Integer idVenta, Integer idProducto, String nombreProducto, Integer cantidad, Double precioUnitario, Double subTotal, Integer iva, Double totalPagar, Integer descuento) {
-        this.idVenta = idVenta;
-        this.idProducto = idProducto;
-        this.nombreProducto = nombreProducto;
+    public Venta(Integer id_Venta, Integer id_Producto, Integer id_Cliente, Integer cantidad, Double precioUnitario, Double subTotal, Double iva, Double totalPagar, Double descuento) {
+        this.id_Venta = id_Venta;
+        this.id_Producto = id_Producto;
+        this.id_Cliente = id_Cliente;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.subTotal = subTotal;
@@ -42,31 +42,27 @@ public class Venta {
         this.totalPagar = totalPagar;
         this.descuento = descuento;
     }
+
+    
+
     
 
     public Integer getIdVenta() {
-        return idVenta;
+        return id_Venta;
     }
 
     public void setIdVenta(Integer idVenta) {
-        this.idVenta = idVenta;
+        this.id_Venta = idVenta;
     }
 
     public Integer getIdProducto() {
-        return idProducto;
+        return id_Producto;
     }
 
     public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+        this.id_Producto = idProducto;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
-    }
-
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
-    }
 
     public Integer getCantidad() {
         return cantidad;
@@ -92,11 +88,11 @@ public class Venta {
         this.subTotal = subTotal;
     }
 
-    public Integer getIva() {
+    public Double getIva() {
         return iva;
     }
 
-    public void setIva(Integer iva) {
+    public void setIva(Double iva) {
         this.iva = iva;
     }
 
@@ -108,17 +104,17 @@ public class Venta {
         this.totalPagar = totalPagar;
     }
 
-    public Integer getDescuento() {
+    public Double getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(Integer descuento) {
+    public void setDescuento(Double descuento) {
         this.descuento = descuento;
     }
 
     @Override
     public String toString() {
-        return "idVenta=" + idVenta + ", idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", subTotal=" + subTotal + ", descuento=" + descuento + ", iva=" + iva + ", totalPagar=" + totalPagar;
+        return id_Venta + " "+ id_Producto+" " + id_Cliente +" " +cantidad+" " +precioUnitario+" " +subTotal+" " +iva+" " +totalPagar+" " +descuento;
     }
     
     

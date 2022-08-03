@@ -24,6 +24,7 @@ import java.util.Date;
 /**
  *
  * @author Nathaly
+ * @param <T>
  */
 public class AdaptadorDao<T> implements InterfazDao<T> {
 
@@ -238,7 +239,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
 
     @Override
     public void modificar(T dato) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
 }

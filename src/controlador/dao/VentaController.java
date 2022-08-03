@@ -39,41 +39,21 @@ public class VentaController extends AdaptadorDao<Venta> {
         this.listaVentas = listaVentas;
     }
 
-    
     @Override
     public void guardar(Venta dato) throws Exception {
-        super.guardar(dato);
-         try {            
-            getVenta().setIdVenta(listaVentas.getSize()+1);
-            guardar(getVenta());
-           
-        } catch (Exception e) {
-            System.out.println("Error en guardar autor"+e);
-        }
-       
+        super.guardar(dato); 
     }
 
     @Override
     public void modificaree(Venta dato) throws Exception {
-        super.modificaree(dato); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.modificaree(dato); 
     }
 
-    
-    
     @Override
     public void eliminar(Venta dato) {
-        super.eliminar(dato); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.eliminar(dato); 
     }
-
-    @Override
-    public ListaEnlazada<Venta> listar() {
-        return super.listar(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-    @Override
-    public Venta obtener(Integer id) throws Exception {
-        return super.obtener(id); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
+    
     
     
     
