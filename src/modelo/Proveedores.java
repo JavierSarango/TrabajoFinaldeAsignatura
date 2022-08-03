@@ -21,7 +21,6 @@ public class Proveedores extends Persona {
     private Boolean credito;
     private String banco;
     private String cuentaBancaria;
-    private String WhatsApp;
     private String redsocial;
     private String tipoc;
     private String contacto;
@@ -85,14 +84,6 @@ public class Proveedores extends Persona {
         this.cuentaBancaria = cuentaBancaria;
     }
 
-    public String getWhatsApp() {
-        return WhatsApp;
-    }
-
-    public void setWhatsApp(String WhatsApp) {
-        this.WhatsApp = WhatsApp;
-    }
-
     public String getRedsocial() {
         return redsocial;
     }
@@ -117,7 +108,7 @@ public class Proveedores extends Persona {
         this.contacto = contacto;
     }
 
-    public Proveedores(Integer id_Proveedor, String agenteResponsable, String provincia, String direccion, Boolean credito, String banco, String cuentaBancaria, String WhatsApp, String redsocial, String tipoc, String contacto) {
+    public Proveedores(Integer id_Proveedor, String agenteResponsable, String provincia, String direccion, Boolean credito, String banco, String cuentaBancaria, String redsocial, String tipoc, String contacto) {
         this.id_Proveedor = id_Proveedor;
         this.agenteResponsable = agenteResponsable;
         this.provincia = provincia;
@@ -125,7 +116,6 @@ public class Proveedores extends Persona {
         this.credito = credito;
         this.banco = banco;
         this.cuentaBancaria = cuentaBancaria;
-        this.WhatsApp = WhatsApp;
         this.redsocial = redsocial;
         this.tipoc = tipoc;
         this.contacto = contacto;

@@ -53,8 +53,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         BtnCargarFoto.setIcon(cargar);
         icono.setIcon(lbl);
     }
-    //Metodo Cargar Tabla
 
+    //Metodo Cargar Tabla
     private void cargarTabla() {
         modelotablaproveedor.setLista(proveedordao.listar());
         tbl_proveedores.setModel(modelotablaproveedor);
@@ -71,14 +71,12 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         txtDireccion.setForeground(Color.gray);
         txtRuc.setText("Ingrese razón social");
         txtRuc.setForeground(Color.gray);
-        txtwha.setText("Ingrese correo electrónico");
-        txtwha.setForeground(Color.gray);
         proveedordao.setProveedores(null);
     }
 
     //Metodo Guardar
     private void guardar() {
-        if (txtAresponsable.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty() || txtwha.getText().trim().isEmpty()) {
+        if (txtAresponsable.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             proveedordao.getProveedores().setAgenteResponsable(txtAresponsable.getText());
@@ -86,7 +84,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             proveedordao.getProveedores().setTelefono(txtTelefono.getText());
             proveedordao.getProveedores().setDireccion(txtDireccion.getText());
             proveedordao.getProveedores().setRazonSocial(txtRuc.getText());
-            proveedordao.getProveedores().setWhatsApp(txtwha.getText());
             proveedordao.getProveedores().setContacto(txtContacto.getText());
             proveedordao.getProveedores().setBanco(txtBanco.getText());
             proveedordao.getProveedores().setTipoc(cbxTipo.getSelectedItem().toString());
@@ -186,8 +183,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         BtnNuevo = new javax.swing.JButton();
         txtDireccion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtwha = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtRuc = new javax.swing.JTextField();
         lblFoto = new javax.swing.JLabel();
@@ -200,6 +195,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtContacto = new javax.swing.JTextField();
         txtemail = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        txtfacebook = new javax.swing.JTextField();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -210,13 +207,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         cbxTipo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         txtCredito = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        txtfacebook = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        txtInstagram = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        txtTiktok = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtRuc1 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_proveedores = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -232,7 +224,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Agente Responsable:");
+        jLabel1.setText("Agente responsable:");
 
         txtAresponsable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,20 +282,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Dirección:");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("WhatsApp:");
-
-        txtwha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtwhaMouseClicked(evt);
-            }
-        });
-        txtwha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtwhaActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("RUC:");
@@ -369,6 +347,15 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setText("Red social:");
+
+        txtfacebook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfacebookActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -377,15 +364,17 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(txtemail, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
-                        .addComponent(txtContacto)))
+                        .addComponent(txtContacto))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel18))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtfacebook)
+                            .addComponent(txtemail, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -395,11 +384,15 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(106, Short.MAX_VALUE))
+                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtfacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos contacto", jPanel2);
@@ -494,72 +487,19 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Datos Bancarios", jDesktopPane1);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Facebook:");
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Razón social:");
 
-        txtfacebook.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfacebookActionPerformed(evt);
+        txtRuc1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtRuc1MouseClicked(evt);
             }
         });
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Instagram:");
-
-        txtInstagram.addActionListener(new java.awt.event.ActionListener() {
+        txtRuc1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInstagramActionPerformed(evt);
+                txtRuc1ActionPerformed(evt);
             }
         });
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setText("Tiktok:");
-
-        txtTiktok.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTiktokActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTiktok, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtfacebook))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtInstagram)))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTiktok, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36))
-        );
-
-        jTabbedPane1.addTab("Redes Sociales", jPanel6);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -592,18 +532,18 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(txtAresponsable))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel6))
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(45, 45, 45)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtwha, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtTelefono)
                                             .addComponent(cbxProvincia, 0, 188, Short.MAX_VALUE)
                                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtRuc1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(40, 40, 40)
                         .addComponent(jTabbedPane1)))
                 .addContainerGap())
@@ -619,6 +559,11 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(txtAresponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BtnCargarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -643,15 +588,12 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txtwha, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnCargarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(6, 6, 6)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtRuc1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(38, 38, 38)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -762,10 +704,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
 
-    private void txtwhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtwhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtwhaActionPerformed
-
     private void txtRucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRucActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRucActionPerformed
@@ -802,18 +740,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCreditoActionPerformed
 
-    private void txtfacebookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfacebookActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfacebookActionPerformed
-
-    private void txtInstagramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInstagramActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInstagramActionPerformed
-
-    private void txtTiktokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTiktokActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTiktokActionPerformed
-
     private void txtAresponsableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAresponsableMouseClicked
         // TODO add your handling code here:
         txtAresponsable.setText("");
@@ -821,21 +747,28 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     private void txtTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTelefonoMouseClicked
         // TODO add your handling code here:
-         txtTelefono.setText("");
+        txtTelefono.setText("");
     }//GEN-LAST:event_txtTelefonoMouseClicked
 
     private void txtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccionMouseClicked
-         txtDireccion.setText("");
+        txtDireccion.setText("");
     }//GEN-LAST:event_txtDireccionMouseClicked
 
     private void txtRucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRucMouseClicked
         txtRuc.setText("");
     }//GEN-LAST:event_txtRucMouseClicked
 
-    private void txtwhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtwhaMouseClicked
+    private void txtRuc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRuc1MouseClicked
         // TODO add your handling code here:
-         txtwha.setText("");
-    }//GEN-LAST:event_txtwhaMouseClicked
+    }//GEN-LAST:event_txtRuc1MouseClicked
+
+    private void txtRuc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRuc1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRuc1ActionPerformed
+
+    private void txtfacebookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfacebookActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfacebookActionPerformed
 
     /**
      * @param args the command line arguments
@@ -888,23 +821,20 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblFoto;
@@ -915,13 +845,11 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private javax.swing.JTextField txtCredito;
     private javax.swing.JTextField txtCuenta;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtInstagram;
     private javax.swing.JTextField txtRuc;
+    private javax.swing.JTextField txtRuc1;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtTiktok;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtfacebook;
-    private javax.swing.JTextField txtwha;
     // End of variables declaration//GEN-END:variables
 
 }
