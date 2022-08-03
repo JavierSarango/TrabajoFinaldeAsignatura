@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador.DAO;
-
+package controlador.dao;
 
 import controlador.Conexion;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.Utilidades;
 import static controlador.utiles.Utilidades.getMethod;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -24,12 +26,13 @@ import java.util.Date;
  * @author Nathaly
  */
 public class AdaptadorDao<T> implements InterfazDao<T> {
-    
+
     private Connection conexion;
     private Class clazz;
     private String ALL = "select * from ";
     private String ALL_ID = "select * from ";
-    
+    private String carpeta = "datos" + File.separatorChar;
+
     public AdaptadorDao(Class clazz) {
         this.clazz = clazz;
         this.conexion = Conexion.getConecction();
@@ -45,10 +48,9 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         return clazz;
     }
 
-
     @Override
     public void guardar(T dato) throws Exception {
-           String[] columnas = columnas();
+        String[] columnas = columnas();
         String comando = "insert into " + clazz.getSimpleName().toLowerCase() + " ";
         String variables = "";
         String datos = "";
@@ -73,8 +75,8 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
 
     @Override
-    public void modificar(T dato) throws Exception {
-        //objeto a modificar ya lo envian desde el metodo
+    public void modificaree(T dato) throws Exception {
+        //objeto a modificaree ya lo envian desde el metodo
         //reemplazar por valores nuevos
         //enviar el comando
         String[] columnas = columnas();
@@ -107,11 +109,27 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         System.out.println(comando);
 
     }
-    @Override
-    public void eliminar(T dato){
-        
+
+    public boolean modificar(T dato, int pos) {
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(carpeta));
+            ListaEnlazada aux = listar();
+            aux.modificarDato(pos, dato);
+            oos.writeObject(aux);
+            oos.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error al guardar");
+        }
+        return false;
     }
-    
+
+    @Override
+    public void eliminar(T dato) {
+
+    }
+
     @Override
     public ListaEnlazada<T> listar() {
         ListaEnlazada<T> lista = new ListaEnlazada<>();
@@ -152,7 +170,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
 
     @Override
     public T obtener(Integer id) throws Exception {
-       T obj = null;
+        T obj = null;
         String[] columna = columnas();
         PreparedStatement stmt = getConexion().prepareStatement(ALL_ID + id.toString());
         ResultSet resultSet = stmt.executeQuery();
@@ -172,8 +190,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         }
         return obj;
     }
-    
-    
+
     private String[] columnas() {
         String[] columna = null;
         try {
@@ -216,9 +233,12 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         }
 
         return aux;
-    
 
-}
-    
- 
+    }
+
+    @Override
+    public void modificar(T dato) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

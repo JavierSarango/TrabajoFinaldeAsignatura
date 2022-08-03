@@ -4,7 +4,7 @@
  */
 package controlador.dao;
 
-import controlador.DAO.AdaptadorDao;
+import controlador.dao.AdaptadorDao;
 import modelo.EquipoElectronico;
 
 /**
@@ -34,7 +34,7 @@ public class EquipoElectronicoDao extends AdaptadorDao<EquipoElectronico>{
        try {
            if(getEquipoElectronico().getId_equipo()!= null) {
                //
-               modificar(this.getEquipoElectronico());
+               modificaree(this.getEquipoElectronico());
            } else {
                guardar(this.getEquipoElectronico());
            }

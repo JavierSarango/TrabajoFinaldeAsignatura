@@ -4,7 +4,7 @@
  */
 package controlador.dao;
 
-import controlador.DAO.AdaptadorDao;
+import controlador.dao.AdaptadorDao;
 import modelo.EquipoElectronico;
 import modelo.SoporteCliente;
 
@@ -35,7 +35,7 @@ public class ClienteSoporteDao extends AdaptadorDao<SoporteCliente>{
        try {
            if(getSoporteCliente().getId_persona()!= null) {
                //
-               modificar(this.getSoporteCliente());
+               modificaree(this.getSoporteCliente());
            } else {
                guardar(this.getSoporteCliente());
            }

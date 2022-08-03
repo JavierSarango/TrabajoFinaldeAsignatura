@@ -11,197 +11,279 @@ import controlador.utiles.Utilidades;
 import static controlador.utiles.Utilidades.getMethod;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import javax.xml.bind.annotation.XmlRootElement;
+//import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jona
  */
-@XmlRootElement
+//@XmlRootElement
 public class ListaEnlazada<E> {
 
-     private NodoLista<E> cabecera;
+    private NodoLista<E> cabecera;
 
-     private Integer size;
+    private Integer size;
+    private Class clazz;
 
-     public NodoLista<E> getCabecera() {
-          return cabecera;
-     }
+    public NodoLista<E> getCabecera() {
+        return cabecera;
+    }
 
-     public void setCabecera(NodoLista<E> cabecera) {
-          this.cabecera = cabecera;
-     }
+    public void setCabecera(NodoLista<E> cabecera) {
+        this.cabecera = cabecera;
+    }
 
-     /**
-      * Constructor de la clase se inicializa la lista en null y el tamanio en 0
-      */
-     public ListaEnlazada() {
-          cabecera = null;
-          size = 0;
-     }
+    /**
+     * Constructor de la clase se inicializa la lista en null y el tamanio en 0
+     */
+    public ListaEnlazada() {
+        cabecera = null;
+        size = 0;
+    }
 
-     /**
-      * Permite ver si la lista esta vacia
-      *
-      * @return Boolean true si esta vacia, false si esta llena
-      */
-     public Boolean estaVacia() {
-          return cabecera == null;
-     }
+    /**
+     * Permite ver si la lista esta vacia
+     *
+     * @return Boolean true si esta vacia, false si esta llena
+     */
+    public Boolean estaVacia() {
+        return cabecera == null;
+    }
 
-     private void insertar(E dato) {
-          NodoLista<E> nuevo = new NodoLista<>(dato, null);
-          if (estaVacia()) {
-               cabecera = nuevo;
-          } else {
-               NodoLista<E> aux = cabecera;
-               while (aux.getSiguiente() != null) {
+    private void insertar(E dato) {
+        NodoLista<E> nuevo = new NodoLista<>(dato, null);
+        if (estaVacia()) {
+            cabecera = nuevo;
+        } else {
+            NodoLista<E> aux = cabecera;
+            while (aux.getSiguiente() != null) {
+                aux = aux.getSiguiente();
+            }
+            aux.setSiguiente(nuevo);
+        }
+        size++;
+    }
+
+    public void insertarCabecera(E dato) {
+        if (estaVacia()) {
+            insertar(dato);
+        } else {
+            NodoLista<E> nuevo = new NodoLista<>(dato, null);
+
+            nuevo.setSiguiente(cabecera);
+            cabecera = nuevo;
+            size++;
+        }
+    }
+
+    public void insertar(E dato, Integer pos) throws PosicionException {
+        //lista size = 1
+        if (estaVacia()) {
+            insertar(dato);
+        } else if (pos >= 0 && pos < size) {
+            NodoLista<E> nuevo = new NodoLista<>(dato, null);
+            if (pos == (size - 1)) {
+                insertar(dato);
+
+            } else {
+
+                NodoLista<E> aux = cabecera;
+                for (int i = 0; i < pos - 1; i++) {
                     aux = aux.getSiguiente();
-               }
-               aux.setSiguiente(nuevo);
-          }
-          size++;
-     }
+                }
+                NodoLista<E> siguiente = aux.getSiguiente();
+                aux.setSiguiente(nuevo);
+                nuevo.setSiguiente(siguiente);
+                size++;
+            }
 
-     public void insertarCabecera(E dato) {
-          if (estaVacia()) {
-               insertar(dato);
-          } else {
-               NodoLista<E> nuevo = new NodoLista<>(dato, null);
+        } else {
+            throw new PosicionException("Error en insertar: No existe la posicion dada");
+        }
+    }
 
-               nuevo.setSiguiente(cabecera);
-               cabecera = nuevo;
-               size++;
-          }
-     }
+    public void imprimir() {
+        System.out.println("**************************");
+        NodoLista<E> aux = cabecera;
+        for (int i = 0; i < getSize(); i++) {
+            System.out.print(aux.getDato().toString() + "\t");
+            aux = aux.getSiguiente();
+        }
+        System.out.println("\n" + "**************************");
+    }
 
-     public void insertar(E dato, Integer pos) throws PosicionException {
-          //lista size = 1
-          if (estaVacia()) {
-               insertar(dato);
-          } else if (pos >= 0 && pos < size) {
-               NodoLista<E> nuevo = new NodoLista<>(dato, null);
-               if (pos == (size - 1)) {
-                    insertar(dato);
+    public Integer getSize() {
+        return size;
+    }
 
-               } else {
+    /**
+     * Metodo que permite obtener un dato segun la posicion
+     *
+     * @param pos posicion en la lista
+     * @return Elemento
+     */
+    public E obtenerDato(Integer pos) throws PosicionException {
+        if (!estaVacia()) {
+            if (pos >= 0 && pos < size) {
+                E dato = null;
+                if (pos == 0) {
+                    dato = cabecera.getDato();
+                } else {
+                    NodoLista<E> aux = cabecera;
+                    for (int i = 0; i < pos; i++) {
+                        aux = aux.getSiguiente();
+                    }
+                    dato = aux.getDato();
+                }
 
+                return dato;
+            } else {
+                throw new PosicionException("Error en obtener dato: No existe la posicion dada");
+            }
+
+        } else {
+            throw new PosicionException("Error en obtener dato: La lista esta vacia, por endde no hay esa posicion");
+        }
+    }
+
+    public E eliminarDato(Integer pos) throws PosicionException {
+        E auxDato = null;
+        if (!estaVacia()) {
+            if (pos >= 0 && pos < size) {
+                if (pos == 0) {
+                    auxDato = cabecera.getDato();
+                    cabecera = cabecera.getSiguiente();
+                    size--;
+                } else {
                     NodoLista<E> aux = cabecera;
                     for (int i = 0; i < pos - 1; i++) {
-                         aux = aux.getSiguiente();
+                        aux = aux.getSiguiente();
                     }
-                    NodoLista<E> siguiente = aux.getSiguiente();
-                    aux.setSiguiente(nuevo);
-                    nuevo.setSiguiente(siguiente);
-                    size++;
-               }
+                    auxDato = aux.getDato();
+                    NodoLista<E> proximo = aux.getSiguiente();
+                    aux.setSiguiente(proximo.getSiguiente());
+                    size--;
+                }
+                return auxDato;
+            } else {
+                throw new PosicionException("Error en eliminar dato: No existe la posicion dada");
+            }
 
-          } else {
-               throw new PosicionException("Error en insertar: No existe la posicion dada");
-          }
-     }
+        } else {
+            throw new PosicionException("Error en eliminar dato: La lista esta vacia, por ende no hay esa posicion");
+        }
+    }
 
-     public void imprimir() {
-          System.out.println("**************************");
-          NodoLista<E> aux = cabecera;
-          for (int i = 0; i < getSize(); i++) {
-               System.out.print(aux.getDato().toString() + "\t");
-               aux = aux.getSiguiente();
-          }
-          System.out.println("\n" + "**************************");
-     }
+    private Field getField(String nombre) {
+        for (Field field : clazz.getDeclaredFields()) {
+            if (field.getName().equalsIgnoreCase(nombre)) {
+                field.setAccessible(true);
+                return field;
+            }
+        }
+        return null;
+    }
 
-     public Integer getSize() {
-          return size;
-     }
+    private Object value(E dato, String atributo) throws Exception {
+        return getField(atributo).get(dato);
+    }
 
-     /**
-      * Metodo que permite obtener un dato segun la posicion
-      *
-      * @param pos posicion en la lista
-      * @return Elemento
-      */
-     public E obtenerDato(Integer pos) throws PosicionException {
-          if (!estaVacia()) {
-               if (pos >= 0 && pos < size) {
-                    E dato = null;
-                    if (pos == 0) {
-                         dato = cabecera.getDato();
-                    } else {
-                         NodoLista<E> aux = cabecera;
-                         for (int i = 0; i < pos; i++) {
-                              aux = aux.getSiguiente();
-                         }
-                         dato = aux.getDato();
+    public E busqBinariaRecurListaPOS(String search, String atributo, int izq, int der) {
+        if (izq > der) {
+            return null;
+        }
+        int compResult;
+        int iMed = (int) Math.floor((izq + der) / 2);
+        try {
+
+            Object datoMed = value(consultarDatoPosicion(iMed), atributo);
+            if (datoMed instanceof Number) {
+                Number aux = (Number) datoMed;
+                Number auxSearch = (Number) Double.parseDouble(search);
+                if (auxSearch.doubleValue() == aux.doubleValue()) {
+                    return consultarDatoPosicion(iMed);
+                }
+                if (auxSearch.doubleValue() < aux.doubleValue()) {
+                    der = iMed - 1;
+                    return busqBinariaRecurListaPOS(search, atributo, izq, der);
+                } else {
+                    izq = iMed + 1;
+                    return busqBinariaRecurListaPOS(search, atributo, izq, der);
+                }
+            } else {
+                compResult = search.compareTo(datoMed.toString());
+                if (compResult == 0) {
+                    return consultarDatoPosicion(iMed);
+                }
+                if (compResult < 0) {
+                    der = iMed - 1;
+                    return busqBinariaRecurListaPOS(search, atributo, izq, der);
+                } else {
+                    izq = iMed + 1;
+                    return busqBinariaRecurListaPOS(search, atributo, izq, der);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return consultarDatoPosicion(iMed);
+    }
+
+    public int tamanio() {
+        int cont = 0;
+        NodoLista tmp = cabecera;
+        while (!estaVacia() && tmp != null) {
+            cont++;
+            tmp = tmp.getSiguiente();
+        }
+        return cont;
+    }
+
+    public E consultarDatoPosicion(int pos) {
+        E dato = null;
+        if (!estaVacia() && (pos >= 0 && pos <= tamanio() - 1)) {
+            NodoLista tmp = cabecera;
+            for (int i = 0; i < pos; i++) {
+                tmp = tmp.getSiguiente();
+                if (tmp == null) {
+                    break;
+                }
+            }
+            if (tmp != null) {
+                dato = (E) tmp.getDato();
+            }
+        }
+        return dato;
+    }
+
+    public void vaciar() {
+        cabecera = null;
+        size = 0;
+        //en c utilizamos el free
+        //malloc
+    }
+
+    public void modificarDato(Integer pos, E datoM) throws PosicionException {
+        if (!estaVacia()) {
+            if (pos >= 0 && pos < size) {
+                // E dato = null;
+                if (pos == 0) {
+                    cabecera.setDato(datoM);
+                } else {
+                    NodoLista<E> aux = cabecera;
+                    for (int i = 0; i < pos; i++) {
+                        aux = aux.getSiguiente();
                     }
+                    aux.setDato(datoM);
+                }
 
-                    return dato;
-               } else {
-                    throw new PosicionException("Error en obtener dato: No existe la posicion dada");
-               }
+            } else {
+                throw new PosicionException("Error en obtener dato: No existe la posicion dada");
+            }
 
-          } else {
-               throw new PosicionException("Error en obtener dato: La lista esta vacia, por endde no hay esa posicion");
-          }
-     }
-
-     public E eliminarDato(Integer pos) throws PosicionException {
-          E auxDato = null;
-          if (!estaVacia()) {
-               if (pos >= 0 && pos < size) {
-                    if (pos == 0) {
-                         auxDato = cabecera.getDato();
-                         cabecera = cabecera.getSiguiente();
-                         size--;
-                    } else {
-                         NodoLista<E> aux = cabecera;
-                         for (int i = 0; i < pos - 1; i++) {
-                              aux = aux.getSiguiente();
-                         }
-                         auxDato = aux.getDato();
-                         NodoLista<E> proximo = aux.getSiguiente();
-                         aux.setSiguiente(proximo.getSiguiente());
-                         size--;
-                    }
-                    return auxDato;
-               } else {
-                    throw new PosicionException("Error en eliminar dato: No existe la posicion dada");
-               }
-
-          } else {
-               throw new PosicionException("Error en eliminar dato: La lista esta vacia, por ende no hay esa posicion");
-          }
-     }
-
-     public void vaciar() {
-          cabecera = null;
-          size = 0;
-          //en c utilizamos el free
-          //malloc
-     }
-
-     public void modificarDato(Integer pos, E datoM) throws PosicionException {
-          if (!estaVacia()) {
-               if (pos >= 0 && pos < size) {
-                    // E dato = null;
-                    if (pos == 0) {
-                         cabecera.setDato(datoM);
-                    } else {
-                         NodoLista<E> aux = cabecera;
-                         for (int i = 0; i < pos; i++) {
-                              aux = aux.getSiguiente();
-                         }
-                         aux.setDato(datoM);
-                    }
-
-               } else {
-                    throw new PosicionException("Error en obtener dato: No existe la posicion dada");
-               }
-
-          } else {
-               throw new PosicionException("Error en obtener dato: La lista esta vacia, por endde no hay esa posicion");
-          }
-     }
+        } else {
+            throw new PosicionException("Error en obtener dato: La lista esta vacia, por endde no hay esa posicion");
+        }
+    }
 
 //     public ListaEnlazada<E> quisortLista(String atributo, int primero, int ultimo, TipoOrdenacion tipoOrdenacion) throws Exception {
 //          Integer i, j, central;
@@ -306,183 +388,183 @@ public class ListaEnlazada<E> {
 //          }
 //          return this;
 //     }
-     public E[] toArray() {
-          E[] matriz = (E[]) (new Object[this.size]);
-          NodoLista<E> aux = cabecera;
-          for (int i = 0; i < this.size; i++) {
-               matriz[i] = aux.getDato();
-               //System.out.print(aux.getDato().toString() + "\t");
-               aux = aux.getSiguiente();
-          }
-          return matriz;
-     }
+    public E[] toArray() {
+        E[] matriz = (E[]) (new Object[this.size]);
+        NodoLista<E> aux = cabecera;
+        for (int i = 0; i < this.size; i++) {
+            matriz[i] = aux.getDato();
+            //System.out.print(aux.getDato().toString() + "\t");
+            aux = aux.getSiguiente();
+        }
+        return matriz;
+    }
 
-     public ListaEnlazada<E> shellListaEnlazada(String atributo, TipoOrdenacion tipoOrdenacion) throws Exception {
-          Class<E> clazz = null;
-          E[] matriz = null;
-          if (size > 0) {
-               clazz = (Class<E>) cabecera.getDato().getClass();
-               Boolean isObject = Utilidades.isObject(clazz);
-               matriz = toArray();
-               int a, salto;
-               boolean cambiar;
-               for (salto = matriz.length / 2; salto != 0; salto /= 2) {
-                    cambiar = true;
-                    while (cambiar) {
-                         cambiar = false;
-                         for (a = salto; a < matriz.length; a++) {
-                              if (isObject) {
-                                   Field field = Utilidades.getField(atributo, clazz);
-                                   Method method = getMethod("get" + Utilidades.capitalizar(atributo), matriz[a - salto].getClass());
-                                   Method method1 = getMethod("get" + Utilidades.capitalizar(atributo), matriz[a].getClass());
-                                   Object[] aux = evaluaCambiarDato(field.getType(), matriz[a - salto], matriz[a], method, method1, tipoOrdenacion, a - salto);
-                                   if (aux[0] != null) {
-                                        E temp = matriz[a];
-                                        matriz[a] = matriz[a - salto];
-                                        matriz[a - salto] = temp;
-                                        cambiar = true;
-                                   }
-                              } else {
-                                   Object[] aux = evaluaCambiarDatoNoObjeto(clazz, matriz[a - salto], matriz[a], tipoOrdenacion, a - salto);
-                                   if (aux[0] != null) {
-                                        E temp = matriz[a];
-                                        matriz[a] = matriz[a - salto];
-                                        matriz[a - salto] = temp;
-                                        cambiar = true;
-                                   }
+    public ListaEnlazada<E> shellListaEnlazada(String atributo, TipoOrdenacion tipoOrdenacion) throws Exception {
+        Class<E> clazz = null;
+        E[] matriz = null;
+        if (size > 0) {
+            clazz = (Class<E>) cabecera.getDato().getClass();
+            Boolean isObject = Utilidades.isObject(clazz);
+            matriz = toArray();
+            int a, salto;
+            boolean cambiar;
+            for (salto = matriz.length / 2; salto != 0; salto /= 2) {
+                cambiar = true;
+                while (cambiar) {
+                    cambiar = false;
+                    for (a = salto; a < matriz.length; a++) {
+                        if (isObject) {
+                            Field field = Utilidades.getField(atributo, clazz);
+                            Method method = getMethod("get" + Utilidades.capitalizar(atributo), matriz[a - salto].getClass());
+                            Method method1 = getMethod("get" + Utilidades.capitalizar(atributo), matriz[a].getClass());
+                            Object[] aux = evaluaCambiarDato(field.getType(), matriz[a - salto], matriz[a], method, method1, tipoOrdenacion, a - salto);
+                            if (aux[0] != null) {
+                                E temp = matriz[a];
+                                matriz[a] = matriz[a - salto];
+                                matriz[a - salto] = temp;
+                                cambiar = true;
+                            }
+                        } else {
+                            Object[] aux = evaluaCambiarDatoNoObjeto(clazz, matriz[a - salto], matriz[a], tipoOrdenacion, a - salto);
+                            if (aux[0] != null) {
+                                E temp = matriz[a];
+                                matriz[a] = matriz[a - salto];
+                                matriz[a - salto] = temp;
+                                cambiar = true;
+                            }
 
-                              }
-                         }
+                        }
                     }
-               }
+                }
+            }
 
-          }
-          toList(matriz);
+        }
+        toList(matriz);
 
-          return this;
+        return this;
 
-     }
+    }
 
-     private Object[] evaluaCambiarDato(Class clazz, E auxJ, E auxJ1, Method method, Method method1, TipoOrdenacion tipoOrdenacion, int j) throws Exception {
-          Object aux[] = new Object[2];
-          if (clazz.getSuperclass().getSimpleName().equalsIgnoreCase("Number")) {
-               Number datoJ = (Number) method.invoke(auxJ);
-               Number datoJ1 = (Number) method1.invoke(auxJ1);
-               if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
-                    if ((datoJ.doubleValue() > datoJ1.doubleValue())) {
-                         // cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               } else {
-                    if ((datoJ.doubleValue() < datoJ1.doubleValue())) {
-                         //    cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               }
-          } else if (Utilidades.isString(clazz)) {
-               String datoJ = (String) method.invoke(auxJ);
-               String datoJ1 = (String) method1.invoke(auxJ1);
-               if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
-                    if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) > 0)) {
-                         //   cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               } else {
-                    if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) < 0)) {
-                         //  cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               }
+    private Object[] evaluaCambiarDato(Class clazz, E auxJ, E auxJ1, Method method, Method method1, TipoOrdenacion tipoOrdenacion, int j) throws Exception {
+        Object aux[] = new Object[2];
+        if (clazz.getSuperclass().getSimpleName().equalsIgnoreCase("Number")) {
+            Number datoJ = (Number) method.invoke(auxJ);
+            Number datoJ1 = (Number) method1.invoke(auxJ1);
+            if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
+                if ((datoJ.doubleValue() > datoJ1.doubleValue())) {
+                    // cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            } else {
+                if ((datoJ.doubleValue() < datoJ1.doubleValue())) {
+                    //    cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            }
+        } else if (Utilidades.isString(clazz)) {
+            String datoJ = (String) method.invoke(auxJ);
+            String datoJ1 = (String) method1.invoke(auxJ1);
+            if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
+                if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) > 0)) {
+                    //   cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            } else {
+                if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) < 0)) {
+                    //  cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            }
 
-          } else if (Utilidades.isCharacter(clazz)) {
-               Character datoJ = (Character) method.invoke(auxJ);
-               Character datoJ1 = (Character) method1.invoke(auxJ1);
-               if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
-                    if (datoJ > datoJ1) {
-                         // cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               } else {
-                    if (datoJ < datoJ1) {
-                         //  cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
+        } else if (Utilidades.isCharacter(clazz)) {
+            Character datoJ = (Character) method.invoke(auxJ);
+            Character datoJ1 = (Character) method1.invoke(auxJ1);
+            if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
+                if (datoJ > datoJ1) {
+                    // cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            } else {
+                if (datoJ < datoJ1) {
+                    //  cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
 //                         aux[1] = j;
-                    }
-               }
+                }
+            }
 
-          }
-          return aux;
-     }
+        }
+        return aux;
+    }
 
-     private Object[] evaluaCambiarDatoNoObjeto(Class clazz, E auxJ, E auxJ1, TipoOrdenacion tipoOrdenacion, int j) throws Exception {
-          Object aux[] = new Object[2];//aux[0];--->null
-          if (clazz.getSuperclass().getSimpleName().equalsIgnoreCase("Number")) {
-               // Number datoJ = (Number) auxJ;
-               // Number datoJ1 = (Number) auxJ1;
-               if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
-                    if ((((Number) auxJ).doubleValue() > ((Number) auxJ1).doubleValue())) {
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                         //  cambioBurbuja(j, matriz);
-                    }
-               } else {
-                    if ((((Number) auxJ).doubleValue() < ((Number) auxJ1).doubleValue())) {
-                         // cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               }
-          } else if (Utilidades.isString(clazz)) {
-               String datoJ = (String) auxJ;
-               String datoJ1 = (String) auxJ1;
-               if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
-                    if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) > 0)) {
-                         //cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               } else {
-                    if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) < 0)) {
-                         //cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               }
+    private Object[] evaluaCambiarDatoNoObjeto(Class clazz, E auxJ, E auxJ1, TipoOrdenacion tipoOrdenacion, int j) throws Exception {
+        Object aux[] = new Object[2];//aux[0];--->null
+        if (clazz.getSuperclass().getSimpleName().equalsIgnoreCase("Number")) {
+            // Number datoJ = (Number) auxJ;
+            // Number datoJ1 = (Number) auxJ1;
+            if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
+                if ((((Number) auxJ).doubleValue() > ((Number) auxJ1).doubleValue())) {
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                    //  cambioBurbuja(j, matriz);
+                }
+            } else {
+                if ((((Number) auxJ).doubleValue() < ((Number) auxJ1).doubleValue())) {
+                    // cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            }
+        } else if (Utilidades.isString(clazz)) {
+            String datoJ = (String) auxJ;
+            String datoJ1 = (String) auxJ1;
+            if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
+                if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) > 0)) {
+                    //cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            } else {
+                if ((datoJ.toLowerCase().compareTo(datoJ1.toLowerCase()) < 0)) {
+                    //cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            }
 
-          } else if (Utilidades.isCharacter(clazz)) {
-               Character datoJ = (Character) auxJ;
-               Character datoJ1 = (Character) auxJ1;
-               if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
-                    if (datoJ > datoJ1) {
-                         //cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               } else {
-                    if (datoJ < datoJ1) {
-                         //cambioBurbuja(j, matriz);
-                         aux[0] = auxJ1;
-                         aux[1] = j;
-                    }
-               }
+        } else if (Utilidades.isCharacter(clazz)) {
+            Character datoJ = (Character) auxJ;
+            Character datoJ1 = (Character) auxJ1;
+            if (tipoOrdenacion.toString().equalsIgnoreCase(TipoOrdenacion.ASCENDENTE.toString())) {
+                if (datoJ > datoJ1) {
+                    //cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            } else {
+                if (datoJ < datoJ1) {
+                    //cambioBurbuja(j, matriz);
+                    aux[0] = auxJ1;
+                    aux[1] = j;
+                }
+            }
 
-          }
-          return aux;
-     }
+        }
+        return aux;
+    }
 
-     public ListaEnlazada<E> toList(E[] matriz) {
-          //E[] matriz = (E[]) (new Object[this.size]);
-          this.vaciar();
-          for (int i = 0; i < matriz.length; i++) {
-               this.insertar(matriz[i]);
-          }
-          return this;
-     }
+    public ListaEnlazada<E> toList(E[] matriz) {
+        //E[] matriz = (E[]) (new Object[this.size]);
+        this.vaciar();
+        for (int i = 0; i < matriz.length; i++) {
+            this.insertar(matriz[i]);
+        }
+        return this;
+    }
 
 //    public static void main(String[] args) {
 //        ListaEnlazada<Double> lista = new ListaEnlazada<>();
@@ -507,13 +589,13 @@ public class ListaEnlazada<E> {
 //        }
 //
 //    }
-     public ListaEnlazada<E> buscarDatoPosicionObjetoBinaria(String atributo, Object dato) throws Exception {
+    public ListaEnlazada<E> buscarDatoPosicionObjetoBinaria(String atributo, Object dato) throws Exception {
         Class<E> clazz = null;
         E[] matriz = null;
         ListaEnlazada<E> resultado = new ListaEnlazada<>();
         E aux = null;
         if (size > 0) {
-            matriz = toArray();           
+            matriz = toArray();
             clazz = (Class<E>) cabecera.getDato().getClass();//primitivo, Dato envolvente, Object
             Boolean isObject = Utilidades.isObject(clazz);//si es objeto
             if (isObject) {
@@ -604,9 +686,6 @@ public class ListaEnlazada<E> {
         return resultado;
     }
 
-
-     
-     
     public ListaEnlazada<E> BusquedaBinariaClase(Object elemento, String atributo) {
         try {
             ListaEnlazada auxiliar = new ListaEnlazada();
@@ -642,15 +721,15 @@ public class ListaEnlazada<E> {
         }
         return null;
     }
-    
-     private Object evaluarDato(E dato, String atributo) throws Exception {
-         Class<E> clazz =  (Class<E>) cabecera.getDato().getClass();
+
+    private Object evaluarDato(E dato, String atributo) throws Exception {
+        Class<E> clazz = (Class<E>) cabecera.getDato().getClass();
 //       Class clazz= dato.getClass();
 //        return getField(atributo).get(dato);
         return getField(atributo, clazz).get(dato);
     }
-     
-    private Field getField(String nombre,Class clazz) {
+
+    private Field getField(String nombre, Class clazz) {
         for (Field field : clazz.getDeclaredFields()) {
             if (field.getName().equalsIgnoreCase(nombre)) {
                 field.setAccessible(true);

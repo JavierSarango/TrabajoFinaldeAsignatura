@@ -5,7 +5,7 @@
  */
 package controlador.dao;
 
-import controlador.DAO.AdaptadorDao;
+import controlador.dao.AdaptadorDao;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.ListaEnlazadaServices;
 import modelo.Proveedores;
@@ -59,7 +59,7 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
     public Boolean modificar(Integer pos) {
         try {
 
-            modificar(getProveedores());
+            modificaree(getProveedores());
             return true;
         } catch (Exception e) {
             System.out.println("Error en modificar" + e);

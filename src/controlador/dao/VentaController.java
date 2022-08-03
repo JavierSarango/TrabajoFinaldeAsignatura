@@ -4,7 +4,7 @@
  */
 package controlador.dao;
 
-import controlador.DAO.AdaptadorDao;
+import controlador.dao.AdaptadorDao;
 import controlador.tda.lista.ListaEnlazada;
 import modelo.Venta;
 
@@ -54,8 +54,8 @@ public class VentaController extends AdaptadorDao<Venta> {
     }
 
     @Override
-    public void modificar(Venta dato) throws Exception {
-        super.modificar(dato); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    public void modificaree(Venta dato) throws Exception {
+        super.modificaree(dato); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
     
