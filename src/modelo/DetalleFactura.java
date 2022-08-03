@@ -18,23 +18,11 @@ public class DetalleFactura {
      */
     private int Id;
     /**
-     * variable que almacena el nombre del cliente
+     * variable para obtener cliente
      */
-    private String nombreCliente;
+    private Integer id_cliente;
     /**
-     * variable que almacena la direccion del cliente
-     */
-    private String direccion;
-    /**
-     * variable que almacena la cedula del cliente
-     */
-    private String cedula;
-    /**
-     * variable que almacena el telefono del cliente
-     */
-    private String telefono;
-    /**
-     * variable que almacena la fecha de la factura
+     * variable tipo Date con la fecha de Emision
      */
     private Date fechaEmision;
     /**
@@ -57,62 +45,6 @@ public class DetalleFactura {
     }
 
     /**
-     * @return the nombreCliente
-     */
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    /**
-     * @param nombreCliente the nombreCliente to set
-     */
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
-    }
-
-    /**
-     * @return the direccion
-     */
-    public String getDireccion() {
-        return direccion;
-    }
-
-    /**
-     * @param direccion the direccion to set
-     */
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    /**
-     * @return the cedula
-     */
-    public String getCedula() {
-        return cedula;
-    }
-
-    /**
-     * @param cedula the cedula to set
-     */
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    /**
-     * @return the telefono
-     */
-    public String getTelefono() {
-        return telefono;
-    }
-
-    /**
-     * @param telefono the telefono to set
-     */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    /**
      * @return the fechaEmision
      */
     public Date getFechaEmision() {
@@ -125,4 +57,33 @@ public class DetalleFactura {
     public void setFechaEmision(Date fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
+
+    /**
+     * @return the id_cliente
+     */
+    public Integer getId_cliente() {
+        return id_cliente;
+    }
+
+    /**
+     * @param id_cliente the id_cliente to set
+     */
+    public void setId_cliente(Integer id_cliente) {
+        this.id_cliente = id_cliente;
+    }
+
+    /**
+     * @return the id_ventas
+     */
+    public Integer getId_ventas() {
+        return id_ventas;
+    }
+
+    /**
+     * @param id_ventas the id_ventas to set
+     */
+    public void setId_ventas(Integer id_ventas) {
+        this.id_ventas = id_ventas;
+    }
+
 }
