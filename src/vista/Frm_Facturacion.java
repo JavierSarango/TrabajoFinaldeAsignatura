@@ -99,12 +99,14 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel1.setText("FACTURAR");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 160, 40));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 730, 20));
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(40, 10, 160, 40);
+        jPanel2.add(jSeparator1);
+        jSeparator1.setBounds(30, 50, 730, 20);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -133,7 +135,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel6.setText("Detalle de la factura (Moneda dólares americanos $)");
         jPanel8.add(jLabel6);
-        jLabel6.setBounds(10, 10, 270, 16);
+        jLabel6.setBounds(10, 10, 270, 14);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -157,11 +159,11 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel11.setText("Detalle de la factura (Moneda dólares americanos $$)");
         jPanel9.add(jLabel11);
-        jLabel11.setBounds(10, 10, 270, 16);
+        jLabel11.setBounds(10, 10, 270, 14);
 
         jLabel12.setText("Datos del Comprador");
         jPanel9.add(jLabel12);
-        jLabel12.setBounds(10, 110, 121, 16);
+        jLabel12.setBounds(10, 110, 101, 14);
 
         jPanel8.add(jPanel9);
         jPanel9.setBounds(0, 0, 0, 0);
@@ -188,7 +190,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel18.setText("Datos del Comprador");
         jPanel11.add(jLabel18);
-        jLabel18.setBounds(10, 110, 121, 16);
+        jLabel18.setBounds(10, 110, 101, 14);
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -212,11 +214,11 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel19.setText("Detalle de la factura (Moneda dólares americanos $$)");
         jPanel12.add(jLabel19);
-        jLabel19.setBounds(10, 10, 270, 16);
+        jLabel19.setBounds(10, 10, 270, 14);
 
         jLabel20.setText("Datos del Comprador");
         jPanel12.add(jLabel20);
-        jLabel20.setBounds(10, 110, 121, 16);
+        jLabel20.setBounds(10, 110, 101, 14);
 
         jPanel11.add(jPanel12);
         jPanel12.setBounds(0, 0, 0, 0);
@@ -225,19 +227,19 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Cant.");
         jPanel11.add(jLabel21);
-        jLabel21.setBounds(230, 10, 60, 14);
+        jLabel21.setBounds(230, 10, 60, 15);
 
         jLabel22.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Descripción");
         jPanel11.add(jLabel22);
-        jLabel22.setBounds(10, 10, 60, 14);
+        jLabel22.setBounds(10, 10, 60, 15);
 
         jLabel23.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("V.Unit.");
         jPanel11.add(jLabel23);
-        jLabel23.setBounds(340, 10, 50, 14);
+        jLabel23.setBounds(340, 10, 50, 15);
         jPanel11.add(txtValorUnitProducto);
         txtValorUnitProducto.setBounds(340, 30, 50, 30);
         jPanel11.add(txtvalorTotalProducto);
@@ -247,7 +249,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("V.Total.");
         jPanel11.add(jLabel24);
-        jLabel24.setBounds(400, 10, 50, 14);
+        jLabel24.setBounds(400, 10, 50, 15);
 
         agregarProd.setText("OK");
         agregarProd.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +258,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel11.add(agregarProd);
-        agregarProd.setBounds(513, 30, 49, 30);
+        agregarProd.setBounds(513, 30, 47, 30);
         jPanel11.add(txtBuscaProduto);
         txtBuscaProduto.setBounds(10, 30, 180, 30);
 
@@ -279,7 +281,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel4.setText("Iva a colocar:");
         jPanel11.add(jLabel4);
-        jLabel4.setBounds(460, 10, 90, 16);
+        jLabel4.setBounds(460, 10, 90, 14);
 
         txtIva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -338,7 +340,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         radioOtros.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioOtros.setText("Otros");
         jPanel8.add(radioOtros);
-        radioOtros.setBounds(330, 230, 60, 25);
+        radioOtros.setBounds(330, 230, 60, 23);
 
         radioEfectivo.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioEfectivo.setText("Efectivo");
@@ -348,17 +350,17 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(radioEfectivo);
-        radioEfectivo.setBounds(10, 230, 70, 25);
+        radioEfectivo.setBounds(10, 230, 70, 23);
 
         radioCredito.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioCredito.setText("T.Crédito/Débito");
         jPanel8.add(radioCredito);
-        radioCredito.setBounds(80, 230, 110, 25);
+        radioCredito.setBounds(80, 230, 110, 23);
 
         radioDepositoTransferencia.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioDepositoTransferencia.setText("Depósito/Transferencia");
         jPanel8.add(radioDepositoTransferencia);
-        radioDepositoTransferencia.setBounds(190, 230, 140, 25);
+        radioDepositoTransferencia.setBounds(190, 230, 140, 23);
 
         Proformar.setText("Proformar");
         Proformar.addActionListener(new java.awt.event.ActionListener() {
@@ -367,7 +369,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(Proformar);
-        Proformar.setBounds(490, 280, 90, 25);
+        Proformar.setBounds(490, 280, 90, 23);
 
         Facturar.setText("Facturar");
         Facturar.addActionListener(new java.awt.event.ActionListener() {
@@ -376,7 +378,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(Facturar);
-        Facturar.setBounds(400, 280, 90, 25);
+        Facturar.setBounds(400, 280, 90, 23);
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -385,33 +387,43 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(jButton1);
-        jButton1.setBounds(300, 280, 90, 25);
+        jButton1.setBounds(300, 280, 90, 23);
 
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 730, 370));
+        jPanel2.add(jPanel8);
+        jPanel8.setBounds(30, 260, 730, 370);
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel5.setText("TELEFONO MOVIL:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, 150, 30));
-        jPanel2.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 160, 20));
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(560, 90, 150, 30);
+        jPanel2.add(txtCelular);
+        txtCelular.setBounds(560, 120, 160, 20);
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel7.setText("EMAIL:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 100, 30));
+        jPanel2.add(jLabel7);
+        jLabel7.setBounds(470, 140, 100, 30);
 
         txtEmail.setToolTipText("");
-        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 260, 30));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 730, 20));
+        jPanel2.add(txtEmail);
+        txtEmail.setBounds(470, 170, 260, 30);
+        jPanel2.add(jSeparator2);
+        jSeparator2.setBounds(30, 250, 730, 20);
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel9.setText("DIRECCIÓN COMPRADOR:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 160, 30));
+        jPanel2.add(jLabel9);
+        jLabel9.setBounds(30, 140, 160, 30);
 
         jLabel10.setText("Datos del Comprador");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 190, 30));
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(30, 50, 190, 30);
 
         jLabel3.setText("Identificador:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 30));
-        jPanel2.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 280, 30));
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(30, 110, 140, 30);
+        jPanel2.add(txtCedula);
+        txtCedula.setBounds(120, 110, 280, 30);
 
         btBuscar.setText("Buscar");
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -419,23 +431,27 @@ public class Frm_Facturacion extends javax.swing.JDialog {
                 btBuscarActionPerformed(evt);
             }
         });
-        jPanel2.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 100, 30));
+        jPanel2.add(btBuscar);
+        btBuscar.setBounds(420, 90, 100, 30);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 410, 70));
+        jPanel2.add(jScrollPane3);
+        jScrollPane3.setBounds(30, 170, 410, 70);
 
         jLabel2.setText("Nombre:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(30, 80, 41, 14);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 280, -1));
+        jPanel2.add(jTextField1);
+        jTextField1.setBounds(120, 80, 280, 20);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 800, 660);
