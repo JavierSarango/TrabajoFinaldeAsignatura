@@ -33,7 +33,7 @@ public class ModeloTablaProveedores extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 14;
+        return 13;
     }
 
     @Override
@@ -51,24 +51,22 @@ public class ModeloTablaProveedores extends AbstractTableModel {
                 case 3:
                     return p.getDireccion();
                 case 4:
-                    return p.getRazonSocial();
+                    return p.getIdentificacion();
                 case 5:
-                    return p.getWhatsApp();
+                    return p.getRazonSocial();
                 case 6:
                     return p.getContacto();
                 case 7:
                     return p.getCorreo();
                 case 8:
-                    return p.getCorreo();
-                case 9:
                     return p.getBanco();
-                case 10:
+                case 9:
                     return p.getTipoc();
-                case 11:
+                case 10:
                     return p.getCuentaBancaria();
-                case 12:
+                case 11:
                     return p.getCredito();
-                case 13:
+                case 12:
                     return p.getRedsocial();
 
                 default:
@@ -93,22 +91,20 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             case 4:
                 return "RUC";
             case 5:
-                return "CORREO";
+                return "RAZON SOCIAL";
             case 6:
-                return "WHATSAPP";
-            case 7:
                 return "CONTACTO";
-            case 8:
+            case 7:
                 return "CORREO";
-            case 9:
+            case 8:
                 return "BANCO";
-            case 10:
+            case 9:
                 return "TIPO CUENTA";
-            case 11:
+            case 10:
                 return "NRO CUENTA";
-            case 12:
+            case 11:
                 return "CREDITO";
-            case 13:
+            case 12:
                 return "RED SOCIAL";
 
             default:
