@@ -17,6 +17,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import controlador.Conexion;
 
 import controlador.dao.AdaptadorDao;
 import controlador.tda.lista.ListaEnlazada;
@@ -28,9 +29,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javafx.scene.input.KeyCode.T;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -44,19 +53,72 @@ import modelo.Venta;
  *
  * @author John
  */
-public class FacturaDao extends AdaptadorDao<Factura> {
+public class FacturaDao implements InterfazDao<Factura> {
 
+    /**
+     * variable tipo cliente para almacenamiento de la informacion del cliente
+     * obtenida de la base de datos
+     */
     private Cliente cliente;
+
+    /**
+     * variable tipo factura para almacenamiento de la informacion de la factura
+     * obtenida de la base de datos
+     */
     private Factura factura;
+
+    /**
+     * variable tipo factura para almacenamiento de la lista de facturas
+     * obtenida de la base de datos
+     */
     private ListaEnlazada<Factura> listaFactura;
+
+    /**
+     * variable tipo ventas para almacenamiento de la informacion de las listas
+     * obtenida de la base de datos
+     */
     private ListaEnlazada<Venta> ventas;
+
+    /**
+     * variable tipo producto para almacenamiento de la informacion del producto
+     * obtenida de la base de datos
+     */
     private Producto producto;
 
-    public FacturaDao() {
-        super(Factura.class);
-        listado();
-    }
+    /**
+     * Una lista de facturas
+     */
+    private ListaEnlazada<Factura> facturas = new ListaEnlazada();
 
+    /**
+     * una lista tipo T
+     */
+    private ListaEnlazada<Object> lista = new ListaEnlazada();
+
+    /**
+     * variable para establecer la conexion a base de datos
+     */
+    Conexion c = new Conexion();
+
+    /**
+     * variable para establecer la conexion a base de datos
+     */
+    Statement st;
+
+    /**
+     * variable para establecer la conexion a base de datos
+     */
+    ResultSet rs;
+
+//    public FacturaDao() {
+//        super(Factura.class);
+//        listado();
+//    }
+    /**
+     * metodo para obtener la factura almacenada en la variables factura
+     *
+     * @return factura
+     */
     public Factura getFactura() {
         if (this.factura == null) {
             this.factura = new Factura();
@@ -64,42 +126,179 @@ public class FacturaDao extends AdaptadorDao<Factura> {
         return factura;
     }
 
+    /**
+     * metodo para setear datos en la variable factura
+     *
+     * @param factura
+     */
     public void setFactura(Factura factura) {
         this.factura = factura;
     }
 
+    /**
+     * metodo para obtener los datos de la lista tipo Factura
+     *
+     * @return ListaENlazada<Factura>
+     */
     public ListaEnlazada<Factura> getListaFactura() {
         return listaFactura;
     }
 
+    /**
+     * metodo para setear datos en la ListaEnlazada de tipo Factura
+     *
+     * @param listaFactura
+     */
     public void setListaFactura(ListaEnlazada<Factura> listaFactura) {
         this.listaFactura = listaFactura;
     }
 
-    public Boolean guardar() {
-        try {
-            getFactura().setId(listaFactura.getSize() + 1);
-            guardar(getFactura());
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error en guardar" + e);
-        }
-        return false;
+    /**
+     * Permite obtener la lista tipo factura
+     *
+     * @return lista factura
+     */
+    public ListaEnlazada<Factura> getFacturas() {
+        return facturas;
     }
 
-    public Boolean modificar(Integer pos) {
-        try {
-            modificaree(getFactura());
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error en modificar" + e);
-        }
-        return false;
+    /**
+     * Permite ingresar los datos de la lista de facturas
+     *
+     * @param facturas
+     */
+    public void setFacturas(ListaEnlazada<Factura> facturas) {
+        this.facturas = facturas;
     }
 
-    public ListaEnlazada<Factura> listado() {
-        setListaFactura(listar());
-        return listaFactura;
+//    public Boolean guardar() {
+//        try {
+//            getFactura().setId(listaFactura.getSize() + 1);
+//            guardar(getFactura());
+//            return true;
+//        } catch (Exception e) {
+//            System.out.println("Error en guardar" + e);
+//        }
+//        return false;
+//    }
+//
+//    public Boolean modificar(Integer pos) {
+//        try {
+//            modificaree(getFactura());
+//            return true;
+//        } catch (Exception e) {
+//            System.out.println("Error en modificar" + e);
+//        }
+//        return false;
+//    }
+//
+//    public ListaEnlazada<Factura> listado() {
+//        setListaFactura(listar());
+//        return listaFactura;
+//    }
+    /**
+     * metodo para almacenar los datos en base de datos
+     *
+     * @param dato
+     * @throws Exception
+     */
+    @Override
+    public void guardar(Factura dato) throws Exception {
+//        Connection con = c.conectar();
+//        String sql = "INSERT INTO factura(id_factura,cliente,cedula, direccion, telefono, fecha_emision, cantidad, descripcion, precio_unitario, total) VALUE(?,?,?,?,?,?,?,?,?,?)";
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String formattedDate = simpleDateFormat.format(factura.getFechaEmision());
+//        java.sql.Date date1 = java.sql.Date.valueOf(formattedDate);
+//        try {
+//            PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+//            ps.setInt(1, factura.getId());
+//            ps.setString(2, factura.getNombreCliente());
+//            ps.setString(3, factura.getCedula());
+//            ps.setString(4, factura.getDireccion());
+//            ps.setString(5, factura.getTelefono());
+//            ps.setDate(6, date1);
+//            ps.setString(7, String.valueOf(factura.getCantidad()));
+//            ps.setString(8, factura.getDescripcionProducto());
+//            ps.setString(9, String.valueOf(factura.getPrecioUnitario()));
+//            ps.setString(10, String.valueOf(factura.getTotal()));
+//            ps.executeUpdate();
+//            ps.close();
+//            return true;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
+//            return false;
+//        }
+    }
+
+    /**
+     * metodo para modificar los datos en base de datos
+     *
+     * @param dato
+     * @throws Exception
+     */
+    @Override
+    public void modificaree(Factura dato) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * metodo para eliminar los datos en base de datos
+     *
+     * @param dato
+     * @throws Exception
+     */
+    @Override
+    public void eliminar(Factura dato) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * metodo para obtener los datos en base de datos
+     *
+     * @return
+     */
+    @Override
+    public ListaEnlazada<Factura> listar() {
+//        st = null;
+//        rs = null;
+//        lista = new ListaEnlazada<>();
+//        try {
+//            Connection con = c.conectar();
+//            st = (Statement) con.createStatement();
+//            rs = st.executeQuery("SELECT * FROM factura");
+//            while (rs.next()) {
+//                Factura factura = new Factura();
+//                factura.setId(rs.getInt("id_factura"));
+//                factura.setNombreCliente(rs.getString("cliente"));
+//                factura.setDireccionEmpresa(rs.getString("direccion"));
+//                factura.setCedula(rs.getString("cedula"));
+//                factura.setTelefonoE(rs.getString("telefono"));
+//                factura.setFechaEmision(rs.getDate("fecha_emision"));
+//                factura.setCantidad(Integer.valueOf(rs.getString("cantidad")));
+//                factura.setDescripcionProducto(rs.getString("descripcion"));
+//                factura.setPrecioUnitario(Double.valueOf(rs.getString("precio_unitario")));
+//                factura.setTotal(Double.valueOf(rs.getString("total")));
+//                lista.insertarNodo((T) factura);
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return lista;
+        return null;
+    }
+
+    @Override
+    public Factura obtener(Integer id) throws Exception {
+//        Lista<Factura> lista = new Lista();
+//        Lista<Factura> aux = (Lista<Factura>) listar();
+//        for (int i = 0; i < listar().tamanio(); i++) {
+//            Factura f = aux.consultarDatoPosicion(i);
+//            if (f.getNombreCliente().toLowerCase().contains(dato.toLowerCase())) {
+//                lista.insertarNodo(f);
+//            }
+//        }
+//        return lista;
+        return null;
     }
 
     /**
@@ -265,4 +464,5 @@ public class FacturaDao extends AdaptadorDao<Factura> {
         } catch (Exception e) {
         }
     }
+
 }
