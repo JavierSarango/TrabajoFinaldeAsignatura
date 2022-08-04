@@ -4,11 +4,14 @@
  */
 package modelo;
 
+import controlador.tda.lista.ListaEnlazada;
+import java.io.Serializable;
+
 /**
  *
  * @author Gigabyte
  */
-public class Venta {
+public class Venta implements Serializable{
     private Integer id_Venta;
     private Integer id_Producto;
     private Integer id_Cliente;    
@@ -18,8 +21,10 @@ public class Venta {
     private Double iva;
     private Double totalPagar;
     private Double descuento;
+    private ListaEnlazada<Producto> listaProductos;
 
     public Venta() {
+        listaProductos = new ListaEnlazada<>();
         this.id_Venta = 0;
         this.id_Producto = 0;
         this.id_Cliente = 0;
@@ -29,6 +34,7 @@ public class Venta {
         this.iva = 0.00;
         this.totalPagar = 0.00;
         this.descuento = 0.00;
+        listaProductos.insertarCabecera(null);
     }
 
     public Venta(Integer id_Venta, Integer id_Producto, Integer id_Cliente, Integer cantidad, Double precioUnitario, Double subTotal, Double iva, Double totalPagar, Double descuento) {
@@ -45,22 +51,28 @@ public class Venta {
 
     
 
-    
-
-    public Integer getIdVenta() {
+    public Integer getId_Venta() {
         return id_Venta;
     }
 
-    public void setIdVenta(Integer idVenta) {
-        this.id_Venta = idVenta;
+    public void setId_Venta(Integer id_Venta) {
+        this.id_Venta = id_Venta;
     }
 
-    public Integer getIdProducto() {
+    public Integer getId_Producto() {
         return id_Producto;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.id_Producto = idProducto;
+    public void setId_Producto(Integer id_Producto) {
+        this.id_Producto = id_Producto;
+    }
+
+    public Integer getId_Cliente() {
+        return id_Cliente;
+    }
+
+    public void setId_Cliente(Integer id_Cliente) {
+        this.id_Cliente = id_Cliente;
     }
 
 
