@@ -116,7 +116,7 @@ public class VentaController implements InterfazDao<Venta> {
     public ListaEnlazada<Venta> listar() {
 //        st = null;
 //        rs = null;
-//        ListaEnlazada<Venta> lista = new ListaEnlazada<>();
+        ListaEnlazada<Venta> lista = new ListaEnlazada<>();
 //        try {
 //            Connection con = cbd.conectar();
 //            st = (Statement) con.createStatement();
@@ -144,7 +144,7 @@ public class VentaController implements InterfazDao<Venta> {
 //            System.out.println("Error en listar Usuario" + e);
 //        }
 //        setLisPers(lisPers);
-//        return lista;
+        return lista;
     }
 
     @Override
