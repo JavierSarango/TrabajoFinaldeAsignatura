@@ -21,7 +21,7 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
 
     public  ProveedorController() {
         super(Proveedores.class);
-        listar();
+        listado();
     }
 
     public Proveedores getProveedores() {
