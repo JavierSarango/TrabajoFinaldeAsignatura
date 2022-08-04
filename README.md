@@ -14,11 +14,11 @@ proceso de manera que sea confiable, seguro y amigable.
 Al contar con un sistema de facturación para la empresa Ómicron, puede brindar un
 mejor servicio al cliente y sobre todo renovar la gestión administrativa de la empresa,
 para ello se tienen los siguientes beneficios:
-⎯ [Centralizar el proceso de documentación.]
-⎯ [Rapidez de extraer información en tiempo real.]
-⎯ [Emisión de facturas automatizadas.]
-⎯ [Registro de usuarios.]
-⎯ [Generar Reportes y proformas.]
+⎯ Centralizar el proceso de documentación.
+⎯ Rapidez de extraer información en tiempo real.
+⎯ Emisión de facturas automatizadas.
+⎯ Registro de usuarios.
+⎯ Generar Reportes y proformas.
 Este software le permitirá a la empresa realizar de mejor manera el proceso de
 facturación, además de brindarle un mejor control de inventario de sus productos,
 desde aquellos pedidos realizados a proveedores hasta incluso ser capaces de
