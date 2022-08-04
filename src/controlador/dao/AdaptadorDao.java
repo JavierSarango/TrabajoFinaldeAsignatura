@@ -28,7 +28,7 @@ import java.util.Date;
  */
 public class AdaptadorDao<T> implements InterfazDao<T> {
 
-    private Connection conexion;
+    private Connection conexion; 
     private Class clazz;
     private String ALL = "select * from ";
     private String ALL_ID = "select * from ";
@@ -111,7 +111,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
 
     }
 
-    public boolean modificar(T dato, int pos) {
+    public boolean modificaree(T dato, int pos) {
 
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(carpeta));
@@ -210,7 +210,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
 
     private Object tipoDato(String name, T objeto) {
-        String aux = "";
+        String aux = ""; 
         try {
             Field field = Utilidades.getField(name, clazz);
             char[] arr = name.toCharArray();
@@ -235,11 +235,6 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
 
         return aux;
 
-    }
-
-    @Override
-    public void modificar(T dato) throws Exception {
-        
     }
 
 }

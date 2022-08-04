@@ -7,11 +7,13 @@ package vista;
 
 import controlador.dao.ProveedorController;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Image;
 import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import vista.ModeloTablas.ModeloTablaProveedores;
@@ -22,7 +24,7 @@ import vista.ModeloTablas.ModeloTablaProveedores;
  */
 public class Frm_Proveedores extends javax.swing.JFrame {
 
-    private ProveedorController proveedordao = new ProveedorController();
+    private final ProveedorController proveedordao = new ProveedorController();
     private ModeloTablaProveedores modelotablaproveedor = new ModeloTablaProveedores();
     //Variables
     private int pos = -1;
@@ -40,7 +42,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     /**
      * Creates new form Prov
      */
-    private Frm_Proveedores() {
+    private Frm_Proveedores(java.awt.Frame parent, boolean modal) {
+        super();
         initComponents();
         cargarTabla();
         Iconos();
@@ -803,9 +806,16 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frm_Proveedores().setVisible(true);
+                Frm_Proveedores dialog = new Frm_Proveedores(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
