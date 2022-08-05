@@ -5,13 +5,13 @@
 package vista;
 
 import java.sql.Connection;
-import com.mysql.jdbc.Statement;
 import controlador.Conexion;
 import controlador.dao.ClienteSoporteDao;
 import controlador.dao.ProductoDao;
 import controlador.dao.VentaDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 public class Frm_Ventas extends javax.swing.JDialog {
 
     private VentaDao vd = new VentaDao();
+
     private ProductoDao pd = new ProductoDao();
     private ClienteSoporteDao csd = new ClienteSoporteDao();
 
@@ -30,6 +31,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
     public Frm_Ventas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        CargarCbx();
     }
 
     /**
@@ -244,10 +246,11 @@ public class Frm_Ventas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_busca_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_busca_clienteActionPerformed
-        
+
     }//GEN-LAST:event_jButton_busca_clienteActionPerformed
-    
-    private void CargarComboProductos() {
+   
+
+    private void CargarCbx() {
         Connection cn = Conexion.getConecction();
         String sql = "select * from producto";
         java.sql.Statement st;
@@ -257,29 +260,20 @@ public class Frm_Ventas extends javax.swing.JDialog {
             jComboBox_producto.removeAllItems();
             jComboBox_producto.addItem("Seleccione producto:");
             while (rs.next()) {
-                jComboBox_producto.addItem(rs.getString("nombre"));
+                jComboBox_producto.addItem(rs.getString("descripcion"));
             }
+            CargarComboClientes();
             cn.close();
         } catch (SQLException e) {
             System.out.println("¡Error al cargar productos, !" + e);
         }
     }
 
-    /*
-        Metodo para validar que el usuario no ingrese caracteres no numericos
-     */
-    private boolean validar(String valor) {
-        try {
-            int num = Integer.parseInt(valor);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-    
+ 
+
     private void CargarComboClientes() {
         Connection cn = Conexion.getConecction();
-        String sql = "select * from tb_cliente";
+        String sql = "select * from persona";
         java.sql.Statement st;
         try {
             st = cn.createStatement();
@@ -287,15 +281,17 @@ public class Frm_Ventas extends javax.swing.JDialog {
             jComboBox_cliente.removeAllItems();
             jComboBox_cliente.addItem("Seleccione cliente:");
             while (rs.next()) {
-                jComboBox_cliente.addItem(rs.getString("razonsocial"));
+                System.out.println(rs.getString("razonSocial"));
+                jComboBox_cliente.addItem(rs.getString("razonSocial"));
             }
             cn.close();
         } catch (SQLException e) {
             System.out.println("¡Error al cargar clientes, !" + e);
         }
     }
+    
     private void jButton_añadir_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_añadir_productoActionPerformed
-        
+
         String combo = this.jComboBox_producto.getSelectedItem().toString();
         //validar que seleccione un producto
         if (combo.equalsIgnoreCase("Seleccione producto:")) {
@@ -304,42 +300,13 @@ public class Frm_Ventas extends javax.swing.JDialog {
             //validar que ingrese una cantidad
             if (!txt_cantidad.getText().isEmpty()) {
                 //validar que el usuario no ingrese caracteres no numericos
-                boolean validacion = validar(txt_cantidad.getText());
+                boolean validacion = vd.validar(txt_cantidad.getText());
                 if (validacion == true) {
                     //validar que la cantidad sea mayor a cero
                     if (Integer.parseInt(txt_cantidad.getText()) > 0) {
                         vd.getVenta().setCantidad(Integer.parseInt(txt_cantidad.getText()));
                         //ejecutar metodo para obtener datos del producto
-//                        this.DatosDelProducto();
-                        //validar que la cantidad de productos seleccionado no sea mayor al stock de la base de datos
-                        if (vd.getVenta().getCantidad() <= stock(pd.getProducto().getId())) {
-//                            vd.getVenta().setId_Cliente(csd.getSoporteCliente().getId_persona());
-//                            vd.getVenta().setId_Producto(pd.getProducto().getId());
-//                            vd.getVenta().setSubTotal(vd.ObtenerSubTotal(Integer.parseInt(txt_cantidad.getText()), pd.getProducto().getPrecioIngresado()));
-//                            vd.getVenta().setTotalPagar(Double.NaN);
-//
-//                            //redondear decimales
-//                            subtotal = (double) Math.round(subtotal * 100) / 100;
-//                            iva = (double) Math.round(iva * 100) / 100;
-//                            descuento = (double) Math.round(descuento * 100) / 100;
-//                            totalPagar = (double) Math.round(totalPagar * 100) / 100;
-
-                            //se crea un nuevo producto
-                            
-                            //añadir a la lista
-                            listaProductos.add(producto);
-                            JOptionPane.showMessageDialog(null, "Producto Agregado");
-                            auxIdDetalle++;
-                            txt_cantidad.setText("");//limpiar el campo
-                            //volver a cargar combo productos
-                            this.CargarComboProductos();
-                            this.CalcularTotalPagar();
-                            txt_efectivo.setEnabled(true);
-                            jButton_calcular_cambio.setEnabled(true);
-                            
-                        } else {
-                            JOptionPane.showMessageDialog(null, "La cantidad supera el Stock");
-                        }
+// 
                     } else {
                         JOptionPane.showMessageDialog(null, "La cantidad no puede ser cero (0), ni negativa");
                     }
@@ -351,57 +318,63 @@ public class Frm_Ventas extends javax.swing.JDialog {
             }
         }
         //llamar al metodo
-        this.listaTablaProductos();
+//        this.listaTablaProductos();
     }//GEN-LAST:event_jButton_añadir_productoActionPerformed
+ /*
+        Metodo para mostrar los datos del producto seleccionado
+     */
+    private void DatosDelProducto() {
+        try {
+            String sql = "select * from producto where descripcion = '" + this.jComboBox_producto.getSelectedItem() + "'";
+            Connection cn = Conexion.getConecction();
+            Statement st;
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                pd.getProducto().setId(rs.getLong("id_Producto"));;
+                pd.getProducto().setNombre(rs.getString("nombre"));
+                pd.getProducto().setUnidades(rs.getInt("unidades"));
+                 pd.getProducto().setPrecioIngresado(rs.getDouble("precio"));
+                
+            }
 
+        } catch (SQLException e) {
+            System.out.println("Error al obtener datos del producto, " + e);
+        }
+    
+    }
     private void jTable_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productosMouseClicked
-        int fila_point = jTable_productos.rowAtPoint(evt.getPoint());
-        int columna_point = 0;
-        if (fila_point > -1) {
-            idArrayList = (int) modeloDatosProductos.getValueAt(fila_point, columna_point);
-        }
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Eliminar Producto?");
-        //opciones de confir dialog - (si = 0; no = 1; cancel = 2; close = -1)
-        switch (opcion) {
-            case 0: //presione si
-                listaProductos.remove(idArrayList - 1);
-                this.CalcularTotalPagar();
-                this.listaTablaProductos();
-                break;
-            case 1: //presione no
-                break;
-            default://sea que presione cancel (2) o close (-1)
-                break;
-        }
+
+        
     }//GEN-LAST:event_jTable_productosMouseClicked
-    public Integer stock(Integer idProducto) {
+    public Integer stock(String producto) {
         Integer cantidadProductosBD = 0;
         try {
             Connection cn = Conexion.getConecction();
-            String sql = "select id_Producto, cantidad from tb_producto where id_Producto = '" + idProducto + "'";
+            String sql = "select unidades from producto where descripcion = '" + producto + "'";
             java.sql.Statement st;
             st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                cantidadProductosBD = rs.getInt("cantidad");
+                cantidadProductosBD = rs.getInt("unidades");
             }
             cn.close();
             return cantidadProductosBD;
         } catch (SQLException e) {
             System.out.println("Error al restar cantidad 1, " + e);
             return null;
-        }        
-        
+        }
+
     }
     private void jButton_calcular_cambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_calcular_cambioActionPerformed
-        if (!txt_efectivo.getText().isEmpty()) {
-            //validamos que el usuario no ingrese otros caracteres no numericos
-            boolean validacion = validarDouble(txt_efectivo.getText());
+if (!txt_efectivo.getText().isEmpty()) {
+            //validamos que el usuario no ingrese otros caracteres no numericos 
+            boolean validacion = vd.validarDouble(txt_efectivo.getText());
             if (validacion == true) {
                 //validar que el efectivo sea mayor a cero
-                double efc = Double.parseDouble(txt_efectivo.getText().trim());
-                double top = Double.parseDouble(txt_total_pagar.getText().trim());
-                
+                Double efc = Double.parseDouble(txt_efectivo.getText().trim());
+                Double top = Double.parseDouble(txt_total_pagar.getText().trim());
+
                 if (efc < top) {
                     JOptionPane.showMessageDialog(null, "El Dinero en efectivo no es suficiente");
                 } else {
@@ -416,6 +389,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese dinero en efectivo para calcular cambio");
         }
+        
     }//GEN-LAST:event_jButton_calcular_cambioActionPerformed
 
     /**
