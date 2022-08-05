@@ -15,13 +15,13 @@ import modelo.Proveedores;
  * @author Nathaly
  */
 public class ProveedorController extends AdaptadorDao<Proveedores>{
-
+ 
     private Proveedores proveedores;
     private ListaEnlazada<Proveedores> listaProveedor;
 
     public  ProveedorController() {
         super(Proveedores.class);
-        listar();
+        listado();
     }
 
     public Proveedores getProveedores() {
@@ -43,28 +43,32 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
         this.listaProveedor = listaProveedor;
     }
 
- 
-
-    public Boolean guardar() {
+  public Boolean guardar(){
         try {
-            getProveedores().setId_Proveedor(listaProveedor.getSize() + 1);
-            guardar(getProveedores());
+            if (getProveedores().getId_Proveedor()!= null) {
+                guardar(this.getProveedores());
+            }else{
+                guardar(this.getProveedores());
+            }
             return true;
         } catch (Exception e) {
-            System.out.println("Error en guardar" + e);
-        }
-        return false;
+            System.out.println("Error en guardar");
+            return false;
+        }    
     }
 
-    public Boolean modificar(Integer pos) {
+   public Boolean modificar(){
         try {
-
-            modificaree(getProveedores());
+            if (getProveedores().getId_Proveedor()!= null) {
+                modificaree(this.getProveedores());
+            }else{
+                guardar(this.getProveedores());
+            }
             return true;
         } catch (Exception e) {
-            System.out.println("Error en modificar" + e);
-        }
-        return false;
+            System.out.println("Error en guardar o modificar");
+            return false;
+        }    
     }
 
     public ListaEnlazada<Proveedores> listado() {
