@@ -4,7 +4,6 @@
  */
 package modelo;
 
-import controlador.tda.lista.ListaEnlazada;
 import java.io.Serializable;
 
 /**
@@ -21,10 +20,10 @@ public class Venta implements Serializable{
     private Double iva;
     private Double totalPagar;
     private Double descuento;
-    private ListaEnlazada<Producto> listaProductos;
+
 
     public Venta() {
-        listaProductos = new ListaEnlazada<>();
+     
         this.id_Venta = 0;
         this.id_Producto = 0;
         this.id_Cliente = 0;
@@ -34,7 +33,7 @@ public class Venta implements Serializable{
         this.iva = 0.00;
         this.totalPagar = 0.00;
         this.descuento = 0.00;
-        listaProductos.insertarCabecera(null);
+      
     }
 
     public Venta(Integer id_Venta, Integer id_Producto, Integer id_Cliente, Integer cantidad, Double precioUnitario, Double subTotal, Double iva, Double totalPagar, Double descuento) {
