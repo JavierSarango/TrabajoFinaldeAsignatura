@@ -108,7 +108,7 @@ public class ProductoDao extends AdaptadorDao<Producto> {
         return lista;
     }
     /**
-     *Genera una nueva lista la cual omite la posición para luego cargar en la table
+     *Genera una nueva lista la cual omite la posición para luego cargar en la tabla
      */
     public Producto omitirPosiciones(int fila) {
 
@@ -127,32 +127,6 @@ public class ProductoDao extends AdaptadorDao<Producto> {
         return p;
     }
     
-    
-    /**
-     *Permite buscar por id
-     */
-//    public Producto buscarPorID(ListaEnlazada<Producto> a, String codigo) {
-//        ListaEnlazada<Producto> aux = new ListaEnlazada<>();
-//        if (a.tamanio() > 10) {
-//            aux = a.shellListaEnlazada("id", );
-//            Producto product = aux.busqBinariaRecurListaPOS(codigo, "id", 0, aux.tamanio() - 1);
-//            return product;
-//        } else {
-//            for (int i = 0; i < a.tamanio(); i++) {
-//                System.out.println("---" + a.consultarDatoPosicion(i).getId());
-//                Producto p = a.consultarDatoPosicion(i);
-//                System.out.println("p--" + p.getId());
-//                System.out.println("cod-" + codigo + "---");
-//
-//                if (p.getId().toString().equals(codigo)) {
-//                    return p;
-//                }
-//
-//            }
-//        }
-//
-//        return producto;
-//    }
 
    /**
      *Permite modificaree un dato en la lista de productos, para luego guardarla
@@ -219,25 +193,7 @@ public class ProductoDao extends AdaptadorDao<Producto> {
         }
         return lista;
     }
-    /**
-     *Genera una lista en memoria que mostrará la busqueda por nombre
-     */
-//     public Producto buscarPorNombre(ListaEnlazada<Producto> a, String nombre) {
-//        ListaEnlazada<Producto> aux = new ListaEnlazada<>();
-//        if (a.tamanio() > 10) {
-//            aux = a.shellListaEnlazada("nombre", );
-//            Producto product = aux.busqBinariaRecurListaPOS(nombre, "nombre", 0, aux.tamanio() - 1);
-//            return product;
-//        } else {
-//            for (int i = 0; i < a.tamanio(); i++) {
-//                Producto p = a.consultarDatoPosicion(i);
-//                if (p.getNombre().equals(nombre.toLowerCase())) {
-//                    return p;
-//                }
-//            }
-//        }
-//        return producto;
-//    }
+     
     /**
      *Genera una nueva lista donde ya no se muestran los datos eliminados para el usuario
      */
