@@ -130,7 +130,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 //                    }
                     }
                 } else {
-                    if (proveedordao.modificar(pos)) {
+                    if (proveedordao.modificar()) {
 
                         JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
                         limpiar();
