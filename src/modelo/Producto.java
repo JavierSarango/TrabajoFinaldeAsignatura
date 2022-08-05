@@ -12,20 +12,31 @@ import java.io.Serializable;
  * @author diego
  */
 public class Producto implements Serializable{
-    private Long id;
+    private Long idProducto;
     private String nombre;
     private String descripcion; 
     private Double precioCompra;
     private Double precioVenta; 
     private int unidades;
     private Boolean visible;
-    
-    public Long getId() {    
-        return id;
+    private Integer proveedor;
+
+    public Integer getProveedor() {
+        return proveedor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProveedor(Integer proveedor) {
+        this.proveedor = proveedor;
+    }
+    
+    
+    
+    public Long getIdProducto() {    
+        return idProducto;
+    }
+
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombre() {
@@ -92,7 +103,7 @@ public class Producto implements Serializable{
     
     
     public Producto(Long id, String nombre, String descripcion, Double preciosiniva, Double precioconiva, Double iva, Boolean productolibredeImpuestos) {
-        this.id = id;
+        this.idProducto = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precioVenta = preciosiniva;
