@@ -46,11 +46,11 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
 
     public Class getClazz() {
-        return clazz;
+        return clazz; 
     }
 
-    @Override
-    public void guardar(T dato) throws Exception {
+    @Override 
+    public void guardar(T dato) throws Exception { 
         String[] columnas = columnas();
         String comando = "insert into " + clazz.getSimpleName().toLowerCase() + " ";
         String variables = "";
