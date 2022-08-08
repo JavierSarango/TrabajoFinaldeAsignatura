@@ -14,6 +14,7 @@ import controlador.utiles.enums.TipoEquipo;
 public class EquipoElectronico {
     
      private Integer id_equipo;
+     private String Nombres;
      private String marca;
      private String modelo;
      private Boolean cargador;
@@ -30,6 +31,14 @@ public class EquipoElectronico {
         this.id_equipo = id_equipo;
     }
 
+    public String getNombres() {
+        return Nombres;
+    }
+
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
+    }
+    
     public String getMarca() {
         return marca;
     }
