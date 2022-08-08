@@ -323,26 +323,26 @@ public class Frm_Ventas extends javax.swing.JDialog {
  /*
         Metodo para mostrar los datos del producto seleccionado
      */
-    private void DatosDelProducto() {
-        try {
-            String sql = "select * from producto where descripcion = '" + this.jComboBox_producto.getSelectedItem() + "'";
-            Connection cn = Conexion.getConecction();
-            Statement st;
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                pd.getProducto().setId(rs.getLong("id_Producto"));;
-                pd.getProducto().setNombre(rs.getString("nombre"));
-                pd.getProducto().setUnidades(rs.getInt("unidades"));
-                 pd.getProducto().setPrecioIngresado(rs.getDouble("precio"));
-                
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener datos del producto, " + e);
-        }
+//    private void DatosDelProducto() {
+//        try {
+//            String sql = "select * from producto where descripcion = '" + this.jComboBox_producto.getSelectedItem() + "'";
+//            Connection cn = Conexion.getConecction();
+//            Statement st;
+//            st = cn.createStatement();
+//            ResultSet rs = st.executeQuery(sql);
+//            while (rs.next()) {
+//                pd.getProducto().setId(rs.getLong("id_Producto"));;
+//                pd.getProducto().setNombre(rs.getString("nombre"));
+//                pd.getProducto().setUnidades(rs.getInt("unidades"));
+//                 pd.getProducto().setPrecioIngresado(rs.getDouble("precio"));
+//                
+//            }
+//
+//        } catch (SQLException e) {
+//            System.out.println("Error al obtener datos del producto, " + e);
+//        }
     
-    }
+//    }
     private void jTable_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productosMouseClicked
 
         
