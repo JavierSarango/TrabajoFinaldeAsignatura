@@ -34,15 +34,10 @@ public class VentaDao extends AdaptadorDao<Venta> {
         this.venta = venta;
     }
 
-    public Boolean guardar_modificar() {
-
-        try {
-            if (getVenta().getId_Venta() != null) {
-                modificaree(this.getVenta());
-            } else {
+    public Boolean guardar() {
+        try {         
                 guardar(this.getVenta());
-
-            }
+            
             return true;
         } catch (Exception e) {
             System.out.println("Error en guardar o modificar");

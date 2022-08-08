@@ -17,8 +17,8 @@ public class VentaServicio {
     public ListaEnlazada<Venta> listar(){
         return venta.listar();
     }
-    public Boolean guardar_modificar(){
-    return venta.guardar_modificar();
+    public Boolean guardar(){
+    return venta.guardar();
     }
     public Venta obtener_id(Integer id){
         try {
