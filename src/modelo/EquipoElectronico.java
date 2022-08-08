@@ -23,11 +23,11 @@ public class EquipoElectronico {
      private TipoEquipo tipo_Equipo;
      private Double precio_servicio;
 
-    public Integer getId_Rquipo() {
+    public Integer getId_Equipo() {
         return id_Equipo;
     }
 
-    public void setId_Rquipo(Integer id_Rquipo) {
+    public void setId_Equipo(Integer id_Rquipo) {
         this.id_Equipo = id_Rquipo;
     }
 

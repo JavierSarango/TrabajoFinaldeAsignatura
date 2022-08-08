@@ -32,7 +32,7 @@ public class EquipoElectronicoDao extends AdaptadorDao<EquipoElectronico>{
     
      public Boolean guardar_modificar() {
        try {
-           if(getEquipoElectronico().getId_equipo()!= null) {
+           if(getEquipoElectronico().getId_Equipo()!= null) {
                //
                modificaree(this.getEquipoElectronico());
            } else {
