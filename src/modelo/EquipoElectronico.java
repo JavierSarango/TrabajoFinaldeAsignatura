@@ -13,32 +13,32 @@ import controlador.utiles.enums.TipoEquipo;
  */
 public class EquipoElectronico {
     
-     private Integer id_equipo;
-     private String Nombres;
+     private Integer id_Equipo;
+     private String razonSocial;
      private String marca;
      private String modelo;
      private Boolean cargador;
-     private String estado_ingreso;
-     private String descripcion_problema;
-     private TipoEquipo tipo_equipo;
+     private String estado_Ingreso;
+     private String descripcion_Problema;
+     private TipoEquipo tipo_Equipo;
      private Double precio_servicio;
 
-    public Integer getId_equipo() {
-        return id_equipo;
+    public Integer getId_Rquipo() {
+        return id_Equipo;
     }
 
-    public void setId_equipo(Integer id_equipo) {
-        this.id_equipo = id_equipo;
+    public void setId_Rquipo(Integer id_Rquipo) {
+        this.id_Equipo = id_Rquipo;
     }
 
-    public String getNombres() {
-        return Nombres;
+    public String getRazonSocial() {
+        return razonSocial;
     }
 
-    public void setNombres(String Nombres) {
-        this.Nombres = Nombres;
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
     }
-    
+
     public String getMarca() {
         return marca;
     }
@@ -63,28 +63,29 @@ public class EquipoElectronico {
         this.cargador = cargador;
     }
 
-    public String getEstado_ingreso() {
-        return estado_ingreso;
+    public String getEstado_Ingreso() {
+        return estado_Ingreso;
     }
 
-    public void setEstado_ingreso(String estado_ingreso) {
-        this.estado_ingreso = estado_ingreso;
+    public void setEstado_Ingreso(String estado_Ingreso) {
+        this.estado_Ingreso = estado_Ingreso;
     }
 
-    public String getDescripcion_problema() {
-        return descripcion_problema;
+    public String getDescripcion_Problema() {
+        return descripcion_Problema;
     }
 
-    public void setDescripcion_problema(String descripcion_problema) {
-        this.descripcion_problema = descripcion_problema;
+    public void setDescripcion_Problema(String descripcion_Problema) {
+        this.descripcion_Problema = descripcion_Problema;
     }
 
-    public TipoEquipo getTipo_equipo() {
-        return tipo_equipo;
+
+    public TipoEquipo getTipo_Equipo() {
+        return tipo_Equipo;
     }
 
-    public void setTipo_equipo(TipoEquipo tipo_equipo) {
-        this.tipo_equipo = tipo_equipo;
+    public void setTipo_Equipo(TipoEquipo tipo_Equipo) {
+        this.tipo_Equipo = tipo_Equipo;
     }
 
     public Double getPrecio_servicio() {
