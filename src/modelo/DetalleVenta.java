@@ -9,7 +9,7 @@ package modelo;
  * @author Gigabyte
  */
 public class DetalleVenta {
-    private Integer idDetelleVenta;
+    private Integer idDetalleVenta;
     private Integer id_Venta;
     private Integer id_Producto;
     private Integer cantidad;
@@ -19,7 +19,7 @@ public class DetalleVenta {
     }
 
     public DetalleVenta(Integer idDetelleVenta, Integer id_Venta, Integer id_Producto, Integer cantidad, Double precioVenta) {
-        this.idDetelleVenta = idDetelleVenta;
+        this.idDetalleVenta = idDetelleVenta;
         this.id_Venta = id_Venta;
         this.id_Producto = id_Producto;
         this.cantidad = cantidad;
@@ -29,12 +29,12 @@ public class DetalleVenta {
   
 
     
-    public Integer getIdDetelleVenta() {
-        return idDetelleVenta;
+    public Integer getIdDetalleVenta() {
+        return idDetalleVenta;
     }
 
-    public void setIdDetelleVenta(Integer idDetelleVenta) {
-        this.idDetelleVenta = idDetelleVenta;
+    public void setIdDetalleVenta(Integer idDetalleVenta) {
+        this.idDetalleVenta = idDetalleVenta;
     }
 
     public Integer getId_Venta() {
