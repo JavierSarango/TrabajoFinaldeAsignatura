@@ -18,7 +18,7 @@ public class Conexion {
 //    private static String DRIVER = "com.mysql.jdbc.Driver";
     private static String IP = "127.0.0.1";
     private static String PORT = "3306";
-    private static String USER = "rootUser";
+    private static String USER = "root";
     private static String PASSWORD = "";
     private static String DATABASE = "omicrondb";
     public static Connection conecction;
