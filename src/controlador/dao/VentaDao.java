@@ -69,22 +69,22 @@ public class VentaDao extends AdaptadorDao<Venta> {
      * @param iva
      * @return el total a pagar de la venta
      */
-    public Double ObtenerTotal(Double descuento, Double subtotal, Double iva) {
-        Double total = 0.00;
-        Double valorIva = 0.00;
-        if (this.getVenta().getDescuento() != 0.00) {
-            Double valorDes = 0.00;
-            valorDes = subtotal - (subtotal * descuento);
-
-            valorIva = ((subtotal - valorDes) + ((subtotal - valorDes) * iva));
-            total = (subtotal - valorDes) + valorIva;
-        } else {
-            valorIva = subtotal + (subtotal * iva);
-            total = subtotal + valorIva;
-
-        }
-        return total;
-    }
+//    public Double ObtenerTotal(Double descuento, Double subtotal, Double iva) {
+//        Double total = 0.00;
+//        Double valorIva = 0.00;
+//        if (this.getVenta().getDescuento() != 0.00) {
+//            Double valorDes = 0.00;
+//            valorDes = subtotal - (subtotal * descuento);
+//
+//            valorIva = ((subtotal - valorDes) + ((subtotal - valorDes) * iva));
+//            total = (subtotal - valorDes) + valorIva;
+//        } else {
+//            valorIva = subtotal + (subtotal * iva);
+//            total = subtotal + valorIva;
+//
+//        }
+//        return total;
+//    }
 
    
 

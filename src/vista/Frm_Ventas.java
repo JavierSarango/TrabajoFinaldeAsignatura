@@ -6,13 +6,18 @@ package vista;
 
 import java.sql.Connection;
 import controlador.Conexion;
-import controlador.dao.ClienteSoporteDao;
+import controlador.dao.ClienteContro;
 import controlador.dao.ProductoDao;
 import controlador.dao.VentaDao;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import modelo.Cliente;
 
 /**
  *
@@ -20,18 +25,24 @@ import javax.swing.JOptionPane;
  */
 public class Frm_Ventas extends javax.swing.JDialog {
 
+    fondoLabel logotipo = new fondoLabel();
     private VentaDao vd = new VentaDao();
-
     private ProductoDao pd = new ProductoDao();
-    private ClienteSoporteDao csd = new ClienteSoporteDao();
+//    private ClienteContro cc = new ClienteContro();
 
+//    private Connection cn = Conexion.getConecction();
+   
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
     /**
      * Creates new form Frm_Ventas
      */
     public Frm_Ventas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        CargarCbx();
+        CargarProductos();
+        CargarComboClientes();
     }
 
     /**
@@ -44,15 +55,10 @@ public class Frm_Ventas extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox_cliente = new javax.swing.JComboBox<>();
-        jComboBox_producto = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        txt_cantidad = new javax.swing.JTextField();
         txt_cliente_buscar = new javax.swing.JTextField();
         jButton_busca_cliente = new javax.swing.JButton();
-        jButton_añadir_producto = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_productos = new javax.swing.JTable();
@@ -70,47 +76,48 @@ public class Frm_Ventas extends javax.swing.JDialog {
         txt_efectivo = new javax.swing.JTextField();
         txt_cambio = new javax.swing.JTextField();
         jButton_calcular_cambio = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtResultadoCliente = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtCodProducto = new javax.swing.JTextField();
+        jButton_busca_producto = new javax.swing.JButton();
+        jSpinner_Cantidad = new javax.swing.JSpinner();
+        jLabel12 = new javax.swing.JLabel();
+        txtCodProducto1 = new javax.swing.JTextField();
+        jButton_busca_cliente2 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        txtResultadoCliente1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtResultadoCliente2 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabelSerie = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabelFecha = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        JLabelLogo = new fondoLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Registro de Ventas");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(333, 6, 224, 29);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Cliente:");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Cliente");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(34, 53, 80, 17);
+        jLabel2.setBounds(370, 160, 50, 30);
 
-        jComboBox_cliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox_cliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione cliente:", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox_cliente);
-        jComboBox_cliente.setBounds(124, 53, 170, 21);
-
-        jComboBox_producto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox_producto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione producto:", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox_producto);
-        jComboBox_producto.setBounds(124, 93, 170, 21);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Cantidad:");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Precio Producto:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(304, 93, 80, 17);
-
-        txt_cantidad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(txt_cantidad);
-        txt_cantidad.setBounds(410, 90, 60, 21);
+        jLabel4.setBounds(20, 260, 110, 30);
 
         txt_cliente_buscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(txt_cliente_buscar);
-        txt_cliente_buscar.setBounds(310, 50, 150, 30);
+        txt_cliente_buscar.setBounds(130, 160, 120, 30);
 
         jButton_busca_cliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_busca_cliente.setText("Buscar");
@@ -120,17 +127,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jButton_busca_cliente);
-        jButton_busca_cliente.setBounds(480, 50, 90, 30);
-
-        jButton_añadir_producto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton_añadir_producto.setText("Añadir Productos");
-        jButton_añadir_producto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_añadir_productoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton_añadir_producto);
-        jButton_añadir_producto.setBounds(520, 90, 150, 21);
+        jButton_busca_cliente.setBounds(260, 160, 90, 30);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(null);
@@ -154,10 +151,10 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable_productos);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 740, 190);
+        jScrollPane1.setBounds(10, 10, 440, 230);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(15, 132, 760, 210);
+        jPanel3.setBounds(10, 350, 460, 260);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -229,136 +226,220 @@ public class Frm_Ventas extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jButton_calcular_cambio);
-        jButton_calcular_cambio.setBounds(230, 150, 130, 50);
+        jButton_calcular_cambio.setBounds(90, 210, 130, 40);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(400, 350, 380, 220);
+        jPanel2.setBounds(490, 350, 310, 260);
 
-        jButton1.setText("Registrar");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(269, 384, 90, 40);
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Cod. Producto");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(20, 210, 100, 30);
+        jPanel1.add(txtResultadoCliente);
+        txtResultadoCliente.setBounds(470, 160, 220, 30);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("Fecha:");
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(370, 120, 60, 30);
+        jPanel1.add(txtCodProducto);
+        txtCodProducto.setBounds(130, 210, 120, 30);
+
+        jButton_busca_producto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton_busca_producto.setText("Buscar");
+        jButton_busca_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_busca_productoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_busca_producto);
+        jButton_busca_producto.setBounds(260, 210, 90, 30);
+        jPanel1.add(jSpinner_Cantidad);
+        jSpinner_Cantidad.setBounds(130, 310, 120, 30);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("Cantidad:");
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(20, 310, 80, 30);
+        jPanel1.add(txtCodProducto1);
+        txtCodProducto1.setBounds(130, 260, 120, 30);
+
+        jButton_busca_cliente2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton_busca_cliente2.setText("Agregar");
+        jButton_busca_cliente2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_busca_cliente2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_busca_cliente2);
+        jButton_busca_cliente2.setBounds(260, 260, 90, 30);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("Descripción:");
+        jPanel1.add(jLabel13);
+        jLabel13.setBounds(370, 210, 80, 30);
+        jPanel1.add(txtResultadoCliente1);
+        txtResultadoCliente1.setBounds(470, 210, 220, 30);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel14.setText("Stock:");
+        jPanel1.add(jLabel14);
+        jLabel14.setBounds(370, 260, 70, 30);
+        jPanel1.add(txtResultadoCliente2);
+        txtResultadoCliente2.setBounds(470, 260, 220, 30);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("CI. Cliente");
+        jPanel1.add(jLabel16);
+        jLabel16.setBounds(20, 160, 80, 30);
+        jPanel1.add(jLabelSerie);
+        jLabelSerie.setBounds(130, 120, 120, 30);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel17.setText("Nro:");
+        jPanel1.add(jLabel17);
+        jLabel17.setBounds(20, 120, 60, 30);
+        jPanel1.add(jLabelFecha);
+        jLabelFecha.setBounds(470, 120, 220, 30);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("PUNTO DE VENTA OMICRON");
+        jPanel4.add(jLabel1);
+        jLabel1.setBounds(260, 20, 360, 22);
+
+        jLabel15.setText("VENTA DE ARTICULOS TECNOLÓGICOS");
+        jPanel4.add(jLabel15);
+        jLabel15.setBounds(340, 50, 230, 30);
+        jPanel4.add(JLabelLogo);
+        JLabelLogo.setBounds(10, 10, 270, 80);
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(10, 10, 780, 100);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 800, 580);
+        jPanel1.setBounds(0, 0, 900, 620);
 
-        setSize(new java.awt.Dimension(812, 589));
+        setSize(new java.awt.Dimension(827, 631));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_busca_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_busca_clienteActionPerformed
-
+        buscarCliente();
     }//GEN-LAST:event_jButton_busca_clienteActionPerformed
-   
 
-    private void CargarCbx() {
-        Connection cn = Conexion.getConecction();
+    private void buscarCliente() {
+        String idCliente = txt_cliente_buscar.getText();
+        Integer respuesta;
+        if (txt_cliente_buscar.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe Ingresar el id de Cliente");
+        } else {
+
+//            if (vd.buscarCliente(Integer.parseInt(idCliente))!= null) {
+//                System.out.println("Esto hay en :"+vd.buscarCliente(Integer.parseInt(idCliente)));
+////                txtResultadoCliente.setText(cc.getCliente().getRazonSocial());
+//                txtCodProducto1.setRequestFocusEnabled(true);
+//            }
+            respuesta = JOptionPane.showConfirmDialog(this, "El cliente no esta Registrado, ¿Desea Hacerlo?");
+            if (respuesta == 0) {
+                FrmCliente ventanaCliente = new FrmCliente();
+                ventanaCliente.setVisible(true);
+                this.dispose();
+                
+            }
+
+        }
+
+    }
+    
+ public Cliente listarIDCliente (Integer dni){
+    String sql = "Select * from persona where id_Persona = '?'";
+    Cliente cliente = new Cliente();
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                cliente.setId_cliente(rs.getInt(1));
+                cliente.setRazonSocial(rs.getString(2));
+                cliente.setTelefono(rs.getString(3));
+                cliente.setCelular(rs.getString(4));
+                cliente.setCorreo(rs.getString(5));
+                cliente.setDireccion(rs.getString(6));
+                cliente.setIdentificacion(rs.getString(7));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar Id cliente");
+            e.printStackTrace();
+        }
+    return cliente;
+    
+    }
+    private void CargarProductos() {
+
         String sql = "select * from producto";
         java.sql.Statement st;
         try {
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            jComboBox_producto.removeAllItems();
-            jComboBox_producto.addItem("Seleccione producto:");
+//            st = cn.createStatement();
+//            ResultSet rs = st.executeQuery(sql);
+//            jComboBox_producto.removeAllItems();
+//            jComboBox_producto.addItem("Seleccione producto:");
             while (rs.next()) {
-                jComboBox_producto.addItem(rs.getString("descripcion"));
+//                jComboBox_producto.addItem(rs.getString("descripcion"));
             }
-            CargarComboClientes();
-            cn.close();
+//            CargarComboClientes();
+//            cn.close();
         } catch (SQLException e) {
             System.out.println("¡Error al cargar productos, !" + e);
         }
     }
 
- 
-
     private void CargarComboClientes() {
-        Connection cn = Conexion.getConecction();
+
         String sql = "select * from persona";
         java.sql.Statement st;
         try {
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            jComboBox_cliente.removeAllItems();
-            jComboBox_cliente.addItem("Seleccione cliente:");
+//            st = cn.createStatement();
+//            ResultSet rs = st.executeQuery(sql);
+//            jComboBox_cliente.removeAllItems();
+//            jComboBox_cliente.addItem("Seleccione cliente:");
             while (rs.next()) {
                 System.out.println(rs.getString("razonSocial"));
-                jComboBox_cliente.addItem(rs.getString("razonSocial"));
+//                jComboBox_cliente.addItem(rs.getString("razonSocial"));
             }
-            cn.close();
+//            cn.close();
         } catch (SQLException e) {
             System.out.println("¡Error al cargar clientes, !" + e);
         }
     }
-    
-    private void jButton_añadir_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_añadir_productoActionPerformed
 
-        String combo = this.jComboBox_producto.getSelectedItem().toString();
-        //validar que seleccione un producto
-        if (combo.equalsIgnoreCase("Seleccione producto:")) {
-            JOptionPane.showMessageDialog(null, "Seleccione un producto");
-        } else {
-            //validar que ingrese una cantidad
-            if (!txt_cantidad.getText().isEmpty()) {
-                //validar que el usuario no ingrese caracteres no numericos
-                boolean validacion = vd.validar(txt_cantidad.getText());
-                if (validacion == true) {
-                    //validar que la cantidad sea mayor a cero
-                    if (Integer.parseInt(txt_cantidad.getText()) > 0) {
-                        vd.getVenta().setCantidad(Integer.parseInt(txt_cantidad.getText()));
-                        //ejecutar metodo para obtener datos del producto
-// 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "La cantidad no puede ser cero (0), ni negativa");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "En la cantidad no se admiten caracteres no numericos");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Ingresa la cantidad de productos");
-            }
-        }
-        //llamar al metodo
-//        this.listaTablaProductos();
-    }//GEN-LAST:event_jButton_añadir_productoActionPerformed
- /*
-        Metodo para mostrar los datos del producto seleccionado
-     */
-//    private void DatosDelProducto() {
-//        try {
-//            String sql = "select * from producto where descripcion = '" + this.jComboBox_producto.getSelectedItem() + "'";
-//            Connection cn = Conexion.getConecction();
-//            Statement st;
-//            st = cn.createStatement();
-//            ResultSet rs = st.executeQuery(sql);
-//            while (rs.next()) {
-//                pd.getProducto().setId(rs.getLong("id_Producto"));;
-//                pd.getProducto().setNombre(rs.getString("nombre"));
-//                pd.getProducto().setUnidades(rs.getInt("unidades"));
-//                 pd.getProducto().setPrecioIngresado(rs.getDouble("precio"));
-//                
-//            }
-//
-//        } catch (SQLException e) {
-//            System.out.println("Error al obtener datos del producto, " + e);
-//        }
-    
-//    }
     private void jTable_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productosMouseClicked
 
-        
+
     }//GEN-LAST:event_jTable_productosMouseClicked
     public Integer stock(String producto) {
         Integer cantidadProductosBD = 0;
         try {
-            Connection cn = Conexion.getConecction();
+
             String sql = "select unidades from producto where descripcion = '" + producto + "'";
             java.sql.Statement st;
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+//            st = cn.createStatement();
+//            ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 cantidadProductosBD = rs.getInt("unidades");
             }
-            cn.close();
+//            cn.close();
             return cantidadProductosBD;
         } catch (SQLException e) {
             System.out.println("Error al restar cantidad 1, " + e);
@@ -367,7 +448,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
     }
     private void jButton_calcular_cambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_calcular_cambioActionPerformed
-if (!txt_efectivo.getText().isEmpty()) {
+        if (!txt_efectivo.getText().isEmpty()) {
             //validamos que el usuario no ingrese otros caracteres no numericos 
             boolean validacion = vd.validarDouble(txt_efectivo.getText());
             if (validacion == true) {
@@ -389,8 +470,16 @@ if (!txt_efectivo.getText().isEmpty()) {
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese dinero en efectivo para calcular cambio");
         }
-        
+
     }//GEN-LAST:event_jButton_calcular_cambioActionPerformed
+
+    private void jButton_busca_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_busca_productoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_busca_productoActionPerformed
+
+    private void jButton_busca_cliente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_busca_cliente2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_busca_cliente2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -434,29 +523,60 @@ if (!txt_efectivo.getText().isEmpty()) {
         });
     }
 
+    /*
+    Agrega una imagen al JLabel
+     */
+    class fondoLabel extends JLabel {
+
+        private Image logo;
+
+        @Override
+        public void paint(Graphics g) {
+            logo = new ImageIcon(getClass().getResource("/RecursosMultimedia/OmicronLogo.jpg")).getImage();
+            g.drawImage(logo, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton_añadir_producto;
+    private javax.swing.JLabel JLabelLogo;
     private javax.swing.JButton jButton_busca_cliente;
+    private javax.swing.JButton jButton_busca_cliente2;
+    private javax.swing.JButton jButton_busca_producto;
     private javax.swing.JButton jButton_calcular_cambio;
-    private javax.swing.JComboBox<String> jComboBox_cliente;
-    private javax.swing.JComboBox<String> jComboBox_producto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelSerie;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     public static javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner_Cantidad;
     public static javax.swing.JTable jTable_productos;
+    private javax.swing.JTextField txtCodProducto;
+    private javax.swing.JTextField txtCodProducto1;
+    private javax.swing.JTextField txtResultadoCliente;
+    private javax.swing.JTextField txtResultadoCliente1;
+    private javax.swing.JTextField txtResultadoCliente2;
     private javax.swing.JTextField txt_cambio;
-    private javax.swing.JTextField txt_cantidad;
     private javax.swing.JTextField txt_cliente_buscar;
     private javax.swing.JTextField txt_descuento;
     private javax.swing.JTextField txt_efectivo;
