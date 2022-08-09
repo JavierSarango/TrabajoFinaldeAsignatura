@@ -15,7 +15,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import controlador.dao.ClienteSoporteDao;
 import controlador.dao.VentaDao;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.exception.PosicionException;

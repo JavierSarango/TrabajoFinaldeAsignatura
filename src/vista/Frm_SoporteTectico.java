@@ -5,11 +5,15 @@
  */
 package vista;
 
+import controlador.tda.lista.ListaEnlazada;
+
 /**
  *
  * @author jona
  */
 public class Frm_SoporteTectico extends javax.swing.JDialog {
+    
+    
 
      /**
       * Creates new form Frm_SoporteTectico
