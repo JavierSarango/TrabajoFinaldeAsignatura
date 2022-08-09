@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.EquipoElectronicoController;
 import controlador.tda.lista.ListaEnlazada;
 
 /**
@@ -13,7 +14,7 @@ import controlador.tda.lista.ListaEnlazada;
  */
 public class Frm_SoporteTectico extends javax.swing.JDialog {
     
-    
+     private EquipoElectronicoController eec = new EquipoElectronicoController();
 
      /**
       * Creates new form Frm_SoporteTectico
