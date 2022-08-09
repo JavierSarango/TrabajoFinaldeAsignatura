@@ -9,6 +9,8 @@ import controlador.Conexion;
 import controlador.dao.ClienteContro;
 import controlador.dao.ProductoDao;
 import controlador.dao.VentaDao;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.sql.PreparedStatement;
@@ -26,6 +28,7 @@ import modelo.Cliente;
 public class Frm_Ventas extends javax.swing.JDialog {
 
     fondoLabel logotipo = new fondoLabel();
+    fondoPieLabel pie = new fondoPieLabel();
     private VentaDao vd = new VentaDao();
     private ProductoDao pd = new ProductoDao();
 //    private ClienteContro cc = new ClienteContro();
@@ -41,8 +44,14 @@ public class Frm_Ventas extends javax.swing.JDialog {
     public Frm_Ventas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        CargarProductos();
-        CargarComboClientes();
+        super.setTitle("Ventas");
+        jTable_productos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        jTable_productos.getTableHeader().setOpaque(false);
+        jTable_productos.getTableHeader().setBackground(new Color(153,153,255));
+        jTable_productos.getTableHeader().setForeground(new Color(0,0,0));
+        jTable_productos.setRowHeight(25);
+//        CargarProductos();
+//        CargarComboClientes();
     }
 
     /**
@@ -62,6 +71,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_productos = new javax.swing.JTable();
+        jlabelPie = new fondoPieLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -94,30 +104,31 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel17 = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         JLabelLogo = new fondoLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Cliente");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(370, 160, 50, 30);
+        jLabel2.setBounds(370, 180, 50, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Precio Producto:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(20, 260, 110, 30);
+        jLabel4.setBounds(20, 280, 110, 30);
 
         txt_cliente_buscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(txt_cliente_buscar);
-        txt_cliente_buscar.setBounds(130, 160, 120, 30);
+        txt_cliente_buscar.setBounds(130, 180, 120, 30);
 
         jButton_busca_cliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_busca_cliente.setText("Buscar");
@@ -127,9 +138,9 @@ public class Frm_Ventas extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jButton_busca_cliente);
-        jButton_busca_cliente.setBounds(260, 160, 90, 30);
+        jButton_busca_cliente.setBounds(260, 180, 90, 30);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(null);
 
         jTable_productos.setModel(new javax.swing.table.DefaultTableModel(
@@ -140,9 +151,15 @@ public class Frm_Ventas extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "NRO", "idVenta", "fecha", "Title 4"
             }
         ));
+        jTable_productos.setFocusable(false);
+        jTable_productos.setRowHeight(25);
+        jTable_productos.setSelectionBackground(new java.awt.Color(153, 153, 255));
+        jTable_productos.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jTable_productos.setShowHorizontalLines(true);
+        jTable_productos.getTableHeader().setReorderingAllowed(false);
         jTable_productos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable_productosMouseClicked(evt);
@@ -151,14 +168,16 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable_productos);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 440, 230);
+        jScrollPane1.setBounds(10, 10, 410, 200);
+        jPanel3.add(jlabelPie);
+        jlabelPie.setBounds(-10, 170, 720, 100);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(10, 350, 460, 260);
+        jPanel3.setBounds(10, 370, 430, 220);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setOpaque(false);
         jPanel2.setLayout(null);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -226,26 +245,26 @@ public class Frm_Ventas extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jButton_calcular_cambio);
-        jButton_calcular_cambio.setBounds(90, 210, 130, 40);
+        jButton_calcular_cambio.setBounds(90, 220, 130, 40);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(490, 350, 310, 260);
+        jPanel2.setBounds(460, 330, 230, 270);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Cod. Producto");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 210, 100, 30);
+        jLabel3.setBounds(20, 230, 100, 30);
         jPanel1.add(txtResultadoCliente);
-        txtResultadoCliente.setBounds(470, 160, 220, 30);
+        txtResultadoCliente.setBounds(470, 180, 220, 30);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Fecha:");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(370, 120, 60, 30);
+        jLabel11.setBounds(370, 140, 60, 30);
         jPanel1.add(txtCodProducto);
-        txtCodProducto.setBounds(130, 210, 120, 30);
+        txtCodProducto.setBounds(130, 230, 120, 30);
 
         jButton_busca_producto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_busca_producto.setText("Buscar");
@@ -255,17 +274,17 @@ public class Frm_Ventas extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jButton_busca_producto);
-        jButton_busca_producto.setBounds(260, 210, 90, 30);
+        jButton_busca_producto.setBounds(260, 230, 90, 30);
         jPanel1.add(jSpinner_Cantidad);
-        jSpinner_Cantidad.setBounds(130, 310, 120, 30);
+        jSpinner_Cantidad.setBounds(130, 330, 120, 30);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("Cantidad:");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(20, 310, 80, 30);
+        jLabel12.setBounds(20, 330, 80, 30);
         jPanel1.add(txtCodProducto1);
-        txtCodProducto1.setBounds(130, 260, 120, 30);
+        txtCodProducto1.setBounds(130, 280, 120, 30);
 
         jButton_busca_cliente2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_busca_cliente2.setText("Agregar");
@@ -275,62 +294,64 @@ public class Frm_Ventas extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jButton_busca_cliente2);
-        jButton_busca_cliente2.setBounds(260, 260, 90, 30);
+        jButton_busca_cliente2.setBounds(260, 280, 90, 30);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Descripción:");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(370, 210, 80, 30);
+        jLabel13.setBounds(370, 230, 80, 30);
         jPanel1.add(txtResultadoCliente1);
-        txtResultadoCliente1.setBounds(470, 210, 220, 30);
+        txtResultadoCliente1.setBounds(470, 230, 220, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel14.setText("Stock:");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(370, 260, 70, 30);
+        jLabel14.setBounds(370, 280, 70, 30);
         jPanel1.add(txtResultadoCliente2);
-        txtResultadoCliente2.setBounds(470, 260, 220, 30);
+        txtResultadoCliente2.setBounds(470, 280, 220, 30);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("CI. Cliente");
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(20, 160, 80, 30);
+        jLabel16.setBounds(20, 180, 80, 30);
         jPanel1.add(jLabelSerie);
-        jLabelSerie.setBounds(130, 120, 120, 30);
+        jLabelSerie.setBounds(130, 140, 120, 30);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel17.setText("Nro:");
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(20, 120, 60, 30);
+        jLabel17.setBounds(20, 140, 60, 30);
         jPanel1.add(jLabelFecha);
-        jLabelFecha.setBounds(470, 120, 220, 30);
+        jLabelFecha.setBounds(470, 140, 220, 30);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.setOpaque(false);
         jPanel4.setLayout(null);
+        jPanel4.add(JLabelLogo);
+        JLabelLogo.setBounds(10, 10, 260, 90);
+
+        jLabel15.setText("VENTA DE ARTICULOS TECNOLÓGICOS");
+        jPanel4.add(jLabel15);
+        jLabel15.setBounds(370, 60, 230, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PUNTO DE VENTA OMICRON");
         jPanel4.add(jLabel1);
-        jLabel1.setBounds(260, 20, 360, 22);
-
-        jLabel15.setText("VENTA DE ARTICULOS TECNOLÓGICOS");
-        jPanel4.add(jLabel15);
-        jLabel15.setBounds(340, 50, 230, 30);
-        jPanel4.add(JLabelLogo);
-        JLabelLogo.setBounds(10, 10, 270, 80);
+        jLabel1.setBounds(350, 30, 270, 22);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(10, 10, 780, 100);
+        jPanel4.setBounds(40, 10, 640, 120);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 900, 620);
+        jPanel1.setBounds(0, 0, 720, 640);
 
-        setSize(new java.awt.Dimension(827, 631));
+        setSize(new java.awt.Dimension(732, 651));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -386,67 +407,67 @@ public class Frm_Ventas extends javax.swing.JDialog {
     return cliente;
     
     }
-    private void CargarProductos() {
+//    private void CargarProductos() {
+//
+//        String sql = "select * from producto";
+//        java.sql.Statement st;
+//        try {
+////            st = cn.createStatement();
+////            ResultSet rs = st.executeQuery(sql);
+////            jComboBox_producto.removeAllItems();
+////            jComboBox_producto.addItem("Seleccione producto:");
+//            while (rs.next()) {
+////                jComboBox_producto.addItem(rs.getString("descripcion"));
+//            }
+////            CargarComboClientes();
+////            cn.close();
+//        } catch (SQLException e) {
+//            System.out.println("¡Error al cargar productos, !" + e);
+//        }
+//    }
 
-        String sql = "select * from producto";
-        java.sql.Statement st;
-        try {
-//            st = cn.createStatement();
-//            ResultSet rs = st.executeQuery(sql);
-//            jComboBox_producto.removeAllItems();
-//            jComboBox_producto.addItem("Seleccione producto:");
-            while (rs.next()) {
-//                jComboBox_producto.addItem(rs.getString("descripcion"));
-            }
-//            CargarComboClientes();
-//            cn.close();
-        } catch (SQLException e) {
-            System.out.println("¡Error al cargar productos, !" + e);
-        }
-    }
-
-    private void CargarComboClientes() {
-
-        String sql = "select * from persona";
-        java.sql.Statement st;
-        try {
-//            st = cn.createStatement();
-//            ResultSet rs = st.executeQuery(sql);
-//            jComboBox_cliente.removeAllItems();
-//            jComboBox_cliente.addItem("Seleccione cliente:");
-            while (rs.next()) {
-                System.out.println(rs.getString("razonSocial"));
-//                jComboBox_cliente.addItem(rs.getString("razonSocial"));
-            }
-//            cn.close();
-        } catch (SQLException e) {
-            System.out.println("¡Error al cargar clientes, !" + e);
-        }
-    }
+//    private void CargarComboClientes() {
+//
+//        String sql = "select * from persona";
+//        java.sql.Statement st;
+//        try {
+////            st = cn.createStatement();
+////            ResultSet rs = st.executeQuery(sql);
+////            jComboBox_cliente.removeAllItems();
+////            jComboBox_cliente.addItem("Seleccione cliente:");
+//            while (rs.next()) {
+//                System.out.println(rs.getString("razonSocial"));
+////                jComboBox_cliente.addItem(rs.getString("razonSocial"));
+//            }
+////            cn.close();
+//        } catch (SQLException e) {
+//            System.out.println("¡Error al cargar clientes, !" + e);
+//        }
+//    }
 
     private void jTable_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productosMouseClicked
 
 
     }//GEN-LAST:event_jTable_productosMouseClicked
-    public Integer stock(String producto) {
-        Integer cantidadProductosBD = 0;
-        try {
-
-            String sql = "select unidades from producto where descripcion = '" + producto + "'";
-            java.sql.Statement st;
-//            st = cn.createStatement();
-//            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                cantidadProductosBD = rs.getInt("unidades");
-            }
-//            cn.close();
-            return cantidadProductosBD;
-        } catch (SQLException e) {
-            System.out.println("Error al restar cantidad 1, " + e);
-            return null;
-        }
-
-    }
+//    public Integer stock(String producto) {
+//        Integer cantidadProductosBD = 0;
+//        try {
+//
+//            String sql = "select unidades from producto where descripcion = '" + producto + "'";
+//            java.sql.Statement st;
+////            st = cn.createStatement();
+////            ResultSet rs = st.executeQuery(sql);
+//            while (rs.next()) {
+//                cantidadProductosBD = rs.getInt("unidades");
+//            }
+////            cn.close();
+//            return cantidadProductosBD;
+//        } catch (SQLException e) {
+//            System.out.println("Error al restar cantidad 1, " + e);
+//            return null;
+//        }
+//
+//    }
     private void jButton_calcular_cambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_calcular_cambioActionPerformed
         if (!txt_efectivo.getText().isEmpty()) {
             //validamos que el usuario no ingrese otros caracteres no numericos 
@@ -539,6 +560,19 @@ public class Frm_Ventas extends javax.swing.JDialog {
         }
 
     }
+       class fondoPieLabel extends JLabel {
+
+        private Image logo;
+
+        @Override
+        public void paint(Graphics g) {
+            logo = new ImageIcon(getClass().getResource("/RecursosMultimedia/pieFondo.jpg")).getImage();
+            g.drawImage(logo, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelLogo;
     private javax.swing.JButton jButton_busca_cliente;
@@ -571,6 +605,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
     public static javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner_Cantidad;
     public static javax.swing.JTable jTable_productos;
+    private javax.swing.JLabel jlabelPie;
     private javax.swing.JTextField txtCodProducto;
     private javax.swing.JTextField txtCodProducto1;
     private javax.swing.JTextField txtResultadoCliente;
