@@ -192,17 +192,17 @@ public class FacturaController<T> {
             for (int i = 0; i < ventas.getSize(); i++) {
                 tabla.addCell(new PdfPCell(new Phrase(ventas.consultarDatoPosicion(i).getId_Venta() + "", productos)));
 //                tabla.addCell(new PdfPCell(new Phrase(producto.getDescripcion(), productos)));
-                tabla.addCell(new PdfPCell(new Phrase(ventas.consultarDatoPosicion(i).getCantidad() + "", productos)));
-                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getPrecioUnitario()), productos)));
-                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getSubTotal() * ventas.consultarDatoPosicion(i).getTotalPagar()), productos)));
-                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getSubTotal() * ventas.consultarDatoPosicion(i).getTotalPagar()), productos)));
+//                tabla.addCell(new PdfPCell(new Phrase(ventas.consultarDatoPosicion(i).getNroVentas() + "", productos)));
+//                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getMonto()), productos)));
+//                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getSubTotal() * ventas.consultarDatoPosicion(i).getTotalPagar()), productos)));
+//                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getSubTotal() * ventas.consultarDatoPosicion(i).getTotalPagar()), productos)));
 
             }
             documento.add(tabla);
 
             for (int i = 0; i < ventas.getSize(); i++) {
-                SubTotal = ventas.obtenerDato(i).getPrecioUnitario() + SubTotal;
-                IVA = ventas.obtenerDato(i).getIva() + IVA;
+//                SubTotal = ventas.obtenerDato(i).getPrecioUnitario() + SubTotal;
+//                IVA = ventas.obtenerDato(i).getIva() + IVA;
             }
 
             TotalIVA = SubTotal + IVA;
