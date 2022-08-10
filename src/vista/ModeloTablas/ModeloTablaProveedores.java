@@ -8,7 +8,7 @@ package vista.ModeloTablas;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.ListaEnlazadaServices;
 import javax.swing.table.AbstractTableModel;
-import modelo.Proveedores;
+import modelo.Proveedor;
 
 /**
  *
@@ -16,13 +16,13 @@ import modelo.Proveedores;
  */
 public class ModeloTablaProveedores extends AbstractTableModel {
 
-    ListaEnlazada<Proveedores> lista;
+     ListaEnlazada<Proveedor> lista;
 
-    public ListaEnlazada<Proveedores> getLista() {
+    public ListaEnlazada<Proveedor> getLista() {
         return lista;
     }
 
-    public void setLista(ListaEnlazada<Proveedores> lista) {
+    public void setLista(ListaEnlazada<Proveedor> lista) {
         this.lista = lista;
     }
 
@@ -33,13 +33,13 @@ public class ModeloTablaProveedores extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 13;
+        return 12;
     }
 
     @Override
     public Object getValueAt(int i, int i1) {
         try {
-            Proveedores p = lista.obtenerDato(i);
+            Proveedor p = lista.obtenerDato(i);
             switch (i1) {
 
                 case 0:
@@ -55,19 +55,18 @@ public class ModeloTablaProveedores extends AbstractTableModel {
                 case 5:
                     return p.getRazonSocial();
                 case 6:
-                    return p.getContacto();
+                    return p.getPaginaweb();
                 case 7:
                     return p.getCorreo();
                 case 8:
                     return p.getBanco();
                 case 9:
-                    return p.getTipoc();
+                    return p.getTipocuenta();
                 case 10:
-                    return p.getCuentaBancaria();
+                    return p.getNrocuenta();
                 case 11:
                     return p.getCredito();
-                case 12:
-                    return p.getRedsocial();
+
 
                 default:
                     return null;
@@ -104,11 +103,11 @@ public class ModeloTablaProveedores extends AbstractTableModel {
                 return "NRO CUENTA";
             case 11:
                 return "CREDITO";
-            case 12:
-                return "RED SOCIAL";
 
             default:
                 return null;
         }
     }
+
+
 }
