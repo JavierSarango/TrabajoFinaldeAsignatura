@@ -9,6 +9,7 @@ import controlador.dao.AdaptadorDao;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.ListaEnlazadaServices;
 import modelo.Proveedores;
+import modelo.CuentaBancaria;
 
 /**
  *
@@ -17,11 +18,12 @@ import modelo.Proveedores;
 public class ProveedorController extends AdaptadorDao<Proveedores>{
  
     private Proveedores proveedores;
-    private ListaEnlazada<Proveedores> listaProveedor;
+    private CuentaBancaria cb;
+//    private ListaEnlazada<Proveedores> listaProveedor;
 
-    public  ProveedorController() {
+    private  ProveedorController() {
         super(Proveedores.class);
-        listado();
+//        listar();
     }
 
     public Proveedores getProveedores() {
@@ -35,13 +37,25 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
         this.proveedores = proveedores;
     }
 
-    public ListaEnlazada<Proveedores> getListaProveedor() {
-        return listaProveedor;
+    public CuentaBancaria getCb() {
+       if (this.cb == null) {
+            this.cb= new CuentaBancaria();
+        }
+        return cb;
     }
 
-    public void setListaProveedor(ListaEnlazada<Proveedores> listaProveedor) {
-        this.listaProveedor = listaProveedor;
+    public void setCb(CuentaBancaria cb) {
+        this.cb = cb;
     }
+    
+
+//    public ListaEnlazada<Proveedores> getListaProveedor() {
+//        return listaProveedor;
+//    }
+//
+//    public void setListaProveedor(ListaEnlazada<Proveedores> listaProveedor) {
+//        this.listaProveedor = listaProveedor;
+//    }
 
   public Boolean guardar(){
         try {
@@ -71,8 +85,8 @@ public class ProveedorController extends AdaptadorDao<Proveedores>{
         }    
     }
 
-    public ListaEnlazada<Proveedores> listado() {
-        setListaProveedor(listar());
-        return listaProveedor;
-    }
+//    public ListaEnlazada<Proveedores> listado() {
+//        setListaProveedor(listar());
+//        return listaProveedor;
+//    }
 }

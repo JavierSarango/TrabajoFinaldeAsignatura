@@ -5,13 +5,10 @@
  */
 package modelo;
 
-//import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  *
  * @author Nathaly
  */
-//@XmlRootElement
 public class Proveedores extends Persona {
 
     private Integer id_Proveedor;
@@ -19,11 +16,7 @@ public class Proveedores extends Persona {
     private String provincia;
     private String direccion;
     private Boolean credito;
-    private String banco;
-    private String cuentaBancaria;
-    private String redsocial;
-    private String tipoc;
-    private String contacto;
+    private String paginaweb;
     
     public Proveedores() {
     }
@@ -68,59 +61,21 @@ public class Proveedores extends Persona {
         this.credito = credito;
     }
 
-    public String getBanco() {
-        return banco;
+    public String getPaginaweb() {
+        return paginaweb;
     }
 
-    public void setBanco(String banco) {
-        this.banco = banco;
+    public void setPaginaweb(String paginaweb) {
+        this.paginaweb = paginaweb;
     }
 
-    public String getCuentaBancaria() {
-        return cuentaBancaria;
-    }
-
-    public void setCuentaBancaria(String cuentaBancaria) {
-        this.cuentaBancaria = cuentaBancaria;
-    }
-
-    public String getRedsocial() {
-        return redsocial;
-    }
-
-    public void setRedsocial(String redsocial) {
-        this.redsocial = redsocial;
-    }
-
-    public String getTipoc() {
-        return tipoc;
-    }
-
-    public void setTipoc(String tipoc) {
-        this.tipoc = tipoc;
-    }
-
-    public String getContacto() {
-        return contacto;
-    }
-
-    public void setContacto(String contacto) {
-        this.contacto = contacto;
-    }
-
-    public Proveedores(Integer id_Proveedor, String agenteResponsable, String provincia, String direccion, Boolean credito, String banco, String cuentaBancaria, String redsocial, String tipoc, String contacto) {
+    public Proveedores(Integer id_Proveedor, String agenteResponsable, String provincia, String direccion, Boolean credito, String paginaweb) {
         this.id_Proveedor = id_Proveedor;
         this.agenteResponsable = agenteResponsable;
         this.provincia = provincia;
         this.direccion = direccion;
         this.credito = credito;
-        this.banco = banco;
-        this.cuentaBancaria = cuentaBancaria;
-        this.redsocial = redsocial;
-        this.tipoc = tipoc;
-        this.contacto = contacto;
+        this.paginaweb = paginaweb;
     }
 
-   
-    
 }
