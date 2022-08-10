@@ -181,7 +181,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
