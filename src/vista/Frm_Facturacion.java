@@ -63,7 +63,6 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         spinUnidadesProducto = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         txtIva = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
         txtSubTotalIva = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -135,7 +134,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel6.setText("Detalle de la factura (Moneda dólares americanos $)");
         jPanel8.add(jLabel6);
-        jLabel6.setBounds(10, 10, 270, 14);
+        jLabel6.setBounds(10, 10, 270, 16);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -159,11 +158,11 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel11.setText("Detalle de la factura (Moneda dólares americanos $$)");
         jPanel9.add(jLabel11);
-        jLabel11.setBounds(10, 10, 270, 14);
+        jLabel11.setBounds(10, 10, 270, 16);
 
         jLabel12.setText("Datos del Comprador");
         jPanel9.add(jLabel12);
-        jLabel12.setBounds(10, 110, 101, 14);
+        jLabel12.setBounds(10, 110, 121, 16);
 
         jPanel8.add(jPanel9);
         jPanel9.setBounds(0, 0, 0, 0);
@@ -190,7 +189,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel18.setText("Datos del Comprador");
         jPanel11.add(jLabel18);
-        jLabel18.setBounds(10, 110, 101, 14);
+        jLabel18.setBounds(10, 110, 121, 16);
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -214,11 +213,11 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel19.setText("Detalle de la factura (Moneda dólares americanos $$)");
         jPanel12.add(jLabel19);
-        jLabel19.setBounds(10, 10, 270, 14);
+        jLabel19.setBounds(10, 10, 270, 16);
 
         jLabel20.setText("Datos del Comprador");
         jPanel12.add(jLabel20);
-        jLabel20.setBounds(10, 110, 101, 14);
+        jLabel20.setBounds(10, 110, 121, 16);
 
         jPanel11.add(jPanel12);
         jPanel12.setBounds(0, 0, 0, 0);
@@ -227,19 +226,19 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Cant.");
         jPanel11.add(jLabel21);
-        jLabel21.setBounds(230, 10, 60, 15);
+        jLabel21.setBounds(230, 10, 60, 14);
 
         jLabel22.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Descripción");
         jPanel11.add(jLabel22);
-        jLabel22.setBounds(10, 10, 60, 15);
+        jLabel22.setBounds(10, 10, 60, 14);
 
         jLabel23.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("V.Unit.");
         jPanel11.add(jLabel23);
-        jLabel23.setBounds(340, 10, 50, 15);
+        jLabel23.setBounds(340, 10, 50, 14);
         jPanel11.add(txtValorUnitProducto);
         txtValorUnitProducto.setBounds(340, 30, 50, 30);
         jPanel11.add(txtvalorTotalProducto);
@@ -249,7 +248,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("V.Total.");
         jPanel11.add(jLabel24);
-        jLabel24.setBounds(400, 10, 50, 15);
+        jLabel24.setBounds(400, 10, 50, 14);
 
         agregarProd.setText("OK");
         agregarProd.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +257,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel11.add(agregarProd);
-        agregarProd.setBounds(513, 30, 47, 30);
+        agregarProd.setBounds(513, 30, 49, 30);
         jPanel11.add(txtBuscaProduto);
         txtBuscaProduto.setBounds(10, 30, 180, 30);
 
@@ -281,7 +280,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel4.setText("Iva a colocar:");
         jPanel11.add(jLabel4);
-        jLabel4.setBounds(460, 10, 90, 14);
+        jLabel4.setBounds(460, 10, 90, 16);
 
         txtIva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -293,11 +292,6 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jPanel8.add(jPanel11);
         jPanel11.setBounds(10, 30, 570, 70);
-
-        jLabel25.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel25.setText("Desarrollado por G2UNL - Derechos Reservados");
-        jPanel8.add(jLabel25);
-        jLabel25.setBounds(10, 290, 230, 14);
 
         txtSubTotalIva.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         txtSubTotalIva.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
@@ -340,7 +334,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         radioOtros.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioOtros.setText("Otros");
         jPanel8.add(radioOtros);
-        radioOtros.setBounds(330, 230, 60, 23);
+        radioOtros.setBounds(330, 230, 60, 25);
 
         radioEfectivo.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioEfectivo.setText("Efectivo");
@@ -350,17 +344,17 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(radioEfectivo);
-        radioEfectivo.setBounds(10, 230, 70, 23);
+        radioEfectivo.setBounds(10, 230, 70, 25);
 
         radioCredito.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioCredito.setText("T.Crédito/Débito");
         jPanel8.add(radioCredito);
-        radioCredito.setBounds(80, 230, 110, 23);
+        radioCredito.setBounds(80, 230, 110, 25);
 
         radioDepositoTransferencia.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         radioDepositoTransferencia.setText("Depósito/Transferencia");
         jPanel8.add(radioDepositoTransferencia);
-        radioDepositoTransferencia.setBounds(190, 230, 140, 23);
+        radioDepositoTransferencia.setBounds(190, 230, 140, 25);
 
         Proformar.setText("Proformar");
         Proformar.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +363,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(Proformar);
-        Proformar.setBounds(490, 280, 90, 23);
+        Proformar.setBounds(490, 280, 90, 25);
 
         Facturar.setText("Facturar");
         Facturar.addActionListener(new java.awt.event.ActionListener() {
@@ -378,7 +372,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(Facturar);
-        Facturar.setBounds(400, 280, 90, 23);
+        Facturar.setBounds(400, 280, 90, 25);
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -387,7 +381,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(jButton1);
-        jButton1.setBounds(300, 280, 90, 23);
+        jButton1.setBounds(300, 280, 90, 25);
 
         jPanel2.add(jPanel8);
         jPanel8.setBounds(30, 260, 730, 370);
@@ -397,7 +391,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(560, 90, 150, 30);
         jPanel2.add(txtCelular);
-        txtCelular.setBounds(560, 120, 160, 20);
+        txtCelular.setBounds(560, 120, 160, 22);
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel7.setText("EMAIL:");
@@ -443,7 +437,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 
         jLabel2.setText("Nombre:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(30, 80, 41, 14);
+        jLabel2.setBounds(30, 80, 50, 16);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,7 +445,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jTextField1);
-        jTextField1.setBounds(120, 80, 280, 20);
+        jTextField1.setBounds(120, 80, 280, 22);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 800, 660);
@@ -567,7 +561,6 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
