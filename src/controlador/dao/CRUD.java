@@ -14,7 +14,7 @@ import controlador.tda.lista.ListaEnlazada;
  *
  * @author Nathaly
  */
-public interface CRUD<T>{
+public interface CRUD<E>{
     /**
      * Guardar BDD
      * @return boolean
@@ -34,5 +34,5 @@ public interface CRUD<T>{
      * Lista de las tablas
      * @return Lista
      */
-    public ListaEnlazada<T> listar();
+    public ListaEnlazada<E> listar();
 }

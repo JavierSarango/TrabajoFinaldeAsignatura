@@ -5,9 +5,16 @@
  */
 package vista.ModeloTablas;
 
+import controlador.Conexion;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.ListaEnlazadaServices;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import modelo.Proveedor;
 
 /**
@@ -91,35 +98,32 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             case 2:
                 return "PROVINCIA";
             case 3:
-                return "CALLE PRINCIPAL";
+                return "DIRECCION";
             case 4:
-                return "CALLE SECUNDARIA";
-            case 5:
                 return "RUC";
-            case 6:
+            case 5:
                 return "RAZON SOCIAL";
-            case 7:
+            case 6:
                 return "TELEFONO FIJO";
-            case 8:
+            case 7:
                 return "CELULAR";
-            case 9:
+            case 8:
                 return "TELEFONO OPCIONAL";
-            case 10:
+            case 9:
                 return "EMAIL";
-            case 11:
+            case 10:
                 return "PAGINA WEB";
-            case 12:
+            case 11:
                 return "BANCO";
-            case 13:
+            case 12:
                 return "TIPO CUENTA";
-            case 14:
+            case 13:
                 return "NRO CUENTA";
-            case 15:
+            case 14:
                 return "CREDITO";
 
             default:
                 return null;
         }
     }
-
 }

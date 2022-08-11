@@ -16,10 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import vista.ModeloTablas.ModeloTablaProveedores;
 import Validacion.Validacion;
+import controlador.dao.ProveedorDao;
 import java.awt.Graphics;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,7 +29,8 @@ import javax.swing.JLabel;
  */
 public class Frm_Proveedores extends javax.swing.JFrame {
 
-    private ProveedorController proveedordao = new ProveedorController();
+//    private ProveedorController proveedordao = new ProveedorController();
+    private ProveedorDao proveedordao = new ProveedorDao();
     private ModeloTablaProveedores modelotablaproveedor = new ModeloTablaProveedores();
     private Validacion validacion = new Validacion();
     fondoLabel logotipo = new fondoLabel();
@@ -74,7 +77,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         modelotablaproveedor.setLista(proveedordao.listar());
         tbl_proveedores.setModel(modelotablaproveedor);
         tbl_proveedores.updateUI();
-        
     }
 
     //Metodo Limpiar
@@ -104,8 +106,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     //Metodo Guardar
     private void guardar() {
-        if (txtAresponsable.getText().trim().isEmpty() || txtcallep.getText().trim().isEmpty()|| txtcelular.getText().trim().isEmpty() 
-                || txtCuenta.getText().trim().isEmpty()|| txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty()|| txtTelefonoop.getText().trim().isEmpty()) {
+        if (txtAresponsable.getText().trim().isEmpty() || txtcallep.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty()
+                || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             if (validacion.validaCorreo(txtemail.getText()) == true) {
@@ -124,14 +126,14 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 proveedordao.getProveedores().setNrocuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito(Boolean.getBoolean(cbxcredito.getSelectedItem().toString()));
                 System.out.print("Llega 3");
-                if (proveedordao.Guardar()) {
+                if (proveedordao.guardar()) {
                     JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
                     limpiar();
                     cargarTabla();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                
+
             }
 //                        try {
 //                            if (proveedordao.Guardar()) {
@@ -165,7 +167,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 //        }
         }
     }
-        //Metodo CargarFoto
+    //Metodo CargarFoto
+
     private void CargarFoto() {
         int resultado;
         CargarFoto ventana = new CargarFoto();
