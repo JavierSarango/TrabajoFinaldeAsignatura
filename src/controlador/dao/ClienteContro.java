@@ -176,4 +176,32 @@ public class ClienteContro implements CRUD {
         }
         return (ListaEnlazada<Cliente>) lista;
     }
+    
+    public Cliente listarIDCliente (Integer dni){
+    String sql = "Select * from cliente where id_Cliente = '?'";
+    Cliente cliente = new Cliente();
+        try {
+             PreparedStatement ps = null;
+            conexion = Conexion.getConecction();
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, dni);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                cliente.setId_cliente(rs.getInt(1));
+                cliente.setRazonSocial(rs.getString(2));
+                cliente.setTelefono(rs.getString(3));
+                cliente.setCelular(rs.getString(4));
+                cliente.setCorreo(rs.getString(5));
+                cliente.setDireccion(rs.getString(6));
+                cliente.setIdentificacion(rs.getString(7));
+                cliente.setTipoCliente(rs.getString(8));
+                cliente.setFechaNacimiento(rs.getString(9));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar Id cliente");
+            e.printStackTrace();
+        }
+    return cliente;
+    
+    }
 }
