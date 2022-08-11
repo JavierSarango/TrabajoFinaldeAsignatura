@@ -7,7 +7,6 @@ package vista.ModeloTablas;
 import controlador.tda.lista.ListaEnlazada;
 import javax.swing.table.AbstractTableModel;
 import modelo.EquipoElectronico;
-import modelo.Proveedores;
 
 /**
  *
