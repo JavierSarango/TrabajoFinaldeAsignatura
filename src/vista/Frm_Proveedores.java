@@ -130,11 +130,11 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                         System.out.print("Llega 3");
                         try {
                             if (proveedordao.Guardar()) {
-                                JOptionPane.showMessageDialog(null, "PERSONA REGISTRADA CORRECTAMENTE");
+                                JOptionPane.showMessageDialog(null, "PROVEEDOR REGISTRADA CORRECTAMENTE");
                                 cargarTabla();
 //                                Inicio();
                             } else {
-                                JOptionPane.showMessageDialog(null, "NO ES POSIBLE REGISTAR");
+                                JOptionPane.showMessageDialog(null, "NO ES POSIBLE REGISTRAR");
                             }
                         } catch (Exception ex) {
                             Logger.getLogger(Frm_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
