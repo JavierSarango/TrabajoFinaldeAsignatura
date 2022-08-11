@@ -6,37 +6,56 @@
 package modelo;
 
 import java.io.Serializable;
+import modelo.Proveedor;
 
 /**
  *
  * @author diego
  */
 public class Producto implements Serializable{
-    private Long idProducto;
+    private Integer idProducto;
+    private Integer codigo;
     private String nombre;
+    //private Boolean estado;
     private String descripcion; 
     private Double precioCompra;
-    private Double precioVenta; 
-    private int unidades;
-    private Boolean visible;
-    private Integer proveedor;
+    private Double precioVenta;  
+    private Integer id_Proveedor;
+    
+    
 
-    public Integer getProveedor() {
-        return proveedor;
+//    public Boolean getEstado() {
+//        return estado;
+//    }
+//
+//    public void setEstado(Boolean estado) {
+//        this.estado = estado;
+//    }
+
+    public Integer getId_Proveedor() {
+        return id_Proveedor;
     }
 
-    public void setProveedor(Integer proveedor) {
-        this.proveedor = proveedor;
+    public void setId_Proveedor(Integer id_Proveedor) {
+        this.id_Proveedor = id_Proveedor;
     }
     
     
-    
-    public Long getIdProducto() {    
+
+    public Integer getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Long idProducto) {
+    public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public String getNombre() {
@@ -71,44 +90,27 @@ public class Producto implements Serializable{
         this.precioVenta = precioVenta;
     }
 
-    public int getUnidades() {
-        return unidades;
+    public Integer getProveedor() {
+        return id_Proveedor;
     }
 
-    public void setUnidades(int unidades) {
-        this.unidades = unidades;
+    public void setProveedor(Integer proveedor) {
+        this.id_Proveedor = proveedor;
     }
 
-    public Boolean getVisible() {
-        return visible;
-    }
-
-    /**
-     *Genera losdistintos geters y seters de nuestro modelo roducto
-     */
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
-    }
- 
-    public Producto() {
-    }
-
-    public Producto(String nombre, String descripcion, Double precioCompra, Boolean incluyeIva, Double precioVenta) {
+  
+    public Producto(Integer idProducto, Integer codigo, String nombre, String descripcion, Double precioCompra, Double precioVenta, Integer id_proveedor) {
+        this.idProducto = idProducto;
+        this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.precioCompra = precioCompra; 
-        this.precioVenta = precioVenta;
-    }
-    
-    
-    
-    public Producto(Long id, String nombre, String descripcion, Double preciosiniva, Double precioconiva, Double iva, Boolean productolibredeImpuestos) {
-        this.idProducto = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precioVenta = preciosiniva;
         this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.id_Proveedor = id_proveedor; 
+    }
     
+    public Producto(){
+        
     }
 
     @Override
