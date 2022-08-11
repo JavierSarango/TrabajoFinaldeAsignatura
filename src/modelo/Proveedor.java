@@ -14,9 +14,12 @@ public class Proveedor extends Persona {
     private Integer id_Proveedor;
     private String agenteResponsable;
     private String provincia;
-    private String direccion;
+    private String direccionp;
+    private String direccions;
     private Boolean credito;
     private String paginaweb;
+    private String telefonoO;
+    private String celular;
     private String banco;
     private String tipocuenta;
     private String Nrocuenta;
@@ -48,13 +51,23 @@ public class Proveedor extends Persona {
         this.provincia = provincia;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getDireccionp() {
+        return direccionp;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDireccionp(String direccionp) {
+        this.direccionp = direccionp;
     }
+
+    public String getDireccions() {
+        return direccions;
+    }
+
+    public void setDireccions(String direccions) {
+        this.direccions = direccions;
+    }
+    
+    
 
     public Boolean getCredito() {
         return credito;
@@ -62,6 +75,22 @@ public class Proveedor extends Persona {
 
     public void setCredito(Boolean credito) {
         this.credito = credito;
+    }
+
+    public String getTelefonoO() {
+        return telefonoO;
+    }
+
+    public void setTelefonoO(String telefonoO) {
+        this.telefonoO = telefonoO;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
     public String getPaginaweb() {
@@ -95,14 +124,12 @@ public class Proveedor extends Persona {
     public void setNrocuenta(String Nrocuenta) {
         this.Nrocuenta = Nrocuenta;
     }
-    
-    
 
     public Proveedor(Integer id_Proveedor, String agenteResponsable, String provincia, String direccion, Boolean credito, String paginaweb) {
         this.id_Proveedor = id_Proveedor;
         this.agenteResponsable = agenteResponsable;
         this.provincia = provincia;
-        this.direccion = direccion;
+        this.direccionp = direccion;
         this.credito = credito;
         this.paginaweb = paginaweb;
     }

@@ -109,24 +109,24 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             if (validacion.validaCorreo(txtemail.getText()) == true) {
-                JOptionPane.showConfirmDialog(null, "Correo no valido");
                 System.out.print("Llega 1");
                 proveedordao.getProveedores().setAgenteResponsable(txtAresponsable.getText());
                 proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-                proveedordao.getProveedores().setTelefono(txtTelefonoop.getText());
-                proveedordao.getProveedores().setTelefono(txtcelular.getText());
+                proveedordao.getProveedores().setDireccionp(txtcallep.getText());
+                proveedordao.getProveedores().setDireccions(txtcalles.getText());
+                proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
+                proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
                 proveedordao.getProveedores().setTelefono(txttfijo.getText());
-                proveedordao.getProveedores().setDireccion(txtcallep.getText());
-                proveedordao.getProveedores().setRazonSocial(txtRuc.getText());
-                proveedordao.getProveedores().setTelefono(txtcelular.getText());
+                proveedordao.getProveedores().setTelefonoO(txtTelefonoop.getText());
+                proveedordao.getProveedores().setCelular(txtcelular.getText());
+                proveedordao.getProveedores().setTelefono(txttfijo.getText());
+                proveedordao.getProveedores().setCorreo(txtemail.getText());
+                proveedordao.getProveedores().setPaginaweb(txtpaginaweb.getText());
                 proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
                 proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
                 proveedordao.getProveedores().setNrocuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito(Boolean.getBoolean(cbxcredito.getSelectedItem().toString()));
-                proveedordao.getProveedores().setPaginaweb(txtpaginaweb.getText());
-
-                if (proveedordao.getProveedores().getId_Proveedor() == null) {
-                    if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
+            
                         System.out.print("Llega 3");
                         try {
                             if (proveedordao.Guardar()) {
@@ -138,7 +138,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                             }
                         } catch (Exception ex) {
                             Logger.getLogger(Frm_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        
 //                    if (proveedordao.guardar()) {
 //                        cargarTabla();
 //                        JOptionPane.showMessageDialog(null, "Se ha guardadao correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
@@ -155,7 +155,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "No se pudo modificar", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                }
+                
             }
         }
     }
@@ -567,7 +567,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Credito:");
 
-        cbxcredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aprobado", "Denegado" }));
+        cbxcredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aplica", "No aplica" }));
 
         cbxBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Banco Solidario", "Banco Produbanco", "Banco Pichincha", "Banco Internacional", "Banco Amazonas", "Banco Procredit", "Banco de Guayaquil", "Banco General Rumiñahui", "Banco del Pacífico", "Banco de Loja", "Banco del Austro", "Banco Bolivariano", "Banco de Machala", "Banco Diners Club del Ecuador", "Banco De Desarrollo", "Corporación Financiera Nacional BP", "BanEcuador", "Banco del Instituto Ecuatoriano de Seguridad Social (BIESS)", "Banco Central del Ecuador", "Banco del Pacífico", "Coop. CACPECO", "Coop. Mushuc Runa", "Coop. Jardín Azuayo", "Coop. Alianza del Valle", "Coop. Cooprogreso", "CoopMego", "Coop. Santa Rosa", "Coop. Policía Nacional", "CACPE Pastaza", "Coop. Juventud Ecuatoriana Progresista (Jeep)" }));
         cbxBanco.addActionListener(new java.awt.event.ActionListener() {

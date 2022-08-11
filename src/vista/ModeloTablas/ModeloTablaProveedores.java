@@ -16,7 +16,7 @@ import modelo.Proveedor;
  */
 public class ModeloTablaProveedores extends AbstractTableModel {
 
-     ListaEnlazada<Proveedor> lista;
+    ListaEnlazada<Proveedor> lista;
 
     public ListaEnlazada<Proveedor> getLista() {
         return lista;
@@ -33,7 +33,7 @@ public class ModeloTablaProveedores extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 12;
+        return 15;
     }
 
     @Override
@@ -47,33 +47,38 @@ public class ModeloTablaProveedores extends AbstractTableModel {
                 case 1:
                     return p.getProvincia();
                 case 2:
-                    return p.getTelefono();
+                    return p.getDireccionp();
                 case 3:
-                    return p.getDireccion();
+                    return p.getDireccions();
                 case 4:
                     return p.getIdentificacion();
                 case 5:
                     return p.getRazonSocial();
                 case 6:
-                    return p.getPaginaweb();
+                    return p.getTelefono();
                 case 7:
-                    return p.getCorreo();
+                    return p.getCelular();
                 case 8:
-                    return p.getBanco();
+                    return p.getTelefonoO();
                 case 9:
-                    return p.getTipocuenta();
+                    return p.getCorreo();
                 case 10:
-                    return p.getNrocuenta();
+                    return p.getPaginaweb();
                 case 11:
+                    return p.getBanco();
+                case 12:
+                    return p.getTipocuenta();
+                case 13:
+                    return p.getNrocuenta();
+                case 14:
                     return p.getCredito();
-
 
                 default:
                     return null;
             }
         } catch (Exception e) {
         }
- return null;
+        return null;
     }
 
     @Override
@@ -84,30 +89,35 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             case 1:
                 return "PROVINCIA";
             case 2:
-                return "TELEFONO";
+                return "CALLE PRINCIPAL";
             case 3:
-                return "DIRECCION";
+                return "CALLE SECUNDARIA";
             case 4:
                 return "RUC";
             case 5:
                 return "RAZON SOCIAL";
             case 6:
-                return "CONTACTO";
+                return "TELEFONO FIJO";
             case 7:
-                return "CORREO";
+                return "CELULAR";
             case 8:
-                return "BANCO";
+                return "TELEFONO OPCIONAL";
             case 9:
-                return "TIPO CUENTA";
+                return "EMAIL";
             case 10:
-                return "NRO CUENTA";
+                return "PAGINA WEB";
             case 11:
+                return "BANCO";
+            case 12:
+                return "TIPO CUENTA";
+            case 13:
+                return "NRO CUENTA";
+            case 14:
                 return "CREDITO";
 
             default:
                 return null;
         }
     }
-
 
 }
