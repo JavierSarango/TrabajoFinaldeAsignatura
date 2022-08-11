@@ -40,7 +40,7 @@ public class ModeloTablaProveedores extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 15;
+        return 14;
     }
 
     @Override
@@ -50,34 +50,32 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             switch (i1) {
 
                 case 0:
-                    return p.getId_Proveedor();
-                case 1:
                     return p.getAgenteResponsable();
-                case 2:
+                case 1:
                     return p.getProvincia();
-                case 3:
+                case 2:
                     return p.getDireccion();
-                case 4:
+                case 3:
                     return p.getIdentificacion();
-                case 5:
+                case 4:
                     return p.getRazonSocial();
-                case 6:
+                case 5:
                     return p.getTelefono();
-                case 7:
+                case 6:
                     return p.getCelular();
-                case 8:
+                case 7:
                     return p.getTelefonoO();
-                case 9:
+                case 8:
                     return p.getCorreo();
-                case 10:
+                case 9:
                     return p.getPaginaweb();
-                case 11:
+                case 10:
                     return p.getBanco();
-                case 12:
+                case 11:
                     return p.getTipocuenta();
-                case 13:
+                case 12:
                     return p.getNrocuenta();
-                case 14:
+                case 13:
                     return p.getCredito();
 
                 default:
@@ -92,34 +90,32 @@ public class ModeloTablaProveedores extends AbstractTableModel {
     public String getColumnName(int i) {
         switch (i) {
             case 0:
-                return "ID";
-            case 1:
                 return "AGENTE RESPONSABLE";
-            case 2:
+            case 1:
                 return "PROVINCIA";
-            case 3:
+            case 2:
                 return "DIRECCION";
-            case 4:
+            case 3:
                 return "RUC";
-            case 5:
+            case 4:
                 return "RAZON SOCIAL";
-            case 6:
+            case 5:
                 return "TELEFONO FIJO";
-            case 7:
+            case 6:
                 return "CELULAR";
-            case 8:
+            case 7:
                 return "TELEFONO OPCIONAL";
-            case 9:
+            case 8:
                 return "EMAIL";
-            case 10:
+            case 9:
                 return "PAGINA WEB";
-            case 11:
+            case 10:
                 return "BANCO";
-            case 12:
+            case 11:
                 return "TIPO CUENTA";
-            case 13:
+            case 12:
                 return "NRO CUENTA";
-            case 14:
+            case 13:
                 return "CREDITO";
 
             default:
