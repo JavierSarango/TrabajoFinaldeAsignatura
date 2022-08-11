@@ -14,10 +14,7 @@ import modelo.Proveedor;
 public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
     private Proveedor proveedor;
-//    private ListaEnlazada<Venta> listaVentas;
-//    private ConexionBD cbd = new ConexionBD();
-//    Statement st;
-//    Resultset rs;
+    private ListaEnlazada<Proveedor> listaProoveedores;
 
     public ProveedorDao() {
         super(Proveedor.class);

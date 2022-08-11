@@ -34,6 +34,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private Validacion validacion = new Validacion();
     fondoLabel logotipo = new fondoLabel();
     fondoPieLabel pie = new fondoPieLabel();
+    Object Persona;
 
     //Variables
     private int pos = -1;
@@ -123,7 +124,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
                 proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
                 proveedordao.getProveedores().setNrocuenta(txtCuenta.getText());
-                proveedordao.getProveedores().setCredito(Boolean.getBoolean(cbxcredito.getSelectedItem().toString()));
+                proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
                 System.out.print("Llega 3");
                 if (proveedordao.guardar()) {
                     JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
@@ -133,27 +134,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
-            }
-//                        try {
-//                            if (proveedordao.Guardar()) {
-//                                JOptionPane.showMessageDialog(null, "PROVEEDOR REGISTRADA CORRECTAMENTE");
-//                                cargarTabla();
-////                                Inicio();
-//                            } else {
-//                                JOptionPane.showMessageDialog(null, "NO ES POSIBLE REGISTRAR");
-//                            }
-//                        } catch (Exception ex) {
-//                            Logger.getLogger(Frm_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
-//                        
-////                    if (proveedordao.guardar()) {
-////                        cargarTabla();
-////                        JOptionPane.showMessageDialog(null, "Se ha guardadao correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-////                        limpiar();
-////                    } else {
-////                        JOptionPane.showMessageDialog(null, "No se guardo", "Error", JOptionPane.ERROR_MESSAGE);
-////                    }
-//                    }
-//                } else {
+            
+                } else {
 //                    if (proveedordao.Actualizar()) {
 //
 //                        JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
@@ -165,6 +147,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 //            }
 //        }
         }
+    }
     }
     //Metodo CargarFoto
 
@@ -193,7 +176,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         fila = tbl_proveedores.getSelectedRow();
         try {
             if (fila >= 0) {
-//                proveedordao.eliminarDatos(fila);
+//                proveedordao.eliminar(fila);
                 JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
             } else {
