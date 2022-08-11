@@ -74,16 +74,15 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         modelotablaproveedor.setLista(proveedordao.listar());
         tbl_proveedores.setModel(modelotablaproveedor);
         tbl_proveedores.updateUI();
+        
     }
 
     //Metodo Limpiar
     private void limpiar() {
         txtAresponsable.setText("Ingrese agente responsable");
         txtAresponsable.setForeground(Color.gray);
-        txtcallep.setText("Ingrese calle principal");
+        txtcallep.setText("Ingrese direccion");
         txtcallep.setForeground(Color.gray);
-        txtcalles.setText("Ingrese calle secundaria");
-        txtcalles.setForeground(Color.gray);
         txtRuc.setText("Ingrese RUC");
         txtRuc.setForeground(Color.gray);
         txtRazonS.setText("Ingrese razón social");
@@ -105,62 +104,68 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     //Metodo Guardar
     private void guardar() {
-        if (txtAresponsable.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
+        if (txtAresponsable.getText().trim().isEmpty() || txtcallep.getText().trim().isEmpty()|| txtcelular.getText().trim().isEmpty() 
+                || txtCuenta.getText().trim().isEmpty()|| txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty()|| txtTelefonoop.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             if (validacion.validaCorreo(txtemail.getText()) == true) {
-                System.out.print("Llega 1");
                 proveedordao.getProveedores().setAgenteResponsable(txtAresponsable.getText());
                 proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-                proveedordao.getProveedores().setDireccionp(txtcallep.getText());
-                proveedordao.getProveedores().setDireccions(txtcalles.getText());
+                proveedordao.getProveedores().setDireccion(txtcallep.getText());
                 proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
                 proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
                 proveedordao.getProveedores().setTelefono(txttfijo.getText());
                 proveedordao.getProveedores().setTelefonoO(txtTelefonoop.getText());
                 proveedordao.getProveedores().setCelular(txtcelular.getText());
-                proveedordao.getProveedores().setTelefono(txttfijo.getText());
                 proveedordao.getProveedores().setCorreo(txtemail.getText());
                 proveedordao.getProveedores().setPaginaweb(txtpaginaweb.getText());
                 proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
                 proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
                 proveedordao.getProveedores().setNrocuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito(Boolean.getBoolean(cbxcredito.getSelectedItem().toString()));
-            
-                        System.out.print("Llega 3");
-                        try {
-                            if (proveedordao.Guardar()) {
-                                JOptionPane.showMessageDialog(null, "PROVEEDOR REGISTRADA CORRECTAMENTE");
-                                cargarTabla();
-//                                Inicio();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "NO ES POSIBLE REGISTRAR");
-                            }
-                        } catch (Exception ex) {
-                            Logger.getLogger(Frm_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
-                        
-//                    if (proveedordao.guardar()) {
-//                        cargarTabla();
-//                        JOptionPane.showMessageDialog(null, "Se ha guardadao correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-//                        limpiar();
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "No se guardo", "Error", JOptionPane.ERROR_MESSAGE);
-//                    }
-                    }
+                System.out.print("Llega 3");
+                if (proveedordao.Guardar()) {
+                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+                    cargarTabla();
                 } else {
-                    if (proveedordao.Actualizar()) {
-
-                        JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-                        limpiar();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo modificar", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 
             }
+//                        try {
+//                            if (proveedordao.Guardar()) {
+//                                JOptionPane.showMessageDialog(null, "PROVEEDOR REGISTRADA CORRECTAMENTE");
+//                                cargarTabla();
+////                                Inicio();
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "NO ES POSIBLE REGISTRAR");
+//                            }
+//                        } catch (Exception ex) {
+//                            Logger.getLogger(Frm_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+//                        
+////                    if (proveedordao.guardar()) {
+////                        cargarTabla();
+////                        JOptionPane.showMessageDialog(null, "Se ha guardadao correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+////                        limpiar();
+////                    } else {
+////                        JOptionPane.showMessageDialog(null, "No se guardo", "Error", JOptionPane.ERROR_MESSAGE);
+////                    }
+//                    }
+//                } else {
+//                    if (proveedordao.Actualizar()) {
+//
+//                        JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+//                        limpiar();
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "No se pudo modificar", "Error", JOptionPane.ERROR_MESSAGE);
+//                    }
+//                
+//            }
+//        }
         }
     }
-
-    //Metodo CargarFoto
+        //Metodo CargarFoto
     private void CargarFoto() {
         int resultado;
         CargarFoto ventana = new CargarFoto();
@@ -247,8 +252,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         cbxBanco = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtRazonS = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        txtcalles = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_proveedores = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -273,7 +276,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Agente responsable:");
         jPanel5.add(jLabel1);
-        jLabel1.setBounds(152, 35, 116, 20);
+        jLabel1.setBounds(150, 50, 116, 20);
 
         txtAresponsable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -291,17 +294,17 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             }
         });
         jPanel5.add(txtAresponsable);
-        txtAresponsable.setBounds(270, 34, 188, 26);
+        txtAresponsable.setBounds(270, 50, 188, 26);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Provincia:");
         jPanel5.add(jLabel2);
-        jLabel2.setBounds(150, 80, 92, 27);
+        jLabel2.setBounds(150, 97, 92, 30);
 
         cbxProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Azuay", "Bolívar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro", "Esmeraldas", "Galápagos", "Guayas", "Imbabura", "Loja", "Los Rios", " Manabí", "Morona Santiago", "Napo", "Orellana ", "Pastaza", "Pichincha", "Santa Elena", "Santo Domingo de los Tsáchilas", "Sucumbíos", "Tungurahua", "Zamora Chinchipe" }));
         cbxProvincia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.add(cbxProvincia);
-        cbxProvincia.setBounds(270, 70, 188, 32);
+        cbxProvincia.setBounds(270, 100, 188, 32);
 
         BtnGuardar.setBackground(new java.awt.Color(153, 204, 255));
         BtnGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -336,12 +339,12 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             }
         });
         jPanel5.add(txtcallep);
-        txtcallep.setBounds(270, 120, 188, 26);
+        txtcallep.setBounds(270, 150, 188, 26);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Calle principal:");
+        jLabel4.setText("Direcccion:");
         jPanel5.add(jLabel4);
-        jLabel4.setBounds(150, 120, 92, 32);
+        jLabel4.setBounds(150, 150, 92, 32);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("RUC:");
@@ -660,24 +663,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         jPanel5.add(txtRazonS);
         txtRazonS.setBounds(271, 251, 187, 26);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setText("Calle secundaria:");
-        jPanel5.add(jLabel17);
-        jLabel17.setBounds(152, 163, 116, 26);
-
-        txtcalles.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtcallesMouseClicked(evt);
-            }
-        });
-        txtcalles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcallesActionPerformed(evt);
-            }
-        });
-        jPanel5.add(txtcalles);
-        txtcalles.setBounds(270, 157, 188, 26);
-
         tbl_proveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -891,16 +876,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtbuscarActionPerformed
 
-    private void txtcallesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtcallesMouseClicked
-        // TODO add your handling code here:
-        txtcalles.setText("");
-        txtcalles.setForeground(Color.black);
-    }//GEN-LAST:event_txtcallesMouseClicked
-
-    private void txtcallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcallesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcallesActionPerformed
-
     private void cbxBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBancoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxBancoActionPerformed
@@ -1067,7 +1042,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1094,7 +1068,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefonoop;
     private javax.swing.JTextField txtbuscar;
     private javax.swing.JTextField txtcallep;
-    private javax.swing.JTextField txtcalles;
     private javax.swing.JTextField txtcelular;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtpaginaweb;

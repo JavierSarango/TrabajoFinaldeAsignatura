@@ -22,7 +22,7 @@ import modelo.Persona;
  *
  * @author Nathaly
  */
-public class ProveedorController<T> implements CRUD{
+public class ProveedorController<T> implements CRUD {
 
     private ListaEnlazada<Proveedor> listaproveedores = new ListaEnlazada<>();
     private Proveedor proveedores;
@@ -33,7 +33,6 @@ public class ProveedorController<T> implements CRUD{
     ResultSet rs;
 
     public ProveedorController() {
-
     }
 
     public ListaEnlazada<Proveedor> getListaproveedores() {
@@ -58,28 +57,26 @@ public class ProveedorController<T> implements CRUD{
     @Override
     public boolean Guardar() {
         Connection con = c.getConecction();
-        String sql = "INSERT INTO proveedor(id_proveedor,agenteresponsable,provincia, direccion, ruc, razonsocial, telefono, correo, paginaweb, credito,"
-                + "banco,tipocuenta, nroCuenta) VALUE(?,?,?,?,?,?,?,?,?,?.?,?,?)";
+        String sql = "INSERT INTO proveedor(id_proveedor,agenteResponsable,provincia, direccion, RUC, razonSocial, Telefonofijo, celular, telefonoOpcional, email, paginaWeb,"
+                + "banco,tipocuenta, nroCuenta, credito) VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
 
             ps.setInt(1, proveedores.getId_Proveedor());
             ps.setString(2, proveedores.getAgenteResponsable());
             ps.setString(3, proveedores.getProvincia());
-            ps.setString(4, proveedores.getDireccionp());
-            ps.setString(5, proveedores.getDireccions());
-            ps.setString(6, proveedores.getIdentificacion());
-            ps.setString(7, proveedores.getRazonSocial());
-            ps.setString(8, proveedores.getTelefono());
-            ps.setString(9, proveedores.getCelular());
-            ps.setString(10, proveedores.getTelefonoO());
-            ps.setString(11, proveedores.getCorreo());
-            ps.setString(12, proveedores.getPaginaweb());
-            ps.setString(13, proveedores.getBanco());
-            ps.setString(14, proveedores.getTipocuenta());
-            ps.setString(15, proveedores.getNrocuenta());
-            ps.setBoolean(16, proveedores.getCredito());
-
+            ps.setString(4, proveedores.getDireccion());
+            ps.setString(5, proveedores.getIdentificacion());
+            ps.setString(6, proveedores.getRazonSocial());
+            ps.setString(7, proveedores.getTelefono());
+            ps.setString(8, proveedores.getCelular());
+            ps.setString(9, proveedores.getTelefonoO());
+            ps.setString(10, proveedores.getCorreo());
+            ps.setString(11, proveedores.getPaginaweb());
+            ps.setString(12, proveedores.getBanco());
+            ps.setString(13, proveedores.getTipocuenta());
+            ps.setString(14, proveedores.getNrocuenta());
+            ps.setBoolean(15, proveedores.getCredito());
             ps.executeUpdate();
             ps.close();
             return true;
@@ -94,24 +91,23 @@ public class ProveedorController<T> implements CRUD{
         PreparedStatement pst = null;
         Connection con = c.getConecction();
         String sql = ("UPDATE proveedores SET agenteresponsable =?, provincia =?, direccion =?, ruc =?, razonSocial =?, "
-                + "telefono =?, correo=?, paginaweb=?, credito=?, banco=?, tipocuenta=?, nroCuenta=? WHERE id_proveedor =?");
+                + "telefono =?, email=?, paginaWeb=?, banco=?, tipocuenta=?, nroCuenta=?, credito=? WHERE id_proveedor =?");
         try {
             pst.setInt(1, proveedores.getId_Proveedor());
             pst.setString(2, proveedores.getAgenteResponsable());
             pst.setString(3, proveedores.getProvincia());
-            pst.setString(4, proveedores.getDireccionp());
-            pst.setString(5, proveedores.getDireccions());
-            pst.setString(6, proveedores.getIdentificacion());
-            pst.setString(7, proveedores.getRazonSocial());
-            pst.setString(8, proveedores.getTelefono());
-            pst.setString(9, proveedores.getCelular());
-            pst.setString(10, proveedores.getTelefonoO());
-            pst.setString(11, proveedores.getCorreo());
-            pst.setString(12, proveedores.getPaginaweb());
-            pst.setString(13, proveedores.getBanco());
-            pst.setString(14, proveedores.getTipocuenta());
-            pst.setString(15, proveedores.getNrocuenta());
-            pst.setBoolean(16, proveedores.getCredito());
+            pst.setString(4, proveedores.getDireccion());
+            pst.setString(5, proveedores.getIdentificacion());
+            pst.setString(6, proveedores.getRazonSocial());
+            pst.setString(7, proveedores.getTelefono());
+            pst.setString(8, proveedores.getCelular());
+            pst.setString(9, proveedores.getTelefonoO());
+            pst.setString(10, proveedores.getCorreo());
+            pst.setString(11, proveedores.getPaginaweb());
+            pst.setString(12, proveedores.getBanco());
+            pst.setString(13, proveedores.getTipocuenta());
+            pst.setString(14, proveedores.getNrocuenta());
+            pst.setBoolean(15, proveedores.getCredito());
             pst.executeUpdate();
             pst.close();
             return true;
@@ -151,22 +147,21 @@ public class ProveedorController<T> implements CRUD{
             rs = st.executeQuery("SELECT * FROM proveedores");
             while (rs.next()) {
                 Proveedor proveedor = new Proveedor();
-                proveedor.setId_Proveedor(rs.getInt("id_Proveedor"));
-                proveedor.setAgenteResponsable(rs.getString("Agenteresponsable"));
-                proveedor.setProvincia(rs.getString("Provincia"));
-                proveedor.setDireccionp(rs.getString("calleprincipal"));
-                proveedor.setDireccions(rs.getString("callesecundaria"));
+                proveedor.setId_Proveedor(rs.getInt("id_proveedor"));
+                proveedor.setAgenteResponsable(rs.getString("agenteResponsable"));
+                proveedor.setProvincia(rs.getString("provincia"));
+                proveedor.setDireccion(rs.getString("direccion"));
                 proveedor.setIdentificacion(rs.getString("RUC"));
-                proveedor.setRazonSocial(rs.getString("Razonsocial"));
-                proveedor.setTelefono(rs.getString("telefonofijo"));
+                proveedor.setRazonSocial(rs.getString("razonSocial"));
+                proveedor.setTelefono(rs.getString("Telefonofijo"));
                 proveedor.setCelular(rs.getString("celular"));
-                proveedor.setTelefonoO(rs.getString("telefonoopcional"));
-                proveedor.setCorreo(rs.getString("correo"));
-                proveedor.setPaginaweb(rs.getString("paginaweb"));
-                proveedor.setPaginaweb(rs.getString("credito"));
+                proveedor.setTelefonoO(rs.getString("telefonoOpcional"));
+                proveedor.setCorreo(rs.getString("email"));
+                proveedor.setPaginaweb(rs.getString("paginaWeb"));
                 proveedor.setBanco(rs.getString("banco"));
-                proveedor.setTipocuenta(rs.getString("tipocuenta"));
-                proveedor.setNrocuenta(rs.getString("nroCuenta"));
+                proveedor.setTipocuenta(rs.getString("tipoCuenta"));
+                proveedor.setNrocuenta(rs.getString("NroCuenta"));
+                proveedor.setPaginaweb(rs.getString("credito"));
                 listaproveedores.insertarCabecera(proveedor);
                 lista.insertarCabecera((T) proveedor);
             }
@@ -204,5 +199,4 @@ public class ProveedorController<T> implements CRUD{
 //            return false;
 //        }    
 //    }
-
 }

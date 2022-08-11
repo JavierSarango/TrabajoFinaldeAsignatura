@@ -11,11 +11,9 @@ package modelo;
  */
 public class Proveedor extends Persona {
 
-    private Integer id_Proveedor;
+    private int id_Proveedor;
     private String agenteResponsable;
     private String provincia;
-    private String direccionp;
-    private String direccions;
     private Boolean credito;
     private String paginaweb;
     private String telefonoO;
@@ -49,26 +47,8 @@ public class Proveedor extends Persona {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
-    }
-
-    public String getDireccionp() {
-        return direccionp;
-    }
-
-    public void setDireccionp(String direccionp) {
-        this.direccionp = direccionp;
-    }
-
-    public String getDireccions() {
-        return direccions;
-    }
-
-    public void setDireccions(String direccions) {
-        this.direccions = direccions;
-    }
+    }  
     
-    
-
     public Boolean getCredito() {
         return credito;
     }
@@ -125,11 +105,10 @@ public class Proveedor extends Persona {
         this.Nrocuenta = Nrocuenta;
     }
 
-    public Proveedor(Integer id_Proveedor, String agenteResponsable, String provincia, String direccion, Boolean credito, String paginaweb) {
+    public Proveedor(Integer id_Proveedor, String agenteResponsable, String provincia, Boolean credito, String paginaweb) {
         this.id_Proveedor = id_Proveedor;
         this.agenteResponsable = agenteResponsable;
         this.provincia = provincia;
-        this.direccionp = direccion;
         this.credito = credito;
         this.paginaweb = paginaweb;
     }

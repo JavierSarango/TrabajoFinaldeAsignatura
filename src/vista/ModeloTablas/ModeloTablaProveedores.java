@@ -43,13 +43,13 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             switch (i1) {
 
                 case 0:
-                    return p.getAgenteResponsable();
+                    return p.getId_Proveedor();
                 case 1:
-                    return p.getProvincia();
+                    return p.getAgenteResponsable();
                 case 2:
-                    return p.getDireccionp();
+                    return p.getProvincia();
                 case 3:
-                    return p.getDireccions();
+                    return p.getDireccion();
                 case 4:
                     return p.getIdentificacion();
                 case 5:
@@ -85,34 +85,36 @@ public class ModeloTablaProveedores extends AbstractTableModel {
     public String getColumnName(int i) {
         switch (i) {
             case 0:
-                return "AGENTE RESPONSABLE";
+                return "ID";
             case 1:
-                return "PROVINCIA";
+                return "AGENTE RESPONSABLE";
             case 2:
-                return "CALLE PRINCIPAL";
+                return "PROVINCIA";
             case 3:
-                return "CALLE SECUNDARIA";
+                return "CALLE PRINCIPAL";
             case 4:
-                return "RUC";
+                return "CALLE SECUNDARIA";
             case 5:
-                return "RAZON SOCIAL";
+                return "RUC";
             case 6:
-                return "TELEFONO FIJO";
+                return "RAZON SOCIAL";
             case 7:
-                return "CELULAR";
+                return "TELEFONO FIJO";
             case 8:
-                return "TELEFONO OPCIONAL";
+                return "CELULAR";
             case 9:
-                return "EMAIL";
+                return "TELEFONO OPCIONAL";
             case 10:
-                return "PAGINA WEB";
+                return "EMAIL";
             case 11:
-                return "BANCO";
+                return "PAGINA WEB";
             case 12:
-                return "TIPO CUENTA";
+                return "BANCO";
             case 13:
-                return "NRO CUENTA";
+                return "TIPO CUENTA";
             case 14:
+                return "NRO CUENTA";
+            case 15:
                 return "CREDITO";
 
             default:
