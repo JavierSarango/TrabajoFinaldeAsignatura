@@ -16,16 +16,9 @@ public class Cliente extends Persona implements Serializable{
 
     private Integer id_cliente;
     private String tipoCliente;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
 
     public Cliente() {
-    }
-
-    public Cliente(Integer id_cliente, String tipoCliente, Date fechaNacimiento) {
-        super();
-        this.id_cliente = id_cliente;
-        this.tipoCliente = tipoCliente;
-        this.fechaNacimiento = fechaNacimiento;
     }
 
     
@@ -46,14 +39,16 @@ public class Cliente extends Persona implements Serializable{
         this.tipoCliente = tipoCliente;
     }
 
-
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+
+
+  
 
     @Override
     public String toString() {
