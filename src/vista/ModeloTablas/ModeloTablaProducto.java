@@ -31,7 +31,7 @@ public class ModeloTablaProducto extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 8;
                 }
 
     @Override
@@ -45,11 +45,12 @@ public class ModeloTablaProducto extends AbstractTableModel{
         switch(arg1){
             case 0: return (arg0 + 1);
             case 1: return (p !=null) ? p.getCodigo() : "Dato Vacío";
-            case 2: return (p !=null) ? p.getNombre(): "Dato Vacío";
-            case 3: return (p !=null) ? p.getDescripcion(): "Dato Vacío";
-            case 4: return (p !=null) ? p.getPrecioCompra(): "Dato Vacío";
-            case 5: return (p !=null) ? p.getPrecioVenta(): "Dato Vacío";
-            case 6: return (p !=null) ? p.getProveedor(): "Dato Vacío";
+            case 2: return (p !=null) ? p.getUnidades(): "Dato Vacío";
+            case 3: return (p !=null) ? p.getNombre(): "Dato Vacío";
+            case 4: return (p !=null) ? p.getDescripcion(): "Dato Vacío";
+            case 5: return (p !=null) ? p.getPrecioCompra(): "Dato Vacío";
+            case 6: return (p !=null) ? p.getPrecioVenta(): "Dato Vacío";
+            case 7: return (p !=null) ? p.getProveedor(): "Dato Vacío";
             default:return null;
             
         }
@@ -60,11 +61,12 @@ public class ModeloTablaProducto extends AbstractTableModel{
         switch(column){
             case 0: return "nro";
             case 1: return "Codigo";
-            case 2: return "Nombre";
-            case 3: return "Descripcion";
-            case 4: return "Precio Compra";
-            case 5: return "Precio Venta";
-            case 6: return "Proveedor";
+            case 2: return "Unidades";
+            case 3: return "Nombre";
+            case 4: return "Descripcion";
+            case 5: return "Precio Compra";
+            case 6: return "Precio Venta";
+            case 7: return "Proveedor";
             default:return null;
             
         }
