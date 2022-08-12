@@ -103,7 +103,7 @@ public class FacturaDao<T> extends AdaptadorDao<Factura> {
      * @param dato
      */
     @Override
-    public void eliminar(Factura dato) {
+    public void eliminar(Factura dato) throws Exception{
         super.eliminar(dato);
     }
 

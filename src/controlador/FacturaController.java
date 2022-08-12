@@ -72,7 +72,7 @@ public class FacturaController<T> {
 
     private void consultaVenta(Integer id) throws Exception {
         VentaDao vent = new VentaDao();
-        ventas.insertarCabecera(vent.obtener(id));
+//        ventas.insertarCabecera(vent.id_Venta());
     }
 
     /**
