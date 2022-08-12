@@ -210,9 +210,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-
-            if (validacion.validaCorreo(txtemail.getText()) == true) {
-                JOptionPane.showMessageDialog(null, "Correo Valido", "Ok", JOptionPane.INFORMATION_MESSAGE);
                 proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
                 proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
                 proveedordao.getProveedores().setDireccion(txtdireccion.getText());
@@ -227,7 +224,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
                 proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
-                if (proveedordao.getProveedores().getId_Proveedor() == null) {
                     if (proveedordao.actualizar()) {
                         JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
                         limpiar();
@@ -235,9 +231,9 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
 
-                    }
+                    
                 }
-            }
+            
         }
     }
 
