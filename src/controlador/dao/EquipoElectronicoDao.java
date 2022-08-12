@@ -35,21 +35,21 @@ public class EquipoElectronicoDao extends AdaptadorDao<equipo> {
 
     }
 
-    public Boolean guardar_modificar() {
+     public Boolean guardar_modificar(){
         try {
-            if (getEquipoElectronico().getId_equipo()!= null) {
-                //
+            if (equipoElectronico.getId_equipo()!= null) {
                 modificaree(this.getEquipoElectronico());
-            } else {
+                
+                
+            }else{
                 guardar(this.getEquipoElectronico());
             }
             return true;
         } catch (Exception e) {
-            System.out.println("Error en guadar o modificar");
+            System.out.println("Error en guardar o modificar");
             return false;
         }
     }
-    
     public Boolean guardar() {
         try {         
                 guardar(this.getEquipoElectronico());
