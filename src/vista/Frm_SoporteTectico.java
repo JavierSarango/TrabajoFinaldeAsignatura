@@ -18,21 +18,21 @@ import vista.ModeloTablas.ModeloTablaEquipos;
  * @author jona
  */
 public class Frm_SoporteTectico extends javax.swing.JDialog {
-    
-     private EquipoElectronicoDao eec = new EquipoElectronicoDao();
-     private ModeloTablaEquipos mte = new ModeloTablaEquipos();
-     private Integer id_equipo;
-     private TipoEquipo tipoequipo;
 
-     /**
-      * Creates new form Frm_SoporteTectico
-      */
-     public Frm_SoporteTectico(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          limpiar();
-          cargaCombo();
-     }
+    private EquipoElectronicoDao eec = new EquipoElectronicoDao();
+    private ModeloTablaEquipos mte = new ModeloTablaEquipos();
+    private Integer id_equipo;
+    private TipoEquipo tipoequipo;
+
+    /**
+     * Creates new form Frm_SoporteTectico
+     */
+    public Frm_SoporteTectico(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        limpiar();
+        cargaCombo();
+    }
 
     public Integer getId_equipo() {
         return id_equipo;
@@ -41,62 +41,90 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
     public void setId_equipo(Integer id_equipo) {
         this.id_equipo = id_equipo;
     }
-    public void limpiar(){
-    eec.setEquipoElectronico(null);
-     cargarTabla();
-    
+
+    public void limpiar() {
+        eec.setEquipoElectronico(null);
+        cargarTabla();
+
     }
-     
-     private void cargarTabla() {
+
+    private void cargarTabla() {
         mte.setLista(eec.listar());
         tbl_tabla.setModel(mte);
         tbl_tabla.updateUI();
     }
-     
-     private void guardar(){
-     eec.getEquipoElectronico().setId_equipo(6);
-     eec.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
-     eec.getEquipoElectronico().setMarca(txtmarca.getText());
-     eec.getEquipoElectronico().setModelo(txtmodelo.getText());
-     tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
-     eec.getEquipoElectronico().setTipo_equipo(tipoequipo);
-     eec.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
-     eec.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
-     eec.getEquipoElectronico().setPrecio_servicio(Float.parseFloat(txtprecioServicio.getText()));
-     eec.getEquipoElectronico().setCargador(true);
-      if (eec.getEquipoElectronico().getId_equipo()== null) {
-                if (eec.guardar_modificar()) {
-                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+
+    private void guardar() {
+        eec.getEquipoElectronico().setId_equipo(5);
+        eec.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
+        eec.getEquipoElectronico().setMarca(txtmarca.getText());
+        eec.getEquipoElectronico().setModelo(txtmodelo.getText());
+        //tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
+        eec.getEquipoElectronico().setTipo_equipo(TipoEquipo.COMPUTADOR);
+        eec.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
+        eec.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
+        eec.getEquipoElectronico().setPrecio_servicio(Float.parseFloat(txtprecioServicio.getText()));
+        eec.getEquipoElectronico().setCargador(true);
+        if (eec.getEquipoElectronico().getId_equipo() == null) {
+            if (eec.guardar_modificar()) {
+                JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
 //                   limpiar();
 //                    cargarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        eec.setEquipoElectronico(null);
+        cargarTabla();
+    }
+
+    private void cargaCombo() {
+        this.cbxtipoEquipo.removeAllItems();
+        for (String aux : Utilidades.tiposE()) {
+            this.cbxtipoEquipo.addItem(aux);
+
+        }
+        cbxtipoEquipo.updateUI();
+
+    }
+
+    public void guargaaaaaaaar() {
+
+        if (txtRazonSocial.getText().trim().isEmpty() || txtdescripProblema.getText().trim().isEmpty() || txtestadoIngreso.getText().trim().isEmpty()
+                || txtestadoIngreso.getText().trim().isEmpty() || txtmarca.getText().trim().isEmpty() || txtmodelo.getText().trim().isEmpty() || txtprecioServicio.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            eec.getEquipoElectronico().setId_equipo(5);
+            eec.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
+            eec.getEquipoElectronico().setMarca(txtmarca.getText());
+            eec.getEquipoElectronico().setModelo(txtmodelo.getText());
+            //tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
+            eec.getEquipoElectronico().setTipo_equipo(TipoEquipo.COMPUTADOR);
+            eec.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
+            eec.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
+            eec.getEquipoElectronico().setPrecio_servicio(Float.parseFloat(txtprecioServicio.getText()));
+            eec.getEquipoElectronico().setCargador(true);
+            System.out.print("Llega 3");
+            if (eec.getEquipoElectronico().getId_equipo() == null) {
+                if (eec.guardar_modificar()) {
+                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+                    cargarTabla();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                }
-       
-     eec.setEquipoElectronico(null);
-     cargarTabla();
-     }
-     
-     private void cargaCombo(){
-         this.cbxtipoEquipo.removeAllItems();
-         for (String aux : Utilidades.tiposE()) {
-             this.cbxtipoEquipo.addItem(aux);
-             
-         }
-         cbxtipoEquipo.updateUI();
-        
-     }
-     
-     
-     
+            }
 
-     /**
-      * This method is called from within the constructor to initialize the
-      * form. WARNING: Do NOT modify this code. The content of this method is
-      * always regenerated by the Form Editor.
-      */
-     @SuppressWarnings("unchecked")
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -222,55 +250,55 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
      private void checkCargadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCargadorActionPerformed
-          // TODO add your handling code here:
+         // TODO add your handling code here:
      }//GEN-LAST:event_checkCargadorActionPerformed
 
     private void btnguarnarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguarnarActionPerformed
-        // TODO add your handling code here:
+
         guardar();
     }//GEN-LAST:event_btnguarnarActionPerformed
 
-     /**
-      * @param args the command line arguments
-      */
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Frm_SoporteTectico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    Frm_SoporteTectico dialog = new Frm_SoporteTectico(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Frm_SoporteTectico dialog = new Frm_SoporteTectico(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnguarnar;
