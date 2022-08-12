@@ -110,6 +110,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             if (validacion.validaCorreo(txtemail.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "Correo Valido", "Ok", JOptionPane.INFORMATION_MESSAGE);
                 proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
                 proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
                 proveedordao.getProveedores().setDireccion(txtcallep.getText());
@@ -125,13 +126,15 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
                 System.out.print("Llega 3");
-                
+                if (proveedordao.getProveedores().getId_Proveedor()== null) {
                 if (proveedordao.guardar()) {
+                    
                     JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
                     limpiar();
                     cargarTabla();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 }
 
             
@@ -144,6 +147,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 //                        JOptionPane.showMessageDialog(null, "No se pudo modificar", "Error", JOptionPane.ERROR_MESSAGE);
 //                    }
                 
+            }else{
+                JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         
     }
