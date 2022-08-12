@@ -6,7 +6,12 @@
 package vista;
 
 import controlador.EquipoElectronicoController;
+import controlador.dao.EquipoElectronicoDao;
 import controlador.tda.lista.ListaEnlazada;
+import controlador.utiles.Utilidades;
+import controlador.utiles.enums.TipoEquipo;
+import javax.swing.JOptionPane;
+import vista.ModeloTablas.ModeloTablaEquipos;
 
 /**
  *
@@ -14,7 +19,10 @@ import controlador.tda.lista.ListaEnlazada;
  */
 public class Frm_SoporteTectico extends javax.swing.JDialog {
     
-     private EquipoElectronicoController eec = new EquipoElectronicoController();
+     private EquipoElectronicoDao eec = new EquipoElectronicoDao();
+     private ModeloTablaEquipos mte = new ModeloTablaEquipos();
+     private Integer id_equipo;
+     private TipoEquipo tipoequipo;
 
      /**
       * Creates new form Frm_SoporteTectico
@@ -22,7 +30,66 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
      public Frm_SoporteTectico(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
+          limpiar();
+          cargaCombo();
      }
+
+    public Integer getId_equipo() {
+        return id_equipo;
+    }
+
+    public void setId_equipo(Integer id_equipo) {
+        this.id_equipo = id_equipo;
+    }
+    public void limpiar(){
+    eec.setEquipoElectronico(null);
+     cargarTabla();
+    
+    }
+     
+     private void cargarTabla() {
+        mte.setLista(eec.listar());
+        tbl_tabla.setModel(mte);
+        tbl_tabla.updateUI();
+    }
+     
+     private void guardar(){
+     eec.getEquipoElectronico().setId_equipo(6);
+     eec.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
+     eec.getEquipoElectronico().setMarca(txtmarca.getText());
+     eec.getEquipoElectronico().setModelo(txtmodelo.getText());
+     tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
+     eec.getEquipoElectronico().setTipo_equipo(tipoequipo);
+     eec.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
+     eec.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
+     eec.getEquipoElectronico().setPrecio_servicio(Float.parseFloat(txtprecioServicio.getText()));
+     eec.getEquipoElectronico().setCargador(true);
+      if (eec.getEquipoElectronico().getId_equipo()== null) {
+                if (eec.guardar_modificar()) {
+                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+//                   limpiar();
+//                    cargarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                }
+       
+     eec.setEquipoElectronico(null);
+     cargarTabla();
+     }
+     
+     private void cargaCombo(){
+         this.cbxtipoEquipo.removeAllItems();
+         for (String aux : Utilidades.tiposE()) {
+             this.cbxtipoEquipo.addItem(aux);
+             
+         }
+         cbxtipoEquipo.updateUI();
+        
+     }
+     
+     
+     
 
      /**
       * This method is called from within the constructor to initialize the
@@ -38,7 +105,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtmarca = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkCargador = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         txtRazonSocial = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -50,7 +117,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         txtmodelo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         cbxtipoEquipo = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnguarnar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_tabla = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
@@ -72,14 +139,14 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         jPanel2.add(txtmarca);
         txtmarca.setBounds(150, 90, 150, 25);
 
-        jCheckBox1.setText("Cargador:");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        checkCargador.setText("Cargador:");
+        checkCargador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                checkCargadorActionPerformed(evt);
             }
         });
-        jPanel2.add(jCheckBox1);
-        jCheckBox1.setBounds(150, 390, 97, 23);
+        jPanel2.add(checkCargador);
+        checkCargador.setBounds(150, 390, 97, 23);
 
         jLabel1.setText("Cliente:");
         jPanel2.add(jLabel1);
@@ -118,9 +185,14 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(20, 70, 310, 430);
 
-        jButton1.setText("Guardar");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(30, 520, 120, 25);
+        btnguarnar.setText("Guardar");
+        btnguarnar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguarnarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnguarnar);
+        btnguarnar.setBounds(30, 520, 120, 25);
 
         tbl_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,12 +218,17 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 40, 840, 10);
 
-        pack();
+        setBounds(0, 0, 862, 615);
     }// </editor-fold>//GEN-END:initComponents
 
-     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+     private void checkCargadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCargadorActionPerformed
           // TODO add your handling code here:
-     }//GEN-LAST:event_jCheckBox1ActionPerformed
+     }//GEN-LAST:event_checkCargadorActionPerformed
+
+    private void btnguarnarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguarnarActionPerformed
+        // TODO add your handling code here:
+        guardar();
+    }//GEN-LAST:event_btnguarnarActionPerformed
 
      /**
       * @param args the command line arguments
@@ -196,10 +273,10 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnguarnar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbxtipoEquipo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox checkCargador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
