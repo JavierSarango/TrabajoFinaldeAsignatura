@@ -6,7 +6,7 @@ package vista.ModeloTablas;
 
 import controlador.tda.lista.ListaEnlazada;
 import javax.swing.table.AbstractTableModel;
-import modelo.EquipoElectronico;
+import modelo.equipo;
 
 /**
  *
@@ -14,13 +14,13 @@ import modelo.EquipoElectronico;
  */
 public class ModeloTablaEquipos extends AbstractTableModel {
 
-    ListaEnlazada<EquipoElectronico> lista;
+    ListaEnlazada<equipo> lista;
 
-    public ListaEnlazada<EquipoElectronico> getLista() {
+    public ListaEnlazada<equipo> getLista() {
         return lista;
     }
 
-    public void setLista(ListaEnlazada<EquipoElectronico> lista) {
+    public void setLista(ListaEnlazada<equipo> lista) {
         this.lista = lista;
     }
 
@@ -37,24 +37,25 @@ public class ModeloTablaEquipos extends AbstractTableModel {
     @Override
     public Object getValueAt(int i, int i1) {
         try {
-            EquipoElectronico p = lista.obtenerDato(i);
+            equipo p = lista.obtenerDato(i);
             switch (i1) {
-
                 case 0:
-                    return p.getRazonSocial();
+                    return i +1;
                 case 1:
-                    return p.getModelo();
+                    return p.getRazon_social();
                 case 2:
-                    return p.getMarca();
+                    return p.getModelo();
                 case 3:
-                    return p.getCargador();
+                    return p.getMarca();
                 case 4:
-                    return p.getEstado_Ingreso();
+                    return p.getCargador();
                 case 5:
-                    return p.getDescripcion_Problema();
+                    return p.getEstado_ingreso();
                 case 6:
-                    return p.getTipo_Equipo();
+                    return p.getDescripcion_problema();
                 case 7:
+                    return p.getTipo_equipo();
+                case 8:
                     return p.getPrecio_servicio();
                 
                 default:
@@ -70,20 +71,22 @@ public class ModeloTablaEquipos extends AbstractTableModel {
     public String getColumnName(int i) {
         switch (i) {
             case 0:
-                return "RAZON SOCIAL";
+                return "ID";
             case 1:
-                return "MODELO";
+                return "RAZON SOCIAL";
             case 2:
-                return "MARCA";
+                return "MODELO";
             case 3:
-                return "CARGADOR";
+                return "MARCA";
             case 4:
-                return "ESTADO INGRESO";
+                return "CARGADOR";
             case 5:
-                return "DESCRIP PROBLEMA";
+                return "ESTADO INGRESO";
             case 6:
-                return "TIPO EQUIPO";
+                return "DESCRIP PROBLEMA";
             case 7:
+                return "TIPO EQUIPO";
+            case 8:
                 return "PRECIO SERVICIO";
 
             default:
