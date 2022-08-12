@@ -134,7 +134,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 }
 
             
-                } else {
+//                } else {
 //                    if (proveedordao.modificaree()) {
 //
 //                        JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
@@ -172,14 +172,15 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     //Metodo eliminar registro
     public void Eliminar() {
         fila = tbl_proveedores.getSelectedRow();
+
             if (fila == -1) {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
                 
             } else {
-                if (proveedordao.Delete()) {
+//                if (proveedordao.Delete()) {
                 JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
-            }
+            
             }
     }
 

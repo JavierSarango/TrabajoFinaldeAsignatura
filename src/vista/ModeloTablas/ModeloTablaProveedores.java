@@ -40,7 +40,7 @@ public class ModeloTablaProveedores extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 14;
+        return 15;
     }
 
     @Override
@@ -48,34 +48,35 @@ public class ModeloTablaProveedores extends AbstractTableModel {
         try {
             Proveedor p = lista.obtenerDato(i);
             switch (i1) {
-
                 case 0:
-                    return p.getAgenteResponsable();
+                    return (i+1);
                 case 1:
-                    return p.getProvincia();
+                    return p.getAgenteResponsable();
                 case 2:
-                    return p.getDireccion();
+                    return p.getProvincia();
                 case 3:
-                    return p.getIdentificacion();
+                    return p.getDireccion();
                 case 4:
-                    return p.getRazonSocial();
+                    return p.getIdentificacion();
                 case 5:
-                    return p.getTelefono();
+                    return p.getRazonSocial();
                 case 6:
-                    return p.getCelular();
+                    return p.getTelefono();
                 case 7:
-                    return p.getTelefonoO();
+                    return p.getCelular();
                 case 8:
-                    return p.getCorreo();
+                    return p.getTelefonoO();
                 case 9:
-                    return p.getPaginaweb();
+                    return p.getCorreo();
                 case 10:
-                    return p.getBanco();
+                    return p.getPaginaweb();
                 case 11:
-                    return p.getTipocuenta();
+                    return p.getBanco();
                 case 12:
-                    return p.getNrocuenta();
+                    return p.getTipocuenta();
                 case 13:
+                    return p.getNrocuenta();
+                case 14:
                     return p.getCredito();
 
                 default:
@@ -90,32 +91,34 @@ public class ModeloTablaProveedores extends AbstractTableModel {
     public String getColumnName(int i) {
         switch (i) {
             case 0:
-                return "AGENTE RESPONSABLE";
+                return "ID";
             case 1:
-                return "PROVINCIA";
+                return "AGENTE RESPONSABLE";
             case 2:
-                return "DIRECCION";
+                return "PROVINCIA";
             case 3:
-                return "RUC";
+                return "DIRECCION";
             case 4:
-                return "RAZON SOCIAL";
+                return "RUC";
             case 5:
-                return "TELEFONO FIJO";
+                return "RAZON SOCIAL";
             case 6:
-                return "CELULAR";
+                return "TELEFONO FIJO";
             case 7:
-                return "TELEFONO OPCIONAL";
+                return "CELULAR";
             case 8:
-                return "EMAIL";
+                return "TELEFONO OPCIONAL";
             case 9:
-                return "PAGINA WEB";
+                return "EMAIL";
             case 10:
-                return "BANCO";
+                return "PAGINA WEB";
             case 11:
-                return "TIPO CUENTA";
+                return "BANCO";
             case 12:
-                return "NRO CUENTA";
+                return "TIPO CUENTA";
             case 13:
+                return "NRO CUENTA";
+            case 14:
                 return "CREDITO";
 
             default:

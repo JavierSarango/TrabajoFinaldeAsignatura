@@ -19,8 +19,7 @@ import modelo.Proveedor;
 public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
     private Proveedor proveedor;
-    private ListaEnlazada<Proveedor> listaProoveedores;
-    Conexion c = new Conexion();
+    private ListaEnlazada<Proveedor> listaproveedores;
 
     public ProveedorDao() {
         super(Proveedor.class);
@@ -40,27 +39,29 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
     public Boolean guardar() {
         try {         
                 guardar(this.getProveedores());
+            
             return true;
         } catch (Exception e) {
             System.out.println("Error en guardar o modificar");
             return false;
         }
     }
+}
 
-   public boolean Delete() {
-        PreparedStatement ps = null;
-        Connection con = c.getConecction();
-        String sql = ("DELETE FROM proveedor WHERE id_proveedor = ?");
-        try {
-            ps = (PreparedStatement) con.prepareStatement(sql);
-            ps.setInt(1, proveedor.getId_Proveedor());
-            ps.executeUpdate();
-            con.close();
-            return true;
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ocurrido el siguiente erro: " + e.getMessage());
-            return false;
-        }
-    }
-    }
+//    public boolean Delete() {
+//        PreparedStatement ps = null;
+//        Connection con = c.getConecction();
+//        String sql = ("DELETE FROM proveedor WHERE id_proveedor = ?");
+//        try {
+//            ps = (PreparedStatement) con.prepareStatement(sql);
+//            ps.setInt(1, proveedor.getId_Proveedor());
+//            ps.executeUpdate();
+//            con.close();
+//            return true;
+//
+//        } catch (SQLException e) {
+//            JOptionPane.showMessageDialog(null, "Ocurrido el siguiente erro: " + e.getMessage());
+//            return false;
+//        }
+//    }
+//}
