@@ -19,7 +19,8 @@ public class Producto implements Serializable{
     //private Boolean estado;
     private String descripcion; 
     private Double precioCompra;
-    private Double precioVenta;  
+    private Double precioVenta;
+    private Integer unidades; 
     private Integer id_Proveedor;
     
     
@@ -38,6 +39,14 @@ public class Producto implements Serializable{
 
     public void setId_Proveedor(Integer id_Proveedor) {
         this.id_Proveedor = id_Proveedor;
+    }
+
+    public Integer getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Integer unidades) {
+        this.unidades = unidades;
     }
     
     
