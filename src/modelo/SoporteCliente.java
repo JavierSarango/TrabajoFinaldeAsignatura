@@ -10,14 +10,14 @@ package modelo;
  */
 public class SoporteCliente extends Persona{
     
-    private EquipoElectronico equipo;
+    private equipo equipo;
     private String tipoEquipo;
 
-    public EquipoElectronico getEquipo() {
+    public equipo getEquipo() {
         return equipo;
     }
 
-    public void setEquipo(EquipoElectronico equipo) {
+    public void setEquipo(equipo equipo) {
         this.equipo = equipo;
     }
 

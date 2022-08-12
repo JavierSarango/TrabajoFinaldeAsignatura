@@ -6,6 +6,7 @@
 package controlador.utiles;
 
 import controlador.utiles.enums.TipoCliente;
+import controlador.utiles.enums.TipoEquipo;
 import controlador.utiles.enums.TipoIdentificacion;
 import controlador.utiles.enums.TipoProvincia;
 import controlador.utiles.enums.TipoRol;
@@ -170,6 +171,15 @@ public class Utilidades {
         String[] aux = new String[TipoCliente.values().length];
         int cont = 0;
         for (TipoCliente tipobien : TipoCliente.values()) {
+            aux[cont] = tipobien.toString();
+            cont++;
+        }
+        return aux;
+    }
+     public static String[] tiposE() {
+        String[] aux = new String[TipoEquipo.values().length];
+        int cont = 0;
+        for (TipoEquipo tipobien : TipoEquipo.values()) {
             aux[cont] = tipobien.toString();
             cont++;
         }
