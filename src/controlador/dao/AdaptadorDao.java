@@ -135,7 +135,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
             PreparedStatement ps = conexion.prepareStatement("DELETE FROM proveedor WHERE id_Proveedor='" + dato + "'");
             int verificacion = ps.executeUpdate();
 //            ps.close();
-            if (verificacion > 0) {
+            if (verificacion >= 0) {
                 return true;
             } else {
                 return false;

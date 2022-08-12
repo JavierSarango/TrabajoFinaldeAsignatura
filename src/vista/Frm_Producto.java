@@ -20,7 +20,7 @@ public class Frm_Producto extends javax.swing.JDialog {
     private ModeloTablaProducto mtp = new ModeloTablaProducto();
     private ServicioProducto sp = new ServicioProducto();
     private ProductoDao productoDao = new ProductoDao();
-    private int fila = -1;
+//    private int fila = -1;
 
     /**
      * Creates new form Frm_Productos
@@ -100,7 +100,7 @@ public class Frm_Producto extends javax.swing.JDialog {
     }
 
     public void Eliminar() {
-        fila = tbl_producto.getSelectedRow();
+        int fila = tbl_producto.getSelectedRow();
         System.out.println("se selecciono la fila");
         try {
             if (fila == -1) {
@@ -164,13 +164,18 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         jLabel6.setText("Buscar según:");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(30, 20, 100, 18);
+        jLabel6.setBounds(30, 20, 100, 16);
         jPanel2.add(txt_busqueda);
-        txt_busqueda.setBounds(170, 50, 300, 24);
+        txt_busqueda.setBounds(170, 50, 300, 22);
 
         jButton2.setText("BUSCAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2);
-        jButton2.setBounds(500, 50, 110, 24);
+        jButton2.setBounds(500, 50, 110, 22);
 
         tbl_producto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,7 +195,7 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(cbx_datoBusqueda);
-        cbx_datoBusqueda.setBounds(20, 50, 130, 24);
+        cbx_datoBusqueda.setBounds(20, 50, 130, 22);
 
         bnt_eliminar.setText("ELIMINAR");
         bnt_eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +204,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(bnt_eliminar);
-        bnt_eliminar.setBounds(500, 20, 110, 24);
+        bnt_eliminar.setBounds(500, 20, 110, 22);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 150, 700, 310);
@@ -209,13 +214,13 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         jLabel7.setText("Código:");
         jPanel3.add(jLabel7);
-        jLabel7.setBounds(20, 20, 60, 18);
+        jLabel7.setBounds(20, 20, 60, 16);
 
         jLabel8.setText("Nombre:");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(110, 20, 60, 18);
+        jLabel8.setBounds(110, 20, 60, 16);
         jPanel3.add(txt_nombre);
-        txt_nombre.setBounds(100, 40, 160, 24);
+        txt_nombre.setBounds(100, 40, 160, 22);
 
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,7 +228,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(txt_codigo);
-        txt_codigo.setBounds(10, 40, 85, 24);
+        txt_codigo.setBounds(10, 40, 85, 22);
 
         jButton3.setText("AGREGAR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -232,33 +237,33 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(jButton3);
-        jButton3.setBounds(560, 90, 110, 24);
+        jButton3.setBounds(560, 90, 110, 22);
         jPanel3.add(txt_precioCompra);
-        txt_precioCompra.setBounds(270, 40, 130, 24);
+        txt_precioCompra.setBounds(270, 40, 130, 22);
 
         jLabel9.setText("Precio Compra:");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(280, 20, 110, 18);
+        jLabel9.setBounds(280, 20, 110, 16);
 
         jLabel10.setText("Descripción:");
         jPanel3.add(jLabel10);
-        jLabel10.setBounds(20, 70, 100, 18);
+        jLabel10.setBounds(20, 70, 100, 16);
         jPanel3.add(txt_descripcion);
-        txt_descripcion.setBounds(10, 90, 250, 24);
+        txt_descripcion.setBounds(10, 90, 250, 22);
         jPanel3.add(txt_precioVenta);
-        txt_precioVenta.setBounds(410, 40, 130, 24);
+        txt_precioVenta.setBounds(410, 40, 130, 22);
 
         jLabel11.setText("Precio Venta:");
         jPanel3.add(jLabel11);
-        jLabel11.setBounds(420, 20, 110, 18);
+        jLabel11.setBounds(420, 20, 110, 16);
 
         jLabel12.setText("Proveedor:");
         jPanel3.add(jLabel12);
-        jLabel12.setBounds(420, 70, 80, 18);
+        jLabel12.setBounds(420, 70, 80, 16);
 
         cbx_proveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(cbx_proveedor);
-        cbx_proveedor.setBounds(410, 90, 130, 24);
+        cbx_proveedor.setBounds(410, 90, 130, 22);
 
         check_automatico.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         check_automatico.setText("Precio Automático");
@@ -268,13 +273,13 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(check_automatico);
-        check_automatico.setBounds(550, 40, 140, 19);
+        check_automatico.setBounds(550, 40, 140, 20);
 
         jLabel14.setText("Unidades:");
         jPanel3.add(jLabel14);
-        jLabel14.setBounds(280, 70, 110, 18);
+        jLabel14.setBounds(280, 70, 110, 16);
         jPanel3.add(txt_unidades);
-        txt_unidades.setBounds(270, 90, 130, 24);
+        txt_unidades.setBounds(270, 90, 130, 22);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(20, 20, 700, 130);
@@ -308,6 +313,10 @@ public class Frm_Producto extends javax.swing.JDialog {
         // TODO add your handling code here:
         calcularPrecioAutomatico();
     }//GEN-LAST:event_check_automaticoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
