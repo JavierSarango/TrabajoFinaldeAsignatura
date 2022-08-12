@@ -11,9 +11,15 @@ package controlador.dao;
 //import java.io.FileOutputStream;
 //import java.io.ObjectInputStream;
 //import java.io.ObjectOutputStream;
+import controlador.Conexion;
+import static controlador.Conexion.conecction;
 import controlador.dao.AdaptadorDao;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.enums.TipoOrdenacion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import modelo.Producto;
 
 /**
@@ -24,8 +30,8 @@ import modelo.Producto;
 public class ProductoDao extends AdaptadorDao<Producto> {
 
     private Producto producto;
-    private ListaEnlazada lista;
-    private int contador = 0;
+    private ListaEnlazada<Producto> lista;
+    Conexion c = new Conexion();
     
 
     public Producto getProducto() {
@@ -34,6 +40,7 @@ public class ProductoDao extends AdaptadorDao<Producto> {
         }
         return producto;
     }
+    
 
     public void setProducto(Producto producto) {
         this.producto = producto;
@@ -60,6 +67,21 @@ public class ProductoDao extends AdaptadorDao<Producto> {
         }
     }
     
+    
+    public Boolean exterminar() {
+        System.out.println("entra a exterminar");
+         
+        try {
+            eliminar(this.getProducto());
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("Error en guardar o modificar");
+            return false;
+        }
+    }
+}
+    
 //    public static void main(String[] args){
 //        ProductoDao productoDao = new ProductoDao();
 //        ListaEnlazada<Producto> lista = productoDao.listar();
@@ -80,7 +102,6 @@ public class ProductoDao extends AdaptadorDao<Producto> {
 //        
 //    }
 
-}
 
 //      public ListaEnlazada getLista() {
 //        return lista;
