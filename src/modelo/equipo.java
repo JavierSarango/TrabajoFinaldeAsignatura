@@ -16,12 +16,13 @@ public class equipo {
      private Integer id_equipo;
      private String razon_social;
      private TipoEquipo tipo_equipo;
+//     private String tipo_equipo;
      private String marca;
      private String modelo;
      private Boolean cargador;
      private String estado_ingreso;
      private String descripcion_problema;
-     private Float precio_servicio;
+     private Double precio_servicio;
 
     public Integer getId_equipo() {
         return id_equipo;
@@ -87,12 +88,14 @@ public class equipo {
         this.descripcion_problema = descripcion_problema;
     }
 
-    public Float getPrecio_servicio() {
+    public Double getPrecio_servicio() {
         return precio_servicio;
     }
 
-    public void setPrecio_servicio(Float precio_servicio) {
+    public void setPrecio_servicio(Double precio_servicio) {
         this.precio_servicio = precio_servicio;
     }
+
+  
       
 }

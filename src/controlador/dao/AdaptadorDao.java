@@ -173,7 +173,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
                     }
 
                 }
-                lista.insertarCabecera(obj);
+                lista.insertar(obj,lista.getSize()-1);
             }
 
         } catch (Exception e) {

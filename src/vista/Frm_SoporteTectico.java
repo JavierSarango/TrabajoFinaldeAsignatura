@@ -19,7 +19,7 @@ import vista.ModeloTablas.ModeloTablaEquipos;
  */
 public class Frm_SoporteTectico extends javax.swing.JDialog {
 
-    private EquipoElectronicoDao eec = new EquipoElectronicoDao();
+    private EquipoElectronicoDao ee = new EquipoElectronicoDao();
     private ModeloTablaEquipos mte = new ModeloTablaEquipos();
     private Integer id_equipo;
     private TipoEquipo tipoequipo;
@@ -43,30 +43,33 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
     }
 
     public void limpiar() {
-        eec.setEquipoElectronico(null);
+        ee.setEquipoElectronico(null);
         cargarTabla();
 
     }
 
     private void cargarTabla() {
-        mte.setLista(eec.listar());
+        mte.setLista(ee.listar());
         tbl_tabla.setModel(mte);
         tbl_tabla.updateUI();
     }
 
     private void guardar() {
-        eec.getEquipoElectronico().setId_equipo(5);
-        eec.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
-        eec.getEquipoElectronico().setMarca(txtmarca.getText());
-        eec.getEquipoElectronico().setModelo(txtmodelo.getText());
-        //tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
-        eec.getEquipoElectronico().setTipo_equipo(TipoEquipo.COMPUTADOR);
-        eec.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
-        eec.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
-        eec.getEquipoElectronico().setPrecio_servicio(Float.parseFloat(txtprecioServicio.getText()));
-        eec.getEquipoElectronico().setCargador(true);
-        if (eec.getEquipoElectronico().getId_equipo() == null) {
-            if (eec.guardar_modificar()) {
+        
+        try {
+             
+//        ee.getEquipoElectronico().setId_equipo(5);
+        ee.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
+        ee.getEquipoElectronico().setMarca(txtmarca.getText());
+        ee.getEquipoElectronico().setModelo(txtmodelo.getText());
+        tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
+        ee.getEquipoElectronico().setTipo_equipo(tipoequipo);
+        ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
+        ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
+        ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
+        ee.getEquipoElectronico().setCargador(true);
+        if (ee.getEquipoElectronico().getId_equipo() == null) {
+            if (ee.guardar()) {
                 JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
 //                   limpiar();
 //                    cargarTabla();
@@ -75,8 +78,13 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
             }
         }
 
-        eec.setEquipoElectronico(null);
+        ee.setEquipoElectronico(null);
         cargarTabla();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       
     }
 
     private void cargaCombo() {
@@ -89,35 +97,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
 
     }
 
-    public void guargaaaaaaaar() {
-
-        if (txtRazonSocial.getText().trim().isEmpty() || txtdescripProblema.getText().trim().isEmpty() || txtestadoIngreso.getText().trim().isEmpty()
-                || txtestadoIngreso.getText().trim().isEmpty() || txtmarca.getText().trim().isEmpty() || txtmodelo.getText().trim().isEmpty() || txtprecioServicio.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            eec.getEquipoElectronico().setId_equipo(5);
-            eec.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
-            eec.getEquipoElectronico().setMarca(txtmarca.getText());
-            eec.getEquipoElectronico().setModelo(txtmodelo.getText());
-            //tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
-            eec.getEquipoElectronico().setTipo_equipo(TipoEquipo.COMPUTADOR);
-            eec.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
-            eec.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
-            eec.getEquipoElectronico().setPrecio_servicio(Float.parseFloat(txtprecioServicio.getText()));
-            eec.getEquipoElectronico().setCargador(true);
-            System.out.print("Llega 3");
-            if (eec.getEquipoElectronico().getId_equipo() == null) {
-                if (eec.guardar_modificar()) {
-                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                    limpiar();
-                    cargarTabla();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
