@@ -8,7 +8,9 @@ import controlador.Conexion;
 import controlador.tda.lista.ListaEnlazada;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import modelo.Proveedor;
 
@@ -20,6 +22,9 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
     private Proveedor proveedor;
     private ListaEnlazada<Proveedor> listaproveedores;
+    private static Connection Conection;
+    private static Statement Consulta;
+    private static ResultSet Resultado;
 
     public ProveedorDao() {
         super(Proveedor.class);
@@ -37,34 +42,34 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
     }
 
     public Boolean guardar() {
-        try {         
-                guardar(this.getProveedores());
-            
+        try {
+            guardar(this.getProveedores());
+
             return true;
         } catch (Exception e) {
             System.out.println("Error en guardar o modificar");
             return false;
         }
-    }
-    
-    public boolean modificar() {
-        try {         
-                modificaree(this.getProveedores());
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error en guardar o modificar");
-            return false;
-        }
-         
     }
 
- public ListaEnlazada<Proveedor> ordenar() {
+    public boolean modificar() {
+        try {
+            modificaree(this.getProveedores());
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error en guardar o modificar");
+            return false;
+        }
+
+    }
+
+    public ListaEnlazada<Proveedor> ordenar() {
         try {
             ListaEnlazada<Proveedor> lista = listar();
             int intercambio = 0;
             for (int i = 0; i < lista.tamanio() - 1; i++) {
                 int k = i;
-               Proveedor t = lista.obtenerDato(i);//datos[i];            
+                Proveedor t = lista.obtenerDato(i);//datos[i];            
                 for (int j = i + 1; j < lista.tamanio(); j++) {
                     if (lista.obtenerDato(j).getAgente_responsable().toLowerCase().compareTo(t.getAgente_responsable().toLowerCase()) < 0) {
                         t = lista.obtenerDato(j);
@@ -82,15 +87,13 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             return new ListaEnlazada<>();
         }
     }
-    
-    
 
     public ListaEnlazada<Proveedor> buscar(String dato, int tipo) {
         ListaEnlazada<Proveedor> listado = new ListaEnlazada<>();
         try {
             ListaEnlazada<Proveedor> lista = listar();
             for (int i = 0; i < lista.tamanio(); i++) {
-                
+
                 Proveedor aux = lista.obtenerDato(i);
                 switch (tipo) {
                     case 0:
@@ -114,10 +117,10 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             }
         } catch (Exception e) {
         }
-        
+
         return listado;
     }
-    
+
     public boolean actualizar() {
         PreparedStatement pst = null;
         Connection con = c.getConecction();
@@ -149,5 +152,18 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         }
     }
 
+    public byte[] GetImagenProducto(Integer  id_Proveedor) {
+        byte[] img = null;
+        try {
+            Consulta = Conection.createStatement();
+            Resultado = Consulta.executeQuery("SELECT imagen FROM proveedor WHERE  producto_id =" + id_Proveedor);
+            while (Resultado.next()) {
+                img = Resultado.getBytes("imagen");
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+        return img;
+    }
 
 }

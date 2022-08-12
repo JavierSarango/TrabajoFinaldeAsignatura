@@ -49,7 +49,7 @@ public class ModeloTablaProveedores extends AbstractTableModel {
             Proveedor p = lista.obtenerDato(i);
             switch (i1) {
                 case 0:
-                    return (i+1);
+                    return (p.getId_Proveedor());
                 case 1:
                     return p.getAgente_responsable();
                 case 2:

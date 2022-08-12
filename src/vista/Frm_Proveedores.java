@@ -16,6 +16,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import vista.ModeloTablas.ModeloTablaProveedores;
 import Validacion.Validacion;
 import controlador.dao.ProveedorDao;
+import controlador.tda.lista.ListaEnlazada;
+import controlador.utiles.enums.TipoOrdenacion;
 import java.awt.Graphics;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -23,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import modelo.Proveedor;
 
@@ -191,13 +194,17 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         try {
             if (fila >= 0) {
                 proveedordao.eliminar(fila);
-                JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-                cargarTabla();
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+                    cargarTabla();
+                } else if (opcion == JOptionPane.NO_OPTION) {
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
+            
         }
     }
 
@@ -210,32 +217,33 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-                proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
-                proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-                proveedordao.getProveedores().setDireccion(txtdireccion.getText());
-                proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
-                proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
-                proveedordao.getProveedores().setTelefono(txttfijo.getText());
-                proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
-                proveedordao.getProveedores().setCelular(txtcelular.getText());
-                proveedordao.getProveedores().setCorreo(txtemail.getText());
-                proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
-                proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
-                proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
-                proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
-                proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
-                    if (proveedordao.actualizar()) {
-                        JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-                        limpiar();
-                        cargarTabla();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
+            proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
+            proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
+            proveedordao.getProveedores().setDireccion(txtdireccion.getText());
+            proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
+            proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
+            proveedordao.getProveedores().setTelefono(txttfijo.getText());
+            proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
+            proveedordao.getProveedores().setCelular(txtcelular.getText());
+            proveedordao.getProveedores().setCorreo(txtemail.getText());
+            proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
+            proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
+            proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
+            proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
+            proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
+            if (proveedordao.actualizar()) {
+                JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
+                limpiar();
+                cargarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
 
-                    
-                }
-            
+            }
+
         }
     }
+  
+    
 
     /**
      *
