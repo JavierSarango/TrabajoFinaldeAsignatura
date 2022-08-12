@@ -34,7 +34,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private Validacion validacion = new Validacion();
     fondoLabel logotipo = new fondoLabel();
     fondoPieLabel pie = new fondoPieLabel();
-    Object Persona;
 
     //Variables
     private int pos = -1;
@@ -173,7 +172,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     //Metodo eliminar registro
     public void Eliminar() {
         fila = tbl_proveedores.getSelectedRow();
-        try {
             if (fila == -1) {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
                 
@@ -183,9 +181,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 cargarTabla();
             }
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     /**
