@@ -136,17 +136,16 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
             
                 } else {
-//                    if (proveedordao.Actualizar()) {
+//                    if (proveedordao.modificaree()) {
 //
 //                        JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
 //                        limpiar();
 //                    } else {
 //                        JOptionPane.showMessageDialog(null, "No se pudo modificar", "Error", JOptionPane.ERROR_MESSAGE);
 //                    }
-//                
-//            }
-//        }
-        }
+                
+            }
+        
     }
     }
     //Metodo CargarFoto
@@ -175,12 +174,14 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     public void Eliminar() {
         fila = tbl_proveedores.getSelectedRow();
         try {
-            if (fila >= 0) {
-//                proveedordao.eliminar(fila);
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+                
+            } else {
+                if (proveedordao.Delete()) {
                 JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
-            } else {
-                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
