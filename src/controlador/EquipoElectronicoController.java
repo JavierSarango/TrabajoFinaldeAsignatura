@@ -6,7 +6,7 @@ package controlador;
 
 import controlador.dao.EquipoElectronicoDao;
 import controlador.tda.lista.ListaEnlazada;
-import modelo.EquipoElectronico;
+import modelo.equipo;
 
 /**
  *
@@ -14,7 +14,7 @@ import modelo.EquipoElectronico;
  */
 public class EquipoElectronicoController {
     private EquipoElectronicoDao equipoElectronico = new EquipoElectronicoDao();
-    private ListaEnlazada<EquipoElectronico> listaequipos = new ListaEnlazada();
+    private ListaEnlazada<equipo> listaequipos = new ListaEnlazada();
 
     public EquipoElectronicoDao getEquipoElectronico() {
         return equipoElectronico;
@@ -25,11 +25,11 @@ public class EquipoElectronicoController {
     }
     
 
-    public ListaEnlazada<EquipoElectronico> getListaequipos() {
+    public ListaEnlazada<equipo> getListaequipos() {
         return listaequipos;
     }
 
-    public void setListaequipos(ListaEnlazada<EquipoElectronico> listaequipos) {
+    public void setListaequipos(ListaEnlazada<equipo> listaequipos) {
         this.listaequipos = listaequipos;
     }
     
