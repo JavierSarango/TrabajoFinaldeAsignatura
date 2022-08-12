@@ -10,6 +10,6 @@ package controlador.utiles.enums;
  */
 public enum TipoEquipo {
     
-    IMPRESORA,COMPUTADOR;
+   IMPRESORA,COMPUTADOR;
     
 }

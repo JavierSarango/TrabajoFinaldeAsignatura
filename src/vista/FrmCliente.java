@@ -10,7 +10,7 @@ import controlador.dao.ClienteDao;
 import controlador.utiles.Utilidades;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import vista.ModeloTablas.ModeloTablaCliente;
+//import vista.ModeloTablas.ModeloTablaCliente;
 
 /**
  *
@@ -19,7 +19,7 @@ import vista.ModeloTablas.ModeloTablaCliente;
 public class FrmCliente extends javax.swing.JFrame {
 
     private ClienteDao cc = new ClienteDao();
-    private ModeloTablaCliente mtc = new ModeloTablaCliente();
+//    private ModeloTablaCliente mtc = new ModeloTablaCliente();
     private Validacion validacion = new Validacion();
     private Integer id = -1;
 
@@ -48,9 +48,9 @@ public class FrmCliente extends javax.swing.JFrame {
     }
 
     private void cargarTabla() {
-        mtc.setLista(cc.listar());
-        tabla.setModel(mtc);
-        mtc.fireTableStructureChanged();
+//        mtc.setLista(cc.listar());
+//        tabla.setModel(mtc);
+//        mtc.fireTableStructureChanged();
         tabla.updateUI();
 
     }
