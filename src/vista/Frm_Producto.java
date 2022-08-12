@@ -54,8 +54,8 @@ public class Frm_Producto extends javax.swing.JDialog {
     
     private void guardar(){
         sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
-        sp.getProducto().setNombre(txt_codigo.getText());
-        sp.getProducto().setDescripcion( txt_codigo.getText());
+        sp.getProducto().setNombre(txt_nombre.getText());
+        sp.getProducto().setDescripcion( txt_descripcion.getText());
         sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
         sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));  
 //        sp.getProducto().setUpdatedAt(updateAt);
