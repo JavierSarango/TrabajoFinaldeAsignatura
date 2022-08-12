@@ -110,21 +110,22 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             if (validacion.validaCorreo(txtemail.getText()) == true) {
-                proveedordao.getProveedores().setAgenteResponsable(txtAresponsable.getText());
+                proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
                 proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
                 proveedordao.getProveedores().setDireccion(txtcallep.getText());
                 proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
                 proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
                 proveedordao.getProveedores().setTelefono(txttfijo.getText());
-                proveedordao.getProveedores().setTelefonoO(txtTelefonoop.getText());
+                proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
                 proveedordao.getProveedores().setCelular(txtcelular.getText());
                 proveedordao.getProveedores().setCorreo(txtemail.getText());
-                proveedordao.getProveedores().setPaginaweb(txtpaginaweb.getText());
+                proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
                 proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
                 proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
-                proveedordao.getProveedores().setNrocuenta(txtCuenta.getText());
+                proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
                 System.out.print("Llega 3");
+                
                 if (proveedordao.guardar()) {
                     JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
                     limpiar();

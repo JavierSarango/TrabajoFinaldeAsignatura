@@ -11,16 +11,16 @@ package modelo;
  */
 public class Proveedor extends Persona {
 
-    private int id_Proveedor;
-    private String agenteResponsable;
+    private Integer id_Proveedor;
+    private String agente_responsable;
     private String provincia;
     private String credito;
-    private String paginaweb;
-    private String telefonoO;
+    private String pagina_web;
+    private String telefono_opcional;
     private String celular;
     private String banco;
     private String tipocuenta;
-    private String Nrocuenta;
+    private String nro_cuenta;
 
     public Proveedor() {
     }
@@ -33,12 +33,12 @@ public class Proveedor extends Persona {
         this.id_Proveedor = id_Proveedor;
     }
 
-    public String getAgenteResponsable() {
-        return agenteResponsable;
+    public String getAgente_responsable() {
+        return agente_responsable;
     }
 
-    public void setAgenteResponsable(String agenteResponsable) {
-        this.agenteResponsable = agenteResponsable;
+    public void setAgente_responsable(String agente_responsable) {
+        this.agente_responsable = agente_responsable;
     }
 
     public String getProvincia() {
@@ -47,8 +47,8 @@ public class Proveedor extends Persona {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
-    }  
-    
+    }
+
     public String getCredito() {
         return credito;
     }
@@ -57,12 +57,20 @@ public class Proveedor extends Persona {
         this.credito = credito;
     }
 
-    public String getTelefonoO() {
-        return telefonoO;
+    public String getPagina_web() {
+        return pagina_web;
     }
 
-    public void setTelefonoO(String telefonoO) {
-        this.telefonoO = telefonoO;
+    public void setPagina_web(String pagina_web) {
+        this.pagina_web = pagina_web;
+    }
+
+    public String getTelefono_opcional() {
+        return telefono_opcional;
+    }
+
+    public void setTelefono_opcional(String telefono_opcional) {
+        this.telefono_opcional = telefono_opcional;
     }
 
     public String getCelular() {
@@ -73,20 +81,12 @@ public class Proveedor extends Persona {
         this.celular = celular;
     }
 
-    public String getPaginaweb() {
-        return paginaweb;
-    }
-
-    public void setPaginaweb(String paginaweb) {
-        this.paginaweb = paginaweb;
-    }
-
     public String getBanco() {
         return banco;
     }
 
-    public void setBanco(String banco) {
-        this.banco = banco;
+    public void setBanco(String Banco) {
+        this.banco = Banco;
     }
 
     public String getTipocuenta() {
@@ -97,20 +97,15 @@ public class Proveedor extends Persona {
         this.tipocuenta = tipocuenta;
     }
 
-    public String getNrocuenta() {
-        return Nrocuenta;
+    public String getNro_cuenta() {
+        return nro_cuenta;
     }
 
-    public void setNrocuenta(String Nrocuenta) {
-        this.Nrocuenta = Nrocuenta;
+    public void setNro_cuenta(String nro_cuenta) {
+        this.nro_cuenta = nro_cuenta;
     }
 
-    public Proveedor(Integer id_Proveedor, String agenteResponsable, String provincia, String credito, String paginaweb) {
-        this.id_Proveedor = id_Proveedor;
-        this.agenteResponsable = agenteResponsable;
-        this.provincia = provincia;
-        this.credito = credito;
-        this.paginaweb = paginaweb;
-    }
+    
 
+    
 }

@@ -51,7 +51,7 @@ public class ModeloTablaProveedores extends AbstractTableModel {
                 case 0:
                     return (i+1);
                 case 1:
-                    return p.getAgenteResponsable();
+                    return p.getAgente_responsable();
                 case 2:
                     return p.getProvincia();
                 case 3:
@@ -65,17 +65,17 @@ public class ModeloTablaProveedores extends AbstractTableModel {
                 case 7:
                     return p.getCelular();
                 case 8:
-                    return p.getTelefonoO();
+                    return p.getTelefono_opcional();
                 case 9:
                     return p.getCorreo();
                 case 10:
-                    return p.getPaginaweb();
+                    return p.getPagina_web();
                 case 11:
                     return p.getBanco();
                 case 12:
                     return p.getTipocuenta();
                 case 13:
-                    return p.getNrocuenta();
+                    return p.getNro_cuenta();
                 case 14:
                     return p.getCredito();
 
