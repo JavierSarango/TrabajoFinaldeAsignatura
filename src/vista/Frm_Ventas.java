@@ -6,7 +6,6 @@ package vista;
 
 import java.sql.Connection;
 import controlador.Conexion;
-import controlador.dao.ClienteContro;
 import controlador.dao.ProductoDao;
 import controlador.dao.VentaDao;
 import java.awt.Color;
@@ -15,7 +14,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,10 +50,15 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jTable_productos.getTableHeader().setBackground(new Color(153,153,255));
         jTable_productos.getTableHeader().setForeground(new Color(0,0,0));
         jTable_productos.setRowHeight(25);
+        cargarCampos();
 //        CargarProductos();
 //        CargarComboClientes();
     }
-
+    private void cargarCampos(){
+    Calendar calendar = new GregorianCalendar();
+    jLabelFecha.setText(""+ calendar.get(Calendar.YEAR)+" / "+calendar.get(Calendar.MONTH+1)+" / "+calendar.get(Calendar.DAY_OF_MONTH));
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,12 +98,12 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jButton_busca_producto = new javax.swing.JButton();
         jSpinner_Cantidad = new javax.swing.JSpinner();
         jLabel12 = new javax.swing.JLabel();
-        txtCodProducto1 = new javax.swing.JTextField();
+        txtPrecioProducto = new javax.swing.JTextField();
         jButton_busca_cliente2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        txtResultadoCliente1 = new javax.swing.JTextField();
+        txtResultadoProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        txtResultadoCliente2 = new javax.swing.JTextField();
+        txtStock = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabelSerie = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -283,8 +288,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel12.setText("Cantidad:");
         jPanel1.add(jLabel12);
         jLabel12.setBounds(20, 330, 80, 30);
-        jPanel1.add(txtCodProducto1);
-        txtCodProducto1.setBounds(130, 280, 120, 30);
+        jPanel1.add(txtPrecioProducto);
+        txtPrecioProducto.setBounds(130, 280, 120, 30);
 
         jButton_busca_cliente2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_busca_cliente2.setText("Agregar");
@@ -301,16 +306,16 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel13.setText("Descripción:");
         jPanel1.add(jLabel13);
         jLabel13.setBounds(370, 230, 80, 30);
-        jPanel1.add(txtResultadoCliente1);
-        txtResultadoCliente1.setBounds(470, 230, 220, 30);
+        jPanel1.add(txtResultadoProducto);
+        txtResultadoProducto.setBounds(470, 230, 220, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel14.setText("Stock:");
         jPanel1.add(jLabel14);
         jLabel14.setBounds(370, 280, 70, 30);
-        jPanel1.add(txtResultadoCliente2);
-        txtResultadoCliente2.setBounds(470, 280, 220, 30);
+        jPanel1.add(txtStock);
+        txtStock.setBounds(470, 280, 220, 30);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -337,13 +342,13 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
         jLabel15.setText("VENTA DE ARTICULOS TECNOLÓGICOS");
         jPanel4.add(jLabel15);
-        jLabel15.setBounds(370, 60, 230, 30);
+        jLabel15.setBounds(370, 40, 230, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PUNTO DE VENTA OMICRON");
         jPanel4.add(jLabel1);
-        jLabel1.setBounds(350, 30, 270, 22);
+        jLabel1.setBounds(350, 10, 270, 22);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(40, 10, 640, 120);
@@ -607,10 +612,10 @@ public class Frm_Ventas extends javax.swing.JDialog {
     public static javax.swing.JTable jTable_productos;
     private javax.swing.JLabel jlabelPie;
     private javax.swing.JTextField txtCodProducto;
-    private javax.swing.JTextField txtCodProducto1;
+    private javax.swing.JTextField txtPrecioProducto;
     private javax.swing.JTextField txtResultadoCliente;
-    private javax.swing.JTextField txtResultadoCliente1;
-    private javax.swing.JTextField txtResultadoCliente2;
+    private javax.swing.JTextField txtResultadoProducto;
+    private javax.swing.JTextField txtStock;
     private javax.swing.JTextField txt_cambio;
     private javax.swing.JTextField txt_cliente_buscar;
     private javax.swing.JTextField txt_descuento;

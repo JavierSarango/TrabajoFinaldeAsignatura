@@ -5,7 +5,6 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -15,7 +14,7 @@ public class Venta implements Serializable{
     private Integer id_Venta;
     private Integer id_Cliente;   
     private String nroVentas;
-    private Date fechaVenta;     
+    private String fechaVenta;     
     private Double monto;
 
 
@@ -28,7 +27,7 @@ public class Venta implements Serializable{
       
     }
 
-    public Venta(Integer id_Venta, String nroVentas, Date fechaVenta, Integer id_Cliente, Double monto) {
+    public Venta(Integer id_Venta, String nroVentas, String fechaVenta, Integer id_Cliente, Double monto) {
         this.id_Venta = id_Venta;
         this.nroVentas = nroVentas;
         this.fechaVenta = fechaVenta;
@@ -64,11 +63,11 @@ public class Venta implements Serializable{
     }
 
 
-    public Date getFechaVenta() {
+    public String getFechaVenta() {
         return fechaVenta;
     }
 
-    public void setFechaVenta(Date fechaVenta) {
+    public void setFechaVenta(String fechaVenta) {
         this.fechaVenta = fechaVenta;
     }
 
