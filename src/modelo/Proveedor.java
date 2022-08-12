@@ -105,6 +105,20 @@ public class Proveedor extends Persona {
         this.nro_cuenta = nro_cuenta;
     }
 
+
+    public Proveedor(Integer id_Proveedor, String agente_responsable, String provincia, String credito, String pagina_web, String telefono_opcional, String celular, String banco, String tipocuenta, String nro_cuenta) {
+        this.id_Proveedor = id_Proveedor;
+        this.agente_responsable = agente_responsable;
+        this.provincia = provincia;
+        this.credito = credito;
+        this.pagina_web = pagina_web;
+        this.telefono_opcional = telefono_opcional;
+        this.celular = celular;
+        this.banco = banco;
+        this.tipocuenta = tipocuenta;
+        this.nro_cuenta = nro_cuenta;
+    }
+
     
 
     

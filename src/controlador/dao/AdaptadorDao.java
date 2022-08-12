@@ -35,6 +35,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     private String ALL = "select * from ";
     private String ALL_ID = "select * from ";
     private String carpeta = "datos" + File.separatorChar;
+    Conexion c;
 
     public AdaptadorDao(Class clazz) {
         this.clazz = clazz;
@@ -128,11 +129,23 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         return false;
     }
 
-    @Override
-    public void eliminar(T dato) {
-
+    public boolean eliminar(Integer dato) {
+        Connection conexion = c.getConecction();
+        try {
+            PreparedStatement ps = conexion.prepareStatement("DELETE FROM proveedor WHERE id_Proveedor='" + dato + "'");
+            int verificacion = ps.executeUpdate();
+            ps.close();
+            if (verificacion > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
-
+    
     @Override
     public ListaEnlazada<T> listar() {
         ListaEnlazada<T> lista = new ListaEnlazada<>();
@@ -237,6 +250,10 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
 
         return aux;
 
+    }
+
+    public void eliminar(T dato) throws Exception {
+        
     }
 
 }

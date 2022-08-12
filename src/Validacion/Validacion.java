@@ -212,6 +212,64 @@ public class Validacion {
         }
         return valid;
     }
+    
+     public boolean validarRUC(String identificationNumber) {
+        /**
+         * nos devuelve si un ruc es correcto
+         */
+        boolean valido = false;
+
+        // si no tiene 13 dígitos es inválida
+        if (identificationNumber.length() != 13) {
+            return valido;
+        }
+        String province = identificationNumber.substring(0, 2);
+
+        // si sus dos primeros dígitos son inválidos
+        if (Integer.parseInt(province) > TOTAL_PROVINCES) {
+            return valido;
+        }
+        int totalEven = 0; // pares
+        int totalOdd = 0; // impares
+
+        // la última posición no cuenta solo es verificador
+        int totalValidNumbers = identificationNumber.length() - 1;
+        int verifier = Integer.parseInt(identificationNumber.charAt(9) + "");
+
+        for (int i = 0; i < totalValidNumbers; i++) {
+            int digit = Integer.parseInt(identificationNumber.charAt(i) + "");
+            if (i % 2 == 0) {// si son impares
+                int product = digit * MULT;
+                if (product > 9) {
+                    product = product - 9;
+                }
+                totalEven += product;
+            } else { // si son pares
+                totalOdd += digit;
+            }
+        }
+
+        int total = totalOdd + totalEven;
+
+        String totalString = String.valueOf(total + 13);
+
+        // se verifica la decena superior
+        if (totalString.length() > 1) {
+            int first = Integer.parseInt(totalString.charAt(0) + "");
+            total = Integer.parseInt(first + "0") - total;
+            if (total == 13) {
+                total = 0;
+            }
+        }
+        int result = total;
+
+        // si el número verificador es igual al resultado del algoritmo
+        // entonces es una cédula válida
+        if (result == verifier) {
+            valido = true;
+        }
+        return valido;
+    }
 
     public void HabiDesJPanel(JPanel jPanel, boolean estad) {
         for (Component a : jPanel.getComponents()) {
