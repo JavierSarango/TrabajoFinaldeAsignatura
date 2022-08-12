@@ -1,3 +1,7 @@
+# Vista previa
+
+![inicio](.images/inicio.png)
+
 # Sistema de facturación para la empresa Ómicron.
 La poca eficiencia en el proceso de facturación y las múltiples falencias asociadas en
 la empresa “Ómicron”, generan una oportunidad y una necesidad de implementar un
