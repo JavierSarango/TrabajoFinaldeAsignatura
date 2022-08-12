@@ -94,9 +94,5 @@ public class equipo {
     public void setPrecio_servicio(Float precio_servicio) {
         this.precio_servicio = precio_servicio;
     }
-     
-     
-     
-
       
 }
