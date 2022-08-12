@@ -14,7 +14,7 @@ public class Proveedor extends Persona {
     private int id_Proveedor;
     private String agenteResponsable;
     private String provincia;
-    private Boolean credito;
+    private String credito;
     private String paginaweb;
     private String telefonoO;
     private String celular;
@@ -49,11 +49,11 @@ public class Proveedor extends Persona {
         this.provincia = provincia;
     }  
     
-    public Boolean getCredito() {
+    public String getCredito() {
         return credito;
     }
 
-    public void setCredito(Boolean credito) {
+    public void setCredito(String credito) {
         this.credito = credito;
     }
 
@@ -105,7 +105,7 @@ public class Proveedor extends Persona {
         this.Nrocuenta = Nrocuenta;
     }
 
-    public Proveedor(Integer id_Proveedor, String agenteResponsable, String provincia, Boolean credito, String paginaweb) {
+    public Proveedor(Integer id_Proveedor, String agenteResponsable, String provincia, String credito, String paginaweb) {
         this.id_Proveedor = id_Proveedor;
         this.agenteResponsable = agenteResponsable;
         this.provincia = provincia;

@@ -4,7 +4,12 @@
  */
 package controlador.dao;
 
+import controlador.Conexion;
 import controlador.tda.lista.ListaEnlazada;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import modelo.Proveedor;
 
 /**
@@ -14,10 +19,8 @@ import modelo.Proveedor;
 public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
     private Proveedor proveedor;
-//    private ListaEnlazada<Venta> listaVentas;
-//    private ConexionBD cbd = new ConexionBD();
-//    Statement st;
-//    Resultset rs;
+    private ListaEnlazada<Proveedor> listaProoveedores;
+    Conexion c = new Conexion();
 
     public ProveedorDao() {
         super(Proveedor.class);
@@ -44,5 +47,20 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         }
     }
 
-   
+   public boolean Delete() {
+        PreparedStatement ps = null;
+        Connection con = c.getConecction();
+        String sql = ("DELETE FROM proveedor WHERE id_proveedor = ?");
+        try {
+            ps = (PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, proveedor.getId_Proveedor());
+            ps.executeUpdate();
+            con.close();
+            return true;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ocurrido el siguiente erro: " + e.getMessage());
+            return false;
+        }
+    }
     }
