@@ -191,6 +191,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtRazonSocial">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtRazonSocialMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRazonSocialActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -265,6 +269,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtIdentificacion">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtIdentificacionMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCelular">
         </Component>

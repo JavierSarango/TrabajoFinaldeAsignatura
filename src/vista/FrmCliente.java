@@ -5,11 +5,12 @@
  */
 package vista;
 
-import controlador.dao.ClienteContro;
-import controlador.dao.UsuarioContr;
+import Validacion.Validacion;
+import controlador.dao.ClienteDao;
 import controlador.utiles.Utilidades;
+import java.awt.Color;
 import javax.swing.JOptionPane;
-import vista.ModeloTablas.ModeloTablaUsuario;
+import vista.ModeloTablas.ModeloTablaCliente;
 
 /**
  *
@@ -17,13 +18,16 @@ import vista.ModeloTablas.ModeloTablaUsuario;
  */
 public class FrmCliente extends javax.swing.JFrame {
 
-    private ClienteContro cc = new ClienteContro();
+    private ClienteDao cc = new ClienteDao();
+    private ModeloTablaCliente mtc = new ModeloTablaCliente();
+    private Validacion validacion = new Validacion();
     private Integer id = -1;
 
     public FrmCliente() {
         initComponents();
         setLocationRelativeTo(null);
         combo();
+        limpiar();
 
     }
 
@@ -43,26 +47,59 @@ public class FrmCliente extends javax.swing.JFrame {
         cbxTipoCliente.updateUI();
     }
 
+    private void cargarTabla() {
+        mtc.setLista(cc.listar());
+        tabla.setModel(mtc);
+        mtc.fireTableStructureChanged();
+        tabla.updateUI();
+
+    }
+
     private void guardar() {
 
-        //cc.getCliente().setId_cliente(id);
-        cc.getCliente().setRazonSocial(txtRazonSocial.getText());
-      //  cc.getCliente().setFechaNacimiento(txtFechaNa.getText());
-        cc.getCliente().setCorreo(txtCorreo.getText());
-        cc.getCliente().setCelular(txtCelular.getText());
-        cc.getCliente().setTelefono(txtTelefono.getText());
-        cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
-        cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
-        cc.getCliente().setIdentificacion(txtIdentificacion.getText());
-        cc.getCliente().setDireccion(txtDireccion.getText());
-
-        if (cc.Guardar()) {
-            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-//                limpiarCaja();
+        if (txtRazonSocial.getText().trim().isEmpty() || txtCelular.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty()
+                || txtFechaNa.getText().trim().isEmpty() || txtIdentificacion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios", "ERROR0", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+            if (validacion.validaCorreo(txtCorreo.getText()) == true) {
+                cc.getCliente().setRazonSocial(txtRazonSocial.getText());
+                cc.getCliente().setFechaNacimiento(txtFechaNa.getText());
+                cc.getCliente().setCorreo(txtCorreo.getText());
+                cc.getCliente().setCelular(txtCelular.getText());
+                cc.getCliente().setTelefono(txtTelefono.getText());
+                cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
+                cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                cc.getCliente().setIdentificacion(txtIdentificacion.getText());
+                cc.getCliente().setDireccion(txtDireccion.getText());
+                if (cc.guardar()) {
+                    limpiar();
+                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
-//            cargarTableCaja();
+
+    }
+
+    private void limpiar() {
+
+        txtCelular.setText("Ingrese su numero celular");
+        txtCelular.setForeground(Color.gray);
+        txtCorreo.setText("Ingrese su correo electronico");
+        txtCorreo.setForeground(Color.gray);
+        txtDireccion.setText("Ingrese su direccion");
+        txtDireccion.setForeground(Color.gray);
+        txtFechaNa.setText("Ingrese fecha ");
+        txtFechaNa.setForeground(Color.gray);
+        txtIdentificacion.setText("Ingrese indetificacion RUC/CEDULA");
+        txtIdentificacion.setForeground(Color.gray);
+        txtRazonSocial.setText("Ingrese su nombre persona/Empresa");
+        txtRazonSocial.setForeground(Color.gray);
+        txtTelefono.setText("Ingrese telefono ");
+        txtTelefono.setForeground(Color.gray);
+        cc.setCliente(null);
+        cargarTabla();
 
     }
 
@@ -109,6 +146,17 @@ public class FrmCliente extends javax.swing.JFrame {
 
         jLabel3.setText("Razon Social");
 
+        txtRazonSocial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtRazonSocialMouseClicked(evt);
+            }
+        });
+        txtRazonSocial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRazonSocialActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Tipo de Identificacion");
 
         cbxTipoIdentificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
@@ -145,6 +193,12 @@ public class FrmCliente extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        txtIdentificacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIdentificacionMouseClicked(evt);
             }
         });
 
@@ -379,6 +433,20 @@ public class FrmCliente extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtRazonSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRazonSocialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialActionPerformed
+
+    private void txtRazonSocialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRazonSocialMouseClicked
+        txtRazonSocial.setText("");
+        txtRazonSocial.setForeground(Color.BLACK); // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialMouseClicked
+
+    private void txtIdentificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdentificacionMouseClicked
+        txtIdentificacion.setText("");
+        txtIdentificacion.setForeground(Color.BLACK);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificacionMouseClicked
     /**
      * @param args the command line arguments
      */

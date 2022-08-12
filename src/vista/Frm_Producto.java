@@ -9,6 +9,7 @@ import controlador.utiles.Utilidades;
 import javax.swing.JOptionPane;
 import modelo.Producto;
 import vista.ModeloTablas.ModeloTablaProducto;
+import controlador.dao.ProductoDao;
 
 /**
  *
@@ -18,6 +19,8 @@ public class Frm_Producto extends javax.swing.JDialog {
     
     private ModeloTablaProducto mtp = new ModeloTablaProducto();
     private ServicioProducto sp = new ServicioProducto();
+    private ProductoDao productoDao = new ProductoDao();
+    private int fila = -1;
 
     /**
      * Creates new form Frm_Productos
@@ -68,6 +71,24 @@ public class Frm_Producto extends javax.swing.JDialog {
         sp.setProducto(null);
         cargarTabla();
     }
+    
+    public void Eliminar() {
+        fila = tbl_producto.getSelectedRow();
+        System.out.println("se selecciono la fila");
+        try {
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+                
+            } else {
+                if (productoDao.exterminar()) {
+                JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+                cargarTabla();
+            }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +111,7 @@ public class Frm_Producto extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_producto = new javax.swing.JTable();
         cbx_datoBusqueda = new javax.swing.JComboBox<>();
+        bnt_eliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -133,7 +155,7 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         jButton2.setText("BUSCAR");
         jPanel2.add(jButton2);
-        jButton2.setBounds(490, 50, 110, 22);
+        jButton2.setBounds(500, 50, 110, 22);
 
         tbl_producto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,6 +176,15 @@ public class Frm_Producto extends javax.swing.JDialog {
         cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(cbx_datoBusqueda);
         cbx_datoBusqueda.setBounds(20, 50, 130, 22);
+
+        bnt_eliminar.setText("ELIMINAR");
+        bnt_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnt_eliminarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bnt_eliminar);
+        bnt_eliminar.setBounds(500, 20, 110, 22);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 150, 700, 310);
@@ -242,6 +273,11 @@ public class Frm_Producto extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoActionPerformed
 
+    private void bnt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_eliminarActionPerformed
+        // TODO add your handling code here:
+        Eliminar();
+    }//GEN-LAST:event_bnt_eliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,6 +322,7 @@ public class Frm_Producto extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bnt_eliminar;
     private javax.swing.JComboBox<String> cbx_datoBusqueda;
     private javax.swing.JComboBox<String> cbx_proveedor;
     private javax.swing.JButton jButton2;
