@@ -24,7 +24,7 @@ public class ProductoController {
 
         ListaEnlazada<Producto> lp = pd.listar();
         for (int i = 0; i < lp.tamanio(); i++) {
-            if (ubicacion == lp.consultarDatoPosicion(i).getId()) {
+            if (ubicacion == lp.consultarDatoPosicion(i).getIdProducto()) {
 //                pd.modificar(aux, ubicacion);
             }
 
@@ -44,7 +44,7 @@ public class ProductoController {
 
         for (int i = 0; i < lp.tamanio(); i++) {
 
-            if (ubicacion == lp.consultarDatoPosicion(i).getId()) {
+            if (ubicacion == lp.consultarDatoPosicion(i).getIdProducto()) {
                 aux = lp.consultarDatoPosicion(ubicacion);
                 System.out.println(aux.getNombre());
             }
