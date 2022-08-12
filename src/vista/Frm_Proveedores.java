@@ -17,10 +17,14 @@ import vista.ModeloTablas.ModeloTablaProveedores;
 import Validacion.Validacion;
 import controlador.dao.ProveedorDao;
 import java.awt.Graphics;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import modelo.Proveedor;
 
 /**
  *
@@ -57,10 +61,12 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         cargarTabla();
         Iconos();
         limpiar();
-
     }
 
-    //Iconos
+    /**
+     *
+     * Metodo Cargar iconos
+     */
     private void Iconos() {
         BtnGuardar.setIcon(guardar);
         BtnEliminar.setIcon(eliminar);
@@ -71,19 +77,25 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         icono.setIcon(lbl);
     }
 
-    //Metodo Cargar Tabla
+    /**
+     *
+     * Metodo Cargar tabla
+     */
     private void cargarTabla() {
         modelotablaproveedor.setLista(proveedordao.listar());
         tbl_proveedores.setModel(modelotablaproveedor);
         tbl_proveedores.updateUI();
     }
 
-    //Metodo Limpiar
+    /**
+     *
+     * Metodo limpiar datos
+     */
     private void limpiar() {
         txtAresponsable.setText("Ingrese agente responsable");
         txtAresponsable.setForeground(Color.gray);
-        txtcallep.setText("Ingrese direccion");
-        txtcallep.setForeground(Color.gray);
+        txtdireccion.setText("Ingrese direccion");
+        txtdireccion.setForeground(Color.gray);
         txtRuc.setText("Ingrese RUC");
         txtRuc.setForeground(Color.gray);
         txtRazonS.setText("Ingrese razón social");
@@ -103,17 +115,21 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         proveedordao.setProveedores(null);
     }
 
-    //Metodo Guardar
+    /**
+     *
+     * Metodo guardar
+     */
     private void guardar() {
-        if (txtAresponsable.getText().trim().isEmpty() || txtcallep.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty()
+        if (txtAresponsable.getText().trim().isEmpty() || txtdireccion.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty()
                 || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+
             if (validacion.validaCorreo(txtemail.getText()) == true) {
                 JOptionPane.showMessageDialog(null, "Correo Valido", "Ok", JOptionPane.INFORMATION_MESSAGE);
                 proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
                 proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-                proveedordao.getProveedores().setDireccion(txtcallep.getText());
+                proveedordao.getProveedores().setDireccion(txtdireccion.getText());
                 proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
                 proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
                 proveedordao.getProveedores().setTelefono(txttfijo.getText());
@@ -126,35 +142,26 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
                 System.out.print("Llega 3");
-                if (proveedordao.getProveedores().getId_Proveedor()== null) {
-                if (proveedordao.guardar()) {
-                    
-                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                    limpiar();
-                    cargarTabla();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                if (proveedordao.getProveedores().getId_Proveedor() == null) {
+                    if (proveedordao.guardar()) {
+                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        limpiar();
+                        cargarTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                }
-
-            
-//                } else {
-//                    if (proveedordao.modificaree()) {
-//
-//                        JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-//                        limpiar();
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "No se pudo modificar", "Error", JOptionPane.ERROR_MESSAGE);
-//                    }
-                
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        
-    }
-    }
-    //Metodo CargarFoto
 
+        }
+    }
+
+    /**
+     *
+     * Metodo Cargar Imagen
+     */
     private void CargarFoto() {
         int resultado;
         CargarFoto ventana = new CargarFoto();
@@ -175,21 +182,74 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         }
     }
 
-    //Metodo eliminar registro
-    public void Eliminar() {
+    /**
+     *
+     * Metodo eliminar registro
+     */
+    private void Eliminar() {
         fila = tbl_proveedores.getSelectedRow();
-
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-                
-            } else {
-//                if (proveedordao.Delete()) {
+        try {
+            if (fila >= 0) {
+                proveedordao.eliminar(fila);
                 JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
-            
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
+    /**
+     *
+     * Metodo para modificar datos
+     */
+    private void modificar() {
+        if (txtAresponsable.getText().trim().isEmpty() || txtdireccion.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty() || txtemail.getText().trim().isEmpty()
+                || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+                proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
+                proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
+                proveedordao.getProveedores().setDireccion(txtdireccion.getText());
+                proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
+                proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
+                proveedordao.getProveedores().setTelefono(txttfijo.getText());
+                proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
+                proveedordao.getProveedores().setCelular(txtcelular.getText());
+                proveedordao.getProveedores().setCorreo(txtemail.getText());
+                proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
+                proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
+                proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
+                proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
+                proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
+                    if (proveedordao.actualizar()) {
+                        JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
+                        limpiar();
+                        cargarTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
+
+                    
+                }
+            
+        }
+    }
+
+    /**
+     *
+     * Metodo Registro existente
+     */
+//    private int RegistroExistente(JTextField dato) {
+//        int valor = 0;
+//        if (proveedordao.buscar(dato.getText(), 1) == null) {
+//            valor = 1;
+//        } else {
+//            JOptionPane.showMessageDialog(null, "El proveedor se encuentra registrado", "REGISTRO EXISTENTE", JOptionPane.ERROR_MESSAGE);
+//        }
+//        return valor;
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -208,7 +268,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         cbxProvincia = new javax.swing.JComboBox<>();
         BtnGuardar = new javax.swing.JButton();
         BtnNuevo = new javax.swing.JButton();
-        txtcallep = new javax.swing.JTextField();
+        txtdireccion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtRuc = new javax.swing.JTextField();
@@ -270,6 +330,9 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtAresponsableMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtAresponsableMousePressed(evt);
+            }
         });
         txtAresponsable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,18 +379,21 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         jPanel5.add(BtnNuevo);
         BtnNuevo.setBounds(219, 297, 150, 53);
 
-        txtcallep.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtdireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtcallepMouseClicked(evt);
+                txtdireccionMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtdireccionMousePressed(evt);
             }
         });
-        txtcallep.addActionListener(new java.awt.event.ActionListener() {
+        txtdireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcallepActionPerformed(evt);
+                txtdireccionActionPerformed(evt);
             }
         });
-        jPanel5.add(txtcallep);
-        txtcallep.setBounds(270, 150, 188, 26);
+        jPanel5.add(txtdireccion);
+        txtdireccion.setBounds(270, 150, 188, 26);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Direcccion:");
@@ -342,6 +408,9 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         txtRuc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtRucMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtRucMousePressed(evt);
             }
         });
         txtRuc.addActionListener(new java.awt.event.ActionListener() {
@@ -637,6 +706,9 @@ public class Frm_Proveedores extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtRazonSMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtRazonSMousePressed(evt);
+            }
         });
         txtRazonS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -791,10 +863,10 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_BtnNuevoActionPerformed
 
-    private void txtcallepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcallepActionPerformed
+    private void txtdireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdireccionActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_txtcallepActionPerformed
+    }//GEN-LAST:event_txtdireccionActionPerformed
 
     private void txtRucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRucActionPerformed
         // TODO add your handling code here:
@@ -806,6 +878,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         // TODO add your handling code here:
+        modificar();
     }//GEN-LAST:event_BtnModificarActionPerformed
 
     private void lblFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFotoMouseClicked
@@ -836,20 +909,16 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         txtTelefonoop.setForeground(Color.black);
     }//GEN-LAST:event_txtTelefonoopMouseClicked
 
-    private void txtcallepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtcallepMouseClicked
-        txtcallep.setText("");
-        txtcallep.setForeground(Color.black);
-    }//GEN-LAST:event_txtcallepMouseClicked
+    private void txtdireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdireccionMouseClicked
+
+    }//GEN-LAST:event_txtdireccionMouseClicked
 
     private void txtRucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRucMouseClicked
-        txtRuc.setText("");
-        txtRuc.setForeground(Color.black);
+
     }//GEN-LAST:event_txtRucMouseClicked
 
     private void txtRazonSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRazonSMouseClicked
         // TODO add your handling code here:
-        txtRazonS.setText("");
-        txtRazonS.setForeground(Color.black);
     }//GEN-LAST:event_txtRazonSMouseClicked
 
     private void txtRazonSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRazonSActionPerformed
@@ -932,6 +1001,28 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         txtCuenta.setText("");
         txtCuenta.setForeground(Color.black);
     }//GEN-LAST:event_txtCuentaMouseClicked
+
+    private void txtAresponsableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAresponsableMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAresponsableMousePressed
+
+    private void txtdireccionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdireccionMousePressed
+        // TODO add your handling code here:
+        txtdireccion.setText("");
+        txtdireccion.setForeground(Color.black);
+    }//GEN-LAST:event_txtdireccionMousePressed
+
+    private void txtRucMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRucMousePressed
+        // TODO add your handling code here:
+        txtRuc.setText("");
+        txtRuc.setForeground(Color.black);
+    }//GEN-LAST:event_txtRucMousePressed
+
+    private void txtRazonSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRazonSMousePressed
+        // TODO add your handling code here:
+        txtRazonS.setText("");
+        txtRazonS.setForeground(Color.black);
+    }//GEN-LAST:event_txtRazonSMousePressed
 
     /**
      * @param args the command line arguments
@@ -1055,8 +1146,8 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private javax.swing.JTextField txtRuc;
     private javax.swing.JTextField txtTelefonoop;
     private javax.swing.JTextField txtbuscar;
-    private javax.swing.JTextField txtcallep;
     private javax.swing.JTextField txtcelular;
+    private javax.swing.JTextField txtdireccion;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtpaginaweb;
     private javax.swing.JTextField txttfijo;

@@ -14,11 +14,13 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+/**
+ *
+ * @author Nathaly
+ */
 
 public class Frm_Login extends javax.swing.JFrame {
 
-  
-    
     private ImageIcon fondo;
     private Icon icono;
     int xMouse, yMouse;
@@ -28,9 +30,6 @@ public class Frm_Login extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
- 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,12 +144,12 @@ public class Frm_Login extends javax.swing.JFrame {
         bg.add(title);
         title.setBounds(460, 130, 230, 32);
 
-        userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel.setFont(new java.awt.Font("Century Schoolbook", 1, 14)); // NOI18N
         userLabel.setText("USUARIO");
         bg.add(userLabel);
-        userLabel.setBounds(430, 190, 90, 19);
+        userLabel.setBounds(430, 190, 90, 17);
 
-        userTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        userTxt.setFont(new java.awt.Font("Century Schoolbook", 0, 12)); // NOI18N
         userTxt.setForeground(new java.awt.Color(204, 204, 204));
         userTxt.setText("Ingrese su nombre de usuario");
         userTxt.setBorder(null);
@@ -166,11 +165,12 @@ public class Frm_Login extends javax.swing.JFrame {
         bg.add(jSeparator1);
         jSeparator1.setBounds(430, 250, 310, 10);
 
-        passLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        passLabel.setFont(new java.awt.Font("Century Schoolbook", 1, 14)); // NOI18N
         passLabel.setText("CONTRASEÑA");
         bg.add(passLabel);
-        passLabel.setBounds(430, 280, 120, 19);
+        passLabel.setBounds(430, 280, 120, 17);
 
+        passTxt.setFont(new java.awt.Font("Century Schoolbook", 0, 12)); // NOI18N
         passTxt.setForeground(new java.awt.Color(204, 204, 204));
         passTxt.setText("********");
         passTxt.setBorder(null);
