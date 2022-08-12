@@ -152,18 +152,4 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         }
     }
 
-    public byte[] GetImagenProducto(Integer  id_Proveedor) {
-        byte[] img = null;
-        try {
-            Consulta = Conection.createStatement();
-            Resultado = Consulta.executeQuery("SELECT imagen FROM proveedor WHERE  producto_id =" + id_Proveedor);
-            while (Resultado.next()) {
-                img = Resultado.getBytes("imagen");
-            }
-        } catch (SQLException e) {
-            return null;
-        }
-        return img;
-    }
-
 }
