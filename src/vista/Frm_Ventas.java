@@ -976,7 +976,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
     private void btnVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerClientesActionPerformed
         // TODO add your handling code here:
-      
+       ventanaCliente = new Frm_Cliente();
+        ventanaProducto.setVisible(true);
     }//GEN-LAST:event_btnVerClientesActionPerformed
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
