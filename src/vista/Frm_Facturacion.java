@@ -5,7 +5,10 @@
  */
 package vista;
 
+import Validacion.Validacion;
+import controlador.FacturaController;
 import controlador.tda.lista.ListaEnlazada;
+import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Venta;
 import vista.ModeloTablas.ModeloTablaVentas;
@@ -15,8 +18,10 @@ import vista.ModeloTablas.ModeloTablaVentas;
  * @author John
  */
 public class Frm_Facturacion extends javax.swing.JDialog {
-    
+
+    private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
+    private Validacion validar = new Validacion();
 
     /**
      * Creates new form Frm_Facturacion
@@ -33,7 +38,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jBProforma.setEnabled(false);
         cargarTableVentas(null);
     }
-    
+
     public void limpiar() {
         jTCedula.setText(" ");
         jTNombre.setText(" ");
@@ -41,7 +46,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jTEmail.setText(" ");
         jTtelefono.setText(" ");
     }
-    
+
     public void DatosCliente() {
         String cedula = jTCedula.getText();
         Cliente cliente = new Cliente();
@@ -51,17 +56,37 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jTtelefono.setText(cliente.getTelefono());
         cargarTableVentas(cliente.getId_cliente());
     }
-    
+
     public void cargarTableVentas(Integer id_cliente) {
         ListaEnlazada<Venta> listaVentas = new ListaEnlazada<Venta>();
         MTVentas.setLista(listaVentas);
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
-    
-    public void guardar(){
-        
+
+    public void guardar() {
+        if (jTNombre.getText().trim().isEmpty() || jTCedula.getText().trim().isEmpty() || jTDireccionCliente.getText().trim().isEmpty()
+                || jTEmail.getText().trim().isEmpty() || jTtelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (validar.validarCedula(jTCedula.getText())) {
+//                    if (proveedordao.getProveedores().getId_Proveedor() == null) {
+//                        if (proveedordao.guardar()) {
+//                            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+//                            limpiar();
+//                            cargarTableVentas(fc.getVenta().get);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+//                        }
+//                    }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,6 +224,12 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jLabel3.setText("Identificador:");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(30, 80, 140, 30);
+
+        jTCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTCedulaKeyTyped(evt);
+            }
+        });
         jPanel2.add(jTCedula);
         jTCedula.setBounds(120, 80, 280, 30);
 
@@ -261,6 +292,10 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     private void jTableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVentasMouseClicked
         //        editarCarrito();
     }//GEN-LAST:event_jTableVentasMouseClicked
+
+    private void jTCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCedulaKeyTyped
+        validar.validaSeaNumero(evt, jTCedula, 10);
+    }//GEN-LAST:event_jTCedulaKeyTyped
 
     /**
      * @param args the command line arguments
