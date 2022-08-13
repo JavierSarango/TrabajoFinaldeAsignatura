@@ -67,7 +67,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         super.setTitle("Ventas");
-        
+
         personalizacionTabla();
         poputTable();
         obtenerFecha();
@@ -126,7 +126,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
     private Integer actualizarStock(Integer cantidad, Integer idproduct) {
         Integer res = 0;
-        String sql = "Update producto set stock = ? where id_Producto = ?";
+        String sql = "Update producto set unidades = ? where id_Producto = ?";
         try {
             con = Conexion.getConecction();
             ps = con.prepareStatement(sql);
@@ -138,7 +138,6 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
         return res;
     }
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -622,7 +621,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
             if (producto.getCodigo() != 0) {
                 txtResultadoProducto.setText(producto.getNombre());
                 txtPrecioProducto.setText("" + producto.getPrecioVenta());
-                txtStock.setText("20");
+                txtStock.setText("" + producto.getUnidades());
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay registro del producto");
@@ -718,7 +717,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
                 p.setDescripcion(rs.getString(4));
                 p.setPrecioCompra(rs.getDouble(5));
                 p.setPrecioVenta(rs.getDouble(6));
-                p.setId_Proveedor(rs.getInt(7));
+                p.setUnidades(rs.getInt(7));
+                p.setId_Proveedor(rs.getInt(8));
 
             }
         } catch (Exception e) {
@@ -814,27 +814,27 @@ public class Frm_Ventas extends javax.swing.JDialog {
         }
 
     }
-     public void poputTable() {
+
+    public void poputTable() {
         JPopupMenu popuMenu = new JPopupMenu();
         JMenuItem menuItem1 = new JMenuItem("Eliminar Producto", new ImageIcon(getClass().getResource("/RecursosMultimedia/icon_cancel.png")));
-        
+
         menuItem1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 fila = jTable_productos.getSelectedRow();
-                modelo.removeRow(fila);                
+                modelo.removeRow(fila);
                 modelo.fireTableDataChanged();
                 jTable_productos.setModel(modelo);
                 calcularSubtotal();
                 calcularTotal();
-                
-                
+
             }
         });
-        
+
         popuMenu.add(menuItem1);
-        
+
         jTable_productos.setComponentPopupMenu(popuMenu);
     }
     private void jButton_busca_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_busca_productoActionPerformed
@@ -904,8 +904,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
             idp = Integer.parseInt(jTable_productos.getValueAt(i, 1).toString());
             cantidad = Integer.parseInt(jTable_productos.getValueAt(i, 3).toString());
             pr = listarIDProducto(idp);
-//        Integer stockActual = pr.getCantidad()-cantidad;
-//        actualizarStock(stockActual, idp);
+            Integer stockActual = pr.getUnidades() - cantidad;
+            actualizarStock(stockActual, idp);
         }
 
     }
