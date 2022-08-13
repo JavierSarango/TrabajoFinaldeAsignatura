@@ -4,13 +4,13 @@
  */
 package controlador.dao;
 
-import Validacion.Validacion;
 import controlador.Conexion;
 import controlador.tda.lista.ListaEnlazada;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import modelo.Cliente;
 import modelo.DetalleVenta;
 import modelo.Venta;
 
@@ -105,5 +105,26 @@ public class VentaDao  {
         return respuesta;
     }  
     
-    
+    public ListaEnlazada listar(){
+    ListaEnlazada<Venta> lista = new ListaEnlazada<>();
+    String sql ="SELECT * FROM VENTA";
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                Venta venta = new Venta();
+                venta.setId_Venta(rs.getInt(1));
+                venta.setId_Cliente(rs.getInt(2));
+                venta.setNrodeSerieVenta(rs.getString(3));
+                venta.setFechaVenta(rs.getString(4));
+                venta.setMonto(rs.getDouble(5));
+                lista.insertar(venta);
+                
+            }
+            
+        } catch (Exception e) {
+        }
+        return lista;
+    }
 }
