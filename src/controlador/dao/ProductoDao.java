@@ -85,7 +85,7 @@ public class ProductoDao extends AdaptadorDao<Producto> {
             pst.setString(3, producto.getDescripcion());
             pst.setDouble(4, producto.getPrecioCompra());
             pst.setDouble(5, producto.getPrecioVenta());
-            pst.setInt(6, producto.getId_Proveedor());
+            pst.setString(6, producto.getProveedor());
             pst.setInt(7, producto.getUnidades());
             pst.setInt(8, producto.getIdProducto());
           
@@ -115,7 +115,7 @@ public class ProductoDao extends AdaptadorDao<Producto> {
                 p.setDescripcion(rs.getString(4));
                 p.setPrecioCompra(rs.getDouble(5));
                 p.setPrecioVenta(rs.getDouble(6));
-                p.setId_Proveedor(rs.getInt(7));
+                p.setProveedor(rs.getString(7));
                 p.setUnidades(rs.getInt(8));
             }
         } catch (Exception e) {

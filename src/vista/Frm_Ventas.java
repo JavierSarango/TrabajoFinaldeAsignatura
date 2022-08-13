@@ -764,7 +764,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
                 p.setDescripcion(rs.getString(4));
                 p.setPrecioCompra(rs.getDouble(5));
                 p.setPrecioVenta(rs.getDouble(6));
-                p.setId_Proveedor(rs.getInt(7));
+                p.setProveedor(rs.getString(7));
                 p.setUnidades(rs.getInt(8));
             }
         } catch (Exception e) {

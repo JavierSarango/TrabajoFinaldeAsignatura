@@ -90,6 +90,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
             sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
             sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
+            sp.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
 //        sp.getProducto().setUpdatedAt(updateAt);
 
             if (sp.guardar_modificar()) {
@@ -400,7 +401,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(jButton3);
-        jButton3.setBounds(560, 90, 110, 22);
+        jButton3.setBounds(590, 90, 90, 22);
         jPanel3.add(txt_precioCompra);
         txt_precioCompra.setBounds(270, 40, 130, 22);
 
@@ -426,7 +427,7 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         cbx_proveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(cbx_proveedor);
-        cbx_proveedor.setBounds(410, 90, 130, 22);
+        cbx_proveedor.setBounds(410, 90, 160, 22);
 
         check_automatico.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         check_automatico.setText("Precio Automático");
