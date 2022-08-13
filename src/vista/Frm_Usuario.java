@@ -9,6 +9,8 @@ import Validacion.Validacion;
 import controlador.dao.UsuarioDao;
 import controlador.utiles.Utilidades;
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import vista.ModeloTablas.ModeloTablaUsuario;
 
@@ -26,6 +28,7 @@ public class Frm_Usuario extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         combo();
+
     }
 
     private void combo() {
@@ -69,12 +72,17 @@ public class Frm_Usuario extends javax.swing.JFrame {
                 ud.getUsuario().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
                 ud.getUsuario().setIdentificacion(txtIdentifiacion.getText());
                 ud.getUsuario().setDireccion(txtDireccion.getText());
-                if (ud.guardar()) {
-                    limpiar();
-                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                if (sinRepiticiones()) {
+                    if (ud.guardar()) {
+                        limpiar();
+                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("pasa");
                 }
+
             }
         }
 
@@ -99,10 +107,24 @@ public class Frm_Usuario extends javax.swing.JFrame {
         cargarTabla();
 
     }
-    
-    private void seleccionar(){
-        
-        
+
+    private void seleccionar() {
+
+    }
+
+    private Boolean sinRepiticiones() {
+
+        Set<String> ides = new HashSet<>();
+
+        ides.add(txtNombreU.getText());
+
+        if (ides.add(txtNombreU.getText())){
+            JOptionPane.showMessageDialog(null, "se puede registrar", "Ok", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error archivos repetidos", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     /**
@@ -393,7 +415,9 @@ public class Frm_Usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         guardar();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbxTipoIdentificacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxTipoIdentificacionKeyPressed
