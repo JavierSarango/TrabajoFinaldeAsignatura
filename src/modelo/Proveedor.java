@@ -13,11 +13,9 @@ public class Proveedor extends Persona {
 
     private Integer id_Proveedor;
     private String agente_responsable;
-    private String provincia;
     private String credito;
     private String pagina_web;
     private String telefono_opcional;
-    private String celular;
     private String banco;
     private String tipocuenta;
     private String nro_cuenta;
@@ -39,14 +37,6 @@ public class Proveedor extends Persona {
 
     public void setAgente_responsable(String agente_responsable) {
         this.agente_responsable = agente_responsable;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
     }
 
     public String getCredito() {
@@ -72,15 +62,7 @@ public class Proveedor extends Persona {
     public void setTelefono_opcional(String telefono_opcional) {
         this.telefono_opcional = telefono_opcional;
     }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
+    
     public String getBanco() {
         return banco;
     }
@@ -103,23 +85,18 @@ public class Proveedor extends Persona {
 
     public void setNro_cuenta(String nro_cuenta) {
         this.nro_cuenta = nro_cuenta;
-    }
+    }    
 
-
-    public Proveedor(Integer id_Proveedor, String agente_responsable, String provincia, String credito, String pagina_web, String telefono_opcional, String celular, String banco, String tipocuenta, String nro_cuenta) {
+    public Proveedor(Integer id_Proveedor, String agente_responsable, String credito, String pagina_web, String telefono_opcional, String banco, String tipocuenta, String nro_cuenta) {
         this.id_Proveedor = id_Proveedor;
         this.agente_responsable = agente_responsable;
-        this.provincia = provincia;
         this.credito = credito;
         this.pagina_web = pagina_web;
         this.telefono_opcional = telefono_opcional;
-        this.celular = celular;
         this.banco = banco;
         this.tipocuenta = tipocuenta;
         this.nro_cuenta = nro_cuenta;
     }
-
-    
 
     
 }
