@@ -5,13 +5,14 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author John
  */
-public class Factura extends DetalleFactura {
+public class Factura implements Serializable{
 
     /**
      * variable identificador de la factura

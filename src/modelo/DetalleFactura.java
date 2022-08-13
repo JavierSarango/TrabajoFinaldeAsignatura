@@ -5,18 +5,24 @@
  */
 package modelo;
 
+import com.sun.jndi.toolkit.dir.SearchFilter;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author John
  */
-public class DetalleFactura {
+public class DetalleFactura implements Serializable{
 
     /**
      * variable identificador
      */
     private int Id;
+    /**
+     * variable identificador de factura
+     */
+    private Integer id_factura;
     /**
      * variable para obtener cliente
      */
@@ -84,6 +90,20 @@ public class DetalleFactura {
      */
     public void setId_ventas(Integer id_ventas) {
         this.id_ventas = id_ventas;
+    }
+
+    /**
+     * @return the id_factura
+     */
+    public Integer getId_factura() {
+        return id_factura;
+    }
+
+    /**
+     * @param id_factura the id_factura to set
+     */
+    public void setId_factura(Integer id_factura) {
+        this.id_factura = id_factura;
     }
 
 }
