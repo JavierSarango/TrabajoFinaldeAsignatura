@@ -47,17 +47,17 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
             return true;
         } catch (Exception e) {
-            System.out.println("Error en guardar o modificar");
+            System.out.println("Error en guardar");
             return false;
         }
     }
 
     public boolean modificar() {
         try {
-            modificaree(proveedor);
+            modificaree(this.getProveedores());
             return true;
         } catch (Exception e) {
-            System.out.println("Error en guardar o modificar");
+            System.out.println("Error en modificar");
             return false;
         }
 
