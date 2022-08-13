@@ -87,10 +87,53 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     }
     
-//    private void modificar(){
-//        Object aux = tbl_producto.getSelectedRow();
-//        aux.getClass(); 
-//    }
+    public void seleccionar() {
+        
+        int seleccionar = tbl_producto.getSelectedRow();
+        //modelo.Producto nose =productoDao.obtener(seleccionar);
+        if (seleccionar >= 0) {
+            txt_codigo.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 1)));
+            txt_unidades.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 2)));
+            txt_nombre.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 3)));
+            txt_descripcion.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 5)));
+            txt_precioCompra.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 6)));
+            txt_precioVenta.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 7)));
+            //cbx_proveedor.setSelectedIndex((tbl_producto.getValueAt(seleccionar, 8)));
+            
+//            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
+           // btn_modificar.setText("Actualizar");
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    
+    private void modificarrrrr() throws Exception{
+        
+        if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
+                || txt_descripcion.getText().trim().isEmpty() || txt_precioCompra.getText().trim().isEmpty()
+                || txt_precioVenta.getText().trim().isEmpty() || txt_unidades.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Porfavor llenar todos los campos requeridos", "Insertar Datos", JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
+            sp.getProducto().setNombre(txt_nombre.getText());
+            sp.getProducto().setDescripcion(txt_descripcion.getText());
+            sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
+            sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
+            sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
+//        sp.getProducto().setUpdatedAt(updateAt);
+
+            if (productoDao.modificarManualCliente()) {
+                System.out.println("guardado correcto");
+                //Integer auxId = sp.listar().shellListaEnlazada("idProducto", TipoOrdenacion.ASCENDENTE).obtenerDato(0).getIdProducto();
+                limpiar();
+            }
+
+            sp.setProducto(null);
+            tbl_producto.setModel(mtp); 
+        }
+    }
 
     public void calcularPrecioAutomatico() {
         if (check_automatico.isSelected() & txt_precioCompra.getText().trim().isEmpty()) {
@@ -176,6 +219,8 @@ public class Frm_Producto extends javax.swing.JDialog {
         btn_ordenar = new javax.swing.JButton();
         radioA = new javax.swing.JRadioButton();
         radioD = new javax.swing.JRadioButton();
+        btn_cargarrrr = new javax.swing.JButton();
+        btn_modd = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -205,9 +250,9 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         jLabel6.setText("Buscar según:");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(30, 20, 100, 18);
+        jLabel6.setBounds(30, 20, 100, 16);
         jPanel2.add(txt_busqueda);
-        txt_busqueda.setBounds(170, 50, 120, 24);
+        txt_busqueda.setBounds(170, 50, 120, 22);
 
         jButton2.setText("BUSCAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -216,7 +261,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jButton2);
-        jButton2.setBounds(310, 50, 110, 24);
+        jButton2.setBounds(310, 50, 110, 22);
 
         tbl_producto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,7 +281,7 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Marca", "Proveedor" }));
         jPanel2.add(cbx_datoBusqueda);
-        cbx_datoBusqueda.setBounds(20, 50, 130, 24);
+        cbx_datoBusqueda.setBounds(20, 50, 130, 22);
 
         bnt_eliminar.setText("ELIMINAR");
         bnt_eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +290,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(bnt_eliminar);
-        bnt_eliminar.setBounds(310, 20, 110, 24);
+        bnt_eliminar.setBounds(310, 20, 110, 22);
 
         btn_ordenar.setText("ORDENAR");
         btn_ordenar.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +299,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btn_ordenar);
-        btn_ordenar.setBounds(490, 20, 104, 24);
+        btn_ordenar.setBounds(450, 20, 84, 22);
 
         radioA.setText("A");
         radioA.addItemListener(new java.awt.event.ItemListener() {
@@ -268,7 +313,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(radioA);
-        radioA.setBounds(480, 60, 32, 22);
+        radioA.setBounds(480, 60, 31, 20);
 
         radioD.setText("D");
         radioD.addItemListener(new java.awt.event.ItemListener() {
@@ -287,7 +332,25 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(radioD);
-        radioD.setBounds(540, 60, 114, 22);
+        radioD.setBounds(540, 60, 50, 20);
+
+        btn_cargarrrr.setText("cargar");
+        btn_cargarrrr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargarrrrActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_cargarrrr);
+        btn_cargarrrr.setBounds(600, 50, 84, 22);
+
+        btn_modd.setText("modd");
+        btn_modd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_moddActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_modd);
+        btn_modd.setBounds(580, 20, 72, 22);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 150, 700, 310);
@@ -297,13 +360,13 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         jLabel7.setText("Código:");
         jPanel3.add(jLabel7);
-        jLabel7.setBounds(20, 20, 60, 18);
+        jLabel7.setBounds(20, 20, 60, 16);
 
         jLabel8.setText("Nombre:");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(110, 20, 60, 18);
+        jLabel8.setBounds(110, 20, 60, 16);
         jPanel3.add(txt_nombre);
-        txt_nombre.setBounds(100, 40, 160, 24);
+        txt_nombre.setBounds(100, 40, 160, 22);
 
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,7 +374,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(txt_codigo);
-        txt_codigo.setBounds(10, 40, 85, 24);
+        txt_codigo.setBounds(10, 40, 85, 22);
 
         jButton3.setText("AGREGAR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -320,33 +383,33 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(jButton3);
-        jButton3.setBounds(560, 90, 110, 24);
+        jButton3.setBounds(560, 90, 110, 22);
         jPanel3.add(txt_precioCompra);
-        txt_precioCompra.setBounds(270, 40, 130, 24);
+        txt_precioCompra.setBounds(270, 40, 130, 22);
 
         jLabel9.setText("Precio Compra:");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(280, 20, 110, 18);
+        jLabel9.setBounds(280, 20, 110, 16);
 
         jLabel10.setText("Descripción:");
         jPanel3.add(jLabel10);
-        jLabel10.setBounds(20, 70, 100, 18);
+        jLabel10.setBounds(20, 70, 100, 16);
         jPanel3.add(txt_descripcion);
-        txt_descripcion.setBounds(10, 90, 250, 24);
+        txt_descripcion.setBounds(10, 90, 250, 22);
         jPanel3.add(txt_precioVenta);
-        txt_precioVenta.setBounds(410, 40, 130, 24);
+        txt_precioVenta.setBounds(410, 40, 130, 22);
 
         jLabel11.setText("Precio Venta:");
         jPanel3.add(jLabel11);
-        jLabel11.setBounds(420, 20, 110, 18);
+        jLabel11.setBounds(420, 20, 110, 16);
 
         jLabel12.setText("Proveedor:");
         jPanel3.add(jLabel12);
-        jLabel12.setBounds(420, 70, 80, 18);
+        jLabel12.setBounds(420, 70, 80, 16);
 
         cbx_proveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(cbx_proveedor);
-        cbx_proveedor.setBounds(410, 90, 130, 24);
+        cbx_proveedor.setBounds(410, 90, 130, 22);
 
         check_automatico.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         check_automatico.setText("Precio Automático");
@@ -356,13 +419,13 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(check_automatico);
-        check_automatico.setBounds(550, 40, 140, 19);
+        check_automatico.setBounds(550, 40, 140, 20);
 
         jLabel14.setText("Unidades:");
         jPanel3.add(jLabel14);
-        jLabel14.setBounds(280, 70, 110, 18);
+        jLabel14.setBounds(280, 70, 110, 16);
         jPanel3.add(txt_unidades);
-        txt_unidades.setBounds(270, 90, 130, 24);
+        txt_unidades.setBounds(270, 90, 130, 22);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(20, 20, 700, 130);
@@ -449,6 +512,20 @@ public class Frm_Producto extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_radioDMouseClicked
 
+    private void btn_cargarrrrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargarrrrActionPerformed
+        // TODO add your handling code here:
+        seleccionar();
+
+    }//GEN-LAST:event_btn_cargarrrrActionPerformed
+
+    private void btn_moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moddActionPerformed
+        // TODO add your handling code here:
+        try {
+            modificarrrrr();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btn_moddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -494,6 +571,8 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_eliminar;
+    private javax.swing.JButton btn_cargarrrr;
+    private javax.swing.JButton btn_modd;
     private javax.swing.JButton btn_ordenar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbx_datoBusqueda;
