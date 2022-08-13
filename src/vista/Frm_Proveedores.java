@@ -49,11 +49,11 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     //Iconos a botones
     ImageIcon guardar = new ImageIcon("src/RecursosMultimedia/fac_save.png");
     ImageIcon eliminar = new ImageIcon("src/RecursosMultimedia/fac_remove.png");
-    ImageIcon modificar = new ImageIcon("src/RecursosMultimedia/Edit-Male-User-icon (1).png");
     ImageIcon nuevo = new ImageIcon("src/RecursosMultimedia/Actions-list-add-user-icon.png");
     ImageIcon cargar = new ImageIcon("src/RecursosMultimedia/jpeg-file-icon (1).png");
     ImageIcon lbl = new ImageIcon("src/RecursosMultimedia/user-icon.png");
     ImageIcon bu = new ImageIcon("src/RecursosMultimedia/buscar.gif");
+    ImageIcon editar = new ImageIcon("src/RecursosMultimedia/Actions-user-properties-icon.png");
 
     /**
      * Creates new form Prov
@@ -63,7 +63,6 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
         Iconos();
-        limpiar();
     }
 
     /**
@@ -73,7 +72,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private void Iconos() {
         BtnGuardar.setIcon(guardar);
         BtnEliminar.setIcon(eliminar);
-        BtnModificar.setIcon(modificar);
+        BtnModificar.setIcon(editar);
         BtnNuevo.setIcon(nuevo);
         BtnCargarFoto.setIcon(cargar);
         Btnbuscar.setIcon(bu);
@@ -95,26 +94,17 @@ public class Frm_Proveedores extends javax.swing.JFrame {
      * Metodo limpiar datos
      */
     private void limpiar() {
-        txtAresponsable.setText("Ingrese agente responsable");
-        txtAresponsable.setForeground(Color.gray);
-        txtdireccion.setText("Ingrese direccion");
-        txtdireccion.setForeground(Color.gray);
-        txtRuc.setText("Ingrese RUC");
-        txtRuc.setForeground(Color.gray);
-        txtRazonS.setText("Ingrese razón social");
-        txtRazonS.setForeground(Color.gray);
-        txttfijo.setText("Ingrese telefono fijo de proveedor");
-        txttfijo.setForeground(Color.gray);
-        txtcelular.setText("Ingrese celular de proveedor");
-        txtcelular.setForeground(Color.gray);
-        txtTelefonoop.setText("Ingrese telefono opcional");
-        txtTelefonoop.setForeground(Color.gray);
-        txtCuenta.setText("Ingrese numero de cuenta");
-        txtCuenta.setForeground(Color.gray);
-        txtemail.setText("Ingrese email de proveedor");
-        txtemail.setForeground(Color.gray);
-        txtpaginaweb.setText("Ingrese enlace pagina web");
-        txtpaginaweb.setForeground(Color.gray);
+        txtAresponsable.setText("");
+        txtdireccion.setText("");
+        txtRuc.setText("");
+        txtRazonS.setText("");
+        txttfijo.setText("");
+        txtcelular.setText("");
+        txtTelefonoop.setText("");
+        txtCuenta.setText("");
+        txtemail.setText("");
+        txtpaginaweb.setText("");
+        BtnGuardar.setText("");
         proveedordao.setProveedores(null);
     }
 
@@ -130,6 +120,9 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
             if (validacion.validaCorreo(txtemail.getText()) == true) {
                 JOptionPane.showMessageDialog(null, "Correo Valido", "Ok", JOptionPane.INFORMATION_MESSAGE);
+            }else{ 
+                 JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
+            }
                 proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
                 proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
                 proveedordao.getProveedores().setDireccion(txtdireccion.getText());
@@ -145,18 +138,28 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
                 System.out.print("Llega 3");
-                if (proveedordao.getProveedores().getId_Proveedor() == null) {
-                    if (proveedordao.guardar()) {
-                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
+                    if (proveedordao.getProveedores().getId_Proveedor() == null) {
+                        if (proveedordao.guardar()) {
+                            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                            limpiar();
+                            cargarTabla();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {//ACTUALIZA LOS DATOS
+                    try {
+                        if(proveedordao.modificar()){
+                        JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
                         limpiar();
                         cargarTabla();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                     }
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+           
 
         }
     }
@@ -206,7 +209,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -214,38 +217,30 @@ public class Frm_Proveedores extends javax.swing.JFrame {
      *
      * Metodo para modificar datos
      */
-    private void modificar() {
-        if (txtAresponsable.getText().trim().isEmpty() || txtdireccion.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty() || txtemail.getText().trim().isEmpty()
-                || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+    public void seleccionar() throws Exception {
+        limpiar();
+        int seleccionar = tbl_proveedores.getSelectedRow();
+        if (seleccionar >= 0) {
+            txtAresponsable.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 1)));
+            cbxProvincia.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 2)));
+            txtdireccion.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 3)));
+            txtRuc.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 4)));
+            txtRazonS.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 5)));
+            txttfijo.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 6)));
+            txtTelefonoop.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 7)));
+            txtcelular.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 8)));
+            txtemail.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 9)));
+            txtpaginaweb.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 10)));
+            cbxBanco.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 11)));
+            cbxTipo.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 12)));
+            txtCuenta.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 13)));
+            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
+            BtnGuardar.setText("Actualizar");
         } else {
-            proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
-            proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-            proveedordao.getProveedores().setDireccion(txtdireccion.getText());
-            proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
-            proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
-            proveedordao.getProveedores().setTelefono(txttfijo.getText());
-            proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
-            proveedordao.getProveedores().setCelular(txtcelular.getText());
-            proveedordao.getProveedores().setCorreo(txtemail.getText());
-            proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
-            proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
-            proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
-            proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
-            proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
-            if (proveedordao.actualizar()) {
-                JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-                limpiar();
-                cargarTabla();
-            } else {
-                JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
-
-            }
-
+            JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
-  
-    
 
     /**
      *
@@ -471,7 +466,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
         BtnModificar.setBackground(new java.awt.Color(153, 204, 255));
         BtnModificar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        BtnModificar.setText("MODIFICAR");
+        BtnModificar.setText("EDITAR");
         BtnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnModificarActionPerformed(evt);
@@ -744,6 +739,11 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
             }
         ));
+        tbl_proveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_proveedoresMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl_proveedores);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -818,7 +818,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(Btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jlabelPie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -888,7 +888,11 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         // TODO add your handling code here:
-        modificar();
+        try {
+            seleccionar();
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnModificarActionPerformed
 
     private void lblFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFotoMouseClicked
@@ -909,14 +913,10 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     private void txtAresponsableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAresponsableMouseClicked
         // TODO add your handling code here:
-        txtAresponsable.setText("");
-        txtAresponsable.setForeground(Color.black);
     }//GEN-LAST:event_txtAresponsableMouseClicked
 
     private void txtTelefonoopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTelefonoopMouseClicked
         // TODO add your handling code here:
-        txtTelefonoop.setText("");
-        txtTelefonoop.setForeground(Color.black);
     }//GEN-LAST:event_txtTelefonoopMouseClicked
 
     private void txtdireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdireccionMouseClicked
@@ -984,32 +984,22 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     private void txttfijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttfijoMouseClicked
         // TODO add your handling code here:
-        txttfijo.setText("");
-        txttfijo.setForeground(Color.black);
     }//GEN-LAST:event_txttfijoMouseClicked
 
     private void txtemailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtemailMouseClicked
         // TODO add your handling code here:
-        txtemail.setText("");
-        txtemail.setForeground(Color.black);
     }//GEN-LAST:event_txtemailMouseClicked
 
     private void txtcelularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtcelularMouseClicked
         // TODO add your handling code here:
-        txtcelular.setText("");
-        txtcelular.setForeground(Color.black);
     }//GEN-LAST:event_txtcelularMouseClicked
 
     private void txtpaginawebMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtpaginawebMouseClicked
         // TODO add your handling code here:
-        txtpaginaweb.setText("");
-        txtpaginaweb.setForeground(Color.black);
     }//GEN-LAST:event_txtpaginawebMouseClicked
 
     private void txtCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCuentaMouseClicked
         // TODO add your handling code here:
-        txtCuenta.setText("");
-        txtCuenta.setForeground(Color.black);
     }//GEN-LAST:event_txtCuentaMouseClicked
 
     private void txtAresponsableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAresponsableMousePressed
@@ -1018,21 +1008,19 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     private void txtdireccionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdireccionMousePressed
         // TODO add your handling code here:
-        txtdireccion.setText("");
-        txtdireccion.setForeground(Color.black);
     }//GEN-LAST:event_txtdireccionMousePressed
 
     private void txtRucMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRucMousePressed
         // TODO add your handling code here:
-        txtRuc.setText("");
-        txtRuc.setForeground(Color.black);
     }//GEN-LAST:event_txtRucMousePressed
 
     private void txtRazonSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRazonSMousePressed
         // TODO add your handling code here:
-        txtRazonS.setText("");
-        txtRazonS.setForeground(Color.black);
     }//GEN-LAST:event_txtRazonSMousePressed
+
+    private void tbl_proveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_proveedoresMouseClicked
+
+    }//GEN-LAST:event_tbl_proveedoresMouseClicked
 
     /**
      * @param args the command line arguments

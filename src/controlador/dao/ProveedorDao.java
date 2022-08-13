@@ -54,7 +54,7 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
     public boolean modificar() {
         try {
-            modificaree(this.getProveedores());
+            modificaree(proveedor);
             return true;
         } catch (Exception e) {
             System.out.println("Error en guardar o modificar");
