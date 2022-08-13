@@ -5,36 +5,43 @@
  */
 package controlador.dao;
 
-import controlador.dao.AdaptadorDao;
-import controlador.tda.lista.ListaEnlazada;
-import controlador.tda.lista.exception.PosicionException;
+import controlador.Conexion;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import modelo.DetalleFactura;
 import modelo.Factura;
 
 /**
  *
  * @author John
  */
-public class FacturaDao<T> extends AdaptadorDao<Factura> {
+public class FacturaDao {
 
     /**
      * variable tipo factura para almacenamiento de la informacion de la factura
      * obtenida de la base de datos
      */
     private Factura factura;
-
     /**
-     * Una lista de facturas
+     * variable para realizacion de conexion con la base de datos
      */
-    private ListaEnlazada<Factura> facturas = new ListaEnlazada();
-
+    Connection con;
     /**
-     * constructor de la clase FacturaDao
-     *
-     * @param clazz
+     * variable para realizacion preparacion de transmision de datos entre la
+     * base y el programa
      */
-    public FacturaDao(Class clazz) {
-        super(clazz);
-    }
+    PreparedStatement ps;
+    /**
+     * variable para control de accione en la base de datos
+     */
+    ResultSet rs;
+    /**
+     * variable de control de operaciones
+     */
+    Integer respuesta = 0;
 
     /**
      * metodo para obtener la factura almacenada en la variables factura
@@ -58,53 +65,50 @@ public class FacturaDao<T> extends AdaptadorDao<Factura> {
     }
 
     /**
-     * Permite obtener la lista tipo factura
-     *
-     * @return lista factura
-     */
-    public ListaEnlazada<Factura> getFacturas() {
-        return facturas;
-    }
-
-    /**
-     * Permite ingresar los datos de la lista de facturas
-     *
-     * @param facturas
-     */
-    public void setFacturas(ListaEnlazada<Factura> facturas) {
-        this.facturas = facturas;
-    }
-
-    /**
      * Metodo para guardar en base de datos un objetos Factura
      *
      * @param dato
      * @throws Exception
      */
-    @Override
-    public void guardar(Factura dato) throws Exception {
-        super.guardar(dato);
+    public Integer GuardarFactura(Factura factura) {
+        String sql = "INSERT INTO venta (id_Cliente,nroSerie,fechaVenta,monto) VALUES (?,?,?,?)";
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, factura.getNombreEmpresa());
+            ps.setString(2, factura.getRUC());
+            ps.setString(3, factura.getCodigoFactura());
+            ps.setString(4, factura.getCodigoAutorizacion());
+            ps.setString(5, factura.getDireccionEmpresa());
+            ps.setString(6, factura.getTelefonoE());
+            ps.setString(7, factura.getEmailE());
+            respuesta = ps.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return respuesta;
     }
 
     /**
-     * Metodo para modificar en base de datos un objetos Factura
+     * Metodo para guardar en base de datos un objetos DetalleFactura
      *
      * @param dato
      * @throws Exception
      */
-    @Override
-    public void modificaree(Factura dato) throws Exception {
-        super.modificaree(dato);
-    }
-
-    /**
-     * Metodo para eliminar en base de datos un objetos Factura
-     *
-     * @param dato
-     */
-    @Override
-    public void eliminar(Factura dato) throws Exception{
-        super.eliminar(dato);
+    public Integer GuardarDetalleFactura(DetalleFactura detalleFactura) {
+        String sql = "INSERT INTO detalle_ventas (idVentas,idProducto,cantidad,precioVenta) VALUES (?,?,?,?)";
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, detalleFactura.getId_factura());
+            ps.setInt(2, detalleFactura.getId_cliente());
+            ps.setDate(3, (Date) detalleFactura.getFechaEmision());
+            ps.setInt(4, detalleFactura.getId_ventas());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error en detalle venta No se pudo guardar");
+            e.printStackTrace();
+        }
+        return respuesta;
     }
 
 }

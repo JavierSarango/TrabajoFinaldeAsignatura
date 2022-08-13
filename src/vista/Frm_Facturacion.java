@@ -3,14 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vista;
+
+import controlador.tda.lista.ListaEnlazada;
+import modelo.Cliente;
+import modelo.Venta;
+import vista.ModeloTablas.ModeloTablaVentas;
 
 /**
  *
  * @author John
  */
 public class Frm_Facturacion extends javax.swing.JDialog {
+    
+    private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
 
     /**
      * Creates new form Frm_Facturacion
@@ -18,8 +24,44 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     public Frm_Facturacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTNombre.setEnabled(false);
+        jTtelefono.setEnabled(false);
+        jTDireccionCliente.setEnabled(false);
+        jTEmail.setEnabled(false);
+        jTableVentas.setEnabled(false);
+        jBFacturar.setEnabled(false);
+        jBProforma.setEnabled(false);
+        cargarTableVentas(null);
     }
-
+    
+    public void limpiar() {
+        jTCedula.setText(" ");
+        jTNombre.setText(" ");
+        jTDireccionCliente.setText(" ");
+        jTEmail.setText(" ");
+        jTtelefono.setText(" ");
+    }
+    
+    public void DatosCliente() {
+        String cedula = jTCedula.getText();
+        Cliente cliente = new Cliente();
+        jTNombre.setText(cliente.getRazonSocial());
+        jTDireccionCliente.setText(cliente.getDireccion());
+        jTEmail.setText(cliente.getIdentificacion());
+        jTtelefono.setText(cliente.getTelefono());
+        cargarTableVentas(cliente.getId_cliente());
+    }
+    
+    public void cargarTableVentas(Integer id_cliente) {
+        ListaEnlazada<Venta> listaVentas = new ListaEnlazada<Venta>();
+        MTVentas.setLista(listaVentas);
+        jTableVentas.setModel(MTVentas);
+        jTableVentas.updateUI();
+    }
+    
+    public void guardar(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,73 +71,34 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        jTableVentas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jLabel18 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        txtValorUnitProducto = new javax.swing.JTextField();
-        txtvalorTotalProducto = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        agregarProd = new javax.swing.JButton();
-        txtBuscaProduto = new javax.swing.JTextField();
-        buscarProducto = new javax.swing.JButton();
-        spinUnidadesProducto = new javax.swing.JSpinner();
-        jLabel4 = new javax.swing.JLabel();
-        txtIva = new javax.swing.JTextField();
-        txtSubTotalIva = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        txtSubTotal = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
-        jLabel30 = new javax.swing.JLabel();
-        radioOtros = new javax.swing.JRadioButton();
-        radioEfectivo = new javax.swing.JRadioButton();
-        radioCredito = new javax.swing.JRadioButton();
-        radioDepositoTransferencia = new javax.swing.JRadioButton();
-        Proformar = new javax.swing.JButton();
-        Facturar = new javax.swing.JButton();
+        jBProforma = new javax.swing.JButton();
+        jBFacturar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        txtCelular = new javax.swing.JTextField();
+        jTtelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
+        jTEmail = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCedula = new javax.swing.JTextField();
+        jTCedula = new javax.swing.JTextField();
         btBuscar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTDireccionCliente = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTNombre = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
-
-        jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
         jPanel2.setLayout(null);
@@ -105,13 +108,13 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jPanel2.add(jLabel1);
         jLabel1.setBounds(40, 10, 160, 40);
         jPanel2.add(jSeparator1);
-        jSeparator1.setBounds(30, 50, 730, 20);
+        jSeparator1.setBounds(30, 140, 730, 20);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel8.setLayout(null);
 
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -122,257 +125,37 @@ public class Frm_Facturacion extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaProductosMouseClicked(evt);
+                jTableVentasMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaProductos);
+        jScrollPane1.setViewportView(jTableVentas);
 
         jPanel8.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 100, 570, 90);
+        jScrollPane1.setBounds(10, 40, 690, 270);
 
-        jLabel6.setText("Detalle de la factura (Moneda dólares americanos $)");
+        jLabel6.setText("Ventas Realizadas al Cliente");
         jPanel8.add(jLabel6);
-        jLabel6.setBounds(10, 10, 270, 16);
+        jLabel6.setBounds(10, 10, 170, 16);
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel9.setLayout(null);
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        jPanel9.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 150, 570, 80);
-
-        jLabel11.setText("Detalle de la factura (Moneda dólares americanos $$)");
-        jPanel9.add(jLabel11);
-        jLabel11.setBounds(10, 10, 270, 16);
-
-        jLabel12.setText("Datos del Comprador");
-        jPanel9.add(jLabel12);
-        jLabel12.setBounds(10, 110, 121, 16);
-
-        jPanel8.add(jPanel9);
-        jPanel9.setBounds(0, 0, 0, 0);
-
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel11.setLayout(null);
-
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable5);
-
-        jPanel11.add(jScrollPane5);
-        jScrollPane5.setBounds(10, 150, 570, 80);
-
-        jLabel18.setText("Datos del Comprador");
-        jPanel11.add(jLabel18);
-        jLabel18.setBounds(10, 110, 121, 16);
-
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel12.setLayout(null);
-
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane6.setViewportView(jTable6);
-
-        jPanel12.add(jScrollPane6);
-        jScrollPane6.setBounds(10, 150, 570, 80);
-
-        jLabel19.setText("Detalle de la factura (Moneda dólares americanos $$)");
-        jPanel12.add(jLabel19);
-        jLabel19.setBounds(10, 10, 270, 16);
-
-        jLabel20.setText("Datos del Comprador");
-        jPanel12.add(jLabel20);
-        jLabel20.setBounds(10, 110, 121, 16);
-
-        jPanel11.add(jPanel12);
-        jPanel12.setBounds(0, 0, 0, 0);
-
-        jLabel21.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Cant.");
-        jPanel11.add(jLabel21);
-        jLabel21.setBounds(230, 10, 60, 14);
-
-        jLabel22.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("Descripción");
-        jPanel11.add(jLabel22);
-        jLabel22.setBounds(10, 10, 60, 14);
-
-        jLabel23.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("V.Unit.");
-        jPanel11.add(jLabel23);
-        jLabel23.setBounds(340, 10, 50, 14);
-        jPanel11.add(txtValorUnitProducto);
-        txtValorUnitProducto.setBounds(340, 30, 50, 30);
-        jPanel11.add(txtvalorTotalProducto);
-        txtvalorTotalProducto.setBounds(400, 30, 50, 30);
-
-        jLabel24.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("V.Total.");
-        jPanel11.add(jLabel24);
-        jLabel24.setBounds(400, 10, 50, 14);
-
-        agregarProd.setText("OK");
-        agregarProd.addActionListener(new java.awt.event.ActionListener() {
+        jBProforma.setText("Proformar");
+        jBProforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarProdActionPerformed(evt);
+                jBProformaActionPerformed(evt);
             }
         });
-        jPanel11.add(agregarProd);
-        agregarProd.setBounds(513, 30, 49, 30);
-        jPanel11.add(txtBuscaProduto);
-        txtBuscaProduto.setBounds(10, 30, 180, 30);
+        jPanel8.add(jBProforma);
+        jBProforma.setBounds(610, 330, 90, 25);
 
-        buscarProducto.setText("B");
-        buscarProducto.addActionListener(new java.awt.event.ActionListener() {
+        jBFacturar.setText("Facturar");
+        jBFacturar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarProductoActionPerformed(evt);
+                jBFacturarActionPerformed(evt);
             }
         });
-        jPanel11.add(buscarProducto);
-        buscarProducto.setBounds(200, 30, 40, 30);
-
-        spinUnidadesProducto.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spinUnidadesProductoStateChanged(evt);
-            }
-        });
-        jPanel11.add(spinUnidadesProducto);
-        spinUnidadesProducto.setBounds(250, 30, 50, 30);
-
-        jLabel4.setText("Iva a colocar:");
-        jPanel11.add(jLabel4);
-        jLabel4.setBounds(460, 10, 90, 16);
-
-        txtIva.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtIvaMouseClicked(evt);
-            }
-        });
-        jPanel11.add(txtIva);
-        txtIva.setBounds(460, 30, 40, 30);
-
-        jPanel8.add(jPanel11);
-        jPanel11.setBounds(10, 30, 570, 70);
-
-        txtSubTotalIva.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        txtSubTotalIva.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jPanel8.add(txtSubTotalIva);
-        txtSubTotalIva.setBounds(520, 200, 60, 19);
-
-        jLabel26.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel26.setText("SUB TOTAL 12% IVA $");
-        jPanel8.add(jLabel26);
-        jLabel26.setBounds(380, 200, 130, 14);
-
-        jLabel27.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel27.setText("SUB TOTAL $");
-        jPanel8.add(jLabel27);
-        jLabel27.setBounds(380, 220, 130, 14);
-
-        txtSubTotal.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        txtSubTotal.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jPanel8.add(txtSubTotal);
-        txtSubTotal.setBounds(520, 220, 60, 20);
-
-        jLabel28.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
-        jLabel28.setText("FORMA DE PAGO");
-        jPanel8.add(jLabel28);
-        jLabel28.setBounds(10, 210, 130, 14);
-
-        txtTotal.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        txtTotal.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jPanel8.add(txtTotal);
-        txtTotal.setBounds(520, 240, 60, 19);
-
-        jLabel30.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel30.setText("VALOR TOTAL $");
-        jPanel8.add(jLabel30);
-        jLabel30.setBounds(380, 240, 130, 14);
-
-        radioOtros.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        radioOtros.setText("Otros");
-        jPanel8.add(radioOtros);
-        radioOtros.setBounds(330, 230, 60, 25);
-
-        radioEfectivo.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        radioEfectivo.setText("Efectivo");
-        radioEfectivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioEfectivoActionPerformed(evt);
-            }
-        });
-        jPanel8.add(radioEfectivo);
-        radioEfectivo.setBounds(10, 230, 70, 25);
-
-        radioCredito.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        radioCredito.setText("T.Crédito/Débito");
-        jPanel8.add(radioCredito);
-        radioCredito.setBounds(80, 230, 110, 25);
-
-        radioDepositoTransferencia.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        radioDepositoTransferencia.setText("Depósito/Transferencia");
-        jPanel8.add(radioDepositoTransferencia);
-        radioDepositoTransferencia.setBounds(190, 230, 140, 25);
-
-        Proformar.setText("Proformar");
-        Proformar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProformarActionPerformed(evt);
-            }
-        });
-        jPanel8.add(Proformar);
-        Proformar.setBounds(490, 280, 90, 25);
-
-        Facturar.setText("Facturar");
-        Facturar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FacturarActionPerformed(evt);
-            }
-        });
-        jPanel8.add(Facturar);
-        Facturar.setBounds(400, 280, 90, 25);
+        jPanel8.add(jBFacturar);
+        jBFacturar.setBounds(470, 330, 90, 25);
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -381,43 +164,43 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(jButton1);
-        jButton1.setBounds(300, 280, 90, 25);
+        jButton1.setBounds(340, 330, 90, 25);
 
         jPanel2.add(jPanel8);
-        jPanel8.setBounds(30, 260, 730, 370);
+        jPanel8.setBounds(20, 330, 730, 370);
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel5.setText("TELEFONO MOVIL:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(560, 90, 150, 30);
-        jPanel2.add(txtCelular);
-        txtCelular.setBounds(560, 120, 160, 22);
+        jLabel5.setBounds(470, 180, 150, 30);
+        jPanel2.add(jTtelefono);
+        jTtelefono.setBounds(470, 210, 160, 22);
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel7.setText("EMAIL:");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(470, 140, 100, 30);
+        jLabel7.setBounds(470, 230, 100, 30);
 
-        txtEmail.setToolTipText("");
-        jPanel2.add(txtEmail);
-        txtEmail.setBounds(470, 170, 260, 30);
+        jTEmail.setToolTipText("");
+        jPanel2.add(jTEmail);
+        jTEmail.setBounds(470, 260, 260, 30);
         jPanel2.add(jSeparator2);
-        jSeparator2.setBounds(30, 250, 730, 20);
+        jSeparator2.setBounds(20, 310, 730, 20);
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel9.setText("DIRECCIÓN COMPRADOR:");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(30, 140, 160, 30);
+        jLabel9.setBounds(30, 200, 160, 30);
 
-        jLabel10.setText("Datos del Comprador");
+        jLabel10.setText("Busqueda del Cliente");
         jPanel2.add(jLabel10);
         jLabel10.setBounds(30, 50, 190, 30);
 
         jLabel3.setText("Identificador:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(30, 110, 140, 30);
-        jPanel2.add(txtCedula);
-        txtCedula.setBounds(120, 110, 280, 30);
+        jLabel3.setBounds(30, 80, 140, 30);
+        jPanel2.add(jTCedula);
+        jTCedula.setBounds(120, 80, 280, 30);
 
         btBuscar.setText("Buscar");
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -426,79 +209,58 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btBuscar);
-        btBuscar.setBounds(420, 90, 100, 30);
+        btBuscar.setBounds(430, 80, 100, 30);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jTDireccionCliente.setColumns(20);
+        jTDireccionCliente.setRows(5);
+        jScrollPane3.setViewportView(jTDireccionCliente);
 
         jPanel2.add(jScrollPane3);
-        jScrollPane3.setBounds(30, 170, 410, 70);
+        jScrollPane3.setBounds(30, 230, 410, 70);
 
         jLabel2.setText("Nombre:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(30, 80, 50, 16);
+        jLabel2.setBounds(30, 170, 50, 16);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTNombreActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(120, 80, 280, 22);
+        jPanel2.add(jTNombre);
+        jTNombre.setBounds(120, 170, 280, 22);
+        jPanel2.add(jSeparator3);
+        jSeparator3.setBounds(30, 50, 730, 20);
 
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 800, 660);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 800, 660);
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 0, 780, 730);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductosMouseClicked
-//        editarCarrito();
-    }//GEN-LAST:event_tablaProductosMouseClicked
-
-    private void agregarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProdActionPerformed
-//        llenarTabla();
-    }//GEN-LAST:event_agregarProdActionPerformed
-
-    private void buscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProductoActionPerformed
-//        buscarProducto();
-    }//GEN-LAST:event_buscarProductoActionPerformed
-
-    private void spinUnidadesProductoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinUnidadesProductoStateChanged
-//        selecionarUnidadesProducto();
-    }//GEN-LAST:event_spinUnidadesProductoStateChanged
-
-    private void txtIvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIvaMouseClicked
-//        modificarIva();
-    }//GEN-LAST:event_txtIvaMouseClicked
-
-    private void radioEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioEfectivoActionPerformed
+    private void jTNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_radioEfectivoActionPerformed
-
-    private void ProformarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProformarActionPerformed
-//        guardar(false);
-    }//GEN-LAST:event_ProformarActionPerformed
-
-    private void FacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturarActionPerformed
-//        guardar(true);
-    }//GEN-LAST:event_FacturarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        limpiar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jTNombreActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-//        buscarCliente();
+        DatosCliente();
     }//GEN-LAST:event_btBuscarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //        limpiar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jBFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFacturarActionPerformed
+        //        guardar(true);
+    }//GEN-LAST:event_jBFacturarActionPerformed
+
+    private void jBProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProformaActionPerformed
+
+    }//GEN-LAST:event_jBProformaActionPerformed
+
+    private void jTableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVentasMouseClicked
+        //        editarCarrito();
+    }//GEN-LAST:event_jTableVentasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -543,67 +305,30 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Facturar;
-    private javax.swing.JButton Proformar;
-    private javax.swing.JButton agregarProd;
     private javax.swing.JButton btBuscar;
-    private javax.swing.JButton buscarProducto;
+    private javax.swing.JButton jBFacturar;
+    private javax.swing.JButton jBProforma;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JRadioButton radioCredito;
-    private javax.swing.JRadioButton radioDepositoTransferencia;
-    private javax.swing.JRadioButton radioEfectivo;
-    private javax.swing.JRadioButton radioOtros;
-    private javax.swing.JSpinner spinUnidadesProducto;
-    private javax.swing.JTable tablaProductos;
-    private javax.swing.JTextField txtBuscaProduto;
-    private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtIva;
-    private javax.swing.JTextField txtSubTotal;
-    private javax.swing.JTextField txtSubTotalIva;
-    private javax.swing.JTextField txtTotal;
-    private javax.swing.JTextField txtValorUnitProducto;
-    private javax.swing.JTextField txtvalorTotalProducto;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField jTCedula;
+    private javax.swing.JTextArea jTDireccionCliente;
+    private javax.swing.JTextField jTEmail;
+    private javax.swing.JTextField jTNombre;
+    private javax.swing.JTable jTableVentas;
+    private javax.swing.JTextField jTtelefono;
     // End of variables declaration//GEN-END:variables
 }
