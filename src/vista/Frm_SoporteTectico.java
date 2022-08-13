@@ -87,10 +87,12 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
        
     }
     public void seleccionar() throws Exception {
-        limpiar();
+       // limpiar();
         int seleccionar = tbl_tabla.getSelectedRow();
+//        modelo.equipo nose =ee.obtener(seleccionar);
         if (seleccionar >= 0) {
             txtRazonSocial.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 1)));
+//            txtRazonSocial.setText(nose.getRazon_social());
             txtmodelo.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 2)));
             txtmarca.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 3)));
             txtestadoIngreso.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 5)));
@@ -146,6 +148,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         cbxtipoEquipo = new javax.swing.JComboBox<>();
         btnmodificar = new javax.swing.JButton();
         btnguarnar1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_tabla = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
@@ -217,7 +220,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnmodificar);
-        btnmodificar.setBounds(370, 150, 120, 25);
+        btnmodificar.setBounds(370, 140, 120, 25);
 
         btnguarnar1.setText("Guardar");
         btnguarnar1.addActionListener(new java.awt.event.ActionListener() {
@@ -227,6 +230,15 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         });
         jPanel2.add(btnguarnar1);
         btnguarnar1.setBounds(20, 150, 120, 25);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+        jButton1.setBounds(550, 150, 83, 25);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(20, 70, 870, 210);
@@ -276,6 +288,11 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
           guardar();
     }//GEN-LAST:event_btnguarnar1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ee.modificarManualCliente();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -324,6 +341,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbxtipoEquipo;
     private javax.swing.JCheckBox checkCargador;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
