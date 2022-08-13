@@ -5,6 +5,7 @@
  */
 package vista.ModeloTablas;
 
+import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.ListaEnlazadaServices;
 import javax.swing.table.AbstractTableModel;
 import modelo.Usuario;
@@ -13,51 +14,60 @@ import modelo.Usuario;
  *
  * @author Pc
  */
-public class ModeloTablaUsuario extends AbstractTableModel{
-    
-    
-private ListaEnlazadaServices<Usuario> lista = new ListaEnlazadaServices<>();
+public class ModeloTablaUsuario extends AbstractTableModel {
 
-     public ListaEnlazadaServices<Usuario> getLista() {
-          return lista;
-     }
+    ListaEnlazada<Usuario> lista;
 
-     public void setLista(ListaEnlazadaServices<Usuario> lista) {
-          this.lista = lista;
-     }
+    public ListaEnlazada<Usuario> getLista() {
+        return lista;
+    }
 
-    
-
-    @Override
-    public int getColumnCount() {
-        return 6;
-        
+    public void setLista(ListaEnlazada<Usuario> lista) {
+        this.lista = lista;
     }
 
     @Override
     public int getRowCount() {
         return lista.getSize();
     }
-@Override
-    public Object getValueAt(int i, int i1) {
-        Usuario usuario = lista.obtenerDato(i);
-        switch (i1) {
-            case 0:
-                return (i + 1);
-            case 1:
-                return usuario.getNombreUsuario();
-            case 2:
-                return usuario.getContrasena();
-            case 3:
-                return usuario.getDireccion();
-            case 4:
-                return usuario.getTelefono();
-            case 5:
-                return usuario.getCorreo();
 
-            default:
-                return null;
+    @Override
+    public int getColumnCount() {
+        return 9;
+    }
+
+    @Override
+    public Object getValueAt(int i, int i1) {
+        try {
+            Usuario usuario = lista.obtenerDato(i);
+            switch (i1) {
+
+                case 0:
+                    return (i + 1);
+                case 1:
+                    return usuario.getRazonSocial();
+                case 2:
+                    return usuario.getTipoIdentificacion();
+                case 3:
+                    return usuario.getIdentificacion();
+                case 4:
+                    return usuario.getTipoRol();
+                case 5:
+                    return usuario.getTelefono();
+                case 6:
+                    return usuario.getCelular();
+                case 7:
+                    return usuario.getCorreo();
+                case 8:
+                    return usuario.getNombreUsuario();
+                case 9:
+                    return usuario.getContrasena();
+                default:
+                    return null;
+            }
+        } catch (Exception e) {
         }
+        return null;
     }
 
     @Override
@@ -66,16 +76,21 @@ private ListaEnlazadaServices<Usuario> lista = new ListaEnlazadaServices<>();
             case 0:
                 return "NRO";
             case 1:
-                return "NOMBRE";
+                return "Razon Social";
             case 2:
-                return "APELLIDO";
+                return "Tipo de identificacion";
             case 3:
-                return "CEDULA";
+                return "identificacion";
             case 4:
-                return "TELEFONO";
+                return "tipo cliente ";
             case 5:
-                return "CORREO";
-
+                return "telefono";
+            case 6:
+                return "celular";
+            case 7:
+                return "correo";
+            case 8:
+                return "fecha nacimiento";
             default:
                 return null;
         }
