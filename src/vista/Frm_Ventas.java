@@ -45,7 +45,9 @@ public class Frm_Ventas extends javax.swing.JDialog {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-
+    // Ventanas
+    Frm_Cliente ventanaCliente;
+    Frm_Producto ventanaProducto;
     //Variables globales
     Double totalPa, subTotal, descuento, precio;
     Integer cantidad;
@@ -63,7 +65,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
     /**
      * Creates new form Frm_Ventas
      */
-    public Frm_Ventas(java.awt.Frame parent, boolean modal) {
+    public Frm_Ventas(javax.swing.JFrame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         super.setTitle("Ventas");
@@ -124,19 +126,22 @@ public class Frm_Ventas extends javax.swing.JDialog {
         generarSerie();
     }
 
-    private Integer actualizarStock(Integer cantidad, Integer idproduct) {
-        Integer res = 0;
-        String sql = "Update producto set unidades = ? where id_Producto = ?";
+    private void actualizarStock(Integer cantidad, Integer idproduct) {
+    
+        String sql = "UPDATE producto SET unidades = ? WHERE codigo = ?";
         try {
             con = Conexion.getConecction();
             ps = con.prepareStatement(sql);
             ps.setInt(1, cantidad);
             ps.setInt(2, idproduct);
+//            ps.executeQuery();
             ps.executeUpdate();
         } catch (Exception e) {
+            System.out.println("Error al actualizar stock");
+            e.printStackTrace();
         }
 
-        return res;
+       
     }
 
     /**
@@ -210,8 +215,11 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
+        btnVerClientes = new javax.swing.JButton();
+        btnVerProductos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Venta");
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -230,6 +238,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel4.setBounds(20, 270, 110, 30);
 
         txt_cliente_buscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txt_cliente_buscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_cliente_buscar.setBorder(null);
         txt_cliente_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -313,7 +322,6 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jPanel2.add(jLabel10);
         jLabel10.setBounds(20, 260, 60, 30);
 
-        txt_subtotal.setBackground(new java.awt.Color(255, 255, 255));
         txt_subtotal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txt_subtotal.setBorder(null);
         txt_subtotal.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -428,9 +436,10 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel3.setBounds(20, 220, 100, 30);
 
         txtResultadoCliente.setEditable(false);
+        txtResultadoCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtResultadoCliente.setBorder(null);
         jPanel1.add(txtResultadoCliente);
-        txtResultadoCliente.setBounds(470, 170, 220, 30);
+        txtResultadoCliente.setBounds(470, 170, 140, 30);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -438,6 +447,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jPanel1.add(jLabel11);
         jLabel11.setBounds(370, 130, 60, 30);
 
+        txtCodProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCodProducto.setBorder(null);
         txtCodProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -468,6 +478,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel12.setBounds(20, 320, 80, 30);
 
         txtPrecioProducto.setEditable(false);
+        txtPrecioProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrecioProducto.setBorder(null);
         jPanel1.add(txtPrecioProducto);
         txtPrecioProducto.setBounds(130, 270, 120, 30);
@@ -489,9 +500,10 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel13.setBounds(370, 220, 80, 30);
 
         txtResultadoProducto.setEditable(false);
+        txtResultadoProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtResultadoProducto.setBorder(null);
         jPanel1.add(txtResultadoProducto);
-        txtResultadoProducto.setBounds(470, 220, 220, 30);
+        txtResultadoProducto.setBounds(470, 220, 140, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -500,9 +512,10 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jLabel14.setBounds(370, 270, 70, 30);
 
         txtStock.setEditable(false);
+        txtStock.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtStock.setBorder(null);
         jPanel1.add(txtStock);
-        txtStock.setBounds(470, 270, 220, 30);
+        txtStock.setBounds(470, 270, 140, 30);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -569,11 +582,31 @@ public class Frm_Ventas extends javax.swing.JDialog {
         jPanel1.add(jSeparator3);
         jSeparator3.setBounds(130, 300, 120, 10);
         jPanel1.add(jSeparator4);
-        jSeparator4.setBounds(470, 200, 220, 10);
+        jSeparator4.setBounds(470, 200, 140, 10);
         jPanel1.add(jSeparator5);
-        jSeparator5.setBounds(470, 250, 220, 10);
+        jSeparator5.setBounds(470, 250, 140, 10);
         jPanel1.add(jSeparator6);
-        jSeparator6.setBounds(470, 300, 220, 10);
+        jSeparator6.setBounds(470, 300, 140, 10);
+
+        btnVerClientes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVerClientes.setText("Ver");
+        btnVerClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerClientesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVerClientes);
+        btnVerClientes.setBounds(620, 170, 80, 30);
+
+        btnVerProductos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVerProductos.setText("Ver");
+        btnVerProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerProductosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVerProductos);
+        btnVerProductos.setBounds(620, 220, 80, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 720, 700);
@@ -599,10 +632,12 @@ public class Frm_Ventas extends javax.swing.JDialog {
             } else {
                 respuesta = JOptionPane.showConfirmDialog(this, "El cliente no esta Registrado, ¿Desea Hacerlo?");
                 if (respuesta == 0) {
-                    Frm_Cliente ventanaCliente = new Frm_Cliente();
+                   ventanaCliente = new Frm_Cliente();
                     ventanaCliente.setVisible(true);
+                    ventanaCliente.transferFocus();
                     this.dispose();
-
+                    
+                   
                 }
             }
 
@@ -622,6 +657,16 @@ public class Frm_Ventas extends javax.swing.JDialog {
                 txtResultadoProducto.setText(producto.getNombre());
                 txtPrecioProducto.setText("" + producto.getPrecioVenta());
                 txtStock.setText("" + producto.getUnidades());
+
+                if (producto.getUnidades() == 0) {
+                    txtStock.setBackground(Color.red);
+                    txtStock.setForeground(Color.WHITE);
+                } else if (producto.getUnidades() == 1) {
+                    txtStock.setBackground(Color.ORANGE);
+
+                } else if (producto.getUnidades() == 5) {
+                    txtStock.setBackground(Color.YELLOW);
+                }
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay registro del producto");
@@ -664,9 +709,11 @@ public class Frm_Ventas extends javax.swing.JDialog {
                 calcularSubtotal();
                 calcularTotal();
                 limpiarAddProducto();
+                JOptionPane.showMessageDialog(this,"Producto Agregado");
+                       
 
             } else {
-                txtStock.setBackground(Color.red);
+//                txtStock.setBackground(Color.red);
                 JOptionPane.showMessageDialog(this, "Sin stock Disponible");
             }
         } catch (Exception e) {
@@ -717,9 +764,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
                 p.setDescripcion(rs.getString(4));
                 p.setPrecioCompra(rs.getDouble(5));
                 p.setPrecioVenta(rs.getDouble(6));
-                p.setUnidades(rs.getInt(7));
-                p.setId_Proveedor(rs.getInt(8));
-
+                p.setId_Proveedor(rs.getInt(7));
+                p.setUnidades(rs.getInt(8));
             }
         } catch (Exception e) {
             System.out.println("Error en listar Id producto");
@@ -742,18 +788,46 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
     private void calcularTotal() {
         descuento = 0.00;
-        if (jCheckDescuento.isSelected() || jCheckIva.isSelected()) {
+        //Calcula el total si hay descuento y no se ha seleccionado un valor diferente de IVa
+        //valor de iva por defecto es 12%
+        if (jCheckDescuento.isSelected() && !jCheckIva.isSelected()) {
+            Double des = Double.parseDouble(cbxDescuento.getSelectedItem().toString()) / 100;
+            Double iva = 0.12;
+            //Se calcula el descuento del subtotal sin iva 
+            descuento = (subTotal * des);
+            //Se obtiene el subTotal con el descuento
+            Double subTconDescuento = subTotal - descuento;
+            //Se calcula el subTotalconiva a partir del valor con el descuento realizado
+            Double subTotalconIva12 = (subTconDescuento * iva);
+            totalPa = subTconDescuento + subTotalconIva12;
+            txt_total_pagar.setText("" + totalPa);
+        } else if (!jCheckDescuento.isSelected() && !jCheckIva.isSelected()) {
+            //Calcula el total si no hay descuento con el 12% de IVA por defecto
+            Double iva = 0.12;
+            Double subTotalconIva12 = (subTotal * iva);
+            Double subTcalculado = subTotal + subTotalconIva12;
+            totalPa = 0.00;
+            totalPa = subTcalculado;
+            txt_total_pagar.setText("" + totalPa);
+
+        } else if (jCheckDescuento.isSelected() && jCheckIva.isSelected()) {
+            //Calcula el total si hay descuento y el valor del IVA es diferente a 12 %
             Double des = Double.parseDouble(cbxDescuento.getSelectedItem().toString()) / 100;
             Double iva = Double.parseDouble(cbxIVA.getSelectedItem().toString()) / 100;
-            Double subTotalconIvaX = subTotal + (subTotal * iva);
-            descuento = (subTotalconIvaX * des);
-            totalPa = subTotalconIvaX - descuento;
+            descuento = (subTotal * des);
+
+            Double subTconDescuento = subTotal - descuento;
+
+            Double IvadelDescuento = (subTconDescuento * iva);
+            Double subTotalconIvaX = subTconDescuento + IvadelDescuento;
+
+            totalPa = subTotalconIvaX;
             txt_total_pagar.setText("" + totalPa);
-        } else if (!jCheckDescuento.isSelected() || !jCheckIva.isSelected()) {
-            Double iva = 0.12;
-            Double subTotalconIva12 = subTotal + (subTotal * iva);
+        } else if (!jCheckDescuento.isSelected() && jCheckIva.isSelected()) {
+            Double iva = Double.parseDouble(cbxIVA.getSelectedItem().toString()) / 100;
+            Double subTotalconIvaX = subTotal + (subTotal * iva);
             totalPa = 0.00;
-            totalPa = subTotalconIva12;
+            totalPa = subTotalconIvaX;
             txt_total_pagar.setText("" + totalPa);
 
         }
@@ -796,6 +870,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
         venta.setMonto(monto);
         vd.GuardarVenta(venta);
         guardarDetalleVenta();
+        actualizarStock();
 
     }
 
@@ -817,7 +892,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
     public void poputTable() {
         JPopupMenu popuMenu = new JPopupMenu();
-        JMenuItem menuItem1 = new JMenuItem("Eliminar Producto", new ImageIcon(getClass().getResource("/RecursosMultimedia/icon_cancel.png")));
+        JMenuItem menuItem1 = new JMenuItem("Quitar Producto", new ImageIcon(getClass().getResource("/RecursosMultimedia/icon_cancel.png")));
 
         menuItem1.addActionListener(new ActionListener() {
             @Override
@@ -894,16 +969,32 @@ public class Frm_Ventas extends javax.swing.JDialog {
         } else {
             guardarVenta();
             limpiarVenta();
-            actualizarStock();
+//            actualizarStock();
             JOptionPane.showMessageDialog(this, "Venta realizada con Éxito");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerClientesActionPerformed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_btnVerClientesActionPerformed
+
+    private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
+        // TODO add your handling code here:
+        ventanaProducto = new Frm_Producto(new javax.swing.JFrame(),true);
+        ventanaProducto.setVisible(true);
+    }//GEN-LAST:event_btnVerProductosActionPerformed
     private void actualizarStock() {
-        for (int i = 0; i < jTable_productos.getRowCount(); i++) {
+        for (int i = 0; i < modelo.getRowCount(); i++) {
             Producto pr = new Producto();
             idp = Integer.parseInt(jTable_productos.getValueAt(i, 1).toString());
             cantidad = Integer.parseInt(jTable_productos.getValueAt(i, 3).toString());
             pr = listarIDProducto(idp);
+            System.out.println("Lo que hay en listar producto acStock: "+listarIDProducto(idp));
+            System.out.println("Unidades: "+pr.getUnidades());
+            System.out.println("Cantidad: "+cantidad);
+            System.out.println("IdProducto: "+idp);
+                
             Integer stockActual = pr.getUnidades() - cantidad;
             actualizarStock(stockActual, idp);
         }
@@ -985,6 +1076,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelLogo;
     private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnVerClientes;
+    private javax.swing.JButton btnVerProductos;
     private javax.swing.JComboBox<String> cbxDescuento;
     private javax.swing.JComboBox<String> cbxIVA;
     private javax.swing.JButton jButton1;
