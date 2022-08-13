@@ -4,11 +4,13 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Gigabyte
  */
-public class DetalleVenta {
+public class DetalleVenta implements Serializable{
     private Integer idDetalleVenta;
     private Integer id_Venta;
     private Integer id_Producto;

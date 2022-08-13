@@ -330,5 +330,27 @@ public class Validacion {
 //        }
 //        return val;
 //    }
+/*
+        Metodo para validar que el usuario no ingrese caracteres no numericos enteros
+     */
+    public Boolean validarEnteros(String valor) {
+        try {
+            int num = Integer.parseInt(valor);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
+    /*
+        Metodo para validar que el usuario no ingrese caracteres no numericos
+     */
+    public Boolean validarDouble(String valor) {
+        try {
+            double num = Double.parseDouble(valor);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
