@@ -87,7 +87,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
        
     }
     public void seleccionar() throws Exception {
-       // limpiar();
+        limpiar();
         int seleccionar = tbl_tabla.getSelectedRow();
 //        modelo.equipo nose =ee.obtener(seleccionar);
         if (seleccionar >= 0) {
