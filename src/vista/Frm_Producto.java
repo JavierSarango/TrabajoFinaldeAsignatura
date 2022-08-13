@@ -10,7 +10,10 @@ import javax.swing.JOptionPane;
 import modelo.Producto;
 import vista.ModeloTablas.ModeloTablaProducto;
 import controlador.dao.ProductoDao;
+import controlador.dao.ProveedorDao;
+import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.enums.TipoOrdenacion;
+import modelo.Proveedor;
 
 /**
  *
@@ -21,6 +24,7 @@ public class Frm_Producto extends javax.swing.JDialog {
     private ModeloTablaProducto mtp = new ModeloTablaProducto();
     private ServicioProducto sp = new ServicioProducto();
     private ProductoDao productoDao = new ProductoDao();
+    private ProveedorDao proovedorDao = new ProveedorDao();
 //    private int fila = -1;
 
     /**
@@ -30,6 +34,7 @@ public class Frm_Producto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         limpiar();
+        cargarProveedor();
 
         buttonGroup1.add(radioA);
         buttonGroup1.add(radioD);
@@ -59,6 +64,18 @@ public class Frm_Producto extends javax.swing.JDialog {
         cbx_datoBusqueda.setSelectedIndex(0);
         cargarTabla();
     }
+    
+    private void cargarProveedor(){
+       cbx_proveedor.removeAllItems();
+        ListaEnlazada<Proveedor> listap = proovedorDao.listarIDProveedor();
+        for (int i = 0; i < listap.getSize(); i++) {
+            try {
+                cbx_proveedor.addItem(listap.obtenerDato(i).toString());
+            } catch (Exception e) { 
+                System.out.println("ingreso"+i+"Proveedor");
+        }
+            cbx_proveedor.updateUI();
+    }}
 
     private void guardar() throws Exception {
         if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
