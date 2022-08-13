@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import modelo.Producto;
 import vista.ModeloTablas.ModeloTablaProducto;
 import controlador.dao.ProductoDao;
+import controlador.utiles.enums.TipoOrdenacion;
 
 /**
  *
@@ -28,7 +29,10 @@ public class Frm_Producto extends javax.swing.JDialog {
     public Frm_Producto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        cargarTabla();
+        limpiar();
+
+        buttonGroup1.add(radioA);
+        buttonGroup1.add(radioD);
     }
 
     private void cargarTabla() {
@@ -53,9 +57,10 @@ public class Frm_Producto extends javax.swing.JDialog {
         txt_busqueda.setText("");
         cbx_proveedor.setSelectedIndex(0);
         cbx_datoBusqueda.setSelectedIndex(0);
+        cargarTabla();
     }
 
-    private void guardar() {
+    private void guardar() throws Exception {
         if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
                 || txt_descripcion.getText().trim().isEmpty() || txt_precioCompra.getText().trim().isEmpty()
                 || txt_precioVenta.getText().trim().isEmpty() || txt_unidades.getText().trim().isEmpty()) {
@@ -72,6 +77,7 @@ public class Frm_Producto extends javax.swing.JDialog {
 
             if (sp.guardar_modificar()) {
                 System.out.println("guardado correcto");
+                Integer auxId = sp.listar().shellListaEnlazada("idProducto", TipoOrdenacion.ASCENDENTE).obtenerDato(0).getIdProducto();
                 limpiar();
             }
 
@@ -80,6 +86,11 @@ public class Frm_Producto extends javax.swing.JDialog {
         }
 
     }
+    
+//    private void modificar(){
+//        Object aux = tbl_producto.getSelectedRow();
+//        aux.getClass(); 
+//    }
 
     public void calcularPrecioAutomatico() {
         if (check_automatico.isSelected() & txt_precioCompra.getText().trim().isEmpty()) {
@@ -99,23 +110,49 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     }
 
-    public void Eliminar() {
-        int fila = tbl_producto.getSelectedRow();
-        System.out.println("se selecciono la fila");
-        try {
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+    private void ordenar() throws Exception {
+        String criterio = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
 
-            } else {
-                if (productoDao.exterminar()) {
-                    JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-                    cargarTabla();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
+        if (radioA.isSelected()) {
+            mtp.setLista(sp.listar().shellListaEnlazada(criterio, TipoOrdenacion.ASCENDENTE));
+            System.out.println("se ordeno ascendente");
+        } else if (radioD.isSelected()) {
+            mtp.setLista(sp.listar().shellListaEnlazada(criterio, TipoOrdenacion.DESCENDENTE));
+            System.out.println("se ordeno ascendente");
+
         }
+        tbl_producto.setModel(mtp);
+        tbl_producto.updateUI();
+        
+         
     }
+
+    private void buscar() throws Exception {
+        String criterioBusqueda = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
+        String datoBusqueda = txt_busqueda.getText().trim().toLowerCase();
+
+        mtp.setLista(sp.listar().buscarDatoPosicionObjetoBinaria(criterioBusqueda, datoBusqueda));
+        System.out.println("se realizo busqueda");
+
+        tbl_producto.setModel(mtp);
+        tbl_producto.updateUI();
+    }
+    
+    
+
+//////////    private void eliminarDato() throws Exception {
+//////////        Integer fila = Integer.valueOf(tbl_producto.getSelectedRow());
+//////////        System.out.println("se selecciono la fila");
+//////////         
+//////////        productoDao
+//////////        cargarTabla();
+//////////        
+//////////        System.out.println("se realizo busqueda");
+//////////
+//////////        tbl_producto.setModel(mtp);
+//////////        tbl_producto.updateUI();
+//////////        
+//////////    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,6 +163,7 @@ public class Frm_Producto extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -135,6 +173,9 @@ public class Frm_Producto extends javax.swing.JDialog {
         tbl_producto = new javax.swing.JTable();
         cbx_datoBusqueda = new javax.swing.JComboBox<>();
         bnt_eliminar = new javax.swing.JButton();
+        btn_ordenar = new javax.swing.JButton();
+        radioA = new javax.swing.JRadioButton();
+        radioD = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -164,9 +205,9 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         jLabel6.setText("Buscar según:");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(30, 20, 100, 16);
+        jLabel6.setBounds(30, 20, 100, 18);
         jPanel2.add(txt_busqueda);
-        txt_busqueda.setBounds(170, 50, 300, 22);
+        txt_busqueda.setBounds(170, 50, 120, 24);
 
         jButton2.setText("BUSCAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +216,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jButton2);
-        jButton2.setBounds(500, 50, 110, 22);
+        jButton2.setBounds(310, 50, 110, 24);
 
         tbl_producto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,9 +234,9 @@ public class Frm_Producto extends javax.swing.JDialog {
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(10, 90, 680, 210);
 
-        cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Marca", "Proveedor" }));
         jPanel2.add(cbx_datoBusqueda);
-        cbx_datoBusqueda.setBounds(20, 50, 130, 22);
+        cbx_datoBusqueda.setBounds(20, 50, 130, 24);
 
         bnt_eliminar.setText("ELIMINAR");
         bnt_eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +245,49 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(bnt_eliminar);
-        bnt_eliminar.setBounds(500, 20, 110, 22);
+        bnt_eliminar.setBounds(310, 20, 110, 24);
+
+        btn_ordenar.setText("ORDENAR");
+        btn_ordenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ordenarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_ordenar);
+        btn_ordenar.setBounds(490, 20, 104, 24);
+
+        radioA.setText("A");
+        radioA.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioAItemStateChanged(evt);
+            }
+        });
+        radioA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioAActionPerformed(evt);
+            }
+        });
+        jPanel2.add(radioA);
+        radioA.setBounds(480, 60, 32, 22);
+
+        radioD.setText("D");
+        radioD.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioDItemStateChanged(evt);
+            }
+        });
+        radioD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioDMouseClicked(evt);
+            }
+        });
+        radioD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioDActionPerformed(evt);
+            }
+        });
+        jPanel2.add(radioD);
+        radioD.setBounds(540, 60, 114, 22);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 150, 700, 310);
@@ -214,13 +297,13 @@ public class Frm_Producto extends javax.swing.JDialog {
 
         jLabel7.setText("Código:");
         jPanel3.add(jLabel7);
-        jLabel7.setBounds(20, 20, 60, 16);
+        jLabel7.setBounds(20, 20, 60, 18);
 
         jLabel8.setText("Nombre:");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(110, 20, 60, 16);
+        jLabel8.setBounds(110, 20, 60, 18);
         jPanel3.add(txt_nombre);
-        txt_nombre.setBounds(100, 40, 160, 22);
+        txt_nombre.setBounds(100, 40, 160, 24);
 
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +311,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(txt_codigo);
-        txt_codigo.setBounds(10, 40, 85, 22);
+        txt_codigo.setBounds(10, 40, 85, 24);
 
         jButton3.setText("AGREGAR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -237,33 +320,33 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(jButton3);
-        jButton3.setBounds(560, 90, 110, 22);
+        jButton3.setBounds(560, 90, 110, 24);
         jPanel3.add(txt_precioCompra);
-        txt_precioCompra.setBounds(270, 40, 130, 22);
+        txt_precioCompra.setBounds(270, 40, 130, 24);
 
         jLabel9.setText("Precio Compra:");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(280, 20, 110, 16);
+        jLabel9.setBounds(280, 20, 110, 18);
 
         jLabel10.setText("Descripción:");
         jPanel3.add(jLabel10);
-        jLabel10.setBounds(20, 70, 100, 16);
+        jLabel10.setBounds(20, 70, 100, 18);
         jPanel3.add(txt_descripcion);
-        txt_descripcion.setBounds(10, 90, 250, 22);
+        txt_descripcion.setBounds(10, 90, 250, 24);
         jPanel3.add(txt_precioVenta);
-        txt_precioVenta.setBounds(410, 40, 130, 22);
+        txt_precioVenta.setBounds(410, 40, 130, 24);
 
         jLabel11.setText("Precio Venta:");
         jPanel3.add(jLabel11);
-        jLabel11.setBounds(420, 20, 110, 16);
+        jLabel11.setBounds(420, 20, 110, 18);
 
         jLabel12.setText("Proveedor:");
         jPanel3.add(jLabel12);
-        jLabel12.setBounds(420, 70, 80, 16);
+        jLabel12.setBounds(420, 70, 80, 18);
 
         cbx_proveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(cbx_proveedor);
-        cbx_proveedor.setBounds(410, 90, 130, 22);
+        cbx_proveedor.setBounds(410, 90, 130, 24);
 
         check_automatico.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         check_automatico.setText("Precio Automático");
@@ -273,13 +356,13 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(check_automatico);
-        check_automatico.setBounds(550, 40, 140, 20);
+        check_automatico.setBounds(550, 40, 140, 19);
 
         jLabel14.setText("Unidades:");
         jPanel3.add(jLabel14);
-        jLabel14.setBounds(280, 70, 110, 16);
+        jLabel14.setBounds(280, 70, 110, 18);
         jPanel3.add(txt_unidades);
-        txt_unidades.setBounds(270, 90, 130, 22);
+        txt_unidades.setBounds(270, 90, 130, 24);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(20, 20, 700, 130);
@@ -306,7 +389,10 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     private void bnt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_eliminarActionPerformed
         // TODO add your handling code here:
-        Eliminar();
+        try {
+            //eliminarDato();
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_bnt_eliminarActionPerformed
 
     private void check_automaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_automaticoActionPerformed
@@ -316,7 +402,52 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        try {
+            buscar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo buscar" + e, "Error Búsqueda", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btn_ordenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ordenarActionPerformed
+        // TODO add your handling code here:
+        try {
+            ordenar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo ordenar" + e, "Error Ordenar", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_ordenarActionPerformed
+
+    private void radioDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioDActionPerformed
+
+    private void radioAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioAActionPerformed
+
+    private void radioAItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioAItemStateChanged
+        // TODO add your handling code here:
+        try {
+            ordenar();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_radioAItemStateChanged
+
+    private void radioDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioDItemStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_radioDItemStateChanged
+
+    private void radioDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioDMouseClicked
+        // TODO add your handling code here:
+        try {
+            ordenar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo ordenar" + e, "Error Ordenar", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_radioDMouseClicked
 
     /**
      * @param args the command line arguments
@@ -363,6 +494,8 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_eliminar;
+    private javax.swing.JButton btn_ordenar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbx_datoBusqueda;
     private javax.swing.JComboBox<String> cbx_proveedor;
     private javax.swing.JCheckBox check_automatico;
@@ -380,6 +513,8 @@ public class Frm_Producto extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton radioA;
+    private javax.swing.JRadioButton radioD;
     private javax.swing.JTable tbl_producto;
     private javax.swing.JTextField txt_busqueda;
     private javax.swing.JTextField txt_codigo;
