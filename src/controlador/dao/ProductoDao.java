@@ -67,6 +67,32 @@ public class ProductoDao extends AdaptadorDao<Producto> {
         }
     }
     
+    public Boolean modificarManualCliente() {
+        PreparedStatement pst;
+        Connection con = Conexion.getConecction();
+        String sql = ("UPDATE producto SET codigo =?, nombre =?, "
+                + "descripcion =?, precioCompra =?, precioVenta =?, "
+                + "id_Proveedor =?, unidades =? WHERE idProducto =?" );
+        try {
+            pst = (PreparedStatement) con.prepareStatement(sql);
+            pst.setInt(1, producto.getCodigo());
+            pst.setString(2, producto.getNombre());
+            pst.setString(3, producto.getDescripcion());
+            pst.setDouble(4, producto.getPrecioCompra());
+            pst.setDouble(5, producto.getPrecioVenta());
+            pst.setInt(6, producto.getId_Proveedor());
+            pst.setInt(7, producto.getUnidades());
+            pst.setInt(8, producto.getIdProducto());
+          
+            pst.executeUpdate();
+            pst.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+
+    }
     
     public Boolean exterminar() {
         System.out.println("entra a exterminar");
@@ -81,52 +107,7 @@ public class ProductoDao extends AdaptadorDao<Producto> {
         }
     }
 }
-    
-//    public static void main(String[] args){
-//        ProductoDao productoDao = new ProductoDao();
-//        ListaEnlazada<Producto> lista = productoDao.listar();
-////        productoDao.getProducto().setCodigo(123);
-////        productoDao.getProducto().setNombre("teclado");
-////        productoDao.getProducto().setEstado(true);
-////        productoDao.getProducto().setDescripcion("genius negro mecanico");
-//        
-//        try {
-//            productoDao.setProducto(productoDao.obtener(1));
-//            System.out.println(productoDao.getProducto().getIdProducto());
-//            for (int i = 0; i < lista.getSize(); i++) {
-//                System.out.println(lista.obtenerDato(i).getCodigo() + lista.obtenerDato(i).getNombre());
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Error" +e);
-//        }
-//        
-//    }
-
-
-//      public ListaEnlazada getLista() {
-//        return lista;
-//    }
-
-    /**
-     * Este método permite guardar en la base local como .obj
-     */
-
-//    public boolean guardarProducto() {
-//        ListaEnlazada<Producto> aux = listar();
-//        try {
-//            this.getProducto().setIdProducto(Integer.parseInt(String.valueOf(listar().tamanio() + 1)));
-//            aux.insertarCabecera(producto);
-//            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CARPETA));
-//            oos.writeObject(aux);
-//            oos.close();
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("No se pudo guardar");
-//            return false;
-//        }
-//    }
-
+     
     //Este método nos permite buscar cualquier cadena de caracteres que nosotros queremos encontrar 
     //Ya sea nombre, apellido, etc
 //    public ListaEnlazada<Producto> buscarString(String dato) {
