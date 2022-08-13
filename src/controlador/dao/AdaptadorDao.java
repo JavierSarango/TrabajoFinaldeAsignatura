@@ -113,23 +113,23 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         System.out.println(comando);
 
     }
+//
+//    public boolean modificaree(T dato, int pos) {
+//
+//        try {
+//            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(carpeta));
+//            ListaEnlazada aux = listar();
+//            aux.modificarDato(pos, dato);
+//            oos.writeObject(aux);
+//            oos.close();
+//            return true;
+//        } catch (Exception e) {
+//            System.out.println("Error al guardar");
+//        }
+//        return false;
+//    }
 
-    public boolean modificaree(T dato, int pos) {
-
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(carpeta));
-            ListaEnlazada aux = listar();
-            aux.modificarDato(pos, dato);
-            oos.writeObject(aux);
-            oos.close();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al guardar");
-        }
-        return false;
-    }
-
-    public boolean eliminar(Integer dato) {
+    public boolean eliminaras(Integer dato) {
         Connection conexion = c.getConecction();
         try {
             PreparedStatement ps = conexion.prepareStatement("DELETE FROM proveedor WHERE id_Proveedor='" + dato + "'");
@@ -253,6 +253,10 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
 
     public void eliminar(T dato) throws Exception {
+
+    }
+    
+     public void eliminar(T dato, Integer pos) throws Exception {
 
     }
 

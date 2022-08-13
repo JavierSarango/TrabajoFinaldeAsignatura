@@ -599,7 +599,7 @@ public class Frm_Ventas extends javax.swing.JDialog {
             } else {
                 respuesta = JOptionPane.showConfirmDialog(this, "El cliente no esta Registrado, ¿Desea Hacerlo?");
                 if (respuesta == 0) {
-                    FrmCliente ventanaCliente = new FrmCliente();
+                    Frm_Cliente ventanaCliente = new Frm_Cliente();
                     ventanaCliente.setVisible(true);
                     this.dispose();
 

@@ -40,4 +40,24 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
         }
     }
 
+    public Boolean delete(Integer pos) {
+        try {
+            eliminaras(pos);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error en guardar o modificar");
+            return false;
+        }
+    }
+    
+       public Boolean modif(Integer pos) {
+        try {
+            modificaree(this.getCliente());
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error en guardar o modificar");
+            return false;
+        }
+    }
+
 }

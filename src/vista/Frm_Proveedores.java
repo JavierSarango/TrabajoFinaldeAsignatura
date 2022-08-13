@@ -198,7 +198,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         try {
             if (fila != -1) {
                 System.out.println(fila + "se selecciono la fila");
-                proveedordao.eliminar(fila);
+                proveedordao.eliminaras(fila);
                 int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (opcion == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
