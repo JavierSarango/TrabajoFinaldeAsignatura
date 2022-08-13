@@ -18,6 +18,7 @@ import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.enums.TipoOrdenacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import modelo.Producto;
@@ -31,7 +32,11 @@ public class ProductoDao extends AdaptadorDao<Producto> {
 
     private Producto producto;
     private ListaEnlazada<Producto> lista;
+    
     Conexion c = new Conexion();
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
     
 
     public Producto getProducto() {
@@ -91,6 +96,33 @@ public class ProductoDao extends AdaptadorDao<Producto> {
             System.out.println(e);
             return false;
         }
+
+    }
+    
+    public Producto listarIDProducto(Integer codigo) {
+        Producto p = new Producto();
+        String sql = "Select * from producto where codigo = ?";
+
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                p.setIdProducto(rs.getInt(1));
+                p.setCodigo(rs.getInt(2));
+                p.setNombre(rs.getString(3));
+                p.setDescripcion(rs.getString(4));
+                p.setPrecioCompra(rs.getDouble(5));
+                p.setPrecioVenta(rs.getDouble(6));
+                p.setId_Proveedor(rs.getInt(7));
+                p.setUnidades(rs.getInt(8));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar Id producto");
+            e.printStackTrace();
+        }
+        return p;
 
     }
     
