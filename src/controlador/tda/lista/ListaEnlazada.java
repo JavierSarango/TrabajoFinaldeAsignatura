@@ -50,7 +50,7 @@ public class ListaEnlazada<E> {
         return cabecera == null;
     }
 
-    private void insertar(E dato) {
+    public void insertar(E dato) {
         NodoLista<E> nuevo = new NodoLista<>(dato, null);
         if (estaVacia()) {
             cabecera = nuevo;
