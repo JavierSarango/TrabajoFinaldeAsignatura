@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
  */
 public class AdaptadorDao<T> implements InterfazDao<T> {
 
-    private Connection conexion; 
+    private Connection conexion;
     private Class clazz;
     private String ALL = "select * from ";
     private String ALL_ID = "select * from ";
@@ -49,11 +49,11 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
 
     public Class getClazz() {
-        return clazz; 
+        return clazz;
     }
 
-    @Override 
-    public void guardar(T dato) throws Exception { 
+    @Override
+    public void guardar(T dato) throws Exception {
         String[] columnas = columnas();
         String comando = "insert into " + clazz.getSimpleName().toLowerCase() + " ";
         String variables = "";
@@ -135,7 +135,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
             PreparedStatement ps = conexion.prepareStatement("DELETE FROM proveedor WHERE id_Proveedor='" + dato + "'");
             int verificacion = ps.executeUpdate();
             ps.close();
-            if (verificacion > 0) {
+            if (verificacion >= 0) {
                 return true;
             } else {
                 return false;
@@ -145,7 +145,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
             return false;
         }
     }
-    
+
     @Override
     public ListaEnlazada<T> listar() {
         ListaEnlazada<T> lista = new ListaEnlazada<>();
@@ -173,7 +173,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
                     }
 
                 }
-                lista.insertar(obj,lista.getSize()-1);
+                lista.insertar(obj, lista.getSize() - 1);
             }
 
         } catch (Exception e) {
@@ -225,7 +225,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
 
     private Object tipoDato(String name, T objeto) {
-        String aux = ""; 
+        String aux = "";
         try {
             Field field = Utilidades.getField(name, clazz);
             char[] arr = name.toCharArray();
@@ -253,7 +253,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     }
 
     public void eliminar(T dato) throws Exception {
-        
+
     }
 
 }

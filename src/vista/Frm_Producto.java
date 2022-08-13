@@ -16,11 +16,11 @@ import controlador.dao.ProductoDao;
  * @author diego
  */
 public class Frm_Producto extends javax.swing.JDialog {
-    
+
     private ModeloTablaProducto mtp = new ModeloTablaProducto();
     private ServicioProducto sp = new ServicioProducto();
     private ProductoDao productoDao = new ProductoDao();
-    private int fila = -1;
+//    private int fila = -1;
 
     /**
      * Creates new form Frm_Productos
@@ -30,60 +30,87 @@ public class Frm_Producto extends javax.swing.JDialog {
         initComponents();
         cargarTabla();
     }
-    
-    private void cargarTabla(){
+
+    private void cargarTabla() {
         mtp.setLista(sp.listar());
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
     }
-    
+
 //    private void cargarTipo(){
 //        cbx_proveedor.removeAllItems();
 //        for (String aux : Utilidades.tiposProv()){
 //            cbx_proveedor.addItem(aux);
 //        }
 //    }
-    
-    private void limpiar(){
+    private void limpiar() {
         txt_codigo.setText("");
         txt_nombre.setText("");
         txt_descripcion.setText("");
+        txt_unidades.setText("");
         txt_precioCompra.setText("");
         txt_precioVenta.setText("");
         txt_busqueda.setText("");
         cbx_proveedor.setSelectedIndex(0);
         cbx_datoBusqueda.setSelectedIndex(0);
     }
-    
-    private void guardar(){
-        sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
-        sp.getProducto().setNombre(txt_nombre.getText());
-        sp.getProducto().setDescripcion( txt_descripcion.getText());
-        sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
-        sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));  
+
+    private void guardar() {
+        if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
+                || txt_descripcion.getText().trim().isEmpty() || txt_precioCompra.getText().trim().isEmpty()
+                || txt_precioVenta.getText().trim().isEmpty() || txt_unidades.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Porfavor llenar todos los campos requeridos", "Insertar Datos", JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
+            sp.getProducto().setNombre(txt_nombre.getText());
+            sp.getProducto().setDescripcion(txt_descripcion.getText());
+            sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
+            sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
+            sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
 //        sp.getProducto().setUpdatedAt(updateAt);
 
-        if (sp.guardar_modificar()) {
-            System.out.println("guardado correcto");
-            limpiar();
+            if (sp.guardar_modificar()) {
+                System.out.println("guardado correcto");
+                limpiar();
+            }
+
+            sp.setProducto(null);
+            cargarTabla();
         }
-        
-        sp.setProducto(null);
-        cargarTabla();
+
     }
-    
+
+    public void calcularPrecioAutomatico() {
+        if (check_automatico.isSelected() & txt_precioCompra.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el precio de compra del Producto\npara proceder con el cálculo automático.", "Precio Compra", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (check_automatico.isSelected()) {
+                String aux = (txt_precioCompra.getText());
+                Double aux1 = Double.parseDouble(aux);
+                double pventa = aux1 * 1.50;
+                String pventa1 = String.valueOf(pventa);
+
+                txt_precioVenta.setText(pventa1);
+            } else {
+                txt_precioVenta.setText("");
+            }
+        }
+
+    }
+
     public void Eliminar() {
-        fila = tbl_producto.getSelectedRow();
+        int fila = tbl_producto.getSelectedRow();
         System.out.println("se selecciono la fila");
         try {
             if (fila == -1) {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-                
+
             } else {
                 if (productoDao.exterminar()) {
-                JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-                cargarTabla();
-            }
+                    JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+                    cargarTabla();
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error del sistema", "Error", JOptionPane.ERROR_MESSAGE);
@@ -99,10 +126,6 @@ public class Frm_Producto extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -126,17 +149,9 @@ public class Frm_Producto extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         cbx_proveedor = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
-
-        jLabel5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Búsqueda");
-
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jLabel3.setText("Código:");
-
-        jLabel4.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jLabel4.setText("Nombre:");
+        check_automatico = new javax.swing.JCheckBox();
+        jLabel14 = new javax.swing.JLabel();
+        txt_unidades = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -154,6 +169,11 @@ public class Frm_Producto extends javax.swing.JDialog {
         txt_busqueda.setBounds(170, 50, 300, 22);
 
         jButton2.setText("BUSCAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2);
         jButton2.setBounds(500, 50, 110, 22);
 
@@ -229,7 +249,7 @@ public class Frm_Producto extends javax.swing.JDialog {
         jPanel3.add(jLabel10);
         jLabel10.setBounds(20, 70, 100, 16);
         jPanel3.add(txt_descripcion);
-        txt_descripcion.setBounds(10, 90, 390, 22);
+        txt_descripcion.setBounds(10, 90, 250, 22);
         jPanel3.add(txt_precioVenta);
         txt_precioVenta.setBounds(410, 40, 130, 22);
 
@@ -245,10 +265,21 @@ public class Frm_Producto extends javax.swing.JDialog {
         jPanel3.add(cbx_proveedor);
         cbx_proveedor.setBounds(410, 90, 130, 22);
 
-        jCheckBox1.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
-        jCheckBox1.setText("Precio Automático");
-        jPanel3.add(jCheckBox1);
-        jCheckBox1.setBounds(550, 40, 140, 20);
+        check_automatico.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
+        check_automatico.setText("Precio Automático");
+        check_automatico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_automaticoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(check_automatico);
+        check_automatico.setBounds(550, 40, 140, 20);
+
+        jLabel14.setText("Unidades:");
+        jPanel3.add(jLabel14);
+        jLabel14.setBounds(280, 70, 110, 16);
+        jPanel3.add(txt_unidades);
+        txt_unidades.setBounds(270, 90, 130, 22);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(20, 20, 700, 130);
@@ -265,7 +296,7 @@ public class Frm_Producto extends javax.swing.JDialog {
         try {
             guardar();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudo guardar" +e, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pudo guardar" + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -277,6 +308,15 @@ public class Frm_Producto extends javax.swing.JDialog {
         // TODO add your handling code here:
         Eliminar();
     }//GEN-LAST:event_bnt_eliminarActionPerformed
+
+    private void check_automaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_automaticoActionPerformed
+        // TODO add your handling code here:
+        calcularPrecioAutomatico();
+    }//GEN-LAST:event_check_automaticoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,15 +365,13 @@ public class Frm_Producto extends javax.swing.JDialog {
     private javax.swing.JButton bnt_eliminar;
     private javax.swing.JComboBox<String> cbx_datoBusqueda;
     private javax.swing.JComboBox<String> cbx_proveedor;
+    private javax.swing.JCheckBox check_automatico;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -342,7 +380,6 @@ public class Frm_Producto extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tbl_producto;
     private javax.swing.JTextField txt_busqueda;
     private javax.swing.JTextField txt_codigo;
@@ -350,5 +387,6 @@ public class Frm_Producto extends javax.swing.JDialog {
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_precioCompra;
     private javax.swing.JTextField txt_precioVenta;
+    private javax.swing.JTextField txt_unidades;
     // End of variables declaration//GEN-END:variables
 }

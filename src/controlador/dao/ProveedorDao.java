@@ -47,7 +47,7 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
             return true;
         } catch (Exception e) {
-            System.out.println("Error en guardar o modificar");
+            System.out.println("Error en guardar");
             return false;
         }
     }
@@ -57,7 +57,7 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             modificaree(this.getProveedores());
             return true;
         } catch (Exception e) {
-            System.out.println("Error en guardar o modificar");
+            System.out.println("Error en modificar");
             return false;
         }
 
@@ -150,20 +150,6 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             return false;
         }
-    }
-
-    public byte[] GetImagenProducto(Integer  id_Proveedor) {
-        byte[] img = null;
-        try {
-            Consulta = Conection.createStatement();
-            Resultado = Consulta.executeQuery("SELECT imagen FROM proveedor WHERE  producto_id =" + id_Proveedor);
-            while (Resultado.next()) {
-                img = Resultado.getBytes("imagen");
-            }
-        } catch (SQLException e) {
-            return null;
-        }
-        return img;
     }
 
 }
