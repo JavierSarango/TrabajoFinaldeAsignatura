@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Venta implements Serializable{
     private Integer id_Venta;
     private Integer id_Cliente;   
-    private String nroVentas;
+    private String nrodeSerieVenta;
     private String fechaVenta;     
     private Double monto;
 
@@ -21,7 +21,7 @@ public class Venta implements Serializable{
     public Venta() {
      
         this.id_Venta = 0;
-        this.nroVentas = "";
+        this.nrodeSerieVenta = "";
         this.id_Cliente = 0;
         this.monto = 0.00;
       
@@ -29,7 +29,7 @@ public class Venta implements Serializable{
 
     public Venta(Integer id_Venta, String nroVentas, String fechaVenta, Integer id_Cliente, Double monto) {
         this.id_Venta = id_Venta;
-        this.nroVentas = nroVentas;
+        this.nrodeSerieVenta = nroVentas;
         this.fechaVenta = fechaVenta;
         this.id_Cliente = id_Cliente;
         this.monto = monto;
@@ -46,12 +46,12 @@ public class Venta implements Serializable{
         this.id_Venta = id_Venta;
     }
 
-    public String getNroVentas() {
-        return nroVentas;
+    public String getNrodeSerieVenta() {
+        return nrodeSerieVenta;
     }
 
-    public void setNroVentas(String nroVentas) {
-        this.nroVentas = nroVentas;
+    public void setNrodeSerieVenta(String nrodeSerieVenta) {
+        this.nrodeSerieVenta = nrodeSerieVenta;
     }
 
     public Integer getId_Cliente() {
@@ -82,7 +82,7 @@ public class Venta implements Serializable{
     
     @Override
     public String toString() {
-        return id_Venta + " "+ nroVentas+" " + id_Cliente +" " +fechaVenta+ " "+ monto;
+        return id_Venta + " "+ nrodeSerieVenta+" " + id_Cliente +" " +fechaVenta+ " "+ monto;
     }
     
     
