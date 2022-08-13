@@ -9,6 +9,8 @@ import Validacion.Validacion;
 import controlador.dao.ClienteDao;
 import controlador.utiles.Utilidades;
 import java.awt.Color;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import vista.ModeloTablas.ModeloTablaCliente;
 //import vista.ModeloTablas.ModeloTablaCliente;
@@ -20,7 +22,7 @@ import vista.ModeloTablas.ModeloTablaCliente;
 public class FrmCliente extends javax.swing.JFrame {
 
     private ClienteDao cc = new ClienteDao();
-  private ModeloTablaCliente mtc = new ModeloTablaCliente();
+    private ModeloTablaCliente mtc = new ModeloTablaCliente();
     private Validacion validacion = new Validacion();
     private Integer id = -1;
 
@@ -29,6 +31,13 @@ public class FrmCliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         combo();
         limpiar();
+        cargarCampos();
+
+    }
+
+    private void cargarCampos() {
+        Calendar calendar = new GregorianCalendar();
+        jLabelFecha.setText("" + calendar.get(Calendar.YEAR) + " / " + calendar.get(Calendar.MONTH + 1) + " / " + calendar.get(Calendar.DAY_OF_MONTH));
 
     }
 
@@ -59,12 +68,12 @@ public class FrmCliente extends javax.swing.JFrame {
     private void guardar() {
 
         if (txtRazonSocial.getText().trim().isEmpty() || txtCelular.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty()
-                || txtFechaNa.getText().trim().isEmpty() || txtIdentificacion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {
+                || txtIdentificacion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "ERROR0", JOptionPane.ERROR_MESSAGE);
         } else {
             if (validacion.validaCorreo(txtCorreo.getText()) == true) {
                 cc.getCliente().setRazonSocial(txtRazonSocial.getText());
-                cc.getCliente().setFechaNacimiento(txtFechaNa.getText());
+                cc.getCliente().setFechaNacimiento(jLabelFecha.getText());
                 cc.getCliente().setCorreo(txtCorreo.getText());
                 cc.getCliente().setCelular(txtCelular.getText());
                 cc.getCliente().setTelefono(txtTelefono.getText());
@@ -91,8 +100,8 @@ public class FrmCliente extends javax.swing.JFrame {
         txtCorreo.setForeground(Color.gray);
         txtDireccion.setText("Ingrese su direccion");
         txtDireccion.setForeground(Color.gray);
-        txtFechaNa.setText("Ingrese fecha ");
-        txtFechaNa.setForeground(Color.gray);
+        jLabelFecha.setText("Ingrese fecha ");
+        jLabelFecha.setForeground(Color.BLACK);
         txtIdentificacion.setText("Ingrese indetificacion RUC/CEDULA");
         txtIdentificacion.setForeground(Color.gray);
         txtRazonSocial.setText("Ingrese su nombre persona/Empresa");
@@ -121,7 +130,6 @@ public class FrmCliente extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtFechaNa = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cbxTipoCliente = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -135,6 +143,7 @@ public class FrmCliente extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
+        jLabelFecha = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -175,6 +184,17 @@ public class FrmCliente extends javax.swing.JFrame {
             }
         });
 
+        txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCorreoMouseClicked(evt);
+            }
+        });
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoActionPerformed(evt);
+            }
+        });
+
         jLabel9.setText("Correo");
 
         jLabel7.setText("Fecha Nacimiento");
@@ -203,7 +223,29 @@ public class FrmCliente extends javax.swing.JFrame {
             }
         });
 
+        txtCelular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCelularMouseClicked(evt);
+            }
+        });
+        txtCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCelularActionPerformed(evt);
+            }
+        });
+
         jLabel11.setText("Celular");
+
+        txtTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTelefonoMouseClicked(evt);
+            }
+        });
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Telefono");
 
@@ -222,6 +264,19 @@ public class FrmCliente extends javax.swing.JFrame {
         });
 
         jLabel13.setText("Direccion");
+
+        txtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDireccionMouseClicked(evt);
+            }
+        });
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionActionPerformed(evt);
+            }
+        });
+
+        jLabelFecha.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -247,11 +302,15 @@ public class FrmCliente extends javax.swing.JFrame {
                     .addComponent(cbxTipoIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFechaNa, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabelFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(50, 50, 50)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,14 +353,14 @@ public class FrmCliente extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(2, 2, 2)
-                        .addComponent(cbxTipoIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxTipoIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFecha))
                         .addGap(6, 6, 6)
                         .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(2, 2, 2)
-                        .addComponent(txtFechaNa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
+                        .addGap(42, 42, 42)
                         .addComponent(jLabel11))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -448,6 +507,44 @@ public class FrmCliente extends javax.swing.JFrame {
         txtIdentificacion.setText("");
         txtIdentificacion.setForeground(Color.BLACK);        // TODO add your handling code here:
     }//GEN-LAST:event_txtIdentificacionMouseClicked
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        txtCorreo.setText("");
+        txtCorreo.setForeground(Color.BLACK);     }//GEN-LAST:event_txtCorreoActionPerformed
+
+    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
+
+    }//GEN-LAST:event_txtCelularActionPerformed
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        txtTelefono.setText("");
+        txtTelefono.setForeground(Color.BLACK);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionActionPerformed
+
+    private void txtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMouseClicked
+        txtCorreo.setText("");
+        txtCorreo.setForeground(Color.BLACK);    // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoMouseClicked
+
+    private void txtCelularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCelularMouseClicked
+        txtCelular.setText("");
+        txtCelular.setForeground(Color.BLACK);
+    }//GEN-LAST:event_txtCelularMouseClicked
+
+    private void txtTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTelefonoMouseClicked
+        txtTelefono.setText("");
+        txtTelefono.setForeground(Color.BLACK);
+
+    }//GEN-LAST:event_txtTelefonoMouseClicked
+
+    private void txtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccionMouseClicked
+        txtDireccion.setText("");
+        txtDireccion.setForeground(Color.BLACK);
+    }//GEN-LAST:event_txtDireccionMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -501,6 +598,7 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelFecha;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -510,7 +608,6 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtFechaNa;
     private javax.swing.JTextField txtIdentificacion;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTelefono;
