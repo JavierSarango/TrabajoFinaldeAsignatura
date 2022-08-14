@@ -150,22 +150,22 @@ public class IF_Producto extends javax.swing.JInternalFrame {
 
         } else {
             try {
-                sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
-                sp.getProducto().setNombre(txt_nombre.getText());
-                sp.getProducto().setDescripcion(txt_descripcion.getText());
-                sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
-                sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
-                sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
-                sp.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
+                productoDao.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
+                productoDao.getProducto().setNombre(txt_nombre.getText());
+                productoDao.getProducto().setDescripcion(txt_descripcion.getText());
+                productoDao.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
+                productoDao.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
+                productoDao.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
+                productoDao.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
                 
                 productoDao.modificarequipo(
-                        sp.getProducto().getCodigo(), 
-                        sp.getProducto().getNombre(),
-                        sp.getProducto().getDescripcion(),
-                        sp.getProducto().getPrecioCompra(),
-                        sp.getProducto().getPrecioVenta(),
-                        sp.getProducto().getUnidades(),
-                        sp.getProducto().getProveedor(),
+                        productoDao.getProducto().getCodigo(), 
+                        productoDao.getProducto().getNombre(),
+                        productoDao.getProducto().getDescripcion(),
+                        productoDao.getProducto().getPrecioCompra(),
+                        productoDao.getProducto().getPrecioVenta(),
+                        productoDao.getProducto().getUnidades(),
+                        productoDao.getProducto().getProveedor(),
                         productoDao.getProducto().getIdProducto()
                         );
                 cargarTabla();
@@ -279,7 +279,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
         txt_codigo = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btn_guardar = new javax.swing.JButton();
         txt_precioCompra = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -378,15 +378,15 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel3.add(txt_codigo);
         txt_codigo.setBounds(10, 40, 90, 22);
 
-        jButton3.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jButton3.setText("AGREGAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_guardar.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        btn_guardar.setText("GUARDAR");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_guardarActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3);
-        jButton3.setBounds(270, 140, 90, 19);
+        jPanel3.add(btn_guardar);
+        btn_guardar.setBounds(270, 140, 90, 19);
         jPanel3.add(txt_precioCompra);
         txt_precioCompra.setBounds(10, 90, 90, 22);
 
@@ -447,7 +447,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         txt_unidades.setBounds(10, 140, 90, 22);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(10, 140, 420, 180);
+        jPanel3.setBounds(10, 130, 420, 190);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "BUSCAR PRODUCTOS"));
         jPanel4.setLayout(null);
@@ -500,7 +500,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jButton4.setBounds(20, 150, 122, 19);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(440, 140, 170, 180);
+        jPanel4.setBounds(440, 130, 170, 190);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ORDENAR PRODUCTOS"));
         jPanel5.setLayout(null);
@@ -508,12 +508,12 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jLabel22.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel22.setText("Criterio de Ordenación:");
         jPanel5.add(jLabel22);
-        jLabel22.setBounds(10, 20, 150, 18);
+        jLabel22.setBounds(10, 30, 150, 18);
 
         cbx_datoOrdenar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbx_datoOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Precio Compra", "Precio Venta", "Proveedor" }));
         jPanel5.add(cbx_datoOrdenar);
-        cbx_datoOrdenar.setBounds(10, 40, 130, 20);
+        cbx_datoOrdenar.setBounds(10, 60, 140, 20);
 
         radioA.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         radioA.setText("Ascendentemente");
@@ -528,7 +528,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
             }
         });
         jPanel5.add(radioA);
-        radioA.setBounds(10, 70, 130, 20);
+        radioA.setBounds(20, 100, 130, 20);
 
         radioD.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         radioD.setText("Descendetemente");
@@ -548,10 +548,10 @@ public class IF_Producto extends javax.swing.JInternalFrame {
             }
         });
         jPanel5.add(radioD);
-        radioD.setBounds(10, 100, 130, 19);
+        radioD.setBounds(20, 130, 130, 19);
 
         jPanel1.add(jPanel5);
-        jPanel5.setBounds(620, 140, 160, 180);
+        jPanel5.setBounds(620, 130, 160, 190);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ELIMINAR PRODUCTOS"));
         jPanel6.setLayout(null);
@@ -564,20 +564,20 @@ public class IF_Producto extends javax.swing.JInternalFrame {
             }
         });
         jPanel6.add(bnt_eliminar);
-        bnt_eliminar.setBounds(30, 50, 110, 19);
+        bnt_eliminar.setBounds(30, 60, 110, 19);
 
         jLabel25.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel25.setText("Seleccione el Dato");
+        jLabel25.setText("Primero seleccione");
         jPanel6.add(jLabel25);
         jLabel25.setBounds(10, 20, 130, 18);
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel23.setText("en la Tabla:");
+        jLabel23.setText("el dato en la Tabla:");
         jPanel6.add(jLabel23);
-        jLabel23.setBounds(10, 30, 130, 18);
+        jLabel23.setBounds(10, 40, 130, 18);
 
         jPanel1.add(jPanel6);
-        jPanel6.setBounds(790, 140, 160, 80);
+        jPanel6.setBounds(790, 130, 160, 90);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "MODIFICAR PRODUCTOS"));
         jPanel7.setLayout(null);
@@ -588,24 +588,24 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jLabel24.setBounds(10, 20, 130, 18);
 
         btn_cargarrrr.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        btn_cargarrrr.setText("cargar");
+        btn_cargarrrr.setText("CARGAR");
         btn_cargarrrr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cargarrrrActionPerformed(evt);
             }
         });
         jPanel7.add(btn_cargarrrr);
-        btn_cargarrrr.setBounds(40, 40, 84, 19);
+        btn_cargarrrr.setBounds(30, 40, 90, 19);
 
         btn_modd.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        btn_modd.setText("modd");
+        btn_modd.setText("MODIFICAR");
         btn_modd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_moddActionPerformed(evt);
             }
         });
         jPanel7.add(btn_modd);
-        btn_modd.setBounds(50, 70, 72, 19);
+        btn_modd.setBounds(30, 70, 90, 19);
 
         jPanel1.add(jPanel7);
         jPanel7.setBounds(790, 220, 160, 100);
@@ -682,12 +682,14 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private void btn_cargarrrrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargarrrrActionPerformed
         // TODO add your handling code here:
         seleccionar();
+        btn_guardar.setDisabledIcon(frameIcon);
     }//GEN-LAST:event_btn_cargarrrrActionPerformed
 
     private void btn_moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moddActionPerformed
         // TODO add your handling code here:
         try {
             modificarrrrr();
+            btn_guardar.disable();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btn_moddActionPerformed
@@ -696,14 +698,14 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         try {
             guardar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar" + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void check_automaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_automaticoActionPerformed
         // TODO add your handling code here:
@@ -751,6 +753,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_eliminar;
     private javax.swing.JButton btn_cargarrrr;
+    private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modd;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbx_datoBuscar;
@@ -758,7 +761,6 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbx_proveedor;
     private javax.swing.JCheckBox check_automatico;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
