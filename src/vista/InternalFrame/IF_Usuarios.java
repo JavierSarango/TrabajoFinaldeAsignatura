@@ -8,9 +8,6 @@ import Validacion.Validacion;
 import controlador.dao.UsuarioDao;
 import controlador.utiles.Utilidades;
 import controlador.utiles.enums.TipoOrdenacion;
-import java.awt.Color;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -76,15 +73,11 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
                 ud.getUsuario().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
                 ud.getUsuario().setIdentificacion(txtIdentifiacion.getText());
                 ud.getUsuario().setDireccion(txtDireccion.getText());
-                if (sinRepiticiones()) {
-                    if (ud.guardar()) {
-                        limpiar();
-                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                if (ud.guardar()) {
+                    limpiar();
+                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    System.out.println("pasa");
+                    JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -105,9 +98,12 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
 
     }
 
+
     public void seleccionar() {
         int seleccionar = tablaUsuario.getSelectedRow();
         if (seleccionar >= 0) {
+            Integer id = Integer.parseInt(String.valueOf(tablaUsuario.getValueAt(seleccionar, 0)));
+            ud.getUsuario().setId_usuario(id);
             txtRazonSocial.setText(String.valueOf(tablaUsuario.getValueAt(seleccionar, 1)));
             cbxTipoIdentificacion.setSelectedItem(String.valueOf(tablaUsuario.getValueAt(seleccionar, 2)));
             txtIdentifiacion.setText(String.valueOf(tablaUsuario.getValueAt(seleccionar, 3)));
@@ -124,20 +120,6 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
 
     }
 
-    private Boolean sinRepiticiones() {
-
-        Set<String> ides = new HashSet<>();
-
-        ides.add(txtNombreU.getText());
-
-        if (ides.add(txtNombreU.getText())) {
-            JOptionPane.showMessageDialog(null, "se puede registrar", "Ok", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Error archivos repetidos", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }
 
     private void ordenar() throws Exception {
         String criterio = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
@@ -463,11 +445,14 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+//    ud.modificarCliente(ud.getUsuario().getId_usuario(), "id_usuario");
+//        cargarTabla();   
+     //   modificar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        ud.eliminarmejorado(ud.getUsuario().getId_usuario(), "id_usuario");
+        cargarTabla();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -14,7 +14,6 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import vista.Frm_Cliente;
 import vista.ModeloTablas.ModeloTablaCliente;
 
 /**
@@ -69,63 +68,63 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
                 || txtIdentificacion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "ERROR0", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (validacion.validaCorreo(txtCorreo.getText()) == true) {
-                cc.getCliente().setRazonSocial(txtRazonSocial.getText());
-                cc.getCliente().setCorreo(txtCorreo.getText());
-                cc.getCliente().setCelular(txtCelular.getText());
-                cc.getCliente().setTelefono(txtTelefono.getText());
-                cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
-                cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
-                cc.getCliente().setIdentificacion(txtIdentificacion.getText());
-                cc.getCliente().setDireccion(txtDireccion.getText());
-                if (cc.guardar()) {
-                    limpiar();
-                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            int select = cbxTipoIdentificacion.getSelectedIndex();
+            switch (select) {
+                case 0:
+                    if (validacion.validarRUC(txtIdentificacion.getText())== true) {
+                        if (validacion.validaCorreo(txtCorreo.getText()) == true) {
+                            cc.getCliente().setRazonSocial(txtRazonSocial.getText());
+                            cc.getCliente().setCorreo(txtCorreo.getText());
+                            cc.getCliente().setCelular(txtCelular.getText());
+                            cc.getCliente().setTelefono(txtTelefono.getText());
+                            cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
+                            cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                            cc.getCliente().setIdentificacion(txtIdentificacion.getText());
+                            cc.getCliente().setDireccion(txtDireccion.getText());
+                            if (cc.guardar()) {
+                                limpiar();
+                                JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Correo invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "RUC invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    break;
+                case 1:
+                    if (validacion.validarCedula(txtIdentificacion.getText())== true) {
+                        if (validacion.validaCorreo(txtCorreo.getText()) == true) {
+                            cc.getCliente().setRazonSocial(txtRazonSocial.getText());
+                            cc.getCliente().setCorreo(txtCorreo.getText());
+                            cc.getCliente().setCelular(txtCelular.getText());
+                            cc.getCliente().setTelefono(txtTelefono.getText());
+                            cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
+                            cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                            cc.getCliente().setIdentificacion(txtIdentificacion.getText());
+                            cc.getCliente().setDireccion(txtDireccion.getText());
+                            if (cc.guardar()) {
+                                limpiar();
+                                JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Correo invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "RUC invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    break;
+                    default:
             }
         }
-
     }
 
-    private void Eliminar() {
-        seleccionar = tabla_clientes.getSelectedRow();
-        System.out.println("se selecciono la fila");
-        try {
-            if (seleccionar >= 0) {
-                System.out.println(seleccionar + " se selecciono la fila");
 
-                int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (opcion == JOptionPane.YES_OPTION) {
-                    cc.delete(seleccionar);
-                    JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-                    cargarTabla();
-                } else if (opcion == JOptionPane.NO_OPTION) {
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-
-        }
-    }
-
-    private void Eliminara() {
-        seleccionar = tabla_clientes.getSelectedRow();
-        try {
-            if (seleccionar >= 0) {
-                cc.delete(seleccionar);
-                JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
-                cargarTabla();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-
-        }
-    }
 
     private void limpiar() {
 
@@ -135,7 +134,6 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
         txtIdentificacion.setText("");
         txtRazonSocial.setText("");
         txtTelefono.setText("");
-
         cc.setCliente(null);
         cargarTabla();
 
@@ -144,8 +142,9 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
     public void seleccionar() {
         int seleccionar = tabla_clientes.getSelectedRow();
         if (seleccionar >= 0) {
+            Integer id = Integer.parseInt(String.valueOf(tabla_clientes.getValueAt(seleccionar, 0)));
+            cc.getCliente().setId_cliente(id);
             txtRazonSocial.setText(String.valueOf(tabla_clientes.getValueAt(seleccionar, 1)));
-//            txtRazonSocial.setText(nose.getRazon_social());
             cbxTipoIdentificacion.setSelectedItem(String.valueOf(tabla_clientes.getValueAt(seleccionar, 2)));
             txtIdentificacion.setText(String.valueOf(tabla_clientes.getValueAt(seleccionar, 3)));
             cbxTipoCliente.setSelectedItem(String.valueOf(tabla_clientes.getValueAt(seleccionar, 4)));
@@ -154,8 +153,6 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
             txtCorreo.setText(String.valueOf(tabla_clientes.getValueAt(seleccionar, 7)));
             txtDireccion.setText(String.valueOf(tabla_clientes.getValueAt(seleccionar, 8)));
 
-//            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
-            //btnmodificar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -252,6 +249,11 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
                 txtRazonSocialActionPerformed(evt);
             }
         });
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtRazonSocial);
         txtRazonSocial.setBounds(10, 30, 210, 22);
 
@@ -341,7 +343,7 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
         jPanel3.add(txtTelefono);
         txtTelefono.setBounds(490, 30, 220, 22);
 
-        jButton3.setText("Actualizar");
+        jButton3.setText("Eliminar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -363,14 +365,14 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
         jPanel3.add(txtDireccion);
         txtDireccion.setBounds(490, 90, 220, 22);
 
-        jButton5.setText("Eliminar");
+        jButton5.setText("Actualizar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
         jPanel3.add(jButton5);
-        jButton5.setBounds(560, 190, 160, 30);
+        jButton5.setBounds(550, 190, 160, 30);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Correo");
@@ -566,7 +568,8 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Eliminara();        // TODO add your handling code here:
+        cc.eliminarmejorado(cc.getCliente().getId_cliente(), "id_cliente");
+        cargarTabla();// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccionMouseClicked
@@ -579,7 +582,7 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Eliminar();        // TODO add your handling code here:
+//        Eliminar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tabla_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_clientesMouseClicked
@@ -617,6 +620,10 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
             Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

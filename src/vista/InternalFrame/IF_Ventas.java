@@ -254,7 +254,7 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
                 c.setDireccion(rs.getString(6));
                 c.setIdentificacion(rs.getString(7));
                 c.setTipoCliente(rs.getString(8));
-                c.setFechaNacimiento(rs.getString(9));
+               // c.setFechaNacimiento(rs.getString(9));
             }
         } catch (Exception e) {
             System.out.println("Error en listar Id cliente");

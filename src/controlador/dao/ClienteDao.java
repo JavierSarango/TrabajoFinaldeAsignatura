@@ -24,8 +24,8 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
     Conexion c = new Conexion();
     Connection con;
     PreparedStatement ps;
-     ResultSet rs;
-     Statement s;
+    ResultSet rs;
+    Statement s;
 
     public ClienteDao() {
         super(Cliente.class);
@@ -64,7 +64,7 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
 
     public void EliminarProsucto(int id_cliente) {
         try {
-            s =  con.createStatement();
+            s = con.createStatement();
             s.execute("DELETE FROM cliente WHERE identificacion = " + id_cliente);
         } catch (SQLException e) {
         }
@@ -96,9 +96,9 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
                 p.setCelular(rs.getString(3));
                 p.setTelefono(rs.getString(4));
                 p.setCorreo(rs.getString(5));
-                p.setTipoIdentificacion(rs.getString(6));
-                p.setIdentificacion(rs.getString(7));
-                p.setFechaNacimiento(rs.getString(8));
+                p.setDireccion(rs.getString(6));
+                p.setTipoIdentificacion(rs.getString(7));
+                p.setIdentificacion(rs.getString(8));
                 p.setTipoCliente(rs.getString(9));
             }
         } catch (Exception e) {

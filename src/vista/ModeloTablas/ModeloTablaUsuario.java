@@ -43,7 +43,7 @@ public class ModeloTablaUsuario extends AbstractTableModel {
             switch (i1) {
 
                 case 0:
-                    return (i + 1);
+                    return usuario.getId_usuario();
                 case 1:
                     return usuario.getRazonSocial();
                 case 2:

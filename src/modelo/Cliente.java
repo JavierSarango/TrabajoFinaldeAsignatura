@@ -12,16 +12,13 @@ import java.util.Date;
  *
  * @author Pc
  */
-public class Cliente extends Persona implements Serializable{
+public class Cliente extends Persona implements Serializable {
 
     private Integer id_cliente;
     private String tipoCliente;
-    private String fechaNacimiento;
 
     public Cliente() {
     }
-
-    
 
     public Integer getId_cliente() {
         return id_cliente;
@@ -39,23 +36,9 @@ public class Cliente extends Persona implements Serializable{
         this.tipoCliente = tipoCliente;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-
-  
-
     @Override
     public String toString() {
-        return "";
+        return tipoCliente;
     }
-    
-    
-     
 
 }
