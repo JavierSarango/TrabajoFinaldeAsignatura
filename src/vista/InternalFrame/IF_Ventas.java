@@ -35,6 +35,8 @@ import vista.Frm_Ventas;
 import static vista.Frm_Ventas.jScrollPaneTabla;
 import static vista.Frm_Ventas.jTable_productos;
 import static vista.Frm_Ventas.txt_total_pagar;
+import vista.Principal.FrmMenuPrincipal;
+
 
 /**
  *
@@ -154,9 +156,8 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
                 respuesta = JOptionPane.showConfirmDialog(this, "El cliente no esta Registrado, ¿Desea Hacerlo?");
                 if (respuesta == 0) {
                    ventanaCliente = new IF_Cliente();
+                    FrmMenuPrincipal.jDesktopPane_menu.add(ventanaCliente);                   
                     ventanaCliente.setVisible(true);
-                    
-                    
                    
                 }
             }
@@ -995,12 +996,14 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
     private void btnVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerClientesActionPerformed
         // TODO add your handling code here:
         ventanaCliente = new IF_Cliente();
-        ventanaProducto.setVisible(true);
+       FrmMenuPrincipal.jDesktopPane_menu.add(ventanaCliente);
+        ventanaCliente.setVisible(true);
     }//GEN-LAST:event_btnVerClientesActionPerformed
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
         // TODO add your handling code here:
         ventanaProducto = new IF_Producto();
+        FrmMenuPrincipal.jDesktopPane_menu.add(ventanaProducto);
         ventanaProducto.setVisible(true);
     }//GEN-LAST:event_btnVerProductosActionPerformed
     /*
