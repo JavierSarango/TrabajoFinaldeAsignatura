@@ -17,6 +17,8 @@ import vista.ModeloTablas.ModeloTablaProveedores;
 import Validacion.Validacion;
 import controlador.dao.ProveedorDao;
 import controlador.tda.lista.ListaEnlazada;
+import controlador.tda.lista.ListaEnlazadaServices;
+import controlador.tda.lista.exception.PosicionException;
 import controlador.utiles.enums.TipoOrdenacion;
 import java.awt.Graphics;
 import java.io.FileInputStream;
@@ -120,46 +122,45 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
             if (validacion.validaCorreo(txtemail.getText()) == true) {
                 JOptionPane.showMessageDialog(null, "Correo Valido", "Ok", JOptionPane.INFORMATION_MESSAGE);
-            }else{ 
-                 JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
             }
-                proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
-                proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-                proveedordao.getProveedores().setDireccion(txtdireccion.getText());
-                proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
-                proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
-                proveedordao.getProveedores().setTelefono(txttfijo.getText());
-                proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
-                proveedordao.getProveedores().setCelular(txtcelular.getText());
-                proveedordao.getProveedores().setCorreo(txtemail.getText());
-                proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
-                proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
-                proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
-                proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
-                proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
-                System.out.print("Llega 3");
-                if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
-                    if (proveedordao.getProveedores().getId_Proveedor() == null) {
-                        if (proveedordao.guardar()) {
-                            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                            limpiar();
-                            cargarTabla();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+            proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
+            proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
+            proveedordao.getProveedores().setDireccion(txtdireccion.getText());
+            proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
+            proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
+            proveedordao.getProveedores().setTelefono(txttfijo.getText());
+            proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
+            proveedordao.getProveedores().setCelular(txtcelular.getText());
+            proveedordao.getProveedores().setCorreo(txtemail.getText());
+            proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
+            proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
+            proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
+            proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
+            proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
+            System.out.print("Llega 3");
+            if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
+                if (proveedordao.getProveedores().getId_Proveedor() == null) {
+                    if (proveedordao.guardar()) {
+                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        limpiar();
+                        cargarTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } else {//ACTUALIZA LOS DATOS
-                    try {
-                        if(proveedordao.actualizar()){
+                }
+            } else {//ACTUALIZA LOS DATOS
+                try {
+                    if (proveedordao.actualizar()) {
                         JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
                         limpiar();
                         cargarTabla();
-                        }
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                     }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                 }
-           
+            }
 
         }
     }
@@ -188,6 +189,30 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         }
     }
 
+    private void buscar() throws PosicionException {
+        int select = Cbxcriterio.getSelectedIndex();
+        ListaEnlazada aux = new ListaEnlazada();
+        switch (select) {
+            case 0:
+                aux = proveedordao.busquedasecuencial(txtbuscar.getText(), 1);
+                break;
+            case 1:
+                aux = proveedordao.busquedasecuencial(txtbuscar.getText(), 2);
+                break;
+            case 2:
+                aux = proveedordao.busquedasecuencial(txtbuscar.getText(), 3);
+            case 3:
+                aux = proveedordao.busquedasecuencial(txtbuscar.getText(), 4);
+                break;
+            default:
+                proveedordao.ordenar();
+                aux = modelotablaproveedor.getLista();
+        }
+        modelotablaproveedor.setLista(aux);
+        tbl_proveedores.setModel(modelotablaproveedor);
+        tbl_proveedores.updateUI();
+    }
+
     /**
      *
      * Metodo eliminar registro
@@ -208,7 +233,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar el registrro", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el registrro", "Error", JOptionPane.ERROR_MESSAGE);
 
         }
     }
@@ -316,6 +341,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         txtbuscar = new javax.swing.JTextField();
         Btnbuscar = new javax.swing.JButton();
         jlabelPie = new fondoPieLabel();
+        Cbxcriterio = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -808,6 +834,13 @@ public class Frm_Proveedores extends javax.swing.JFrame {
         });
 
         Btnbuscar.setBackground(new java.awt.Color(153, 204, 255));
+        Btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnbuscarActionPerformed(evt);
+            }
+        });
+
+        Cbxcriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agente Responsable", "Provincia", "RUC", "Razon Social" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -817,18 +850,20 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 .addGap(0, 40, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(Btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jlabelPie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Cbxcriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(Btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addContainerGap())
@@ -840,13 +875,14 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Cbxcriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlabelPie, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1028,6 +1064,15 @@ public class Frm_Proveedores extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tbl_proveedoresMouseClicked
 
+    private void BtnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnbuscarActionPerformed
+        try {
+            // TODO add your handling code here:
+            buscar();
+        } catch (PosicionException ex) {
+            Logger.getLogger(Frm_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnbuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1109,6 +1154,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     private javax.swing.JButton BtnModificar;
     private javax.swing.JButton BtnNuevo;
     private javax.swing.JButton Btnbuscar;
+    private javax.swing.JComboBox<String> Cbxcriterio;
     private javax.swing.JLabel JlabelLogo;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbxBanco;
