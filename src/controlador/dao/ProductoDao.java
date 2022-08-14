@@ -138,6 +138,34 @@ public class ProductoDao extends AdaptadorDao<Producto> {
             return false;
         }
     }
+    
+    public boolean actualizarStock(Integer idProducto, Integer codigo, String nombre, String descripcion, Double precioCompra, Double precioVenta, Integer unidades, String Proveedor) {
+//    
+        String sql = "UPDATE producto SET codigo = ?, nombre = ?, descripción = ?, precioCompra = ?, precioVenta = ?, unidades = ?, Proveedor = ?, WHERE idProducto = ?";
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, codigo);
+            ps.setString(2, nombre);
+            ps.setString(3, descripcion);
+            ps.setDouble(4, precioCompra);
+            ps.setDouble(5, precioVenta);
+            ps.setInt(6, unidades);
+            ps.setString(7, Proveedor);
+            ps.setInt(8, idProducto);
+            
+//            ps.executeQuery();
+            ps.executeUpdate();
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error al actualizar stock");
+            e.printStackTrace();
+        }
+
+       return false;
+    }
 }
      
     //Este método nos permite buscar cualquier cadena de caracteres que nosotros queremos encontrar 
