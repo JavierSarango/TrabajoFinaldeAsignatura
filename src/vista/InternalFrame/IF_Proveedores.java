@@ -11,6 +11,10 @@ import controlador.tda.lista.exception.PosicionException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -38,7 +42,10 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     //Variables
     private int pos = -1;
     File fichero;
-//    private int fila = -1;
+    private int fila = -1;
+       Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
     //Iconos a botones
     ImageIcon guardar = new ImageIcon("src/RecursosMultimedia/fac_save.png");
     ImageIcon eliminar = new ImageIcon("src/RecursosMultimedia/fac_remove.png");
@@ -184,10 +191,9 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
      * Metodo eliminar registro
      */
     private void Eliminar() {
-        int fila = tbl_proveedores.getSelectedRow();
-        System.out.println("se selecciono la fila");
+        fila = tbl_proveedores.getSelectedRow();
         try {
-            if (fila != -1) {
+            if (fila >= 0) {
                 System.out.println(fila + "se selecciono la fila");
                 proveedordao.eliminaras(fila);
                 int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -203,6 +209,40 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 
         }
     }
+    
+    private void modi() throws SQLException{
+        Connection con = null;
+         String sql = ("UPDATE proveedor SET agente_responsable =?, provincia =?, direccion =?, identificacion =?, razonSocial =?, "
+                + "telefono =?, celular =?,telefono_opcional =?, correo=?, pagina_web=?, banco=?, tipocuenta=?, nro_cuenta=?, credito=? WHERE id_Proveedor =?");
+         ps = con.prepareStatement(sql);
+         try {
+            ps.setInt(1, proveedor.getId_Proveedor());
+            ps.setString(2, proveedor.getAgente_responsable());
+            ps.setString(3, proveedor.getProvincia());
+            ps.setString(4, proveedor.getDireccion());
+            ps.setString(5, proveedor.getIdentificacion());
+            ps.setString(6, proveedor.getRazonSocial());
+            ps.setString(7, proveedor.getTelefono());
+            ps.setString(8, proveedor.getCelular());
+            ps.setString(9, proveedor.getTelefono());
+            ps.setString(10, proveedor.getCorreo());
+            ps.setString(11, proveedor.getPagina_web());
+            ps.setString(12, proveedor.getBanco());
+            ps.setString(13, proveedor.getTipocuenta());
+            ps.setString(14, proveedor.getNro_cuenta());
+            ps.setString(15, proveedor.getCredito());
+            ps.executeUpdate();
+            ps.close();
+//            return true;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+//            return false;
+        }
+         
+        
+    }
+    
     /**
      *
      * Metodo para buscar datos

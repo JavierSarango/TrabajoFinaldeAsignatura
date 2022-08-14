@@ -6,6 +6,7 @@ package controlador.dao;
 
 import controlador.Conexion;
 import controlador.tda.lista.ListaEnlazada;
+import controlador.tda.lista.ListaEnlazadaServices;
 import controlador.tda.lista.exception.PosicionException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ import modelo.Proveedor;
 public class ProveedorDao extends AdaptadorDao<Proveedor> {
 
     private Proveedor proveedor;
-    private ListaEnlazada<Proveedor> listaproveedores;
+    private ListaEnlazadaServices<Proveedor> listaproveedores;
     private static Connection Conection;
     private static Statement Consulta;
     private static ResultSet Resultado;
@@ -125,6 +126,8 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             return new ListaEnlazada<>();
         }
     }
+
+
 
     public ListaEnlazada<Proveedor> busquedasecuencial(String dato, Integer tipo) throws PosicionException {
         ListaEnlazada<Proveedor> lista = new ListaEnlazada<>();
