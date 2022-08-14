@@ -145,6 +145,22 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
             return false;
         }
     }
+        public boolean eliminarCliente(Integer dato) {
+        Connection conexion = c.getConecction();
+        try {
+            PreparedStatement ps = conexion.prepareStatement("DELETE FROM cliente WHERE id_cliente ='" + dato + "'");
+            int verificacion = ps.executeUpdate();
+            ps.close();
+            if (verificacion >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
     @Override
     public ListaEnlazada<T> listar() {

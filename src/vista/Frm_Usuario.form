@@ -511,8 +511,8 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
-                    <StringItem index="0" value="rasonSocial"/>
-                    <StringItem index="1" value="identificacion"/>
+                    <StringItem index="0" value="Razon Social"/>
+                    <StringItem index="1" value="Identificacion"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -539,11 +539,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Descendente"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="radioDItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioA">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ascendente"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="radioAItemStateChanged"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

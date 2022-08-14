@@ -6,6 +6,7 @@
 package vista;
 
 import Validacion.Validacion;
+import controlador.Conexion;
 import controlador.dao.ClienteDao;
 import controlador.utiles.Utilidades;
 import controlador.utiles.enums.TipoOrdenacion;
@@ -83,13 +84,35 @@ public class Frm_Cliente extends javax.swing.JDialog {
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                }else{
-                       JOptionPane.showMessageDialog(null, "Error cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
-            }else{
-                   JOptionPane.showMessageDialog(null, "Error al correo", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al correo", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+
+    }
+
+    public void seleccionar() {
+        int seleccionar = tablaCliente.getSelectedRow();
+        if (seleccionar >= 0) {
+            txtRazonSocial.setText(String.valueOf(tablaCliente.getValueAt(seleccionar, 1)));
+//            txtRazonSocial.setText(nose.getRazon_social());
+            txtCelular.setText(String.valueOf(tablaCliente.getValueAt(seleccionar, 6)));
+            txtCorreo.setText(String.valueOf(tablaCliente.getValueAt(seleccionar, 7)));
+            txtDireccion.setText(String.valueOf(tablaCliente.getValueAt(seleccionar, 9)));
+            txtIdentificacion.setText(String.valueOf(tablaCliente.getValueAt(seleccionar, 3)));
+            cbxTipoCliente.setSelectedItem(String.valueOf(tablaCliente.getValueAt(seleccionar, 4)));
+            txtTelefono.setText(String.valueOf(tablaCliente.getValueAt(seleccionar, 5)));
+            cbxTipoIdentificacion.setSelectedItem(String.valueOf(tablaCliente.getValueAt(seleccionar, 2)));
+            txtFechaN.setText(String.valueOf(tablaCliente.getValueAt(seleccionar, 8)));
+
+//            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
+            //btnmodificar.setText("Actualizar");
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -112,6 +135,21 @@ public class Frm_Cliente extends javax.swing.JDialog {
         cc.setCliente(null);
         cargarTabla();
 
+    }
+
+    private void eliminar() {
+        Conexion c;
+        int producto_id = 0;
+        if (tablaCliente.getSelectedRow() != -1) {
+            producto_id = Integer.parseInt(mtc.getValueAt(tablaCliente.getSelectedRow(), 0).toString());
+            if (JOptionPane.showConfirmDialog(rootPane, "¿Desea eliminar este producto?", "Eliminar producto", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                cc.EliminarProsucto(producto_id);
+                limpiar();
+                cargarTabla();
+            }
+
+        }
     }
 
     private void ordenar() throws Exception {
@@ -232,6 +270,11 @@ public class Frm_Cliente extends javax.swing.JDialog {
         });
 
         jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Modificar");
 
@@ -252,12 +295,11 @@ public class Frm_Cliente extends javax.swing.JDialog {
                 .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtFechaN, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCorreo)
-                        .addComponent(cbxTipoCliente, 0, 161, Short.MAX_VALUE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCorreo)
+                    .addComponent(cbxTipoCliente, 0, 161, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,6 +380,11 @@ public class Frm_Cliente extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCliente);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -501,6 +548,14 @@ public class Frm_Cliente extends javax.swing.JDialog {
             Logger.getLogger(Frm_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        eliminar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tablaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClienteMouseClicked
+        seleccionar();        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaClienteMouseClicked
 
     /**
      * @param args the command line arguments

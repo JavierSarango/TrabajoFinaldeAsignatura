@@ -111,13 +111,11 @@
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtFechaN" pref="161" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel4" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                              <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cbxTipoCliente" alignment="0" pref="161" max="32767" attributes="0"/>
-                              <Component id="jLabel10" min="-2" pref="123" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel4" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
+                          <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbxTipoCliente" alignment="0" pref="161" max="32767" attributes="0"/>
+                          <Component id="jLabel10" min="-2" pref="123" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -310,6 +308,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
@@ -371,6 +372,9 @@
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaClienteMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

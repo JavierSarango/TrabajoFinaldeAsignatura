@@ -9,6 +9,8 @@ import controlador.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import modelo.Cliente;
 
 /**
@@ -18,12 +20,12 @@ import modelo.Cliente;
 public class ClienteDao extends AdaptadorDao<Cliente> {
 
     private Cliente cliente;
-    
-        
+
     Conexion c = new Conexion();
     Connection con;
     PreparedStatement ps;
-    ResultSet rs;
+     ResultSet rs;
+     Statement s;
 
     public ClienteDao() {
         super(Cliente.class);
@@ -52,15 +54,24 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
 
     public Boolean delete(Integer pos) {
         try {
-            eliminaras(pos);
+            eliminarCliente(pos);
             return true;
         } catch (Exception e) {
             System.out.println("Error en guardar o modificar");
             return false;
         }
     }
-    
-       public Boolean modif(Integer pos) {
+
+    public void EliminarProsucto(int id_cliente) {
+        try {
+            s =  con.createStatement();
+            s.execute("DELETE FROM cliente WHERE identificacion = " + id_cliente);
+        } catch (SQLException e) {
+        }
+
+    }
+
+    public Boolean modif(Integer pos) {
         try {
             modificaree(this.getCliente());
             return true;
@@ -69,10 +80,10 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
             return false;
         }
     }
-       
-        public Cliente listarIDProducto(String indentificacion) {
+
+    public Cliente listarIDProducto(String indentificacion) {
         Cliente p = new Cliente();
-        String sql = "Select * from producto where identificacion = ?";
+        String sql = "Select * from cliente where identificacion = ?";
 
         try {
             con = Conexion.getConecction();
@@ -97,6 +108,5 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
         return p;
 
     }
-       
 
 }

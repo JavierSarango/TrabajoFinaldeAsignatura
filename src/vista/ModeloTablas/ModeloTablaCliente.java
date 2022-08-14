@@ -58,6 +58,8 @@ public class ModeloTablaCliente extends AbstractTableModel {
                     return cliente.getCorreo();
                 case 8:
                     return cliente.getFechaNacimiento();
+                                    case 9:
+                    return cliente.getDireccion();
                 default:
                     return null;
             }
@@ -87,6 +89,8 @@ public class ModeloTablaCliente extends AbstractTableModel {
                 return "correo";
             case 8:
                 return "fecha nacimiento";
+                     case 9:
+                return "Direccion";
             default:
                 return null;
         }

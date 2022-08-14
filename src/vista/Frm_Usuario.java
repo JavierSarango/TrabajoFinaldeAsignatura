@@ -402,7 +402,7 @@ public class Frm_Usuario extends javax.swing.JDialog {
 
         jLabel3.setText("Buscar");
 
-        cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "rasonSocial", "identificacion" }));
+        cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Razon Social", "Identificacion" }));
 
         jButton4.setText("Buscar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -414,8 +414,18 @@ public class Frm_Usuario extends javax.swing.JDialog {
         jLabel9.setText("Ordenar ");
 
         radioD.setText("Descendente");
+        radioD.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioDItemStateChanged(evt);
+            }
+        });
 
         radioA.setText("Ascendente");
+        radioA.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioAItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -550,6 +560,22 @@ public class Frm_Usuario extends javax.swing.JDialog {
             Logger.getLogger(Frm_Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void radioAItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioAItemStateChanged
+        try {
+            ordenar();        // TODO add your handling code here:
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_radioAItemStateChanged
+
+    private void radioDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioDItemStateChanged
+        try {
+            ordenar();        // TODO add your handling code here:
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_radioDItemStateChanged
 
     /**
      * @param args the command line arguments
