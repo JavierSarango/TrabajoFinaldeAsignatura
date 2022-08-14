@@ -158,7 +158,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
                 productoDao.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
                 productoDao.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
                 
-                productoDao.modificarequipo(
+                productoDao.modificarArreglado(
                         productoDao.getProducto().getCodigo(), 
                         productoDao.getProducto().getNombre(),
                         productoDao.getProducto().getDescripcion(),
