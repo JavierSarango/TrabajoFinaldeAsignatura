@@ -108,5 +108,22 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
         return p;
 
     }
+    
+    public void modificarArreglado(String razonSocial, String telefono, String celular, String correo, String direccion, String tipoIdentificacion, String identificacion, String tipoCliente,Integer id_Cliente) throws Exception {
+        
+        
+        System.out.println("ingreso a modificar");
+        String update = "Update cliente set razonSocial ='" + razonSocial + "',telefono ='" + telefono + "',celular ='" + celular + "',correo ='" + correo + "',direccion='" + direccion + "',tipoIdentificacion ='" + tipoIdentificacion + "',tipoCliente ='"+ tipoCliente  +"' where id_Cliente = '" + id_Cliente + "'";
+
+
+        try {
+            PreparedStatement stmt = getConexion().prepareStatement(update);
+            stmt.executeUpdate();
+            //OptionPane.showMessageDialog(null, "actualizado correctamente");
+        } catch (SQLException ex) {
+            System.out.println("Error en guardar " + ex);
+        }
+       
+    }
 
 }

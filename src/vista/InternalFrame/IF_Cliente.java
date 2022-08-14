@@ -123,7 +123,41 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
             }
         }
     }
+private void modificarrrrr() throws Exception {
 
+                if (txtRazonSocial.getText().trim().isEmpty() || txtCelular.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty()
+                || txtIdentificacion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios", "ERROR0", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            try {
+                               cc.getCliente().setRazonSocial(txtRazonSocial.getText());
+                            cc.getCliente().setCorreo(txtCorreo.getText());
+                            cc.getCliente().setCelular(txtCelular.getText());
+                            cc.getCliente().setTelefono(txtTelefono.getText());
+                            cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
+                            cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                            cc.getCliente().setIdentificacion(txtIdentificacion.getText());
+                            cc.getCliente().setDireccion(txtDireccion.getText());
+                
+                cc.modificarArreglado(
+                        cc.getCliente().getRazonSocial(), 
+                        cc.getCliente().getTelefono(),
+                        cc.getCliente().getCelular(),
+                        cc.getCliente().getCorreo(),
+                        cc.getCliente().getDireccion(),
+                        cc.getCliente().getTipoIdentificacion(),
+                        cc.getCliente().getIdentificacion(),
+                        cc.getCliente().getTipoCliente(),
+                         cc.getCliente().getId_cliente());
+                cargarTabla();
+            } catch (Exception ex) {
+            }
+ 
+
+             
+        }
+    }
 
 
     private void limpiar() {
@@ -540,7 +574,11 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        try {
+            modificarrrrr();
+        } catch (Exception ex) {
+            Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtIdentificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdentificacionMouseClicked
