@@ -53,6 +53,8 @@ public class Frm_Login extends javax.swing.JFrame {
         loginentrar = new javax.swing.JLabel();
         jPanelRegistrarse = new javax.swing.JPanel();
         loginregistrarse = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -147,7 +149,7 @@ public class Frm_Login extends javax.swing.JFrame {
         userLabel.setFont(new java.awt.Font("Century Schoolbook", 1, 14)); // NOI18N
         userLabel.setText("USUARIO");
         bg.add(userLabel);
-        userLabel.setBounds(430, 190, 90, 17);
+        userLabel.setBounds(380, 200, 90, 17);
 
         userTxt.setFont(new java.awt.Font("Century Schoolbook", 0, 12)); // NOI18N
         userTxt.setForeground(new java.awt.Color(204, 204, 204));
@@ -168,7 +170,7 @@ public class Frm_Login extends javax.swing.JFrame {
         passLabel.setFont(new java.awt.Font("Century Schoolbook", 1, 14)); // NOI18N
         passLabel.setText("CONTRASEÑA");
         bg.add(passLabel);
-        passLabel.setBounds(430, 280, 120, 17);
+        passLabel.setBounds(380, 280, 120, 17);
 
         passTxt.setFont(new java.awt.Font("Century Schoolbook", 0, 12)); // NOI18N
         passTxt.setForeground(new java.awt.Color(204, 204, 204));
@@ -259,6 +261,14 @@ public class Frm_Login extends javax.swing.JFrame {
 
         bg.add(jPanelRegistrarse);
         jPanelRegistrarse.setBounds(630, 400, 140, 40);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosMultimedia/Manager-icon.png"))); // NOI18N
+        bg.add(jLabel1);
+        jLabel1.setBounds(380, 220, 40, 40);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosMultimedia/Key-icon (1).png"))); // NOI18N
+        bg.add(jLabel2);
+        jLabel2.setBounds(380, 310, 37, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -423,6 +433,8 @@ public class Frm_Login extends javax.swing.JFrame {
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelRegistrarse;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
