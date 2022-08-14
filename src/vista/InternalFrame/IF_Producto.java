@@ -125,20 +125,20 @@ public class IF_Producto extends javax.swing.JInternalFrame {
             txt_codigo.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 1)));
             txt_unidades.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 2)));
             txt_nombre.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 3)));
-            txt_descripcion.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 5)));
-            txt_precioCompra.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 6)));
-            txt_precioVenta.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 7))); 
+            txt_descripcion.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 4)));
+            txt_precioCompra.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 5)));
+            txt_precioVenta.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 6)));
 
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
-    
+
     public void seleccionarEliminar() {
         int seleccionar = tbl_producto.getSelectedRow();
         Integer id = Integer.parseInt(String.valueOf(tbl_producto.getValueAt(seleccionar, 0)));
-            productoDao.getProducto().setIdProducto(id);
+        productoDao.getProducto().setIdProducto(id);
     }
 
     private void modificarrrrr() throws Exception {
@@ -149,26 +149,33 @@ public class IF_Producto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Porfavor llenar todos los campos requeridos", "Insertar Datos", JOptionPane.WARNING_MESSAGE);
 
         } else {
-            sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
-            sp.getProducto().setNombre(txt_nombre.getText());
-            sp.getProducto().setDescripcion(txt_descripcion.getText());
-            sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
-            sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
-            sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
-//        sp.getProducto().setUpdatedAt(updateAt);
-
-            if (productoDao.modificarManualCliente()) {
-                System.out.println("guardado correcto");
-                //Integer auxId = sp.listar().shellListaEnlazada("idProducto", TipoOrdenacion.ASCENDENTE).obtenerDato(0).getIdProducto();
-                limpiar();
+            try {
+                sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
+                sp.getProducto().setNombre(txt_nombre.getText());
+                sp.getProducto().setDescripcion(txt_descripcion.getText());
+                sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
+                sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
+                sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
+                sp.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
+                
+                productoDao.modificarequipo(
+                        sp.getProducto().getCodigo(), 
+                        sp.getProducto().getNombre(),
+                        sp.getProducto().getDescripcion(),
+                        sp.getProducto().getPrecioCompra(),
+                        sp.getProducto().getPrecioVenta(),
+                        sp.getProducto().getUnidades(),
+                        sp.getProducto().getProveedor(),
+                        productoDao.getProducto().getIdProducto()
+                        );
+                cargarTabla();
+            } catch (Exception ex) {
             }
+ 
 
-            sp.setProducto(null);
-            tbl_producto.setModel(mtp);
+             
         }
     }
-    
-    
 
     public void calcularPrecioAutomatico() {
         if (check_automatico.isSelected() & txt_precioCompra.getText().trim().isEmpty()) {
@@ -180,12 +187,12 @@ public class IF_Producto extends javax.swing.JInternalFrame {
                     double pventa = aux * 1.50;
                     String pventa1 = String.valueOf(pventa);
                     txt_precioVenta.setText(pventa1);
-                }else{
+                } else {
                     double pventa = aux * 1.40;
                     String pventa1 = String.valueOf(pventa);
                     txt_precioVenta.setText(pventa1);
                 }
-                
+
             } else {
                 txt_precioVenta.setText("");
             }
@@ -195,9 +202,9 @@ public class IF_Producto extends javax.swing.JInternalFrame {
 
     private void ordenar() throws Exception {
         String criterio = cbx_datoOrdenar.getSelectedItem().toString().trim().toLowerCase();
-        if (cbx_datoOrdenar.getSelectedIndex()==2) {
+        if (cbx_datoOrdenar.getSelectedIndex() == 2) {
             criterio = "precioCompra";
-        }else if (cbx_datoOrdenar.getSelectedIndex()==3) {
+        } else if (cbx_datoOrdenar.getSelectedIndex() == 3) {
             criterio = "precioVenta";
         }
         if (radioA.isSelected()) {
@@ -212,20 +219,20 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         tbl_producto.updateUI();
 
     }
-    
-    private void generarCodigo(){
-        int codigo = (int) Math.floor(Math.random()*10000-1);
-        
+
+    private void generarCodigo() {
+        int codigo = (int) Math.floor(Math.random() * 10000 - 1);
+
         txt_codigo.setText(String.valueOf(codigo));
         txt_codigo.disable();
-        
+
     }
 
     private void buscar() throws Exception {
         String criterioBusqueda = cbx_datoBuscar.getSelectedItem().toString().toLowerCase();
-        
+
         if (cbx_datoBuscar.getSelectedIndex() == 0) {
-             
+
             Integer datoBusqueda = Integer.parseInt(txt_busqueda.getText().trim().toLowerCase());
             mtp.setLista(sp.listar().BusquedaBinariaClase(datoBusqueda, criterioBusqueda));
 
@@ -239,8 +246,6 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
     }
-    
-    
 
 //////////    private void eliminarDato() throws Exception {
 //////////        Integer fila = Integer.valueOf(tbl_producto.getSelectedRow());
@@ -720,14 +725,14 @@ public class IF_Producto extends javax.swing.JInternalFrame {
 
     private void cbx_datoBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbx_datoBuscarMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_cbx_datoBuscarMouseClicked
 
     private void cbx_datoBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbx_datoBuscarItemStateChanged
         // TODO add your handling code here:
         if (cbx_datoBuscar.getSelectedIndex() == 2) {
             txt_busqueda.setText("Razon social:");
-        }else{
+        } else {
             txt_busqueda.setText("");
         }
     }//GEN-LAST:event_cbx_datoBuscarItemStateChanged

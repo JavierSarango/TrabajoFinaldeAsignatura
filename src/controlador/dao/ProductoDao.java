@@ -71,7 +71,7 @@ public class ProductoDao extends AdaptadorDao<Producto> {
             return false;
         }
     }
-    
+      
     public Boolean modificarManualCliente() {
         PreparedStatement pst;
         Connection con = Conexion.getConecction();
@@ -137,6 +137,23 @@ public class ProductoDao extends AdaptadorDao<Producto> {
             System.out.println("Error en guardar o modificar");
             return false;
         }
+    }
+    
+    public void modificarequipo(Integer codigo, String nombre, String descripcion, Double precioCompra, Double precioVenta, Integer unidades, String Proveedor, Integer idProducto) throws Exception {
+        
+        
+        System.out.println("ingreso a modificar");
+        String update = "Update producto set codigo ='" + codigo + "',nombre ='" + nombre + "',descripcion ='" + descripcion + "',precioCompra ='" + precioCompra + "',precioVenta='" + precioVenta + "',unidades ='" + unidades + "',Proveedor ='"+ Proveedor  +"' where idProducto = '" + idProducto + "'";
+
+
+        try {
+            PreparedStatement stmt = getConexion().prepareStatement(update);
+            stmt.executeUpdate();
+            //OptionPane.showMessageDialog(null, "actualizado correctamente");
+        } catch (SQLException ex) {
+            System.out.println("Error en guardar " + ex);
+        }
+       
     }
     
     public boolean actualizarStock(Integer idProducto, Integer codigo, String nombre, String descripcion, Double precioCompra, Double precioVenta, Integer unidades, String Proveedor) {
