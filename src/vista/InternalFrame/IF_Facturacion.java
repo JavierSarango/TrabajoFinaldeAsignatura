@@ -14,6 +14,7 @@ import modelo.Cliente;
 import modelo.DetalleVenta;
 import modelo.Venta;
 import vista.ModeloTablas.ModeloTablaVentas;
+import vista.Principal.FrmMenuPrincipal;
 
 /**
  *
@@ -126,6 +127,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jTNombre = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
+        btn_venta = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -172,7 +174,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jBProforma);
-        jBProforma.setBounds(610, 330, 90, 25);
+        jBProforma.setBounds(610, 330, 90, 22);
 
         jBFacturar.setText("Facturar");
         jBFacturar.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +183,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jBFacturar);
-        jBFacturar.setBounds(470, 330, 90, 25);
+        jBFacturar.setBounds(470, 330, 90, 22);
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +192,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jButton1);
-        jButton1.setBounds(340, 330, 90, 25);
+        jButton1.setBounds(340, 330, 90, 22);
 
         jPanel2.add(jPanel8);
         jPanel8.setBounds(10, 240, 730, 370);
@@ -241,7 +243,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btBuscar);
-        btBuscar.setBounds(420, 40, 100, 30);
+        btBuscar.setBounds(410, 40, 100, 30);
 
         jTDireccionCliente.setColumns(20);
         jTDireccionCliente.setRows(5);
@@ -252,7 +254,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nombre:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(20, 90, 50, 16);
+        jLabel2.setBounds(20, 90, 47, 16);
 
         jTNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +265,15 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTNombre.setBounds(110, 90, 280, 22);
         jPanel2.add(jSeparator3);
         jSeparator3.setBounds(20, 10, 730, 20);
+
+        btn_venta.setText("Venta Nueva");
+        btn_venta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ventaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_venta);
+        btn_venta.setBounds(540, 40, 100, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -320,9 +331,17 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTNombreActionPerformed
 
+    private void btn_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ventaActionPerformed
+        // TODO add your handling code here:
+        IF_Ventas venta = new IF_Ventas();
+        FrmMenuPrincipal.jDesktopPane_menu.add(venta);
+        venta.setVisible(true);
+    }//GEN-LAST:event_btn_ventaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btn_venta;
     private javax.swing.JButton jBFacturar;
     private javax.swing.JButton jBProforma;
     private javax.swing.JButton jButton1;
