@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
 public class AdaptadorDao<T> implements InterfazDao<T> {
 
     private Connection conexion;
-    private Class clazz;
+    Class clazz;
     private String ALL = "select * from ";
     private String ALL_ID = "select * from ";
     private String carpeta = "datos" + File.separatorChar;
@@ -150,6 +150,24 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         try {
             String tabla = clazz.getSimpleName().toLowerCase();
             PreparedStatement ps = conexion.prepareStatement("DELETE FROM "+tabla +" WHERE "+campo+"='" + id + "'");
+            int verificacion = ps.executeUpdate();
+            ps.close();
+            if (verificacion >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean eliminarProducto(Integer id,String campo) {
+        Connection conexion = c.getConecction();
+        try {
+            String tabla = clazz.getSimpleName().toLowerCase();
+            PreparedStatement ps = conexion.prepareStatement("DELETE FROM producto WHERE idProducto = id");
             int verificacion = ps.executeUpdate();
             ps.close();
             if (verificacion >= 0) {

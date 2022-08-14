@@ -127,15 +127,18 @@ public class IF_Producto extends javax.swing.JInternalFrame {
             txt_nombre.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 3)));
             txt_descripcion.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 5)));
             txt_precioCompra.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 6)));
-            txt_precioVenta.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 7)));
-            //cbx_proveedor.setSelectedIndex((tbl_producto.getValueAt(seleccionar, 8)));
+            txt_precioVenta.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 7))); 
 
-//            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
-            // btn_modificar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+    
+    public void seleccionarEliminar() {
+        int seleccionar = tbl_producto.getSelectedRow();
+        Integer id = Integer.parseInt(String.valueOf(tbl_producto.getValueAt(seleccionar, 0)));
+            productoDao.getProducto().setIdProducto(id);
     }
 
     private void modificarrrrr() throws Exception {
@@ -164,6 +167,8 @@ public class IF_Producto extends javax.swing.JInternalFrame {
             tbl_producto.setModel(mtp);
         }
     }
+    
+    
 
     public void calcularPrecioAutomatico() {
         if (check_automatico.isSelected() & txt_precioCompra.getText().trim().isEmpty()) {
@@ -234,6 +239,8 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
     }
+    
+    
 
 //////////    private void eliminarDato() throws Exception {
 //////////        Integer fila = Integer.valueOf(tbl_producto.getSelectedRow());
@@ -262,9 +269,6 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_producto = new javax.swing.JTable();
-        bnt_eliminar = new javax.swing.JButton();
-        btn_cargarrrr = new javax.swing.JButton();
-        btn_modd = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -294,6 +298,14 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         cbx_datoOrdenar = new javax.swing.JComboBox<>();
         radioA = new javax.swing.JRadioButton();
         radioD = new javax.swing.JRadioButton();
+        jPanel6 = new javax.swing.JPanel();
+        bnt_eliminar = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        btn_cargarrrr = new javax.swing.JButton();
+        btn_modd = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -317,46 +329,21 @@ public class IF_Producto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_producto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_productoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_producto);
         if (tbl_producto.getColumnModel().getColumnCount() > 0) {
             tbl_producto.getColumnModel().getColumn(0).setPreferredWidth(2);
         }
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 100, 1040, 160);
-
-        bnt_eliminar.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        bnt_eliminar.setText("ELIMINAR");
-        bnt_eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnt_eliminarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(bnt_eliminar);
-        bnt_eliminar.setBounds(310, 20, 110, 19);
-
-        btn_cargarrrr.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        btn_cargarrrr.setText("cargar");
-        btn_cargarrrr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cargarrrrActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btn_cargarrrr);
-        btn_cargarrrr.setBounds(600, 50, 84, 19);
-
-        btn_modd.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        btn_modd.setText("modd");
-        btn_modd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_moddActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btn_modd);
-        btn_modd.setBounds(580, 20, 72, 19);
+        jScrollPane1.setBounds(10, 60, 920, 160);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 300, 1060, 270);
+        jPanel2.setBounds(10, 320, 940, 240);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "AGREGAR PRODUCTOS"));
         jPanel3.setLayout(null);
@@ -455,7 +442,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         txt_unidades.setBounds(10, 140, 90, 22);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(10, 110, 420, 180);
+        jPanel3.setBounds(10, 140, 420, 180);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "BUSCAR PRODUCTOS"));
         jPanel4.setLayout(null);
@@ -508,7 +495,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jButton4.setBounds(20, 150, 122, 19);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(440, 110, 170, 180);
+        jPanel4.setBounds(440, 140, 170, 180);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ORDENAR PRODUCTOS"));
         jPanel5.setLayout(null);
@@ -559,18 +546,75 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         radioD.setBounds(10, 100, 130, 19);
 
         jPanel1.add(jPanel5);
-        jPanel5.setBounds(620, 110, 160, 180);
+        jPanel5.setBounds(620, 140, 160, 180);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ELIMINAR PRODUCTOS"));
+        jPanel6.setLayout(null);
+
+        bnt_eliminar.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        bnt_eliminar.setText("ELIMINAR");
+        bnt_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnt_eliminarActionPerformed(evt);
+            }
+        });
+        jPanel6.add(bnt_eliminar);
+        bnt_eliminar.setBounds(30, 50, 110, 19);
+
+        jLabel25.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel25.setText("Seleccione el Dato");
+        jPanel6.add(jLabel25);
+        jLabel25.setBounds(10, 20, 130, 18);
+
+        jLabel23.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel23.setText("en la Tabla:");
+        jPanel6.add(jLabel23);
+        jLabel23.setBounds(10, 30, 130, 18);
+
+        jPanel1.add(jPanel6);
+        jPanel6.setBounds(790, 140, 160, 80);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "MODIFICAR PRODUCTOS"));
+        jPanel7.setLayout(null);
+
+        jLabel24.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel24.setText("Datos a modificar :");
+        jPanel7.add(jLabel24);
+        jLabel24.setBounds(10, 20, 130, 18);
+
+        btn_cargarrrr.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        btn_cargarrrr.setText("cargar");
+        btn_cargarrrr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargarrrrActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btn_cargarrrr);
+        btn_cargarrrr.setBounds(40, 40, 84, 19);
+
+        btn_modd.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        btn_modd.setText("modd");
+        btn_modd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_moddActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btn_modd);
+        btn_modd.setBounds(50, 70, 72, 19);
+
+        jPanel1.add(jPanel7);
+        jPanel7.setBounds(790, 220, 160, 100);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1088, Short.MAX_VALUE)
+            .addGap(0, 973, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(8, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,10 +640,9 @@ public class IF_Producto extends javax.swing.JInternalFrame {
 
     private void bnt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_eliminarActionPerformed
         // TODO add your handling code here:
-        try {
-            //eliminarDato();
-        } catch (Exception e) {
-        }
+        //int aux = tbl_producto.getSelectedRow();
+        productoDao.eliminarmejorado(productoDao.getProducto().getIdProducto(), "idProducto");
+        cargarTabla();
     }//GEN-LAST:event_bnt_eliminarActionPerformed
 
     private void radioAItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioAItemStateChanged
@@ -694,6 +737,11 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         generarCodigo();
     }//GEN-LAST:event_txt_codigoMouseClicked
 
+    private void tbl_productoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_productoMouseClicked
+        // TODO add your handling code here:
+        seleccionarEliminar();
+    }//GEN-LAST:event_tbl_productoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_eliminar;
@@ -714,6 +762,9 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -722,6 +773,8 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton radioA;
     private javax.swing.JRadioButton radioD;

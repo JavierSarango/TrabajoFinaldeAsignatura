@@ -44,7 +44,7 @@ public class ModeloTablaProducto extends AbstractTableModel{
         }
         
         switch(arg1){
-            case 0: return (arg0 + 1);
+            case 0: return (p.getIdProducto());
             case 1: return (p !=null) ? p.getCodigo() : "Dato Vacío";
             case 2: return (p !=null) ? p.getUnidades(): "Dato Vacío";
             case 3: return (p !=null) ? p.getNombre(): "Dato Vacío";
