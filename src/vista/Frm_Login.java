@@ -1,24 +1,26 @@
 package vista;
 
+import controlador.Conexion;
+import controlador.tda.lista.ListaEnlazada;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.SQLException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import modelo.Usuario;
+import modelo.Venta;
+import vista.Principal.FrmMenuPrincipal;
+
 /**
  *
  * @author Nathaly
  */
-
 public class Frm_Login extends javax.swing.JFrame {
 
     private ImageIcon fondo;
@@ -26,10 +28,23 @@ public class Frm_Login extends javax.swing.JFrame {
     int xMouse, yMouse;
     fondoLabel logotipo = new fondoLabel();
 
+    //Coneccion
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Usuario u = new Usuario();
+
     public Frm_Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        for (int i = 0; i < listar().getSize(); i++) {
+            try {
+                System.out.println(listar().obtenerDato(i));
+            } catch (Exception e) {
+            }
+        }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -203,12 +218,6 @@ public class Frm_Login extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginentrarMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                loginentrarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                loginentrarMouseExited(evt);
-            }
         });
 
         javax.swing.GroupLayout JpanelEntrarLayout = new javax.swing.GroupLayout(JpanelEntrar);
@@ -348,21 +357,43 @@ public class Frm_Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_loginregistrarseMouseClicked
 
-    private void loginentrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginentrarMouseClicked
-
-    }//GEN-LAST:event_loginentrarMouseClicked
-
-    private void loginentrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginentrarMouseEntered
-        JpanelEntrar.setBackground(new Color(0, 156, 223));
-    }//GEN-LAST:event_loginentrarMouseEntered
-
-    private void loginentrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginentrarMouseExited
-        JpanelEntrar.setBackground(new Color(0, 134, 190));
-    }//GEN-LAST:event_loginentrarMouseExited
-
     private void passTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passTxtKeyReleased
 
     }//GEN-LAST:event_passTxtKeyReleased
+
+    private void loginentrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginentrarMouseClicked
+        // TODO add your handling code here:
+        validar();
+
+    }//GEN-LAST:event_loginentrarMouseClicked
+
+    public void validar() {
+
+        String nomUsuario = userTxt.getText();
+        String clave = new String(passTxt.getPassword());
+        if (!userTxt.getText().equals("") && !clave.equals("")) {
+            u.setNombreUsuario(nomUsuario);
+            u.setContrasena(clave);
+            if (login(u)) {
+                JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso");
+                FrmMenuPrincipal principal = new FrmMenuPrincipal();
+                principal.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Datos Incorrectos");
+                userTxt.requestFocus();
+
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Debe Ingresar datos en los campos");
+            userTxt.requestFocus();
+//          
+
+        }
+    }
+
     private void FondoJlabel(JLabel lbl, String ruta) {
         this.fondo = new ImageIcon(ruta);
         this.icono = new ImageIcon(
@@ -374,6 +405,61 @@ public class Frm_Login extends javax.swing.JFrame {
         );
         lbl.setIcon(this.icono);
         this.repaint();
+    }
+
+
+
+    public Boolean login(Usuario user) {
+        con = Conexion.getConecction();
+        String sql = "Select id_Usuario, razonSocial, nombreUsuario, contrasena from usuario where nombreUsuario = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, user.getNombreUsuario());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                if (user.getContrasena().equals(rs.getString(4))) {
+                    user.setId_usuario(rs.getInt(1));
+                    user.setRazonSocial(rs.getString(2));
+                    return true;
+
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public ListaEnlazada listar() {
+        ListaEnlazada<Usuario> lista = new ListaEnlazada<>();
+        String sql = "SELECT * FROM USUARIO";
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario venta = new Usuario();
+                venta.setId_usuario(rs.getInt(1));
+                venta.setRazonSocial(rs.getString(2));
+                venta.setTelefono(rs.getString(3));
+                venta.setCelular(rs.getString(4));
+                venta.setCorreo(rs.getString(5));
+                venta.setDireccion(rs.getString(6));
+                venta.setTipoIdentificacion(rs.getString(7));
+                venta.setNombreUsuario(rs.getString(8));
+                venta.setContrasena(rs.getString(9));
+                venta.setTipoRol(rs.getString(10));
+
+                lista.insertar(venta);
+
+            }
+
+        } catch (Exception e) {
+        }
+        return lista;
     }
 
     /**
@@ -411,7 +497,8 @@ public class Frm_Login extends javax.swing.JFrame {
             }
         });
     }
-     class fondoLabel extends JLabel {
+
+    class fondoLabel extends JLabel {
 
         private Image logo;
 
