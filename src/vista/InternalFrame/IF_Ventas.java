@@ -51,8 +51,8 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
     PreparedStatement ps;
     ResultSet rs;
     // Ventanas
-    Frm_Cliente ventanaCliente;
-    Frm_Producto ventanaProducto;
+    IF_Cliente ventanaCliente;
+    IF_Producto ventanaProducto;
     //Variables globales
     Double totalPa, subTotal, descuento, precio;
     Integer cantidad;
@@ -153,10 +153,9 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
             } else {
                 respuesta = JOptionPane.showConfirmDialog(this, "El cliente no esta Registrado, ¿Desea Hacerlo?");
                 if (respuesta == 0) {
-                   ventanaCliente = new Frm_Cliente();
+                   ventanaCliente = new IF_Cliente();
                     ventanaCliente.setVisible(true);
-                    ventanaCliente.transferFocus();
-                    this.dispose();
+                    
                     
                    
                 }
@@ -285,7 +284,7 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
                 p.setDescripcion(rs.getString(4));
                 p.setPrecioCompra(rs.getDouble(5));
                 p.setPrecioVenta(rs.getDouble(6));
-                p.setId_Proveedor(rs.getInt(7));
+                p.setProveedor(rs.getString(7));
                 p.setUnidades(rs.getInt(8));
             }
         } catch (Exception e) {
@@ -995,13 +994,13 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
 
     private void btnVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerClientesActionPerformed
         // TODO add your handling code here:
-        ventanaCliente = new Frm_Cliente();
+        ventanaCliente = new IF_Cliente();
         ventanaProducto.setVisible(true);
     }//GEN-LAST:event_btnVerClientesActionPerformed
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
         // TODO add your handling code here:
-        ventanaProducto = new Frm_Producto(new javax.swing.JFrame(), true);
+        ventanaProducto = new IF_Producto();
         ventanaProducto.setVisible(true);
     }//GEN-LAST:event_btnVerProductosActionPerformed
     /*
