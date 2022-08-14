@@ -31,6 +31,7 @@ public class ModeloTablaProducto extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
+        
         return 8;
                 }
 

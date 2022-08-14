@@ -10,6 +10,7 @@ import controlador.services.ServicioProducto;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.enums.TipoOrdenacion;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumnModel;
 import modelo.Proveedor;
 import vista.ModeloTablas.ModeloTablaProducto;
 
@@ -23,6 +24,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private ServicioProducto sp = new ServicioProducto();
     private ProductoDao productoDao = new ProductoDao();
     private ProveedorDao proovedorDao = new ProveedorDao();
+
     /**
      * Creates new form IF_Producto
      */
@@ -30,11 +32,26 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         initComponents();
         limpiar();
         cargarProveedor();
+        cargarAnchoColumnas();
 
         buttonGroup1.add(radioA);
         buttonGroup1.add(radioD);
     }
-private void cargarTabla() {
+
+    private void cargarAnchoColumnas() {
+        TableColumnModel columnModel = tbl_producto.getColumnModel();
+
+        columnModel.getColumn(0).setPreferredWidth(15);
+        columnModel.getColumn(1).setPreferredWidth(30);
+        columnModel.getColumn(2).setPreferredWidth(25);
+        columnModel.getColumn(3).setPreferredWidth(100);
+        columnModel.getColumn(4).setPreferredWidth(200);
+        columnModel.getColumn(5).setPreferredWidth(55);
+        columnModel.getColumn(6).setPreferredWidth(55);
+        columnModel.getColumn(7).setPreferredWidth(100);
+    }
+
+    private void cargarTabla() {
         mtp.setLista(sp.listar());
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
@@ -58,7 +75,7 @@ private void cargarTabla() {
         cbx_datoBuscar.setSelectedIndex(0);
         cargarTabla();
     }
-    
+
     private void cargarProveedor() {
         cbx_proveedor.removeAllItems();
         ListaEnlazada<Proveedor> listap = proovedorDao.listarIDProveedor();
@@ -73,7 +90,7 @@ private void cargarTabla() {
     }
 
     private void guardar() throws Exception {
-         if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
+        if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
                 || txt_descripcion.getText().trim().isEmpty() || txt_precioCompra.getText().trim().isEmpty()
                 || txt_precioVenta.getText().trim().isEmpty() || txt_unidades.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Porfavor llenar todos los campos requeridos", "Insertar Datos", JOptionPane.WARNING_MESSAGE);
@@ -99,9 +116,9 @@ private void cargarTabla() {
         }
 
     }
-    
+
     public void seleccionar() {
-        
+
         int seleccionar = tbl_producto.getSelectedRow();
         //modelo.Producto nose =productoDao.obtener(seleccionar);
         if (seleccionar >= 0) {
@@ -112,17 +129,17 @@ private void cargarTabla() {
             txt_precioCompra.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 6)));
             txt_precioVenta.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 7)));
             //cbx_proveedor.setSelectedIndex((tbl_producto.getValueAt(seleccionar, 8)));
-            
+
 //            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
-           // btn_modificar.setText("Actualizar");
+            // btn_modificar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
-    
-    private void modificarrrrr() throws Exception{
-        
+
+    private void modificarrrrr() throws Exception {
+
         if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
                 || txt_descripcion.getText().trim().isEmpty() || txt_precioCompra.getText().trim().isEmpty()
                 || txt_precioVenta.getText().trim().isEmpty() || txt_unidades.getText().trim().isEmpty()) {
@@ -144,7 +161,7 @@ private void cargarTabla() {
             }
 
             sp.setProducto(null);
-            tbl_producto.setModel(mtp); 
+            tbl_producto.setModel(mtp);
         }
     }
 
@@ -153,12 +170,17 @@ private void cargarTabla() {
             JOptionPane.showMessageDialog(null, "Ingrese el precio de compra del Producto\npara proceder con el cálculo automático.", "Precio Compra", JOptionPane.WARNING_MESSAGE);
         } else {
             if (check_automatico.isSelected()) {
-                String aux = (txt_precioCompra.getText());
-                Double aux1 = Double.parseDouble(aux);
-                double pventa = aux1 * 1.50;
-                String pventa1 = String.valueOf(pventa);
-
-                txt_precioVenta.setText(pventa1);
+                Double aux = Double.parseDouble(txt_precioCompra.getText());
+                if (aux <= 20) {
+                    double pventa = aux * 1.50;
+                    String pventa1 = String.valueOf(pventa);
+                    txt_precioVenta.setText(pventa1);
+                }else{
+                    double pventa = aux * 1.40;
+                    String pventa1 = String.valueOf(pventa);
+                    txt_precioVenta.setText(pventa1);
+                }
+                
             } else {
                 txt_precioVenta.setText("");
             }
@@ -167,42 +189,51 @@ private void cargarTabla() {
     }
 
     private void ordenar() throws Exception {
-        String criterio = cbx_datoOrdenar.getSelectedItem().toString().toLowerCase();
-
+        String criterio = cbx_datoOrdenar.getSelectedItem().toString().trim().toLowerCase();
+        if (cbx_datoOrdenar.getSelectedIndex()==2) {
+            criterio = "precioCompra";
+        }else if (cbx_datoOrdenar.getSelectedIndex()==3) {
+            criterio = "precioVenta";
+        }
         if (radioA.isSelected()) {
             mtp.setLista(sp.listar().shellListaEnlazada(criterio, TipoOrdenacion.ASCENDENTE));
             System.out.println("se ordeno ascendente");
         } else if (radioD.isSelected()) {
             mtp.setLista(sp.listar().shellListaEnlazada(criterio, TipoOrdenacion.DESCENDENTE));
-            System.out.println("se ordeno ascendente");
+            System.out.println("se ordeno descendente");
 
         }
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
+
+    }
+    
+    private void generarCodigo(){
+        int codigo = (int) Math.floor(Math.random()*10000-1);
         
-         
+        txt_codigo.setText(String.valueOf(codigo));
+        txt_codigo.disable();
+        
     }
 
     private void buscar() throws Exception {
         String criterioBusqueda = cbx_datoBuscar.getSelectedItem().toString().toLowerCase();
-        if (cbx_datoBuscar.getSelectedIndex() == 0) {
-            Integer datoBusqueda = Integer.parseInt(txt_busqueda.getText());
-            mtp.setLista(sp.listar().buscarDatoPosicionObjetoBinaria(criterioBusqueda, datoBusqueda));
-            
-        }else{
-            String datoBusqueda = txt_busqueda.getText().trim().toLowerCase();
-             mtp.setLista(sp.listar().buscarDatoPosicionObjetoBinaria(criterioBusqueda, datoBusqueda));
-        }
-              
-
         
+        if (cbx_datoBuscar.getSelectedIndex() == 0) {
+             
+            Integer datoBusqueda = Integer.parseInt(txt_busqueda.getText().trim().toLowerCase());
+            mtp.setLista(sp.listar().BusquedaBinariaClase(datoBusqueda, criterioBusqueda));
+
+        } else {
+            String datoBusqueda = txt_busqueda.getText().trim().toLowerCase();
+            mtp.setLista(sp.listar().buscarDatoPosicionObjetoBinaria(criterioBusqueda, datoBusqueda));
+        }
+
         System.out.println("se realizo busqueda");
 
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
     }
-    
-    
 
 //////////    private void eliminarDato() throws Exception {
 //////////        Integer fila = Integer.valueOf(tbl_producto.getSelectedRow());
@@ -287,6 +318,9 @@ private void cargarTabla() {
             }
         ));
         jScrollPane1.setViewportView(tbl_producto);
+        if (tbl_producto.getColumnModel().getColumnCount() > 0) {
+            tbl_producto.getColumnModel().getColumn(0).setPreferredWidth(2);
+        }
 
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(10, 100, 1040, 160);
@@ -339,6 +373,11 @@ private void cargarTabla() {
         jPanel3.add(txt_nombre);
         txt_nombre.setBounds(110, 40, 130, 22);
 
+        txt_codigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_codigoMouseClicked(evt);
+            }
+        });
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_codigoActionPerformed(evt);
@@ -444,7 +483,17 @@ private void cargarTabla() {
         jLabel21.setBounds(10, 20, 120, 18);
 
         cbx_datoBuscar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cbx_datoBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Proveedor" }));
+        cbx_datoBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre" }));
+        cbx_datoBuscar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbx_datoBuscarItemStateChanged(evt);
+            }
+        });
+        cbx_datoBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbx_datoBuscarMouseClicked(evt);
+            }
+        });
         jPanel4.add(cbx_datoBuscar);
         cbx_datoBuscar.setBounds(20, 40, 130, 20);
 
@@ -470,7 +519,7 @@ private void cargarTabla() {
         jLabel22.setBounds(10, 20, 150, 18);
 
         cbx_datoOrdenar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cbx_datoOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Proveedor" }));
+        cbx_datoOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Precio Compra", "Precio Venta", "Proveedor" }));
         jPanel5.add(cbx_datoOrdenar);
         cbx_datoOrdenar.setBounds(10, 40, 130, 20);
 
@@ -520,7 +569,7 @@ private void cargarTabla() {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -529,7 +578,7 @@ private void cargarTabla() {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -625,6 +674,25 @@ private void cargarTabla() {
     private void cbx_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_proveedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbx_proveedorActionPerformed
+
+    private void cbx_datoBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbx_datoBuscarMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cbx_datoBuscarMouseClicked
+
+    private void cbx_datoBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbx_datoBuscarItemStateChanged
+        // TODO add your handling code here:
+        if (cbx_datoBuscar.getSelectedIndex() == 2) {
+            txt_busqueda.setText("Razon social:");
+        }else{
+            txt_busqueda.setText("");
+        }
+    }//GEN-LAST:event_cbx_datoBuscarItemStateChanged
+
+    private void txt_codigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_codigoMouseClicked
+        // TODO add your handling code here:
+        generarCodigo();
+    }//GEN-LAST:event_txt_codigoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
