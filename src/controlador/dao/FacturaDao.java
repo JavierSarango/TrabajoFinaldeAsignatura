@@ -140,7 +140,7 @@ public class FacturaDao {
         }
         return lista;
     }
-    
+
     /**
      * Metodo para listar los datos de factura de la base de datos
      *
