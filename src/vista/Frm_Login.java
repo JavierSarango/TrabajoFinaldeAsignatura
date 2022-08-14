@@ -37,12 +37,7 @@ public class Frm_Login extends javax.swing.JFrame {
     public Frm_Login() {
         initComponents();
         this.setLocationRelativeTo(null);
-        for (int i = 0; i < listar().getSize(); i++) {
-            try {
-                System.out.println(listar().obtenerDato(i));
-            } catch (Exception e) {
-            }
-        }
+      
     }
 
     @SuppressWarnings("unchecked")
