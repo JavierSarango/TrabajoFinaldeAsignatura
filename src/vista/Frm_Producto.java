@@ -64,18 +64,19 @@ public class Frm_Producto extends javax.swing.JDialog {
         cbx_datoBusqueda.setSelectedIndex(0);
         cargarTabla();
     }
-    
-    private void cargarProveedor(){
-       cbx_proveedor.removeAllItems();
+
+    private void cargarProveedor() {
+        cbx_proveedor.removeAllItems();
         ListaEnlazada<Proveedor> listap = proovedorDao.listarIDProveedor();
         for (int i = 0; i < listap.getSize(); i++) {
             try {
                 cbx_proveedor.addItem(listap.obtenerDato(i).toString());
-            } catch (Exception e) { 
-                System.out.println("ingreso"+i+"Proveedor");
-        }
+            } catch (Exception e) {
+                System.out.println("ingreso" + i + "Proveedor");
+            }
             cbx_proveedor.updateUI();
-    }}
+        }
+    }
 
     private void guardar() throws Exception {
         if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
@@ -104,9 +105,39 @@ public class Frm_Producto extends javax.swing.JDialog {
         }
 
     }
-    
-    public void seleccionar() {
+
+    public void vamoAmodificar() {
+        sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
+        sp.getProducto().setNombre(txt_nombre.getText());
+        sp.getProducto().setDescripcion(txt_descripcion.getText());
+        sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
+        sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
+        sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
+        sp.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
+//        sp.getProducto().setUpdatedAt(updateAt);
+
+        Integer id = Integer.parseInt(tbl_producto.getValueAt(tbl_producto.getSelectedRow(), 0).toString());
+        Integer codigo =Integer.parseInt(txt_codigo.getText());
+        String nombre = txt_nombre.getText();
+         String descripcion = txt_descripcion.getText();
+         Integer unidades = Integer.parseInt(txt_unidades.getText());
+         Double precioC =Double.parseDouble(txt_precioCompra.getText());
+                 Double precioV =Double.parseDouble(txt_precioVenta.getText());
+                 String prov = cbx_proveedor.getSelectedItem().toString();
+         
         
+        if (productoDao.actualizarStock(id, codigo, nombre, descripcion, precioC, precioV, unidades, prov)) {
+            System.out.println("actualizado correcto");
+            //Integer auxId = sp.listar().shellListaEnlazada("idProducto", TipoOrdenacion.ASCENDENTE).obtenerDato(0).getIdProducto();
+            limpiar();
+        }
+
+        sp.setProducto(null);
+        cargarTabla();
+    }
+
+    public void seleccionar() {
+
         int seleccionar = tbl_producto.getSelectedRow();
         //modelo.Producto nose =productoDao.obtener(seleccionar);
         if (seleccionar >= 0) {
@@ -117,17 +148,17 @@ public class Frm_Producto extends javax.swing.JDialog {
             txt_precioCompra.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 6)));
             txt_precioVenta.setText(String.valueOf(tbl_producto.getValueAt(seleccionar, 7)));
             //cbx_proveedor.setSelectedIndex((tbl_producto.getValueAt(seleccionar, 8)));
-            
+
 //            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
-           // btn_modificar.setText("Actualizar");
+            // btn_modificar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
-    
-    private void modificarrrrr() throws Exception{
-        
+
+    private void modificarrrrr() throws Exception {
+
         if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
                 || txt_descripcion.getText().trim().isEmpty() || txt_precioCompra.getText().trim().isEmpty()
                 || txt_precioVenta.getText().trim().isEmpty() || txt_unidades.getText().trim().isEmpty()) {
@@ -149,7 +180,7 @@ public class Frm_Producto extends javax.swing.JDialog {
             }
 
             sp.setProducto(null);
-            tbl_producto.setModel(mtp); 
+            tbl_producto.setModel(mtp);
         }
     }
 
@@ -184,8 +215,7 @@ public class Frm_Producto extends javax.swing.JDialog {
         }
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
-        
-         
+
     }
 
     private void buscar() throws Exception {
@@ -198,8 +228,6 @@ public class Frm_Producto extends javax.swing.JDialog {
         tbl_producto.setModel(mtp);
         tbl_producto.updateUI();
     }
-    
-    
 
 //////////    private void eliminarDato() throws Exception {
 //////////        Integer fila = Integer.valueOf(tbl_producto.getSelectedRow());
@@ -214,7 +242,6 @@ public class Frm_Producto extends javax.swing.JDialog {
 //////////        tbl_producto.updateUI();
 //////////        
 //////////    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -539,7 +566,7 @@ public class Frm_Producto extends javax.swing.JDialog {
     private void btn_moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moddActionPerformed
         // TODO add your handling code here:
         try {
-            modificarrrrr();
+            vamoAmodificar();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btn_moddActionPerformed
