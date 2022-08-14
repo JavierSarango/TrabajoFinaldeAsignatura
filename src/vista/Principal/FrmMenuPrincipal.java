@@ -1,6 +1,9 @@
 package vista.Principal;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import vista.InternalFrame.IF_Cliente;
 import vista.InternalFrame.IF_Facturacion;
@@ -15,22 +18,36 @@ import vista.InternalFrame.IF_Ventas;
  * @author Edison Zambrano - © Programador Fantama
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
-
+    
     public static JDesktopPane jDesktopPane_menu;
+  
 
     public FrmMenuPrincipal() {
+        
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/RecursosMultimedia/FondoEscritorio.png"));
+        Image image = icon.getImage();
+        
+        jDesktopPane_menu = new javax.swing.JDesktopPane(){
+        
+        public void paintComponent(Graphics g){
+        g.drawImage(image, 0, 0, getWidth(), getHeight(),this);
+        }
+        
+        };
+        
         this.setSize(new Dimension(1200, 700));
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.setTitle("Sistema de Ventas OMICRON");
 
         this.setLayout(null);
-        jDesktopPane_menu = new JDesktopPane();
+        
 
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.jDesktopPane_menu.setBounds(0, 0, ancho, (alto - 110));
+        
         this.add(jDesktopPane_menu);
 
     }
@@ -259,7 +276,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jDesktopPane_menu.add(interSoporte);
         interSoporte.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+  
+   
     /**
      * @param args the command line arguments
      */
