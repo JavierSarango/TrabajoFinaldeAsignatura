@@ -45,7 +45,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
     //Variables
     private int pos = -1;
     File fichero;
-//    private int fila = -1;
+    private int fila = -1;
     //Iconos a botones
     ImageIcon guardar = new ImageIcon("src/RecursosMultimedia/fac_save.png");
     ImageIcon eliminar = new ImageIcon("src/RecursosMultimedia/fac_remove.png");
@@ -150,7 +150,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                     }
                 } else {//ACTUALIZA LOS DATOS
                     try {
-                        if(proveedordao.modificar()){
+                        if(proveedordao.actualizar()){
                         JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
                         limpiar();
                         cargarTabla();
@@ -193,10 +193,9 @@ public class Frm_Proveedores extends javax.swing.JFrame {
      * Metodo eliminar registro
      */
     private void Eliminar() {
-        int fila = tbl_proveedores.getSelectedRow();
-        System.out.println("se selecciono la fila");
+        fila = tbl_proveedores.getSelectedRow();
         try {
-            if (fila != -1) {
+            if (fila >= 0) {
                 System.out.println(fila + "se selecciono la fila");
                 proveedordao.eliminaras(fila);
                 int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -209,6 +208,7 @@ public class Frm_Proveedores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar el registrro", "Error", JOptionPane.ERROR_MESSAGE);
 
         }
     }

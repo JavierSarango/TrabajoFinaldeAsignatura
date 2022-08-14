@@ -36,7 +36,7 @@ import modelo.Venta;
  *
  * @author John
  */
-public class FacturaController<T> {
+public class FacturaController {
 
     /**
      * variable tipo cliente para almacenamiento de la informacion del cliente
@@ -53,10 +53,6 @@ public class FacturaController<T> {
      * variable de venta
      */
     private Venta venta;
-    /**
-     * una lista tipo T
-     */
-    private ListaEnlazada<T> lista = new ListaEnlazada();
 
     /**
      * variable tipo factura para almacenamiento de la informacion de la factura
@@ -65,9 +61,10 @@ public class FacturaController<T> {
     private Factura factura;
 
     /**
-     * Una lista de facturas
+     * Una lista de detalle factura
      */
-    private ListaEnlazada<Factura> facturas = new ListaEnlazada();
+    private ListaEnlazada<DetalleFactura> facturas = new ListaEnlazada();
+
     /**
      * variable de Detalle Factura
      */
@@ -78,9 +75,16 @@ public class FacturaController<T> {
 //        cliente = vent.obtener(id);
     }
 
-    private void consultaVenta(Integer id) throws Exception {
+    public ListaEnlazada obtenerVentas(Integer id) throws Exception {
         VentaDao vent = new VentaDao();
-//        ventas.insertarCabecera(vent.id_Venta());
+        ListaEnlazada<Venta> aux = vent.listar();
+        ListaEnlazada<Venta> aux2 = new ListaEnlazada<>();
+        for (int i = 0; i < aux.getSize(); i++) {
+            if (aux.obtenerDato(i).getId_Venta() == id) {
+                aux2.insertar(aux.obtenerDato(i));
+            }
+        }
+        return aux2;
     }
 
     /**
@@ -103,7 +107,7 @@ public class FacturaController<T> {
                 PdfWriter.getInstance(documento, new FileOutputStream("Proforma " + getFactura().getId() + ".pdf"));
             }
 
-            Image header = Image.getInstance("src/imagenes/encabezado1.jpeg");
+            Image header = Image.getInstance("src/RecursosMultimedia/encabezado1.jpeg");
             header.scaleToFit(650, 1000);
             header.setAlignment(Chunk.ALIGN_CENTER);
 

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import modelo.Producto;
 import modelo.Proveedor;
 
 /**
@@ -25,6 +26,10 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
     private static Connection Conection;
     private static Statement Consulta;
     private static ResultSet Resultado;
+    
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
 
     public ProveedorDao() {
         super(Proveedor.class);
@@ -60,6 +65,38 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             System.out.println("Error en modificar");
             return false;
         }
+
+    }
+    
+    public ListaEnlazada listarIDProveedor() {
+        ListaEnlazada<Proveedor> listProveedor= new ListaEnlazada<>();
+       
+        String sql = "Select razonSocial from proveedor";
+
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                 Proveedor p = new Proveedor();
+                p.setRazonSocial(rs.getString("razonSocial"));
+                listProveedor.insertar(p);
+//                p.setId_Proveedor(rs.getInt(1));
+//                p.setAgente_responsable(rs.getString(2));
+//                p.setProvincia(rs.getString(3));
+//                p.setDireccion(rs.getString(4));
+//                p.setCredito(rs.getString(5));
+//                p.setPagina_web(rs.getString(6));
+//                p.setCelular(rs.getString(7));
+//                p.setBanco(rs.getString(8));
+//                p.setTipocuenta(rs.getString(9));
+//                p.setNro_cuenta(rs.getString(10));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar Id producto");
+            e.printStackTrace();
+        }
+        return listProveedor;
 
     }
 

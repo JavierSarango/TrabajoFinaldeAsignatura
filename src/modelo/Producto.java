@@ -21,7 +21,7 @@ public class Producto implements Serializable{
     private Double precioCompra;
     private Double precioVenta;
     private Integer unidades; 
-    private Integer id_Proveedor;
+    private String Proveedor;
     
     
 
@@ -33,12 +33,12 @@ public class Producto implements Serializable{
 //        this.estado = estado;
 //    }
 
-    public Integer getId_Proveedor() {
-        return id_Proveedor;
+    public String getProveedor() {
+        return Proveedor;
     }
 
-    public void setId_Proveedor(Integer id_Proveedor) {
-        this.id_Proveedor = id_Proveedor;
+    public void setProveedor(String Proveedor) {
+        this.Proveedor = Proveedor;
     }
 
     public Integer getUnidades() {
@@ -99,23 +99,17 @@ public class Producto implements Serializable{
         this.precioVenta = precioVenta;
     }
 
-    public Integer getProveedor() {
-        return id_Proveedor;
-    }
-
-    public void setProveedor(Integer proveedor) {
-        this.id_Proveedor = proveedor;
-    }
+     
 
   
-    public Producto(Integer idProducto, Integer codigo, String nombre, String descripcion, Double precioCompra, Double precioVenta, Integer id_proveedor) {
+    public Producto(Integer idProducto, Integer codigo, String nombre, String descripcion, Double precioCompra, Double precioVenta, String proveedor) {
         this.idProducto = idProducto;
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
-        this.id_Proveedor = id_proveedor; 
+        this.Proveedor = proveedor; 
     }
     
     public Producto(){
