@@ -158,7 +158,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
                 productoDao.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
                 productoDao.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
                 
-                productoDao.modificarequipo(
+                productoDao.modificarArreglado(
                         productoDao.getProducto().getCodigo(), 
                         productoDao.getProducto().getNombre(),
                         productoDao.getProducto().getDescripcion(),
@@ -682,14 +682,15 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private void btn_cargarrrrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargarrrrActionPerformed
         // TODO add your handling code here:
         seleccionar();
-        btn_guardar.setDisabledIcon(frameIcon);
+        btn_guardar.setEnabled(false);
     }//GEN-LAST:event_btn_cargarrrrActionPerformed
 
     private void btn_moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moddActionPerformed
         // TODO add your handling code here:
         try {
             modificarrrrr();
-            btn_guardar.disable();
+            btn_guardar.setEnabled(true);
+            limpiar();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btn_moddActionPerformed
