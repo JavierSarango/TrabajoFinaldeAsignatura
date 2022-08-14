@@ -8,6 +8,8 @@ package vista;
 import Validacion.Validacion;
 import controlador.FacturaController;
 import controlador.tda.lista.ListaEnlazada;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Venta;
@@ -26,7 +28,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     /**
      * Creates new form Frm_Facturacion
      */
-    public Frm_Facturacion(java.awt.Frame parent, boolean modal) {
+    public Frm_Facturacion(java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
         initComponents();
         jTNombre.setEnabled(false);
@@ -47,7 +49,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jTtelefono.setText(" ");
     }
 
-    public void DatosCliente() {
+    public void DatosCliente() throws Exception {
         String cedula = jTCedula.getText();
         Cliente cliente = new Cliente();
         jTNombre.setText(cliente.getRazonSocial());
@@ -57,9 +59,8 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         cargarTableVentas(cliente.getId_cliente());
     }
 
-    public void cargarTableVentas(Integer id_cliente) {
-        ListaEnlazada<Venta> listaVentas = new ListaEnlazada<Venta>();
-        MTVentas.setLista(listaVentas);
+    public void cargarTableVentas(Integer id_cliente) throws Exception {
+        MTVentas.setLista(fc.obtenerVentas(id_cliente));
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
@@ -79,7 +80,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 //                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
 //                        }
 //                    }
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -274,7 +275,11 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jTNombreActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        DatosCliente();
+        try {
+            DatosCliente();
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -327,7 +332,11 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Frm_Facturacion dialog = new Frm_Facturacion(new javax.swing.JFrame(), true);
+                Frm_Facturacion dialog = null;
+                try {
+                } catch (Exception ex) {
+                    Logger.getLogger(Frm_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

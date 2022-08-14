@@ -36,7 +36,7 @@ import modelo.Venta;
  *
  * @author John
  */
-public class FacturaController<T> {
+public class FacturaController {
 
     /**
      * variable tipo cliente para almacenamiento de la informacion del cliente
@@ -75,7 +75,7 @@ public class FacturaController<T> {
 //        cliente = vent.obtener(id);
     }
 
-    private ListaEnlazada obtenerVentas(Integer id) throws Exception {
+    public ListaEnlazada obtenerVentas(Integer id) throws Exception {
         VentaDao vent = new VentaDao();
         ListaEnlazada<Venta> aux = vent.listar();
         ListaEnlazada<Venta> aux2 = new ListaEnlazada<>();
