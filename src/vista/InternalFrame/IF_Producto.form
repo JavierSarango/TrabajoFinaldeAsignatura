@@ -117,7 +117,7 @@
             <Component class="javax.swing.JButton" name="bnt_eliminar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="10" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
@@ -133,7 +133,7 @@
             <Component class="javax.swing.JButton" name="btn_cargarrrr">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="10" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="cargar"/>
               </Properties>
@@ -149,7 +149,7 @@
             <Component class="javax.swing.JButton" name="btn_modd">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="10" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="modd"/>
               </Properties>
@@ -189,7 +189,7 @@
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
               </Properties>
@@ -202,7 +202,7 @@
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nombre:"/>
               </Properties>
@@ -232,7 +232,7 @@
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="10" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="AGREGAR"/>
               </Properties>
@@ -255,7 +255,7 @@
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Precio Compra:"/>
               </Properties>
@@ -268,7 +268,7 @@
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Descripci&#xf3;n:"/>
               </Properties>
@@ -298,7 +298,7 @@
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Precio Venta:"/>
               </Properties>
@@ -311,7 +311,7 @@
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Proveedor:"/>
               </Properties>
@@ -332,6 +332,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbx_proveedorActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -344,7 +347,7 @@
             <Component class="javax.swing.JCheckBox" name="check_automatico">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Precio Automatico"/>
               </Properties>
@@ -360,7 +363,7 @@
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Unidades:"/>
               </Properties>
@@ -391,12 +394,9 @@
               </Border>
             </Property>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="BUSCAR PRODUCTOS"/>
-          </AccessibilityProperties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="440" y="110" width="240" height="180"/>
+              <AbsoluteConstraints x="440" y="110" width="170" height="180"/>
             </Constraint>
           </Constraints>
 
@@ -407,7 +407,7 @@
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Dato a Buscar:"/>
               </Properties>
@@ -420,14 +420,14 @@
             <Component class="javax.swing.JTextField" name="txt_busqueda">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="90" width="180" height="-1"/>
+                  <AbsoluteConstraints x="20" y="90" width="130" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="10" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="BUSCAR"/>
               </Properties>
@@ -436,14 +436,14 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="140" width="80" height="-1"/>
+                  <AbsoluteConstraints x="40" y="120" width="80" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Criterio de Busqueda:"/>
               </Properties>
@@ -455,6 +455,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbx_datoBuscar">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
                     <StringItem index="0" value="Codigo"/>
@@ -468,14 +471,14 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="40" width="130" height="-1"/>
+                  <AbsoluteConstraints x="20" y="40" width="130" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="10" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="RECARGAR TABLA"/>
               </Properties>
@@ -484,7 +487,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="100" y="140" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="20" y="150" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -504,7 +507,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="690" y="110" width="240" height="180"/>
+              <AbsoluteConstraints x="620" y="110" width="160" height="180"/>
             </Constraint>
           </Constraints>
 
@@ -515,7 +518,7 @@
             <Component class="javax.swing.JLabel" name="jLabel22">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="NATS" size="14" style="1"/>
+                  <Font name="Arial" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Criterio de Ordenaci&#xf3;n:"/>
               </Properties>
@@ -527,6 +530,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbx_datoOrdenar">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
                     <StringItem index="0" value="Codigo"/>
@@ -546,6 +552,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioA">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ascendentemente"/>
               </Properties>
               <Events>
@@ -554,12 +563,15 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="50" y="90" width="150" height="-1"/>
+                  <AbsoluteConstraints x="10" y="70" width="130" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioD">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Descendetemente"/>
               </Properties>
               <Events>
@@ -569,7 +581,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="50" y="120" width="150" height="-1"/>
+                  <AbsoluteConstraints x="10" y="100" width="130" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
