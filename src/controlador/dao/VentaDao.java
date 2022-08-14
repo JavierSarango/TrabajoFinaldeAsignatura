@@ -107,7 +107,7 @@ public class VentaDao  {
     
     public ListaEnlazada listar(){
     ListaEnlazada<Venta> lista = new ListaEnlazada<>();
-    String sql ="SELECT * FROM VENTA";
+    String sql ="SELECT monto FROM VENTA";
         try {
             con = Conexion.getConecction();
             ps = con.prepareStatement(sql);
@@ -127,4 +127,6 @@ public class VentaDao  {
         }
         return lista;
     }
+
+   
 }
