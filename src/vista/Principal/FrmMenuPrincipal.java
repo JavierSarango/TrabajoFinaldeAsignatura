@@ -2,9 +2,6 @@ package vista.Principal;
 
 import java.awt.Dimension;
 import javax.swing.JDesktopPane;
-import vista.Frm_Producto;
-import vista.Frm_Usuario;
-import vista.Frm_Ventas;
 import vista.InternalFrame.IF_Cliente;
 import vista.InternalFrame.IF_Facturacion;
 import vista.InternalFrame.IF_Producto;
