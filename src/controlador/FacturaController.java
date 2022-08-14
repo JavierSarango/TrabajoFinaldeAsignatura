@@ -79,13 +79,13 @@ public class FacturaController {
 
     public ListaEnlazada obtenerVentas(Integer id) throws Exception {
         VentaDao vent = new VentaDao();
-        ListaEnlazada<Venta> aux = vent.listar();
-        ListaEnlazada<Venta> aux2 = new ListaEnlazada<>();
-        for (int i = 0; i < aux.getSize(); i++) {
-            if (aux.obtenerDato(i).getId_Venta() == id) {
-                aux2.insertar(aux.obtenerDato(i));
-            }
-        }
+        ListaEnlazada<Venta> aux = vent.listarIDVenta(id);
+        return aux;
+    }
+
+    public ListaEnlazada obtenerDetallesVentas(ListaEnlazada lista) {
+        VentaDao vent = new VentaDao();
+        ListaEnlazada<Venta> aux2 = vent.listarIDDetalleVenta(lista);
         return aux2;
     }
 
