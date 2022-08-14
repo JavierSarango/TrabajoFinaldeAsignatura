@@ -69,7 +69,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
         ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
         ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
-        ee.getEquipoElectronico().setCargador(true);
+        ee.getEquipoElectronico().setCargador(cbcargador.getSelectedItem().toString());
         if (ee.getEquipoElectronico().getId_equipo() == null) {
             if (ee.guardar_modificar()) {
                 JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
@@ -104,6 +104,8 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             txtmarca.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 3)));
             aux.getEquipoElectronico().setMarca(marca);
             String estado = String.valueOf(tbl_tabla.getValueAt(seleccionar, 5));
+            String cargador =  String.valueOf(String.valueOf(tbl_tabla.getValueAt(seleccionar, 4)));
+            aux.getEquipoElectronico().setCargador(cargador);
             aux.getEquipoElectronico().setEstado_ingreso(String.valueOf(tbl_tabla.getValueAt(seleccionar, 5)));
             txtestadoIngreso.setText(estado);
             String problema = String.valueOf(tbl_tabla.getValueAt(seleccionar, 6));
@@ -175,7 +177,6 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtmarca = new javax.swing.JTextField();
-        checkCargador = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         txtRazonSocial = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -190,6 +191,8 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         btnmodificar = new javax.swing.JButton();
         btnguarnar1 = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cbcargador = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_tabla = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -227,15 +230,6 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         jLabel3.setBounds(590, 50, 110, 30);
         jPanel2.add(txtmarca);
         txtmarca.setBounds(90, 50, 150, 25);
-
-        checkCargador.setText("Cargador:");
-        checkCargador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkCargadorActionPerformed(evt);
-            }
-        });
-        jPanel2.add(checkCargador);
-        checkCargador.setBounds(590, 90, 97, 23);
 
         jLabel1.setText("Cliente:");
         jPanel2.add(jLabel1);
@@ -303,6 +297,14 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         });
         jPanel2.add(btneliminar);
         btneliminar.setBounds(660, 160, 86, 25);
+
+        jLabel9.setText("Cargador:");
+        jPanel2.add(jLabel9);
+        jLabel9.setBounds(590, 90, 80, 19);
+
+        cbcargador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No tiene", "Si tiene" }));
+        jPanel2.add(cbcargador);
+        cbcargador.setBounds(700, 90, 150, 25);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 60, 860, 200);
@@ -405,16 +407,37 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void checkCargadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCargadorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkCargadorActionPerformed
-
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
 
         try {
-            seleccionar();
+           // seleccionar();
+        ee.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
+        ee.getEquipoElectronico().setMarca(txtmarca.getText());
+        ee.getEquipoElectronico().setModelo(txtmodelo.getText());
+        tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
+        ee.getEquipoElectronico().setTipo_equipo(tipoequipo);
+        ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
+        ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
+        ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
+        ee.getEquipoElectronico().setCargador(cbcargador.getSelectedItem().toString());
+        
+            ee.updateProfesor(ee.getEquipoElectronico().getRazon_social(),
+                    ee.getEquipoElectronico().getTipo_equipo(),
+                    ee.getEquipoElectronico().getMarca(), 
+                    ee.getEquipoElectronico().getModelo(),
+                    ee.getEquipoElectronico().getCargador(),
+                    ee.getEquipoElectronico().getEstado_ingreso() , 
+                    ee.getEquipoElectronico().getDescripcion_problema(), 
+                    ee.getEquipoElectronico().getPrecio_servicio(), 
+                    aux.getEquipoElectronico().getId_equipo());
+
+
+//            ee.updateProfesor(txtRazonSocial.getText(), (TipoEquipo)cbxtipoEquipo.getSelectedItem(), txtmarca.getText(), txtmodelo.getText(),cbcargador.getSelectedItem().toString(), txtestadoIngreso.getText(), txtdescripProblema.getText(), Double.parseDouble(txtprecioServicio.getText()), aux.getEquipoElectronico().getId_equipo());
+cargarTabla();
+//    ee.modificar(aux.getEquipoElectronico(), aux.getEquipoElectronico().getId_equipo());
+//ee.modificarManualCliente(aux.getEquipoElectronico());
         } catch (Exception ex) {
-            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
@@ -493,9 +516,9 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguarnar1;
     private javax.swing.JButton btnmodificar;
+    private javax.swing.JComboBox<String> cbcargador;
     private javax.swing.JComboBox<String> cbx_datoBusqueda;
     private javax.swing.JComboBox<String> cbxtipoEquipo;
-    private javax.swing.JCheckBox checkCargador;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
@@ -506,6 +529,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
