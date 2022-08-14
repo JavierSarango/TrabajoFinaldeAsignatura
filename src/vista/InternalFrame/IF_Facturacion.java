@@ -132,7 +132,6 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 255));
         jPanel2.setLayout(null);
         jPanel2.add(jSeparator1);
         jSeparator1.setBounds(20, 80, 730, 20);
@@ -173,7 +172,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jBProforma);
-        jBProforma.setBounds(610, 330, 90, 22);
+        jBProforma.setBounds(610, 330, 90, 25);
 
         jBFacturar.setText("Facturar");
         jBFacturar.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +181,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jBFacturar);
-        jBFacturar.setBounds(470, 330, 90, 22);
+        jBFacturar.setBounds(470, 330, 90, 25);
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +190,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jButton1);
-        jButton1.setBounds(340, 330, 90, 22);
+        jButton1.setBounds(340, 330, 90, 25);
 
         jPanel2.add(jPanel8);
         jPanel8.setBounds(10, 240, 730, 370);
@@ -253,7 +252,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nombre:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(20, 90, 47, 16);
+        jLabel2.setBounds(20, 90, 50, 16);
 
         jTNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

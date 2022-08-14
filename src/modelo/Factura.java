@@ -21,11 +21,11 @@ public class Factura implements Serializable{
     /**
      * variable que almacena el nombre de la empresa
      */
-    private String NombreEmpresa;
+    private static String NombreEmpresa = "OMICRON TECNOLOGIA";
     /**
      * variable que almacena el RUC de la empresa
      */
-    private String RUC;
+    private static String RUC= "1105993198001";
     /**
      * variable que almacena el codigo de la factura
      */
@@ -33,19 +33,19 @@ public class Factura implements Serializable{
     /**
      * variable que almacena el codigo de autorizacion de las facturas
      */
-    private String codigoAutorizacion;
+    private static String codigoAutorizacion= "001";
     /**
      * variable que almacena la direccion de la empresa
      */
-    private String direccionEmpresa;
+    private static String direccionEmpresa = "La Pradera, calle Alamos 235-16";
     /**
      * variable que almacena el telefono de la empresa
      */
-    private String telefonoE;
+    private static String telefonoE;
     /**
      * varible que almacena el email de la empresa
      */
-    private String emailE;
+    private static String emailE;
 
     /**
      * @return the Id
