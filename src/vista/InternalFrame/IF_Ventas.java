@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -1016,6 +1017,7 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
         }
 
     }
+ 
 
     class fondoPieLabel extends JLabel {
 
