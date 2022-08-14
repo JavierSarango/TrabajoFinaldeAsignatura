@@ -17,9 +17,11 @@ import vista.ModeloTablas.ModeloTablaVentas;
  * @author Gigabyte
  */
 public class IF_Facturacion extends javax.swing.JInternalFrame {
- private FacturaController fc = new FacturaController();
+    
+    private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
     private Validacion validar = new Validacion();
+
     /**
      * Creates new form IF_Facturacion
      */
@@ -34,31 +36,32 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jBProforma.setEnabled(false);
         cargarTableVentas(null);
     }
-     public void limpiar() {
+    
+    public void limpiar() {
         jTCedula.setText(" ");
         jTNombre.setText(" ");
         jTDireccionCliente.setText(" ");
         jTEmail.setText(" ");
         jTtelefono.setText(" ");
     }
-
+    
     public void DatosCliente() {
         String cedula = jTCedula.getText();
-        Cliente cliente = new Cliente();
+        Cliente cliente = fc.consultaCliente(cedula);
         jTNombre.setText(cliente.getRazonSocial());
         jTDireccionCliente.setText(cliente.getDireccion());
         jTEmail.setText(cliente.getIdentificacion());
         jTtelefono.setText(cliente.getTelefono());
         cargarTableVentas(cliente.getId_cliente());
     }
-
+    
     public void cargarTableVentas(Integer id_cliente) {
         ListaEnlazada<Venta> listaVentas = new ListaEnlazada<Venta>();
         MTVentas.setLista(listaVentas);
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
-
+    
     public void guardar() {
         if (jTNombre.getText().trim().isEmpty() || jTCedula.getText().trim().isEmpty() || jTDireccionCliente.getText().trim().isEmpty()
                 || jTEmail.getText().trim().isEmpty() || jTtelefono.getText().trim().isEmpty()) {
@@ -78,7 +81,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         }
     }
 

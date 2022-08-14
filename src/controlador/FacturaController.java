@@ -15,6 +15,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import controlador.dao.ClienteDao;
 import controlador.dao.VentaDao;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.tda.lista.exception.PosicionException;
@@ -70,9 +71,10 @@ public class FacturaController {
      */
     private DetalleFactura dt;
 
-    private void consultaCliente(Integer id) {
-//        ClienteSoporteDao vent = new ClienteSoporteDao();
-//        cliente = vent.obtener(id);
+    public Cliente consultaCliente(String cedula) {
+        ClienteDao clienteDao = new ClienteDao();
+        cliente = clienteDao.listarIDProducto(cedula);
+        return cliente;
     }
 
     public ListaEnlazada obtenerVentas(Integer id) throws Exception {

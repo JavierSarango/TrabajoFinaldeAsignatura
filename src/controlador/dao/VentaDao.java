@@ -128,5 +128,56 @@ public class VentaDao  {
         return lista;
     }
 
-   
+        public ListaEnlazada listarIDVenta(Integer id_cliente) {
+        Venta p = new Venta();
+        String sql = "Select * from venta where id_Cliente = ?";
+        ListaEnlazada<Venta> lista = new ListaEnlazada<>();
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id_cliente);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                p.setId_Venta(rs.getInt(1));
+                p.setId_Cliente(rs.getInt(2));
+                p.setNrodeSerieVenta(rs.getString(3));
+                p.setFechaVenta(rs.getString(4));
+                p.setMonto(rs.getDouble(5));
+                lista.insertar(p);
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar Id cliente");
+            e.printStackTrace();
+        }
+        return lista;
+
+    }
+
+    public ListaEnlazada listarIDDetalleVenta(ListaEnlazada<Venta> lista) {
+        DetalleVenta p = new DetalleVenta();
+        String sql = "Select * from detalle_ventas where idVentas = ?";
+        ListaEnlazada<DetalleVenta> lista2 = new ListaEnlazada<>();
+        for (int i = 0; i < lista.getSize(); i++) {
+            try {
+                con = Conexion.getConecction();
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, lista.obtenerDato(i).getId_Venta());
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    p.setIdDetalleVenta(rs.getInt(1));
+                    p.setId_Venta(rs.getInt(2));
+                    p.setId_Producto(rs.getInt(3));
+                    p.setCantidad(rs.getInt(4));
+                    p.setPrecioVenta(rs.getDouble(5));
+                    lista2.insertar(p);
+                }
+            } catch (Exception e) {
+                System.out.println("Error en listar Id cliente");
+                e.printStackTrace();
+            }
+        }
+
+        return lista2;
+
+    }
 }
