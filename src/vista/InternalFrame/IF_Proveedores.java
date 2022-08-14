@@ -157,7 +157,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 }
             } else {//ACTUALIZA LOS DATOS
                 try {
-                    modi();
+//                    modi();
 //                    proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
 //                            proveedordao.getProveedores().getProvincia(), proveedordao.getProveedores().getDireccion(),
 //                            proveedordao.getProveedores().getIdentificacion(), proveedordao.getProveedores().getRazonSocial(),
@@ -165,11 +165,11 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 //                            proveedordao.getProveedores().getCorreo(),
 //                            proveedordao.getProveedores().getPagina_web(), proveedordao.getProveedores().getBanco(),
 //                            proveedordao.getProveedores().getTipocuenta(), proveedordao.getProveedores().getNro_cuenta(),
-//                            proveedordao.getProveedores().getCredito(),
-//                            proveedordao.getProveedores().getId_Proveedor());
-                    JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-                    limpiar();
-                    cargarTabla();
+////                            proveedordao.getProveedores().getCredito(),
+////                            proveedordao.getProveedores().getId_Proveedor());
+//                    JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
+//                    limpiar();
+//                    cargarTabla();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                 }
@@ -226,55 +226,49 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         }
     }
 
-    private boolean modi() throws Exception {
-         try {
-         if (txtAresponsable.getText().trim().isEmpty() || txtdireccion.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty()
-                || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-
-            if (validacion.validaCorreo(txtemail.getText()) == true) {
-                JOptionPane.showMessageDialog(null, "Correo Valido", "Ok", JOptionPane.INFORMATION_MESSAGE);
+    private void modi() throws Exception {
+        try {
+            if (txtAresponsable.getText().trim().isEmpty() || txtdireccion.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty()
+                    || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-         }
-       
-            proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
-            proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-            proveedordao.getProveedores().setDireccion(txtdireccion.getText());
-            proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
-            proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
-            proveedordao.getProveedores().setTelefono(txttfijo.getText());
-            proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
-            proveedordao.getProveedores().setCelular(txtcelular.getText());
-            proveedordao.getProveedores().setCorreo(txtemail.getText());
-            proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
-            proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
-            proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
-            proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
-            proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
 
-            proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
-                    proveedordao.getProveedores().getProvincia(), 
-                    proveedordao.getProveedores().getDireccion(),
-                    proveedordao.getProveedores().getIdentificacion(), 
-                    proveedordao.getProveedores().getRazonSocial(),
-                    proveedordao.getProveedores().getTelefono(), 
-                    proveedordao.getProveedores().getCelular(), 
-                    proveedordao.getProveedores().getTelefono_opcional(),
-                    proveedordao.getProveedores().getCorreo(),
-                    proveedordao.getProveedores().getPagina_web(), 
-                    proveedordao.getProveedores().getBanco(),
-                    proveedordao.getProveedores().getTipocuenta(), 
-                    proveedordao.getProveedores().getNro_cuenta(),
-                    proveedordao.getProveedores().getCredito(),
-                    aux.getProveedores().getId_Proveedor());
-            cargarTabla();
+                proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
+                proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
+                proveedordao.getProveedores().setDireccion(txtdireccion.getText());
+                proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
+                proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
+                proveedordao.getProveedores().setTelefono(txttfijo.getText());
+                proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
+                proveedordao.getProveedores().setCelular(txtcelular.getText());
+                proveedordao.getProveedores().setCorreo(txtemail.getText());
+                proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
+                proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
+                proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
+                proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
+                proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
+
+               proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
+                            proveedordao.getProveedores().getProvincia(),
+                            proveedordao.getProveedores().getDireccion(),
+                            proveedordao.getProveedores().getIdentificacion(),
+                            proveedordao.getProveedores().getRazonSocial(),
+                            proveedordao.getProveedores().getTelefono(),
+                            proveedordao.getProveedores().getCelular(),
+                            proveedordao.getProveedores().getTelefono_opcional(),
+                            proveedordao.getProveedores().getCorreo(),
+                            proveedordao.getProveedores().getPagina_web(),
+                            proveedordao.getProveedores().getBanco(),
+                            proveedordao.getProveedores().getTipocuenta(),
+                            proveedordao.getProveedores().getNro_cuenta(),
+                            proveedordao.getProveedores().getCredito(),
+                            aux.getProveedores().getId_Proveedor());
+                    cargarTabla();
+                
+            }
         } catch (Exception e) {
 
         }
-        return false;
     }
 
     /**
@@ -1164,11 +1158,8 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 
     private void moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moddActionPerformed
         try {
-            // TODO add your handling code here:
-            
             modi();
-            
-                    } catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_moddActionPerformed

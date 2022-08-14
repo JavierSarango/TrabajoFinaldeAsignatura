@@ -162,10 +162,14 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
     }
 
     public void actualizar(String agente_responsable, String provincia, String direccion, String identificacion, String razonSocial, String telefono,
-            String celular, String telefono_opcional, String correo, String pagina_web, String banco, String tipocuenta, String nro_cuenta, String credito, Integer id) throws Exception {
-        String sql = ("UPDATE proveedor set agente_responsable ='" + agente_responsable + "provincia ='" + provincia + "direccion ='" + direccion + "identificacion ='" + identificacion + "razonSocial ='" + razonSocial
-                + "telefono='" + telefono + "celular='" + celular + "telefono_opcional ='" + telefono_opcional + "correo='" + correo + "pagina_web='" + pagina_web + " banco='"
-                + "tipocuenta='" + tipocuenta + "nro_cuenta='" + nro_cuenta + "credito='" + credito + "WHERE id_Proveedor ='" + id + "'");
+            String celular, String telefono_opcional, String correo, String pagina_web, String banco, String tipocuenta, String nro_cuenta, String credito, Integer id_producto) throws Exception {
+        String sql = "UPDATE proveedor set agente_responsable ='" + agente_responsable + 
+                "',provincia ='" + provincia + "',direccion ='" + direccion + 
+                "',identificacion ='" + identificacion + "',razonSocial ='" + razonSocial
+                + "',telefono='" + telefono + "',celular='" + celular + "',telefono_opcional ='" + 
+                telefono_opcional + "',correo='" + correo + "',pagina_web='" + pagina_web + " ',banco='"
+                + "',tipocuenta='" + tipocuenta + "',nro_cuenta='" + nro_cuenta + 
+                "',credito='" + credito + "'where id_Proveedor ='" + id_producto + "'";
         try {
             PreparedStatement stmt = getConexion().prepareStatement(sql);
             stmt.executeUpdate();
