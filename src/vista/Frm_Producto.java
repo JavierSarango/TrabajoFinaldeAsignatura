@@ -106,36 +106,6 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     }
 
-    public void vamoAmodificar() {
-        sp.getProducto().setCodigo(Integer.parseInt(txt_codigo.getText()));
-        sp.getProducto().setNombre(txt_nombre.getText());
-        sp.getProducto().setDescripcion(txt_descripcion.getText());
-        sp.getProducto().setUnidades(Integer.parseInt(txt_unidades.getText()));
-        sp.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
-        sp.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
-        sp.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
-//        sp.getProducto().setUpdatedAt(updateAt);
-
-        Integer id = Integer.parseInt(tbl_producto.getValueAt(tbl_producto.getSelectedRow(), 0).toString());
-        Integer codigo =Integer.parseInt(txt_codigo.getText());
-        String nombre = txt_nombre.getText();
-         String descripcion = txt_descripcion.getText();
-         Integer unidades = Integer.parseInt(txt_unidades.getText());
-         Double precioC =Double.parseDouble(txt_precioCompra.getText());
-                 Double precioV =Double.parseDouble(txt_precioVenta.getText());
-                 String prov = cbx_proveedor.getSelectedItem().toString();
-         
-        
-        if (productoDao.actualizarStock(id, codigo, nombre, descripcion, precioC, precioV, unidades, prov)) {
-            System.out.println("actualizado correcto");
-            //Integer auxId = sp.listar().shellListaEnlazada("idProducto", TipoOrdenacion.ASCENDENTE).obtenerDato(0).getIdProducto();
-            limpiar();
-        }
-
-        sp.setProducto(null);
-        cargarTabla();
-    }
-
     public void seleccionar() {
 
         int seleccionar = tbl_producto.getSelectedRow();
@@ -565,10 +535,7 @@ public class Frm_Producto extends javax.swing.JDialog {
 
     private void btn_moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moddActionPerformed
         // TODO add your handling code here:
-        try {
-            vamoAmodificar();
-        } catch (Exception e) {
-        }
+         
     }//GEN-LAST:event_btn_moddActionPerformed
 
     /**
