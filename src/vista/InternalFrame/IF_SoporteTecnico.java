@@ -23,6 +23,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
 
     private EquipoElectronicoDao ee = new EquipoElectronicoDao();
     private ModeloTablaEquipos mte = new ModeloTablaEquipos();
+    private EquipoElectronicoDao aux = new EquipoElectronicoDao();
     private Integer id_equipo;
     private TipoEquipo tipoequipo;
     Validacion vali = new Validacion();
@@ -87,20 +88,33 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         }
        
     }
-    public void seleccionar() throws Exception {
-        limpiar();
+     public void seleccionar() {
         int seleccionar = tbl_tabla.getSelectedRow();
-        modelo.equipo nose =ee.obtener(seleccionar);
+
         if (seleccionar >= 0) {
+            Integer id = Integer.parseInt(String.valueOf(tbl_tabla.getValueAt(seleccionar, 0)));
+            aux.getEquipoElectronico().setId_equipo(id);
+            String razonSocial = String.valueOf(tbl_tabla.getValueAt(seleccionar, 1));
             txtRazonSocial.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 1)));
-//            txtRazonSocial.setText(nose.getRazon_social());
+            aux.getEquipoElectronico().setRazon_social(razonSocial);
+            String modelo = String.valueOf(tbl_tabla.getValueAt(seleccionar, 2));
             txtmodelo.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 2)));
+            aux.getEquipoElectronico().setModelo(modelo);
+            String marca = String.valueOf(tbl_tabla.getValueAt(seleccionar, 3));
             txtmarca.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 3)));
-            txtestadoIngreso.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 5)));
-            txtdescripProblema.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 6)));
-            cbxtipoEquipo.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 7)));
-            txtprecioServicio.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 8)));
-            
+            aux.getEquipoElectronico().setMarca(marca);
+            String estado = String.valueOf(tbl_tabla.getValueAt(seleccionar, 5));
+            aux.getEquipoElectronico().setEstado_ingreso(String.valueOf(tbl_tabla.getValueAt(seleccionar, 5)));
+            txtestadoIngreso.setText(estado);
+            String problema = String.valueOf(tbl_tabla.getValueAt(seleccionar, 6));
+            txtdescripProblema.setText(problema);
+            aux.getEquipoElectronico().setDescripcion_problema(problema);
+            String tipoe = String.valueOf(tbl_tabla.getValueAt(seleccionar, 7));
+            cbxtipoEquipo.setSelectedItem(tipoe);
+            aux.getEquipoElectronico().setTipo_equipo((TipoEquipo) tbl_tabla.getValueAt(seleccionar, 7));
+            Double precio = Double.parseDouble(String.valueOf(tbl_tabla.getValueAt(seleccionar, 8)));
+            txtprecioServicio.setText(precio.toString());
+            aux.getEquipoElectronico().setPrecio_servicio(precio);
 //            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
             btnmodificar.setText("Actualizar");
         } else {
@@ -175,7 +189,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         cbxtipoEquipo = new javax.swing.JComboBox<>();
         btnmodificar = new javax.swing.JButton();
         btnguarnar1 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_tabla = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -270,7 +284,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnmodificar);
-        btnmodificar.setBounds(370, 140, 120, 25);
+        btnmodificar.setBounds(360, 160, 120, 25);
 
         btnguarnar1.setText("Guardar");
         btnguarnar1.addActionListener(new java.awt.event.ActionListener() {
@@ -279,16 +293,16 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnguarnar1);
-        btnguarnar1.setBounds(20, 150, 120, 25);
+        btnguarnar1.setBounds(20, 160, 120, 25);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btneliminar.setText("Eliminar");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btneliminarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(550, 150, 83, 25);
+        jPanel2.add(btneliminar);
+        btneliminar.setBounds(660, 160, 86, 25);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 60, 860, 200);
@@ -409,10 +423,11 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         guardar();
     }//GEN-LAST:event_btnguarnar1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        ee.modificarManualCliente();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ee.eliminarmejorado(aux.getEquipoElectronico().getId_equipo(), "id_equipo");
+        cargarTabla();
+    }//GEN-LAST:event_btneliminarActionPerformed
 
     private void tbl_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablaMouseClicked
         // TODO add your handling code here:
@@ -475,12 +490,12 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguarnar1;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JComboBox<String> cbx_datoBusqueda;
     private javax.swing.JComboBox<String> cbxtipoEquipo;
     private javax.swing.JCheckBox checkCargador;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
