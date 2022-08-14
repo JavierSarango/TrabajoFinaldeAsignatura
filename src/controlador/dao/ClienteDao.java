@@ -5,6 +5,10 @@
  */
 package controlador.dao;
 
+import controlador.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import modelo.Cliente;
 
 /**
@@ -14,6 +18,12 @@ import modelo.Cliente;
 public class ClienteDao extends AdaptadorDao<Cliente> {
 
     private Cliente cliente;
+    
+        
+    Conexion c = new Conexion();
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
 
     public ClienteDao() {
         super(Cliente.class);
@@ -59,5 +69,34 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
             return false;
         }
     }
+       
+        public Cliente listarIDProducto(String indentificacion) {
+        Cliente p = new Cliente();
+        String sql = "Select * from producto where identificacion = ?";
+
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, indentificacion);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                p.setId_cliente(rs.getInt(1));
+                p.setRazonSocial(rs.getString(2));
+                p.setCelular(rs.getString(3));
+                p.setTelefono(rs.getString(4));
+                p.setCorreo(rs.getString(5));
+                p.setTipoIdentificacion(rs.getString(6));
+                p.setIdentificacion(rs.getString(7));
+                p.setFechaNacimiento(rs.getString(8));
+                p.setTipoCliente(rs.getString(9));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar Id cliente");
+            e.printStackTrace();
+        }
+        return p;
+
+    }
+       
 
 }
