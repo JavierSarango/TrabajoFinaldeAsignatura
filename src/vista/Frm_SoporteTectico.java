@@ -220,7 +220,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnmodificar);
-        btnmodificar.setBounds(370, 140, 120, 25);
+        btnmodificar.setBounds(340, 150, 120, 25);
 
         btnguarnar1.setText("Guardar");
         btnguarnar1.addActionListener(new java.awt.event.ActionListener() {
@@ -254,10 +254,15 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_tabla);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(40, 310, 780, 210);
+        jScrollPane1.setBounds(20, 360, 780, 210);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -292,6 +297,16 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         // TODO add your handling code here:
         ee.modificarManualCliente();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbl_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablaMouseClicked
+        
+        try {
+            seleccionar();
+// TODO add your handling code here:
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbl_tablaMouseClicked
 
     /**
      * @param args the command line arguments
