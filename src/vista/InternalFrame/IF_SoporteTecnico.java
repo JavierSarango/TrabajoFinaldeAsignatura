@@ -27,6 +27,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private Integer id_equipo;
     private TipoEquipo tipoequipo;
     Validacion vali = new Validacion();
+
     /**
      * Creates new form IF_SoporteTecnico
      */
@@ -57,38 +58,39 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     }
 
     private void guardar() {
-        
+
         try {
-             
+
 //        ee.getEquipoElectronico().setId_equipo(5);
-        ee.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
-        ee.getEquipoElectronico().setMarca(txtmarca.getText());
-        ee.getEquipoElectronico().setModelo(txtmodelo.getText());
-        tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
-        ee.getEquipoElectronico().setTipo_equipo(tipoequipo);
-        ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
-        ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
-        ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
-        ee.getEquipoElectronico().setCargador(cbcargador.getSelectedItem().toString());
-        if (ee.getEquipoElectronico().getId_equipo() == null) {
-            if (ee.guardar_modificar()) {
-                JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+            ee.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
+            ee.getEquipoElectronico().setMarca(txtmarca.getText());
+            ee.getEquipoElectronico().setModelo(txtmodelo.getText());
+            tipoequipo = (cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR") ? TipoEquipo.COMPUTADOR : TipoEquipo.IMPRESORA);
+            ee.getEquipoElectronico().setTipo_equipo(tipoequipo);
+            ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
+            ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
+            ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
+            ee.getEquipoElectronico().setCargador(cbcargador.getSelectedItem().toString());
+            if (ee.getEquipoElectronico().getId_equipo() == null) {
+                if (ee.guardar_modificar()) {
+                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
 //                   limpiar();
 //                    cargarTabla();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        }
 
-        ee.setEquipoElectronico(null);
-        cargarTabla();
-            
+            ee.setEquipoElectronico(null);
+            cargarTabla();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
+
     }
-     public void seleccionar() {
+
+    public void seleccionar() {
         int seleccionar = tbl_tabla.getSelectedRow();
 
         if (seleccionar >= 0) {
@@ -104,7 +106,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             txtmarca.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 3)));
             aux.getEquipoElectronico().setMarca(marca);
             String estado = String.valueOf(tbl_tabla.getValueAt(seleccionar, 5));
-            String cargador =  String.valueOf(String.valueOf(tbl_tabla.getValueAt(seleccionar, 4)));
+            String cargador = String.valueOf(String.valueOf(tbl_tabla.getValueAt(seleccionar, 4)));
             aux.getEquipoElectronico().setCargador(cargador);
             aux.getEquipoElectronico().setEstado_ingreso(String.valueOf(tbl_tabla.getValueAt(seleccionar, 5)));
             txtestadoIngreso.setText(estado);
@@ -133,7 +135,8 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         cbxtipoEquipo.updateUI();
 
     }
-     private void buscar() throws Exception {
+
+    private void buscar() throws Exception {
         String criterioBusqueda = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
         String datoBusqueda = txt_busqueda.getText().trim().toLowerCase();
 
@@ -143,6 +146,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         tbl_tabla.setModel(mte);
         tbl_tabla.updateUI();
     }
+
     private void ordenar() throws Exception {
         String criterio = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
 
@@ -159,8 +163,6 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
 
     }
 
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -410,34 +412,37 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
 
         try {
-           // seleccionar();
-        ee.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
-        ee.getEquipoElectronico().setMarca(txtmarca.getText());
-        ee.getEquipoElectronico().setModelo(txtmodelo.getText());
-        tipoequipo =(cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR")? TipoEquipo.COMPUTADOR:TipoEquipo.IMPRESORA);
-        ee.getEquipoElectronico().setTipo_equipo(tipoequipo);
-        ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
-        ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
-        ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
-        ee.getEquipoElectronico().setCargador(cbcargador.getSelectedItem().toString());
-        
-            ee.updateProfesor(ee.getEquipoElectronico().getRazon_social(),
+    
+            
+            
+            ee.getEquipoElectronico().setRazon_social(txtRazonSocial.getText());
+            ee.getEquipoElectronico().setMarca(txtmarca.getText());
+            ee.getEquipoElectronico().setModelo(txtmodelo.getText());
+            tipoequipo = (cbxtipoEquipo.getSelectedItem().toString().equals("COMPUTADOR") ? TipoEquipo.COMPUTADOR : TipoEquipo.IMPRESORA);
+            ee.getEquipoElectronico().setTipo_equipo(tipoequipo);
+            ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
+            ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
+            ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
+            ee.getEquipoElectronico().setCargador(cbcargador.getSelectedItem().toString());
+
+            ee.modificarequipo(ee.getEquipoElectronico().getRazon_social(),
                     ee.getEquipoElectronico().getTipo_equipo(),
-                    ee.getEquipoElectronico().getMarca(), 
+                    ee.getEquipoElectronico().getMarca(),
                     ee.getEquipoElectronico().getModelo(),
                     ee.getEquipoElectronico().getCargador(),
-                    ee.getEquipoElectronico().getEstado_ingreso() , 
-                    ee.getEquipoElectronico().getDescripcion_problema(), 
-                    ee.getEquipoElectronico().getPrecio_servicio(), 
+                    ee.getEquipoElectronico().getEstado_ingreso(),
+                    ee.getEquipoElectronico().getDescripcion_problema(),
+                    ee.getEquipoElectronico().getPrecio_servicio(),
                     aux.getEquipoElectronico().getId_equipo());
-
-
+            
+            
+            
 //            ee.updateProfesor(txtRazonSocial.getText(), (TipoEquipo)cbxtipoEquipo.getSelectedItem(), txtmarca.getText(), txtmodelo.getText(),cbcargador.getSelectedItem().toString(), txtestadoIngreso.getText(), txtdescripProblema.getText(), Double.parseDouble(txtprecioServicio.getText()), aux.getEquipoElectronico().getId_equipo());
-cargarTabla();
+            cargarTabla();
 //    ee.modificar(aux.getEquipoElectronico(), aux.getEquipoElectronico().getId_equipo());
 //ee.modificarManualCliente(aux.getEquipoElectronico());
         } catch (Exception ex) {
-           
+
         }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
@@ -454,7 +459,7 @@ cargarTabla();
 
     private void tbl_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablaMouseClicked
         // TODO add your handling code here:
-        
+
         try {
             seleccionar();
         } catch (Exception ex) {
@@ -507,7 +512,7 @@ cargarTabla();
     private void txtprecioServicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioServicioKeyTyped
         // TODO add your handling code here:
         vali.validaSeaNumero(evt, txtprecioServicio, 10);
-        
+
     }//GEN-LAST:event_txtprecioServicioKeyTyped
 
 
