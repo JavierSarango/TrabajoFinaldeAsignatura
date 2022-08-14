@@ -1,15 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package vista;
+package vista.InternalFrame;
 
 import Validacion.Validacion;
 import controlador.FacturaController;
 import controlador.tda.lista.ListaEnlazada;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Venta;
@@ -17,19 +14,16 @@ import vista.ModeloTablas.ModeloTablaVentas;
 
 /**
  *
- * @author John
+ * @author Gigabyte
  */
-public class Frm_Facturacion extends javax.swing.JDialog {
-
-    private FacturaController fc = new FacturaController();
+public class IF_Facturacion extends javax.swing.JInternalFrame {
+ private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
     private Validacion validar = new Validacion();
-
     /**
-     * Creates new form Frm_Facturacion
+     * Creates new form IF_Facturacion
      */
-    public Frm_Facturacion(java.awt.Frame parent, boolean modal) throws Exception {
-        super(parent, modal);
+    public IF_Facturacion() {
         initComponents();
         jTNombre.setEnabled(false);
         jTtelefono.setEnabled(false);
@@ -40,8 +34,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jBProforma.setEnabled(false);
         cargarTableVentas(null);
     }
-
-    public void limpiar() {
+     public void limpiar() {
         jTCedula.setText(" ");
         jTNombre.setText(" ");
         jTDireccionCliente.setText(" ");
@@ -49,7 +42,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jTtelefono.setText(" ");
     }
 
-    public void DatosCliente() throws Exception {
+    public void DatosCliente() {
         String cedula = jTCedula.getText();
         Cliente cliente = new Cliente();
         jTNombre.setText(cliente.getRazonSocial());
@@ -59,8 +52,9 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         cargarTableVentas(cliente.getId_cliente());
     }
 
-    public void cargarTableVentas(Integer id_cliente) throws Exception {
-        MTVentas.setLista(fc.obtenerVentas(id_cliente));
+    public void cargarTableVentas(Integer id_cliente) {
+        ListaEnlazada<Venta> listaVentas = new ListaEnlazada<Venta>();
+        MTVentas.setLista(listaVentas);
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
@@ -80,7 +74,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
 //                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
 //                        }
 //                    }
-
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -98,7 +92,6 @@ public class Frm_Facturacion extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -123,18 +116,15 @@ public class Frm_Facturacion extends javax.swing.JDialog {
         jTNombre = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(null);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
         jPanel2.setLayout(null);
-
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel1.setText("FACTURAR");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(40, 10, 160, 40);
         jPanel2.add(jSeparator1);
-        jSeparator1.setBounds(30, 140, 730, 20);
+        jSeparator1.setBounds(20, 80, 730, 20);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -172,7 +162,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(jBProforma);
-        jBProforma.setBounds(610, 330, 90, 25);
+        jBProforma.setBounds(610, 330, 90, 22);
 
         jBFacturar.setText("Facturar");
         jBFacturar.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +171,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(jBFacturar);
-        jBFacturar.setBounds(470, 330, 90, 25);
+        jBFacturar.setBounds(470, 330, 90, 22);
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -190,41 +180,41 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel8.add(jButton1);
-        jButton1.setBounds(340, 330, 90, 25);
+        jButton1.setBounds(340, 330, 90, 22);
 
         jPanel2.add(jPanel8);
-        jPanel8.setBounds(20, 330, 730, 370);
+        jPanel8.setBounds(10, 240, 730, 370);
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel5.setText("TELEFONO MOVIL:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(470, 180, 150, 30);
+        jLabel5.setBounds(460, 100, 150, 30);
         jPanel2.add(jTtelefono);
-        jTtelefono.setBounds(470, 210, 160, 22);
+        jTtelefono.setBounds(460, 130, 160, 22);
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel7.setText("EMAIL:");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(470, 230, 100, 30);
+        jLabel7.setBounds(460, 150, 100, 30);
 
         jTEmail.setToolTipText("");
         jPanel2.add(jTEmail);
-        jTEmail.setBounds(470, 260, 260, 30);
+        jTEmail.setBounds(460, 180, 260, 30);
         jPanel2.add(jSeparator2);
-        jSeparator2.setBounds(20, 310, 730, 20);
+        jSeparator2.setBounds(10, 230, 730, 20);
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         jLabel9.setText("DIRECCIÓN COMPRADOR:");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(30, 200, 160, 30);
+        jLabel9.setBounds(20, 120, 160, 30);
 
         jLabel10.setText("Busqueda del Cliente");
         jPanel2.add(jLabel10);
-        jLabel10.setBounds(30, 50, 190, 30);
+        jLabel10.setBounds(20, 10, 190, 30);
 
         jLabel3.setText("Identificador:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(30, 80, 140, 30);
+        jLabel3.setBounds(20, 40, 80, 30);
 
         jTCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -232,7 +222,7 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jTCedula);
-        jTCedula.setBounds(120, 80, 280, 30);
+        jTCedula.setBounds(110, 40, 280, 30);
 
         btBuscar.setText("Buscar");
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -241,18 +231,18 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btBuscar);
-        btBuscar.setBounds(430, 80, 100, 30);
+        btBuscar.setBounds(420, 40, 100, 30);
 
         jTDireccionCliente.setColumns(20);
         jTDireccionCliente.setRows(5);
         jScrollPane3.setViewportView(jTDireccionCliente);
 
         jPanel2.add(jScrollPane3);
-        jScrollPane3.setBounds(30, 230, 410, 70);
+        jScrollPane3.setBounds(20, 150, 410, 70);
 
         jLabel2.setText("Nombre:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(30, 170, 50, 16);
+        jLabel2.setBounds(20, 90, 47, 16);
 
         jTNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,100 +250,68 @@ public class Frm_Facturacion extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jTNombre);
-        jTNombre.setBounds(120, 170, 280, 22);
+        jTNombre.setBounds(110, 90, 280, 22);
         jPanel2.add(jSeparator3);
-        jSeparator3.setBounds(30, 50, 730, 20);
+        jSeparator3.setBounds(20, 10, 730, 20);
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 780, 730);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 792, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 636, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTNombreActionPerformed
-
-    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        try {
-            DatosCliente();
-        } catch (Exception e) {
-
-        }
-    }//GEN-LAST:event_btBuscarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //        limpiar();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jBFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFacturarActionPerformed
-        //        guardar(true);
-    }//GEN-LAST:event_jBFacturarActionPerformed
-
-    private void jBProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProformaActionPerformed
-
-    }//GEN-LAST:event_jBProformaActionPerformed
 
     private void jTableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVentasMouseClicked
         //        editarCarrito();
     }//GEN-LAST:event_jTableVentasMouseClicked
 
+    private void jBProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProformaActionPerformed
+
+    }//GEN-LAST:event_jBProformaActionPerformed
+
+    private void jBFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFacturarActionPerformed
+        //        guardar(true);
+    }//GEN-LAST:event_jBFacturarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //        limpiar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void jTCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCedulaKeyTyped
         validar.validaSeaNumero(evt, jTCedula, 10);
     }//GEN-LAST:event_jTCedulaKeyTyped
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Frm_Facturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Frm_Facturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Frm_Facturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Frm_Facturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+        DatosCliente();
+    }//GEN-LAST:event_btBuscarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Frm_Facturacion dialog = null;
-                try {
-                } catch (Exception ex) {
-                    Logger.getLogger(Frm_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void jTNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTNombreActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton jBFacturar;
     private javax.swing.JButton jBProforma;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -30,6 +30,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import modelo.DetalleVenta;
 import modelo.Venta;
+import vista.InternalFrame.IF_Cliente;
+import vista.InternalFrame.IF_Producto;
 
 /**
  *
@@ -46,8 +48,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
     PreparedStatement ps;
     ResultSet rs;
     // Ventanas
-    Frm_Cliente ventanaCliente;
-    Frm_Producto ventanaProducto;
+    IF_Cliente ventanaCliente;
+    IF_Producto ventanaProducto;
     //Variables globales
     Double totalPa, subTotal, descuento, precio;
     Integer cantidad;
@@ -632,10 +634,8 @@ public class Frm_Ventas extends javax.swing.JDialog {
             } else {
                 respuesta = JOptionPane.showConfirmDialog(this, "El cliente no esta Registrado, ¿Desea Hacerlo?");
                 if (respuesta == 0) {
-                   ventanaCliente = new Frm_Cliente();
-                    ventanaCliente.setVisible(true);
-                    ventanaCliente.transferFocus();
-                    this.dispose();
+                   ventanaCliente = new IF_Cliente();
+                    ventanaCliente.setVisible(true);                   
                     
                    
                 }
@@ -976,13 +976,13 @@ public class Frm_Ventas extends javax.swing.JDialog {
 
     private void btnVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerClientesActionPerformed
         // TODO add your handling code here:
-       ventanaCliente = new Frm_Cliente();
+       ventanaCliente = new IF_Cliente();
         ventanaProducto.setVisible(true);
     }//GEN-LAST:event_btnVerClientesActionPerformed
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
         // TODO add your handling code here:
-        ventanaProducto = new Frm_Producto(new javax.swing.JFrame(),true);
+        ventanaProducto = new IF_Producto();
         ventanaProducto.setVisible(true);
     }//GEN-LAST:event_btnVerProductosActionPerformed
     private void actualizarStock() {
