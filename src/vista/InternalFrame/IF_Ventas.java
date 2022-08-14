@@ -29,12 +29,6 @@ import modelo.Cliente;
 import modelo.DetalleVenta;
 import modelo.Producto;
 import modelo.Venta;
-import vista.Frm_Cliente;
-import vista.Frm_Producto;
-import vista.Frm_Ventas;
-import static vista.Frm_Ventas.jScrollPaneTabla;
-import static vista.Frm_Ventas.jTable_productos;
-import static vista.Frm_Ventas.txt_total_pagar;
 import vista.Principal.FrmMenuPrincipal;
 
 
