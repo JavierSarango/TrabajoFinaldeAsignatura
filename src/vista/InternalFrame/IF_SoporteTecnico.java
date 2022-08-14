@@ -4,6 +4,7 @@
  */
 package vista.InternalFrame;
 
+import Validacion.Validacion;
 import controlador.dao.EquipoElectronicoDao;
 import controlador.utiles.Utilidades;
 import controlador.utiles.enums.TipoEquipo;
@@ -24,6 +25,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private ModeloTablaEquipos mte = new ModeloTablaEquipos();
     private Integer id_equipo;
     private TipoEquipo tipoequipo;
+    Validacion vali = new Validacion();
     /**
      * Creates new form IF_SoporteTecnico
      */
@@ -88,7 +90,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     public void seleccionar() throws Exception {
         limpiar();
         int seleccionar = tbl_tabla.getSelectedRow();
-//        modelo.equipo nose =ee.obtener(seleccionar);
+        modelo.equipo nose =ee.obtener(seleccionar);
         if (seleccionar >= 0) {
             txtRazonSocial.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 1)));
 //            txtRazonSocial.setText(nose.getRazon_social());
@@ -236,6 +238,12 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         jLabel6.setText("Tipo Equipo:");
         jPanel2.add(jLabel6);
         jLabel6.setBounds(590, 10, 90, 30);
+
+        txtprecioServicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprecioServicioKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtprecioServicio);
         txtprecioServicio.setBounds(700, 50, 150, 25);
         jPanel2.add(txtdescripProblema);
@@ -457,6 +465,12 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtprecioServicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioServicioKeyTyped
+        // TODO add your handling code here:
+        vali.validaSeaNumero(evt, txtprecioServicio, 10);
+        
+    }//GEN-LAST:event_txtprecioServicioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
