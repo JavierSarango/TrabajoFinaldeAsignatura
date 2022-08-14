@@ -143,13 +143,12 @@ public class EquipoElectronicoDao extends AdaptadorDao<equipo> {
         }
 
     }
-    public void updateProfesor(String razonSocial, TipoEquipo tipoequipo, String marca,String modelo,String cargador, String estadoing, String descripcion, Double precio,Integer id) throws Exception {
+    public void modificarequipo(String razonSocial, TipoEquipo tipoequipo, String marca,String modelo,String cargador, String estadoing, String descripcion, Double precio,Integer id) throws Exception {
         
         
         System.out.println(razonSocial + tipoequipo + marca + modelo + cargador + estadoing + descripcion+ precio);
         String update = "Update equipo set razon_social ='" + razonSocial + "',tipo_equipo ='" + tipoequipo + "',marca ='" + marca + "', modelo ='" + modelo + "',cargador='" + cargador + "',estado_ingreso ='" + estadoing + "',descripcion_problema ='"+descripcion+ "',precio_servicio ='" +precio+"' where id_equipo = '" + id + "'";
 
-        System.out.println(update);
 
         try {
             PreparedStatement stmt = getConexion().prepareStatement(update);
