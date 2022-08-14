@@ -40,7 +40,7 @@ public class ModeloTablaEquipos extends AbstractTableModel {
             equipo p = lista.obtenerDato(i);
             switch (i1) {
                 case 0:
-                    return i +1;
+                    return p.getId_equipo();
                 case 1:
                     return p.getRazon_social();
                 case 2:
