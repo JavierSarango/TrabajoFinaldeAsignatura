@@ -67,7 +67,7 @@ public class Frm_SoporteTectico extends javax.swing.JDialog {
         ee.getEquipoElectronico().setDescripcion_problema(txtdescripProblema.getText());
         ee.getEquipoElectronico().setEstado_ingreso(txtestadoIngreso.getText());
         ee.getEquipoElectronico().setPrecio_servicio(Double.parseDouble(txtprecioServicio.getText()));
-        ee.getEquipoElectronico().setCargador(true);
+//        ee.getEquipoElectronico().setCargador(true);
         if (ee.getEquipoElectronico().getId_equipo() == null) {
             if (ee.guardar_modificar()) {
                 JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
