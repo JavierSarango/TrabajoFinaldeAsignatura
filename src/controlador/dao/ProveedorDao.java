@@ -177,7 +177,7 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         } catch (SQLException ex) {
             System.out.println("Error en guardar " + ex);
         }
-        commit();
+//        commit();
     }
 
 }

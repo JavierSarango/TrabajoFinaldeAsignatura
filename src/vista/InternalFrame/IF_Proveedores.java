@@ -4,6 +4,7 @@
  */
 package vista.InternalFrame;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import Validacion.Validacion;
 import controlador.dao.ProveedorDao;
 import controlador.tda.lista.ListaEnlazada;
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Proveedor;
 import vista.CargarFoto;
+import vista.Frm_SoporteTectico;
 import vista.ModeloTablas.ModeloTablaProveedores;
 
 /**
@@ -40,14 +42,18 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     ListaEnlazada<Proveedor> p;
     fondoLabel logotipo = new fondoLabel();
     fondoPieLabel pie = new fondoPieLabel();
-
+    foto foto = new foto();
+    
     //Variables
     private int pos = -1;
     File fichero;
     private int fila = -1;
+    
+    //Conexion base de datos
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
+    
     //Iconos a botones
     ImageIcon guardar = new ImageIcon("src/RecursosMultimedia/fac_save.png");
     ImageIcon eliminar = new ImageIcon("src/RecursosMultimedia/fac_remove.png");
@@ -64,6 +70,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         initComponents();
         cargarTabla();
         Iconos();
+        restricciones();
     }
 
     /**
@@ -74,7 +81,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         BtnGuardar.setIcon(guardar);
         BtnEliminar.setIcon(eliminar);
         BtnModificar.setIcon(editar);
-        BtnNuevo.setIcon(nuevo);
         BtnCargarFoto.setIcon(cargar);
         Btnbuscar.setIcon(bu);
         icono.setIcon(lbl);
@@ -86,8 +92,8 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
      */
     private void cargarTabla() {
         modelotablaproveedor.setLista(proveedordao.listar());
-        tbl_proveedores.setModel(modelotablaproveedor);
-        tbl_proveedores.updateUI();
+        tbl_tabla.setModel(modelotablaproveedor);
+        tbl_tabla.updateUI();
     }
 
     /**
@@ -151,12 +157,12 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 }
             } else {//ACTUALIZA LOS DATOS
                 try {
-                    if (proveedordao.actualizar(txtAresponsable.getText(), cbxProvincia.getSelectedItem().toString(), txtdireccion.getText(), txtRuc.getText(), txtRazonS.getText(), txttfijo.getText(), 
-                            txtcelular.getText(), txtTelefonoop.getText(), txtemail.getText(), txtpaginaweb.getText(), cbxBanco.getSelectedItem().toString(), cbxTipo.getSelectedItem().toString(), txtCuenta.getText(), cbxcredito.getSelectedItem().toString(),p.obtenerDato(0).getId_Proveedor())) {
-                        JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-                        limpiar();
-                        cargarTabla();
-                    }
+//                    if (proveedordao.actualizar(txtAresponsable.getText(), cbxProvincia.getSelectedItem().toString(), txtdireccion.getText(), txtRuc.getText(), txtRazonS.getText(), txttfijo.getText(),
+//                            txtcelular.getText(), txtTelefonoop.getText(), txtemail.getText(), txtpaginaweb.getText(), cbxBanco.getSelectedItem().toString(), cbxTipo.getSelectedItem().toString(), txtCuenta.getText(), cbxcredito.getSelectedItem().toString(), p.obtenerDato(0).getId_Proveedor())) {
+//                        JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
+//                        limpiar();
+//                        cargarTabla();
+//                    }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                 }
@@ -194,13 +200,13 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
      * Metodo eliminar registro
      */
     private void Eliminar() {
-        fila = tbl_proveedores.getSelectedRow();
+        fila = tbl_tabla.getSelectedRow();
         try {
             if (fila >= 0) {
                 System.out.println(fila + "se selecciono la fila");
-                proveedordao.eliminaras(fila);
                 int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (opcion == JOptionPane.YES_OPTION) {
+                    proveedordao.eliminarmejorado(proveedordao.getProveedores().getId_Proveedor(), "id_Proveedor");
                     JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
                     cargarTabla();
                 } else if (opcion == JOptionPane.NO_OPTION) {
@@ -221,37 +227,49 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         try {
             int id = 0;
             for (int i = 0; i < modelotablaproveedor.getRowCount(); i++) {
-                id = Integer.parseInt(tbl_proveedores.getValueAt(i, 1).toString());
+                id = Integer.parseInt(tbl_tabla.getValueAt(i, 1).toString());
             }
-                ps.setInt(1, id);
-                ps.setString(2, txtAresponsable.getText());
-                ps.setString(3, cbxProvincia.getSelectedItem().toString());
-                ps.setString(4, txtdireccion.getText());
-                ps.setString(5, txtRuc.getText());
-                ps.setString(6, txtRazonS.getText());
-                ps.setString(7, txttfijo.getText());
-                ps.setString(8, txtcelular.getText());
-                ps.setString(9, txtTelefonoop.getText());
-                ps.setString(10, txtemail.getText());
-                ps.setString(11, txtpaginaweb.getText());
-                ps.setString(12, cbxBanco.getSelectedItem().toString());
-                ps.setString(13, cbxTipo.getSelectedItem().toString());
-                ps.setString(14, txtCuenta.getText());
-                ps.setString(15, cbxcredito.getSelectedItem().toString());
-                ps.executeUpdate();
-                ps.close();
+            ps.setInt(1, id);
+            ps.setString(2, txtAresponsable.getText());
+            ps.setString(3, cbxProvincia.getSelectedItem().toString());
+            ps.setString(4, txtdireccion.getText());
+            ps.setString(5, txtRuc.getText());
+            ps.setString(6, txtRazonS.getText());
+            ps.setString(7, txttfijo.getText());
+            ps.setString(8, txtcelular.getText());
+            ps.setString(9, txtTelefonoop.getText());
+            ps.setString(10, txtemail.getText());
+            ps.setString(11, txtpaginaweb.getText());
+            ps.setString(12, cbxBanco.getSelectedItem().toString());
+            ps.setString(13, cbxTipo.getSelectedItem().toString());
+            ps.setString(14, txtCuenta.getText());
+            ps.setString(15, cbxcredito.getSelectedItem().toString());
+            ps.executeUpdate();
+            ps.close();
             return true;
 
-            }catch (SQLException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             return false;
         }
 
-        }
-        /**
-         *
-         * Metodo para buscar datos
-         */
+    }
+
+    public void restricciones() {
+        RestrictedTextField i = new RestrictedTextField(txtRuc);
+        i.setLimit(13);
+        RestrictedTextField n = new RestrictedTextField(txtcelular);
+        n.setLimit(10);
+        RestrictedTextField a = new RestrictedTextField(txttfijo);
+        a.setLimit(10);
+        RestrictedTextField c = new RestrictedTextField(txtTelefonoop);
+        c.setLimit(10);
+    }
+
+    /**
+     *
+     * Metodo para buscar datos
+     */
     private void buscar() throws PosicionException {
         int select = Cbxcriterio.getSelectedIndex();
         ListaEnlazada aux = new ListaEnlazada();
@@ -272,32 +290,45 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 aux = modelotablaproveedor.getLista();
         }
         modelotablaproveedor.setLista(aux);
-        tbl_proveedores.setModel(modelotablaproveedor);
-        tbl_proveedores.updateUI();
+        tbl_tabla.setModel(modelotablaproveedor);
+        tbl_tabla.updateUI();
+    }
+
+    public void seleccionar() {
+        int seleccionar = tbl_tabla.getSelectedRow();
+
+        if (seleccionar >= 0) {
+            Integer id = Integer.parseInt(String.valueOf(tbl_tabla.getValueAt(seleccionar, 0)));
+            proveedordao.getProveedores().setId_Proveedor(id);
+            BtnGuardar.setText("Actualizar");
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     /**
      *
      * Metodo para seleccionar datos
      */
-    public void seleccionar() throws Exception {
+    public void editar() throws Exception {
         limpiar();
-        int seleccionar = tbl_proveedores.getSelectedRow();
+        int seleccionar = tbl_tabla.getSelectedRow();
         if (seleccionar >= 0) {
-            txtAresponsable.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 1)));
-            cbxProvincia.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 2)));
-            txtdireccion.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 3)));
-            txtRuc.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 4)));
-            txtRazonS.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 5)));
-            txttfijo.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 6)));
-            txtTelefonoop.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 7)));
-            txtcelular.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 8)));
-            txtemail.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 9)));
-            txtpaginaweb.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 10)));
-            cbxBanco.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 11)));
-            cbxTipo.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 12)));
-            txtCuenta.setText(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 13)));
-            cbxcredito.setSelectedItem(String.valueOf(tbl_proveedores.getValueAt(seleccionar, 14)));
+            txtAresponsable.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 1)));
+            cbxProvincia.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 2)));
+            txtdireccion.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 3)));
+            txtRuc.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 4)));
+            txtRazonS.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 5)));
+            txttfijo.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 6)));
+            txtTelefonoop.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 7)));
+            txtcelular.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 8)));
+            txtemail.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 9)));
+            txtpaginaweb.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 10)));
+            cbxBanco.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 11)));
+            cbxTipo.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 12)));
+            txtCuenta.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 13)));
+            cbxcredito.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 14)));
             BtnGuardar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -321,12 +352,11 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         cbxProvincia = new javax.swing.JComboBox<>();
         BtnGuardar = new javax.swing.JButton();
-        BtnNuevo = new javax.swing.JButton();
         txtdireccion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtRuc = new javax.swing.JTextField();
-        lblFoto = new javax.swing.JLabel();
+        lblFoto = new foto();
         BtnCargarFoto = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
         BtnModificar = new javax.swing.JButton();
@@ -355,7 +385,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         txtRazonS = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbl_proveedores = new javax.swing.JTable();
+        tbl_tabla = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         icono = new javax.swing.JLabel();
@@ -424,18 +454,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             }
         });
         jPanel5.add(BtnGuardar);
-        BtnGuardar.setBounds(10, 270, 144, 51);
-
-        BtnNuevo.setBackground(new java.awt.Color(153, 204, 255));
-        BtnNuevo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        BtnNuevo.setText("NUEVO");
-        BtnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnNuevoActionPerformed(evt);
-            }
-        });
-        jPanel5.add(BtnNuevo);
-        BtnNuevo.setBounds(220, 270, 150, 53);
+        BtnGuardar.setBounds(50, 270, 144, 51);
 
         txtdireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -485,7 +504,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         txtRuc.setBounds(280, 170, 188, 26);
 
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFoto.setText("Foto");
         lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblFoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -526,7 +544,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             }
         });
         jPanel5.add(BtnModificar);
-        BtnModificar.setBounds(420, 270, 160, 53);
+        BtnModificar.setBounds(330, 270, 160, 53);
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -580,6 +598,11 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         txttfijo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txttfijoMouseClicked(evt);
+            }
+        });
+        txttfijo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttfijoActionPerformed(evt);
             }
         });
         txttfijo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -787,7 +810,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         jPanel5.add(txtRazonS);
         txtRazonS.setBounds(280, 220, 187, 26);
 
-        tbl_proveedores.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -798,12 +821,12 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 
             }
         ));
-        tbl_proveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbl_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl_proveedoresMouseClicked(evt);
+                tbl_tablaMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbl_proveedores);
+        jScrollPane2.setViewportView(tbl_tabla);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -880,13 +903,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlabelPie, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -896,6 +912,13 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 .addGap(47, 47, 47)
                 .addComponent(Btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlabelPie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -914,8 +937,8 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlabelPie, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jlabelPie, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -957,14 +980,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         guardar();
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
-    private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
-        try {
-            //        limpiar();
-            modi(); } catch (SQLException ex) {
-            Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_BtnNuevoActionPerformed
-
     private void txtdireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdireccionMouseClicked
 
     }//GEN-LAST:event_txtdireccionMouseClicked
@@ -1003,7 +1018,14 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnCargarFotoActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        Eliminar();
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            proveedordao.eliminarmejorado(proveedordao.getProveedores().getId_Proveedor(), "id_Proveedor");
+            JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+        }
+
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
@@ -1092,9 +1114,14 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         validacion.convetMayusculaSoloLetras(evt, txtRazonS, 50);
     }//GEN-LAST:event_txtRazonSKeyTyped
 
-    private void tbl_proveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_proveedoresMouseClicked
+    private void tbl_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablaMouseClicked
 
-    }//GEN-LAST:event_tbl_proveedoresMouseClicked
+        try {
+            seleccionar();
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbl_tablaMouseClicked
 
     private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed
         // TODO add your handling code here:
@@ -1107,6 +1134,10 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtnbuscarActionPerformed
+
+    private void txttfijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttfijoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttfijoActionPerformed
     /*
     Agrega una imagen al JLabel
      */
@@ -1135,6 +1166,21 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             setOpaque(false);
             super.paint(g);
         }
+
+    }
+
+    class foto extends JLabel {
+
+        private Image foto;
+
+        @Override
+        public void paint(Graphics g) {
+            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/ft.jpg")).getImage();
+            g.drawImage(foto, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1142,7 +1188,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JButton BtnModificar;
-    private javax.swing.JButton BtnNuevo;
     private javax.swing.JButton Btnbuscar;
     private javax.swing.JComboBox<String> Cbxcriterio;
     private javax.swing.JLabel JlabelLogo;
@@ -1178,7 +1223,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jlabelPie;
     private javax.swing.JLabel lblFoto;
-    private javax.swing.JTable tbl_proveedores;
+    private javax.swing.JTable tbl_tabla;
     private javax.swing.JTextField txtAresponsable;
     private javax.swing.JTextField txtCuenta;
     private javax.swing.JTextField txtRazonS;
