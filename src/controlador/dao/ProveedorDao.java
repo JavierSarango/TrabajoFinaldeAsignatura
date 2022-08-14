@@ -127,8 +127,6 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         }
     }
 
-
-
     public ListaEnlazada<Proveedor> busquedasecuencial(String dato, Integer tipo) throws PosicionException {
         ListaEnlazada<Proveedor> lista = new ListaEnlazada<>();
         ListaEnlazada<Proveedor> aux = listar();
@@ -164,20 +162,17 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
     }
 
     public void actualizar(String agente_responsable, String provincia, String direccion, String identificacion, String razonSocial, String telefono,
-            String celular, String telefono_opcional, String correo, String pagina_web, String banco, String tipocuenta, String nro_cuenta, String credito, String id) throws SQLException {
-        PreparedStatement pst = null;
-        Connection con = c.getConecction();
-        String sql = ("UPDATE proveedor SET agente_responsable =?" + agente_responsable + "provincia =?" + provincia+ "direccion =?"+ direccion + "identificacion =?" + identificacion + "razonSocial =?" + razonSocial+
-                "telefono =?" + telefono+ "celular =?"+ celular +"telefono_opcional =?" + telefono_opcional+ "correo=?" + correo +"pagina_web=?" + pagina_web+" banco=?"+ 
-                "tipocuenta=?" + tipocuenta+ "nro_cuenta=?" + nro_cuenta+ "credito=?" + credito + "WHERE id_Proveedor =?" + id);
+            String celular, String telefono_opcional, String correo, String pagina_web, String banco, String tipocuenta, String nro_cuenta, String credito, Integer id) throws SQLException {
+        String sql = ("UPDATE proveedor set agente_responsable ='" + agente_responsable + "provincia ='" + provincia + "direccion ='" + direccion + "identificacion ='" + identificacion + "razonSocial ='" + razonSocial
+                + "telefono='" + telefono + "celular='" + celular + "telefono_opcional ='" + telefono_opcional + "correo='" + correo + "pagina_web='" + pagina_web + " banco='"
+                + "tipocuenta='" + tipocuenta + "nro_cuenta='" + nro_cuenta + "credito='" + credito + "WHERE id_Proveedor ='" + id + "'");
         try {
             PreparedStatement stmt = getConexion().prepareStatement(sql);
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "actualizado correctamente");
+//            JOptionPane.showMessageDialog(null, "actualizado correctamente");
         } catch (SQLException ex) {
             System.out.println("Error en guardar " + ex);
         }
-//        commit();
     }
 
 }

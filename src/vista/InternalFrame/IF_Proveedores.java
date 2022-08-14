@@ -37,23 +37,24 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 
 //    private ProveedorController proveedordao = new ProveedorController();
     private ProveedorDao proveedordao = new ProveedorDao();
+    private ProveedorDao aux= new ProveedorDao();
     private ModeloTablaProveedores modelotablaproveedor = new ModeloTablaProveedores();
     private Validacion validacion = new Validacion();
     ListaEnlazada<Proveedor> p;
     fondoLabel logotipo = new fondoLabel();
     fondoPieLabel pie = new fondoPieLabel();
     foto foto = new foto();
-    
+
     //Variables
     private int pos = -1;
     File fichero;
     private int fila = -1;
-    
+
     //Conexion base de datos
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    
+
     //Iconos a botones
     ImageIcon guardar = new ImageIcon("src/RecursosMultimedia/fac_save.png");
     ImageIcon eliminar = new ImageIcon("src/RecursosMultimedia/fac_remove.png");
@@ -157,12 +158,18 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 }
             } else {//ACTUALIZA LOS DATOS
                 try {
-//                    if (proveedordao.actualizar(txtAresponsable.getText(), cbxProvincia.getSelectedItem().toString(), txtdireccion.getText(), txtRuc.getText(), txtRazonS.getText(), txttfijo.getText(),
-//                            txtcelular.getText(), txtTelefonoop.getText(), txtemail.getText(), txtpaginaweb.getText(), cbxBanco.getSelectedItem().toString(), cbxTipo.getSelectedItem().toString(), txtCuenta.getText(), cbxcredito.getSelectedItem().toString(), p.obtenerDato(0).getId_Proveedor())) {
-//                        JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-//                        limpiar();
-//                        cargarTabla();
-//                    }
+                    proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
+                            proveedordao.getProveedores().getProvincia(), proveedordao.getProveedores().getDireccion(),
+                            proveedordao.getProveedores().getIdentificacion(), proveedordao.getProveedores().getRazonSocial(),
+                            proveedordao.getProveedores().getTelefono(), proveedordao.getProveedores().getCelular(), proveedordao.getProveedores().getTelefono_opcional(),
+                            proveedordao.getProveedores().getCorreo(),
+                            proveedordao.getProveedores().getPagina_web(), proveedordao.getProveedores().getBanco(),
+                            proveedordao.getProveedores().getTipocuenta(), proveedordao.getProveedores().getNro_cuenta(),
+                            proveedordao.getProveedores().getCredito(),
+                            proveedordao.getProveedores().getId_Proveedor());
+                    JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
+                    limpiar();
+                    cargarTabla();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                 }
@@ -1031,7 +1038,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         try {
             // TODO add your handling code here:
-            seleccionar();
+            editar();
         } catch (Exception ex) {
             Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
