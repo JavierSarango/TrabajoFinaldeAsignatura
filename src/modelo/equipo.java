@@ -19,7 +19,7 @@ public class equipo {
 //     private String tipo_equipo;
      private String marca;
      private String modelo;
-     private Boolean cargador;
+     private String cargador;
      private String estado_ingreso;
      private String descripcion_problema;
      private Double precio_servicio;
@@ -64,13 +64,7 @@ public class equipo {
         this.modelo = modelo;
     }
 
-    public Boolean getCargador() {
-        return cargador;
-    }
-
-    public void setCargador(Boolean cargador) {
-        this.cargador = cargador;
-    }
+    
 
     public String getEstado_ingreso() {
         return estado_ingreso;
@@ -94,6 +88,14 @@ public class equipo {
 
     public void setPrecio_servicio(Double precio_servicio) {
         this.precio_servicio = precio_servicio;
+    }
+
+    public String getCargador() {
+        return cargador;
+    }
+
+    public void setCargador(String cargador) {
+        this.cargador = cargador;
     }
 
   
