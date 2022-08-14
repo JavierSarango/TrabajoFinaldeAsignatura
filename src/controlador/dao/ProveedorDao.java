@@ -163,35 +163,21 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         return lista;
     }
 
-    public boolean actualizar() {
+    public void actualizar(String agente_responsable, String provincia, String direccion, String identificacion, String razonSocial, String telefono,
+            String celular, String telefono_opcional, String correo, String pagina_web, String banco, String tipocuenta, String nro_cuenta, String credito, String id) throws SQLException {
         PreparedStatement pst = null;
         Connection con = c.getConecction();
-        String sql = ("UPDATE proveedor SET agente_responsable =?, provincia =?, direccion =?, identificacion =?, razonSocial =?, "
-                + "telefono =?, celular =?,telefono_opcional =?, correo=?, pagina_web=?, banco=?, tipocuenta=?, nro_cuenta=?, credito=? WHERE id_Proveedor =?");
+        String sql = ("UPDATE proveedor SET agente_responsable =?" + agente_responsable + "provincia =?" + provincia+ "direccion =?"+ direccion + "identificacion =?" + identificacion + "razonSocial =?" + razonSocial+
+                "telefono =?" + telefono+ "celular =?"+ celular +"telefono_opcional =?" + telefono_opcional+ "correo=?" + correo +"pagina_web=?" + pagina_web+" banco=?"+ 
+                "tipocuenta=?" + tipocuenta+ "nro_cuenta=?" + nro_cuenta+ "credito=?" + credito + "WHERE id_Proveedor =?" + id);
         try {
-            pst.setInt(1, proveedor.getId_Proveedor());
-            pst.setString(2, proveedor.getAgente_responsable());
-            pst.setString(3, proveedor.getProvincia());
-            pst.setString(4, proveedor.getDireccion());
-            pst.setString(5, proveedor.getIdentificacion());
-            pst.setString(6, proveedor.getRazonSocial());
-            pst.setString(7, proveedor.getTelefono());
-            pst.setString(8, proveedor.getCelular());
-            pst.setString(9, proveedor.getTelefono());
-            pst.setString(10, proveedor.getCorreo());
-            pst.setString(11, proveedor.getPagina_web());
-            pst.setString(12, proveedor.getBanco());
-            pst.setString(13, proveedor.getTipocuenta());
-            pst.setString(14, proveedor.getNro_cuenta());
-            pst.setString(15, proveedor.getCredito());
-            pst.executeUpdate();
-            pst.close();
-            return true;
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            return false;
+            PreparedStatement stmt = getConexion().prepareStatement(sql);
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "actualizado correctamente");
+        } catch (SQLException ex) {
+            System.out.println("Error en guardar " + ex);
         }
+        commit();
     }
 
 }

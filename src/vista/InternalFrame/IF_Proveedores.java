@@ -23,6 +23,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.Proveedor;
 import vista.CargarFoto;
 import vista.ModeloTablas.ModeloTablaProveedores;
 
@@ -36,6 +37,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private ProveedorDao proveedordao = new ProveedorDao();
     private ModeloTablaProveedores modelotablaproveedor = new ModeloTablaProveedores();
     private Validacion validacion = new Validacion();
+    ListaEnlazada<Proveedor> p;
     fondoLabel logotipo = new fondoLabel();
     fondoPieLabel pie = new fondoPieLabel();
 
@@ -43,7 +45,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private int pos = -1;
     File fichero;
     private int fila = -1;
-       Connection con;
+    Connection con;
     PreparedStatement ps;
     ResultSet rs;
     //Iconos a botones
@@ -60,10 +62,11 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
      */
     public IF_Proveedores() {
         initComponents();
-         cargarTabla();
+        cargarTabla();
         Iconos();
     }
- /**
+
+    /**
      *
      * Metodo Cargar iconos
      */
@@ -118,46 +121,46 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 
             if (validacion.validaCorreo(txtemail.getText()) == true) {
                 JOptionPane.showMessageDialog(null, "Correo Valido", "Ok", JOptionPane.INFORMATION_MESSAGE);
-            }else{ 
-                 JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Correo no valido", "Error", JOptionPane.ERROR_MESSAGE);
             }
-                proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
-                proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
-                proveedordao.getProveedores().setDireccion(txtdireccion.getText());
-                proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
-                proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
-                proveedordao.getProveedores().setTelefono(txttfijo.getText());
-                proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
-                proveedordao.getProveedores().setCelular(txtcelular.getText());
-                proveedordao.getProveedores().setCorreo(txtemail.getText());
-                proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
-                proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
-                proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
-                proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
-                proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
-                System.out.print("Llega 3");
-                if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
-                    if (proveedordao.getProveedores().getId_Proveedor() == null) {
-                        if (proveedordao.guardar()) {
-                            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                            limpiar();
-                            cargarTabla();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+            proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
+            proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
+            proveedordao.getProveedores().setDireccion(txtdireccion.getText());
+            proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
+            proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
+            proveedordao.getProveedores().setTelefono(txttfijo.getText());
+            proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
+            proveedordao.getProveedores().setCelular(txtcelular.getText());
+            proveedordao.getProveedores().setCorreo(txtemail.getText());
+            proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
+            proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
+            proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
+            proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
+            proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
+            System.out.print("Llega 3");
+            if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
+                if (proveedordao.getProveedores().getId_Proveedor() == null) {
+                    if (proveedordao.guardar()) {
+                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        limpiar();
+                        cargarTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } else {//ACTUALIZA LOS DATOS
-                    try {
-                        if(proveedordao.modificar()){
+                }
+            } else {//ACTUALIZA LOS DATOS
+                try {
+                    if (proveedordao.actualizar(txtAresponsable.getText(), cbxProvincia.getSelectedItem().toString(), txtdireccion.getText(), txtRuc.getText(), txtRazonS.getText(), txttfijo.getText(), 
+                            txtcelular.getText(), txtTelefonoop.getText(), txtemail.getText(), txtpaginaweb.getText(), cbxBanco.getSelectedItem().toString(), cbxTipo.getSelectedItem().toString(), txtCuenta.getText(), cbxcredito.getSelectedItem().toString(),p.obtenerDato(0).getId_Proveedor())) {
                         JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
                         limpiar();
                         cargarTabla();
-                        }
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                     }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
                 }
-           
+            }
 
         }
     }
@@ -209,44 +212,46 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 
         }
     }
-    
-    private void modi() throws SQLException{
-        Connection con = null;
-         String sql = ("UPDATE proveedor SET agente_responsable =?, provincia =?, direccion =?, identificacion =?, razonSocial =?, "
-                + "telefono =?, celular =?,telefono_opcional =?, correo=?, pagina_web=?, banco=?, tipocuenta=?, nro_cuenta=?, credito=? WHERE id_Proveedor =?");
-         ps = con.prepareStatement(sql);
-         try {
-            ps.setInt(1, proveedor.getId_Proveedor());
-            ps.setString(2, proveedor.getAgente_responsable());
-            ps.setString(3, proveedor.getProvincia());
-            ps.setString(4, proveedor.getDireccion());
-            ps.setString(5, proveedor.getIdentificacion());
-            ps.setString(6, proveedor.getRazonSocial());
-            ps.setString(7, proveedor.getTelefono());
-            ps.setString(8, proveedor.getCelular());
-            ps.setString(9, proveedor.getTelefono());
-            ps.setString(10, proveedor.getCorreo());
-            ps.setString(11, proveedor.getPagina_web());
-            ps.setString(12, proveedor.getBanco());
-            ps.setString(13, proveedor.getTipocuenta());
-            ps.setString(14, proveedor.getNro_cuenta());
-            ps.setString(15, proveedor.getCredito());
-            ps.executeUpdate();
-            ps.close();
-//            return true;
 
-        } catch (SQLException e) {
+    private boolean modi() throws SQLException {
+        Connection con = null;
+        String sql = ("UPDATE proveedor SET agente_responsable =?, provincia =?, direccion =?, identificacion =?, razonSocial =?, "
+                + "telefono =?, celular =?,telefono_opcional =?, correo=?, pagina_web=?, banco=?, tipocuenta=?, nro_cuenta=?, credito=? WHERE id_Proveedor =?");
+        ps = con.prepareStatement(sql);
+        try {
+            int id = 0;
+            for (int i = 0; i < modelotablaproveedor.getRowCount(); i++) {
+                id = Integer.parseInt(tbl_proveedores.getValueAt(i, 1).toString());
+            }
+                ps.setInt(1, id);
+                ps.setString(2, txtAresponsable.getText());
+                ps.setString(3, cbxProvincia.getSelectedItem().toString());
+                ps.setString(4, txtdireccion.getText());
+                ps.setString(5, txtRuc.getText());
+                ps.setString(6, txtRazonS.getText());
+                ps.setString(7, txttfijo.getText());
+                ps.setString(8, txtcelular.getText());
+                ps.setString(9, txtTelefonoop.getText());
+                ps.setString(10, txtemail.getText());
+                ps.setString(11, txtpaginaweb.getText());
+                ps.setString(12, cbxBanco.getSelectedItem().toString());
+                ps.setString(13, cbxTipo.getSelectedItem().toString());
+                ps.setString(14, txtCuenta.getText());
+                ps.setString(15, cbxcredito.getSelectedItem().toString());
+                ps.executeUpdate();
+                ps.close();
+            return true;
+
+            }catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-//            return false;
+            return false;
         }
-         
-        
-    }
-    
-    /**
-     *
-     * Metodo para buscar datos
-     */
+
+        }
+        /**
+         *
+         * Metodo para buscar datos
+         */
     private void buscar() throws PosicionException {
         int select = Cbxcriterio.getSelectedIndex();
         ListaEnlazada aux = new ListaEnlazada();
@@ -299,6 +304,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -952,7 +958,11 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
-        limpiar();
+        try {
+            //        limpiar();
+            modi(); } catch (SQLException ex) {
+            Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnNuevoActionPerformed
 
     private void txtdireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdireccionMouseClicked
@@ -1097,7 +1107,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtnbuscarActionPerformed
-/*
+    /*
     Agrega una imagen al JLabel
      */
     class fondoLabel extends JLabel {
