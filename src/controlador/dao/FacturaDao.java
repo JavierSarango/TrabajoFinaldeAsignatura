@@ -6,6 +6,7 @@
 package controlador.dao;
 
 import controlador.Conexion;
+import controlador.tda.lista.ListaEnlazada;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -71,7 +72,7 @@ public class FacturaDao {
      * @throws Exception
      */
     public Integer GuardarFactura(Factura factura) {
-        String sql = "INSERT INTO venta (id_Cliente,nroSerie,fechaVenta,monto) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO factura (nombreEmpresa,ruc,codigoFactura,codigoAutorizacion,direccionEmpresa,telefonoEmpresa,emailEmpresa) VALUES (?,?,?,?,?,?,?)";
         try {
             con = Conexion.getConecction();
             ps = con.prepareStatement(sql);
@@ -84,6 +85,8 @@ public class FacturaDao {
             ps.setString(7, factura.getEmailE());
             respuesta = ps.executeUpdate();
         } catch (SQLException e) {
+            System.out.println("Error en factura No se pudo guardar");
+            e.printStackTrace();
         }
         return respuesta;
     }
@@ -95,7 +98,7 @@ public class FacturaDao {
      * @throws Exception
      */
     public Integer GuardarDetalleFactura(DetalleFactura detalleFactura) {
-        String sql = "INSERT INTO detalle_ventas (idVentas,idProducto,cantidad,precioVenta) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO detallefactura (id_factura,id_cliente,fechaEmision,id_venta) VALUES (?,?,?,?)";
         try {
             con = Conexion.getConecction();
             ps = con.prepareStatement(sql);
@@ -105,10 +108,60 @@ public class FacturaDao {
             ps.setInt(4, detalleFactura.getId_ventas());
             ps.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Error en detalle venta No se pudo guardar");
+            System.out.println("Error en detalle factura No se pudo guardar");
             e.printStackTrace();
         }
         return respuesta;
     }
 
+    /**
+     * Metodo para listar los datos de detalle factura de la base de datos
+     *
+     * @return lista
+     */
+    public ListaEnlazada listar() {
+        ListaEnlazada<DetalleFactura> lista = new ListaEnlazada<>();
+        String sql = "SELECT * FROM DETALLEFACTURA";
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                DetalleFactura detalleFactura = new DetalleFactura();
+                detalleFactura.setId_factura(rs.getInt(1));
+                detalleFactura.setId_cliente(rs.getInt(2));
+                detalleFactura.setFechaEmision(rs.getDate(3));
+                detalleFactura.setId_ventas(rs.getInt(4));
+                lista.insertar(detalleFactura);
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar detalle factura");
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
+    /**
+     * Metodo para listar los datos de factura de la base de datos
+     *
+     * @return lista
+     */
+    public ListaEnlazada listarfactura() {
+        ListaEnlazada<Factura> lista = new ListaEnlazada<>();
+        String sql = "SELECT * FROM FACTURA";
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Factura factura = new Factura();
+                factura.setId(rs.getInt(0));
+                lista.insertar(factura);
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar detalle factura");
+            e.printStackTrace();
+        }
+        return lista;
+    }
 }
