@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author John
  */
-public class Factura implements Serializable{
+public class Factura implements Serializable {
 
     /**
      * variable identificador de la factura
@@ -25,7 +25,7 @@ public class Factura implements Serializable{
     /**
      * variable que almacena el RUC de la empresa
      */
-    private static String RUC= "1105993198001";
+    private static String RUC = "1105993198001";
     /**
      * variable que almacena el codigo de la factura
      */
@@ -33,19 +33,19 @@ public class Factura implements Serializable{
     /**
      * variable que almacena el codigo de autorizacion de las facturas
      */
-    private static String codigoAutorizacion= "001";
+    private static String codigoAutorizacion = "001";
     /**
      * variable que almacena la direccion de la empresa
      */
-    private static String direccionEmpresa = "La Pradera, calle Alamos 235-16";
+    private static String direccionEmpresa = "La Pradera, calle Alamos 235-16 y Catamayo";
     /**
      * variable que almacena el telefono de la empresa
      */
-    private static String telefonoE;
+    private static String telefonoE = "072102085";
     /**
      * varible que almacena el email de la empresa
      */
-    private static String emailE;
+    private static String emailE = "omicrontec1@gmail.com";
 
     /**
      * @return the Id
@@ -69,24 +69,10 @@ public class Factura implements Serializable{
     }
 
     /**
-     * @param NombreEmpresa the NombreEmpresa to set
-     */
-    public void setNombreEmpresa(String NombreEmpresa) {
-        this.NombreEmpresa = NombreEmpresa;
-    }
-
-    /**
      * @return the RUC
      */
     public String getRUC() {
         return RUC;
-    }
-
-    /**
-     * @param RUC the RUC to set
-     */
-    public void setRUC(String RUC) {
-        this.RUC = RUC;
     }
 
     /**
@@ -111,24 +97,10 @@ public class Factura implements Serializable{
     }
 
     /**
-     * @param codigoAutorizacion the codigoAutorizacion to set
-     */
-    public void setCodigoAutorizacion(String codigoAutorizacion) {
-        this.codigoAutorizacion = codigoAutorizacion;
-    }
-
-    /**
      * @return the direccionEmpresa
      */
     public String getDireccionEmpresa() {
         return direccionEmpresa;
-    }
-
-    /**
-     * @param direccionEmpresa the direccionEmpresa to set
-     */
-    public void setDireccionEmpresa(String direccionEmpresa) {
-        this.direccionEmpresa = direccionEmpresa;
     }
 
     /**
@@ -139,23 +111,9 @@ public class Factura implements Serializable{
     }
 
     /**
-     * @param telefonoE the telefonoE to set
-     */
-    public void setTelefonoE(String telefonoE) {
-        this.telefonoE = telefonoE;
-    }
-
-    /**
      * @return the email
      */
     public String getEmailE() {
         return emailE;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmailE(String email) {
-        this.emailE = email;
     }
 }
