@@ -7,6 +7,7 @@ package vista.ModeloTablas;
 
 import controlador.tda.lista.ListaEnlazada;
 import javax.swing.table.AbstractTableModel;
+import modelo.DetalleVenta;
 import modelo.Venta;
 
 /**
@@ -15,30 +16,46 @@ import modelo.Venta;
  */
 public class ModeloTablaVentas extends AbstractTableModel {
 
-    ListaEnlazada<Venta> lista;
+    ListaEnlazada<Venta> listaVentas;
+    private ListaEnlazada<DetalleVenta> listaDetalle;
 
-    public ListaEnlazada<Venta> getLista() {
-        return lista;
+    public ListaEnlazada<Venta> getListaVentas() {
+        return listaVentas;
     }
 
-    public void setLista(ListaEnlazada<Venta> lista) {
-        this.lista = lista;
+    public void setListaVentas(ListaEnlazada<Venta> listaVentas) {
+        this.listaVentas = listaVentas;
+    }
+
+    /**
+     * @return the listaDetalle
+     */
+    public ListaEnlazada<DetalleVenta> getListaDetalle() {
+        return listaDetalle;
+    }
+
+    /**
+     * @param listaDetalle the listaDetalle to set
+     */
+    public void setListaDetalle(ListaEnlazada<DetalleVenta> listaDetalle) {
+        this.listaDetalle = listaDetalle;
     }
 
     @Override
     public int getRowCount() {
-        return lista.getSize();
+        return listaVentas.getSize();
     }
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 8;
     }
 
     @Override
     public Object getValueAt(int i, int i1) {
         try {
-            Venta p = lista.obtenerDato(i);
+            Venta p = listaVentas.obtenerDato(i);
+            DetalleVenta q = listaDetalle.obtenerDato(i);
             switch (i1) {
                 case 0:
                     return (p.getId_Venta());
@@ -49,6 +66,12 @@ public class ModeloTablaVentas extends AbstractTableModel {
                 case 3:
                     return p.getFechaVenta();
                 case 4:
+                    return q.getId_Producto();
+                case 5:
+                    return q.getCantidad();
+                case 6:
+                    return q.getPrecioVenta();
+                case 7:
                     return p.getMonto();
                 default:
                     return null;
@@ -70,9 +93,16 @@ public class ModeloTablaVentas extends AbstractTableModel {
             case 3:
                 return "FECHA DE VENTA";
             case 4:
+                return "ID_PRODUCTO";
+            case 5:
+                return "CANTIDAD";
+            case 6:
+                return "PRECIO DE VENTA";
+            case 7:
                 return "MONTO A PAGAR";
             default:
                 return null;
         }
     }
+
 }

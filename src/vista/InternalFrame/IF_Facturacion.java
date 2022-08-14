@@ -7,8 +7,11 @@ package vista.InternalFrame;
 import Validacion.Validacion;
 import controlador.FacturaController;
 import controlador.tda.lista.ListaEnlazada;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
+import modelo.DetalleVenta;
 import modelo.Venta;
 import vista.ModeloTablas.ModeloTablaVentas;
 
@@ -17,9 +20,11 @@ import vista.ModeloTablas.ModeloTablaVentas;
  * @author Gigabyte
  */
 public class IF_Facturacion extends javax.swing.JInternalFrame {
- private FacturaController fc = new FacturaController();
+    
+    private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
     private Validacion validar = new Validacion();
+
     /**
      * Creates new form IF_Facturacion
      */
@@ -32,33 +37,39 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTableVentas.setEnabled(false);
         jBFacturar.setEnabled(false);
         jBProforma.setEnabled(false);
-        cargarTableVentas(null);
     }
-     public void limpiar() {
+    
+    public void limpiar() {
         jTCedula.setText(" ");
         jTNombre.setText(" ");
         jTDireccionCliente.setText(" ");
         jTEmail.setText(" ");
         jTtelefono.setText(" ");
     }
-
-    public void DatosCliente() {
+    
+    public void DatosCliente() throws Exception {
         String cedula = jTCedula.getText();
-        Cliente cliente = new Cliente();
+        Cliente cliente = fc.consultaCliente(cedula);
         jTNombre.setText(cliente.getRazonSocial());
         jTDireccionCliente.setText(cliente.getDireccion());
         jTEmail.setText(cliente.getIdentificacion());
         jTtelefono.setText(cliente.getTelefono());
-        cargarTableVentas(cliente.getId_cliente());
+        DatosVentas(cliente.getId_cliente());
     }
-
-    public void cargarTableVentas(Integer id_cliente) {
-        ListaEnlazada<Venta> listaVentas = new ListaEnlazada<Venta>();
-        MTVentas.setLista(listaVentas);
+    
+    public void DatosVentas(Integer id) throws Exception {
+        ListaEnlazada<Venta> listaVentas = fc.obtenerVentas(id);
+        ListaEnlazada<DetalleVenta> listaDetalleVenta = fc.obtenerDetallesVentas(listaVentas);
+        cargarTableVentas(listaVentas, listaDetalleVenta);
+    }
+    
+    public void cargarTableVentas(ListaEnlazada lista1, ListaEnlazada lista2) {
+        MTVentas.setListaVentas(lista1);
+        MTVentas.setListaDetalle(lista2);
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
-
+    
     public void guardar() {
         if (jTNombre.getText().trim().isEmpty() || jTCedula.getText().trim().isEmpty() || jTDireccionCliente.getText().trim().isEmpty()
                 || jTEmail.getText().trim().isEmpty() || jTtelefono.getText().trim().isEmpty()) {
@@ -74,11 +85,11 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
 //                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
 //                        }
 //                    }
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         }
     }
 
@@ -299,7 +310,11 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTCedulaKeyTyped
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        DatosCliente();
+        try {
+            DatosCliente();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "fallo al obtener cliente y ventas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void jTNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNombreActionPerformed
