@@ -6,6 +6,7 @@ package controlador.dao;
 
 import controlador.Conexion;
 import controlador.tda.lista.ListaEnlazada;
+import controlador.tda.lista.exception.PosicionException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
     private static Connection Conection;
     private static Statement Consulta;
     private static ResultSet Resultado;
-    
+
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -67,10 +68,10 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         }
 
     }
-    
+
     public ListaEnlazada listarIDProveedor() {
-        ListaEnlazada<Proveedor> listProveedor= new ListaEnlazada<>();
-       
+        ListaEnlazada<Proveedor> listProveedor = new ListaEnlazada<>();
+
         String sql = "Select razonSocial from proveedor";
 
         try {
@@ -78,7 +79,7 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                 Proveedor p = new Proveedor();
+                Proveedor p = new Proveedor();
                 p.setRazonSocial(rs.getString("razonSocial"));
                 listProveedor.insertar(p);
 //                p.setId_Proveedor(rs.getInt(1));
@@ -125,37 +126,38 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         }
     }
 
-    public ListaEnlazada<Proveedor> buscar(String dato, int tipo) {
-        ListaEnlazada<Proveedor> listado = new ListaEnlazada<>();
-        try {
-            ListaEnlazada<Proveedor> lista = listar();
-            for (int i = 0; i < lista.tamanio(); i++) {
-
-                Proveedor aux = lista.obtenerDato(i);
-                switch (tipo) {
-                    case 0:
-                        System.out.println("Llega con dato 0 " + dato);
-                        if (aux.getAgente_responsable().toString().contains(dato.toUpperCase())) {//busqueda atomica
-                            listado.insertarCabecera(aux);
-                        }
-                        break;
-                    case 1:
-                        System.out.println("Llega con dato 1 " + dato);
-                        if (aux.getIdentificacion().toUpperCase().contains(dato.toUpperCase())) {//busqueda atomica
-                            listado.insertarCabecera(aux);
-                        }
-                        break;
-
-                }
-//                if (nro_inv.equalsIgnoreCase(aux.getNro_inv())) {//busqueda atomica
-//                    libro = aux;
-//                    break;
-//                }
+    public ListaEnlazada<Proveedor> busquedasecuencial(String dato, Integer tipo) throws PosicionException {
+        ListaEnlazada<Proveedor> lista = new ListaEnlazada<>();
+        ListaEnlazada<Proveedor> aux = listar();
+        for (int i = 0; i < aux.getSize(); i++) {
+            Proveedor p = aux.obtenerDato(i);
+            boolean encontrado;
+            Boolean bands = (tipo == 1) ? p.getAgente_responsable().toLowerCase().contains(dato.toLowerCase())
+                    : p.getAgente_responsable().toLowerCase().contains(dato.toLowerCase());
+            encontrado = true;
+            if (bands) {
+                lista.insertarCabecera(p);
             }
-        } catch (Exception e) {
+            Boolean band = (tipo == 2) ? p.getProvincia().toLowerCase().contains(dato.toLowerCase())
+                    : p.getProvincia().toLowerCase().contains(dato.toLowerCase());
+            encontrado = true;
+            if (band) {
+                lista.insertarCabecera(p);
+            }
+            Boolean band1 = (tipo == 3) ? p.getIdentificacion().toLowerCase().contains(dato.toLowerCase())
+                    : p.getIdentificacion().toLowerCase().contains(dato.toLowerCase());
+            encontrado = true;
+            if (band1) {
+                lista.insertarCabecera(p);
+            }
+            Boolean band2 = (tipo == 4) ? p.getRazonSocial().toLowerCase().contains(dato.toLowerCase())
+                    : p.getRazonSocial().toLowerCase().contains(dato.toLowerCase());
+            encontrado = true;
+            if (band1) {
+                lista.insertarCabecera(p);
+            }
         }
-
-        return listado;
+        return lista;
     }
 
     public boolean actualizar() {
