@@ -8,8 +8,12 @@ import Validacion.Validacion;
 import controlador.dao.UsuarioDao;
 import controlador.utiles.Utilidades;
 import controlador.utiles.enums.TipoOrdenacion;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import vista.ModeloTablas.ModeloTablaUsuario;
 
@@ -22,6 +26,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     private ModeloTablaUsuario mtu = new ModeloTablaUsuario();
     private UsuarioDao ud = new UsuarioDao();
     private Validacion validacion = new Validacion();
+foto f = new foto();
 
     /**
      * Creates new form IF_Usuarios
@@ -238,7 +243,6 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         txtRazonSocial = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cbxTipoIdentificacion = new javax.swing.JComboBox<>();
@@ -262,6 +266,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         txtDireccion = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel2 =  new foto();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaUsuario = new javax.swing.JTable();
@@ -278,15 +283,12 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(null);
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel3.setText("REGISTRO DE USUARIO");
-        jPanel3.add(jLabel3);
-        jLabel3.setBounds(50, 20, 610, 50);
 
         txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -434,10 +436,13 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         jLabel5.setText("Rason Social ");
         jPanel3.add(jLabel5);
         jLabel5.setBounds(10, 100, 230, 16);
+        jPanel3.add(jLabel2);
+        jLabel2.setBounds(-10, 0, 780, 80);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(14, 0, 750, 330);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.setLayout(null);
 
@@ -623,7 +628,19 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtRazonSocialKeyTyped
 
+class foto extends JLabel {
 
+        private Image foto;
+
+        @Override
+        public void paint(Graphics g) {
+            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-03.jpg")).getImage();
+            g.drawImage(foto, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbxR;
     private javax.swing.JComboBox<String> cbxTipoIdentificacion;
@@ -639,7 +656,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

@@ -9,10 +9,14 @@ import controlador.dao.ClienteDao;
 import controlador.utiles.Utilidades;
 import controlador.utiles.enums.TipoOrdenacion;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import vista.ModeloTablas.ModeloTablaCliente;
 
@@ -26,6 +30,8 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
     private ModeloTablaCliente mtc = new ModeloTablaCliente();
     private Validacion validacion = new Validacion();
     private Integer seleccionar = -1;
+    foto f = new foto();
+
 
     /**
      * Creates new form IF_Cliente
@@ -256,15 +262,17 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         radioD = new javax.swing.JRadioButton();
         radioA = new javax.swing.JRadioButton();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel3 =  new foto();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(null);
 
@@ -454,8 +462,9 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
         jLabel9.setBounds(10, 10, 210, 16);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(20, 80, 750, 240);
+        jPanel3.setBounds(50, 110, 750, 240);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.setLayout(null);
 
@@ -527,22 +536,19 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
         radioA.setBounds(80, 220, 85, 20);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(12, 330, 760, 250);
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel4.setText("REGISTRO DE CLIENTES");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(180, 20, 430, 50);
+        jPanel4.setBounds(50, 370, 760, 250);
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(10, 0, 860, 90);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
         );
 
         pack();
@@ -697,7 +703,19 @@ validacion.validaSeaNumero(evt, txtCelular, 20);          // TODO add your handl
     private void txtIdentificacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyTyped
 validacion.validaSeaNumero(evt, txtIdentificacion, 20);          // TODO add your handling code here:
     }//GEN-LAST:event_txtIdentificacionKeyTyped
+class foto extends JLabel {
 
+        private Image foto;
+
+        @Override
+        public void paint(Graphics g) {
+            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-04.jpg")).getImage();
+            g.drawImage(foto, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -713,7 +731,7 @@ validacion.validaSeaNumero(evt, txtIdentificacion, 20);          // TODO add you
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

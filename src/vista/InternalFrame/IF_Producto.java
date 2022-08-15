@@ -10,6 +10,10 @@ import controlador.dao.ProveedorDao;
 import controlador.services.ServicioProducto;
 import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.enums.TipoOrdenacion;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumnModel;
 import modelo.Proveedor;
@@ -25,6 +29,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private ServicioProducto sp = new ServicioProducto();
     private ProductoDao productoDao = new ProductoDao();
     private ProveedorDao proovedorDao = new ProveedorDao();
+    foto f = new foto();
 
     /**
      * Creates new form IF_Producto
@@ -310,15 +315,19 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jLabel24 = new javax.swing.JLabel();
         btn_cargarrrr = new javax.swing.JButton();
         btn_modd = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel1 =  new foto();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
+        jPanel1.setBackground(null);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("PRODUCTOS"));
         jPanel1.setLayout(null);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "STOCK PRODUCTOS"));
         jPanel2.setLayout(null);
 
@@ -349,6 +358,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 320, 940, 240);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "AGREGAR PRODUCTOS"));
         jPanel3.setLayout(null);
 
@@ -377,6 +387,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel3.add(txt_codigo);
         txt_codigo.setBounds(10, 40, 90, 22);
 
+        btn_guardar.setBackground(new java.awt.Color(153, 204, 255));
         btn_guardar.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         btn_guardar.setText("GUARDAR");
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -470,6 +481,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel3);
         jPanel3.setBounds(10, 130, 420, 190);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "BUSCAR PRODUCTOS"));
         jPanel4.setLayout(null);
 
@@ -480,6 +492,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel4.add(txt_busqueda);
         txt_busqueda.setBounds(20, 90, 130, 22);
 
+        jButton2.setBackground(new java.awt.Color(153, 204, 255));
         jButton2.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jButton2.setText("BUSCAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -510,6 +523,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel4.add(cbx_datoBuscar);
         cbx_datoBuscar.setBounds(20, 40, 130, 20);
 
+        jButton4.setBackground(new java.awt.Color(153, 204, 255));
         jButton4.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jButton4.setText("RECARGAR TABLA");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -523,6 +537,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel4);
         jPanel4.setBounds(440, 130, 170, 190);
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ORDENAR PRODUCTOS"));
         jPanel5.setLayout(null);
 
@@ -574,9 +589,11 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel5);
         jPanel5.setBounds(620, 130, 160, 190);
 
+        jPanel6.setBackground(null);
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ELIMINAR PRODUCTOS"));
         jPanel6.setLayout(null);
 
+        bnt_eliminar.setBackground(new java.awt.Color(153, 204, 255));
         bnt_eliminar.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         bnt_eliminar.setText("ELIMINAR");
         bnt_eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -600,6 +617,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel6);
         jPanel6.setBounds(790, 130, 160, 90);
 
+        jPanel7.setBackground(null);
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "MODIFICAR PRODUCTOS"));
         jPanel7.setLayout(null);
 
@@ -608,6 +626,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel7.add(jLabel24);
         jLabel24.setBounds(10, 20, 130, 18);
 
+        btn_cargarrrr.setBackground(new java.awt.Color(153, 204, 255));
         btn_cargarrrr.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         btn_cargarrrr.setText("CARGAR");
         btn_cargarrrr.addActionListener(new java.awt.event.ActionListener() {
@@ -618,6 +637,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jPanel7.add(btn_cargarrrr);
         btn_cargarrrr.setBounds(30, 40, 90, 19);
 
+        btn_modd.setBackground(new java.awt.Color(153, 204, 255));
         btn_modd.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         btn_modd.setText("MODIFICAR");
         btn_modd.addActionListener(new java.awt.event.ActionListener() {
@@ -630,6 +650,24 @@ public class IF_Producto extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel7);
         jPanel7.setBounds(790, 220, 160, 100);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel8);
+        jPanel8.setBounds(10, 20, 940, 100);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -812,7 +850,19 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         validacion.valNumReal(evt, txt_unidades, 10);
     }//GEN-LAST:event_txt_unidadesKeyTyped
 
+ class foto extends JLabel {
 
+        private Image foto;
+
+        @Override
+        public void paint(Graphics g) {
+            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-02.jpg")).getImage();
+            g.drawImage(foto, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_eliminar;
     private javax.swing.JButton btn_cargarrrr;
@@ -825,6 +875,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox check_automatico;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -845,6 +896,7 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton radioA;
     private javax.swing.JRadioButton radioD;
