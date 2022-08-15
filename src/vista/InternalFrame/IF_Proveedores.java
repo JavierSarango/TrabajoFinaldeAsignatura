@@ -63,6 +63,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     ImageIcon lbl = new ImageIcon("src/RecursosMultimedia/user-icon.png");
     ImageIcon bu = new ImageIcon("src/RecursosMultimedia/buscar.gif");
     ImageIcon editar = new ImageIcon("src/RecursosMultimedia/Actions-user-properties-icon.png");
+    ImageIcon act = new ImageIcon("src/RecursosMultimedia/symbol-check-icon.png");
 
     /**
      * Creates new form IF_Proveedores
@@ -83,6 +84,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         BtnModificar.setIcon(editar);
         BtnCargarFoto.setIcon(cargar);
         Btnbuscar.setIcon(bu);
+        modd.setIcon(act);
         icono.setIcon(lbl);
     }
 
