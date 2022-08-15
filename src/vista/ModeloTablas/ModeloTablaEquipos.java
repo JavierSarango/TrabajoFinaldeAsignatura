@@ -73,7 +73,7 @@ public class ModeloTablaEquipos extends AbstractTableModel {
             case 0:
                 return "ID";
             case 1:
-                return "RAZON SOCIAL";
+                return "IDENTIFICACION";
             case 2:
                 return "MODELO";
             case 3:
