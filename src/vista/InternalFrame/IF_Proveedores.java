@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Proveedor;
 import vista.CargarFoto;
@@ -37,7 +38,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
 
 //    private ProveedorController proveedordao = new ProveedorController();
     private ProveedorDao proveedordao = new ProveedorDao();
-    private ProveedorDao aux = new ProveedorDao();
     private ModeloTablaProveedores modelotablaproveedor = new ModeloTablaProveedores();
     private Validacion validacion = new Validacion();
     ListaEnlazada<Proveedor> p;
@@ -248,23 +248,23 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
                 proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
 
-               proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
-                            proveedordao.getProveedores().getProvincia(),
-                            proveedordao.getProveedores().getDireccion(),
-                            proveedordao.getProveedores().getIdentificacion(),
-                            proveedordao.getProveedores().getRazonSocial(),
-                            proveedordao.getProveedores().getTelefono(),
-                            proveedordao.getProveedores().getCelular(),
-                            proveedordao.getProveedores().getTelefono_opcional(),
-                            proveedordao.getProveedores().getCorreo(),
-                            proveedordao.getProveedores().getPagina_web(),
-                            proveedordao.getProveedores().getBanco(),
-                            proveedordao.getProveedores().getTipocuenta(),
-                            proveedordao.getProveedores().getNro_cuenta(),
-                            proveedordao.getProveedores().getCredito(),
-                            aux.getProveedores().getId_Proveedor());
-                    cargarTabla();
-                
+                proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
+                        proveedordao.getProveedores().getProvincia(),
+                        proveedordao.getProveedores().getDireccion(),
+                        proveedordao.getProveedores().getIdentificacion(),
+                        proveedordao.getProveedores().getRazonSocial(),
+                        proveedordao.getProveedores().getTelefono(),
+                        proveedordao.getProveedores().getCelular(),
+                        proveedordao.getProveedores().getTelefono_opcional(),
+                        proveedordao.getProveedores().getCorreo(),
+                        proveedordao.getProveedores().getPagina_web(),
+                        proveedordao.getProveedores().getBanco(),
+                        proveedordao.getProveedores().getTipocuenta(),
+                        proveedordao.getProveedores().getNro_cuenta(),
+                        proveedordao.getProveedores().getCredito(),
+                        proveedordao.getProveedores().getId_Proveedor());
+                cargarTabla();
+
             }
         } catch (Exception e) {
 
@@ -299,7 +299,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         tbl_tabla.updateUI();
     }
 
-    public void seleccionar() {
+    public void seleccionar_eliminar() {
         int seleccionar = tbl_tabla.getSelectedRow();
 
         if (seleccionar >= 0) {
@@ -320,6 +320,8 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         limpiar();
         int seleccionar = tbl_tabla.getSelectedRow();
         if (seleccionar >= 0) {
+            Integer id = Integer.parseInt(String.valueOf(tbl_tabla.getValueAt(seleccionar, 0)));
+            proveedordao.getProveedores().setId_Proveedor(id);
             txtAresponsable.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 1)));
             cbxProvincia.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 2)));
             txtdireccion.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 3)));
@@ -340,6 +342,8 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         }
 
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1134,7 +1138,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private void tbl_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablaMouseClicked
 
         try {
-            seleccionar();
+            seleccionar_eliminar();
         } catch (Exception ex) {
             Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1157,8 +1161,15 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txttfijoActionPerformed
 
     private void moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moddActionPerformed
+
         try {
-            modi();
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de actualizar el registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                modi();
+                JOptionPane.showMessageDialog(null, "Datos actualizados correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+                cargarTabla();
+            } else if (opcion == JOptionPane.NO_OPTION) {
+            }
         } catch (Exception ex) {
             Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }

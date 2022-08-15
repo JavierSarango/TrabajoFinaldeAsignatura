@@ -162,14 +162,13 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
     }
 
     public void actualizar(String agente_responsable, String provincia, String direccion, String identificacion, String razonSocial, String telefono,
-            String celular, String telefono_opcional, String correo, String pagina_web, String banco, String tipocuenta, String nro_cuenta, String credito, Integer id_producto) throws Exception {
-        String sql = "UPDATE proveedor set agente_responsable ='" + agente_responsable + 
-                "',provincia ='" + provincia + "',direccion ='" + direccion + 
-                "',identificacion ='" + identificacion + "',razonSocial ='" + razonSocial
-                + "',telefono='" + telefono + "',celular='" + celular + "',telefono_opcional ='" + 
-                telefono_opcional + "',correo='" + correo + "',pagina_web='" + pagina_web + " ',banco='"
-                + "',tipocuenta='" + tipocuenta + "',nro_cuenta='" + nro_cuenta + 
-                "',credito='" + credito + "'where id_Proveedor ='" + id_producto + "'";
+            String celular, String telefono_opcional, String correo, String pagina_web, String banco, String tipocuenta, String nro_cuenta, String credito, Integer id_Proveedor) throws Exception {
+        String sql = "Update proveedor set agente_responsable ='" + agente_responsable + "',provincia ='" + provincia
+                + "',direccion ='" + direccion + "',identificacion ='" + identificacion + "',razonSocial ='" + razonSocial
+                + "',telefono ='" + telefono + "',celular ='" + celular + "',telefono_opcional ='" + telefono_opcional
+                + "',correo ='" + correo + "',pagina_web ='" + pagina_web + "',banco ='" + banco + "',tipocuenta ='" + tipocuenta
+                + "',nro_cuenta ='" + nro_cuenta + "',credito ='" + credito
+                + "' where id_Proveedor = '" + id_Proveedor + "'";
         try {
             PreparedStatement stmt = getConexion().prepareStatement(sql);
             stmt.executeUpdate();
@@ -178,5 +177,42 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
             System.out.println("Error en guardar " + ex);
         }
     }
+    
+   public  boolean dbexisteRegistro(Connection Conn, String id_Proveedor){
+         Statement oSt = null;
+         ResultSet oRs = null;
+         String sSQL= " ";
+         boolean dbexisteRegistro= false; 
+
+         try{
+             Conn.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+             sSQL = "SELECT * FROM proveedor WHERE id_Proveedor ='" + id_Proveedor + "'";
+             oSt = Conn.createStatement();
+             oRs = oSt.executeQuery(sSQL);
+
+             if(oRs.next()){
+                if(oRs.getRow() > 0){
+                    dbexisteRegistro= true;
+                }
+             }
+             if (oSt != null) {oSt.close();oSt = null;}
+             if (oRs != null) {oRs.close();oRs = null;}
+         }catch(SQLException err){
+
+             oSt = null;
+             oRs = null;
+             sSQL=null;
+         }catch(Exception err){
+
+             oSt = null;
+             oRs = null;
+             sSQL=null;  
+         }finally{
+             oSt = null;
+             oRs = null;
+             sSQL=null;
+         }
+         return dbexisteRegistro;
+ }
 
 }
