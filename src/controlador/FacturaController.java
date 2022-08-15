@@ -29,6 +29,7 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.DetalleFactura;
+import modelo.DetalleVenta;
 import modelo.Factura;
 import modelo.Producto;
 import modelo.Venta;
@@ -40,31 +41,16 @@ import modelo.Venta;
 public class FacturaController {
 
     /**
-     * variable tipo cliente para almacenamiento de la informacion del cliente
+     * variable tipo cliente2 para almacenamiento de la informacion del cliente2
      * obtenida de la base de datos
      */
     private Cliente cliente;
-
-    /**
-     * variable tipo ventas para almacenamiento de la informacion de las listas
-     * obtenida de la base de datos
-     */
-    private ListaEnlazada<Venta> ventas;
-    /**
-     * variable de venta
-     */
-    private Venta venta;
 
     /**
      * variable tipo factura para almacenamiento de la informacion de la factura
      * obtenida de la base de datos
      */
     private Factura factura;
-
-    /**
-     * Una lista de detalle factura
-     */
-    private ListaEnlazada<DetalleFactura> facturas = new ListaEnlazada();
 
     /**
      * variable de Detalle Factura
@@ -95,18 +81,18 @@ public class FacturaController {
      *
      * @param aprobada ayuda a diferenciar a las facturas de las proformas
      */
-    public void imprimirDatosFactura(Boolean aprobada) throws PosicionException {
+    public void imprimirDatosFactura(Cliente cliente2, ListaEnlazada<Venta> listaVenta, ListaEnlazada<DetalleVenta> listaDetalleVenta, Factura fact, DetalleFactura detalleFact) throws PosicionException {
         com.itextpdf.text.Document documento = new com.itextpdf.text.Document();
 
         try {
             String numeroFactura = "";
             try {
-                numeroFactura = String.valueOf(getFactura().getCodigoFactura());
+                numeroFactura = String.valueOf(fact.getCodigoFactura());
 
                 PdfWriter.getInstance(documento, new FileOutputStream(numeroFactura + ".pdf"));
             } catch (Exception e) {
 
-                PdfWriter.getInstance(documento, new FileOutputStream("Proforma " + getFactura().getId() + ".pdf"));
+                PdfWriter.getInstance(documento, new FileOutputStream("Proforma " + fact.getCodigoFactura() + ".pdf"));
             }
 
             Image header = Image.getInstance("src/RecursosMultimedia/encabezado1.jpeg");
@@ -118,23 +104,20 @@ public class FacturaController {
             encabezado.setStyle(Font.BOLD);
             encabezado.setFamily(Font.FontFamily.COURIER.toString());
             encabezado.setSize(21);
+
             Paragraph encabezadoP;
-            if (aprobada) {
-                encabezadoP = new Paragraph("\nFACTURA Nro: " + numeroFactura + "\n\n", encabezado);
-                encabezadoP.setAlignment(Paragraph.ALIGN_CENTER);
-            } else {
-                encabezadoP = new Paragraph("\nPROFORMA \n\n", encabezado);
-                encabezadoP.setAlignment(Paragraph.ALIGN_CENTER);
-            }
+            encabezadoP = new Paragraph("\nPROFORMA \n\n", encabezado);
+            encabezadoP.setAlignment(Paragraph.ALIGN_CENTER);
+
             //
             Font datosEmp = new Font();
             datosEmp.setColor(BaseColor.BLACK);
             datosEmp.setFamily(Font.FontFamily.COURIER.toString());
             datosEmp.setSize(11);
             datosEmp.setStyle(1);
-            String datosEmpresa = "         Empresa: " + getFactura().getNombreEmpresa() + "\n" + "         Dirección: " + getFactura().getDireccionEmpresa()
-                    + "\n         Correo: " + getFactura().getEmailE() + "\n         Celular 1: " + getFactura().getTelefonoE()
-                    + "\n         Autoriración SRI: " + getFactura().getCodigoAutorizacion() + "\n\n";
+            String datosEmpresa = "         Empresa: " + fact.getNombreEmpresa() + "\n" + "         Dirección: " + fact.getDireccionEmpresa()
+                    + "\n         Correo: " + fact.getEmailE() + "\n         Telefono: " + fact.getTelefonoE()
+                    + "\n         Autoriración SRI: " + fact.getCodigoAutorizacion() + "\n\n";
             Paragraph datosEmpress = new Paragraph(datosEmpresa, datosEmp);
             datosEmpress.setAlignment(Paragraph.ALIGN_LEFT);
 
@@ -143,8 +126,8 @@ public class FacturaController {
             datosC.setColor(BaseColor.BLACK);
             datosC.setFamily(Font.FontFamily.COURIER.toString());
             datosC.setSize(11);
-            String datosCl = "         Cliente: " + getCliente().getRazonSocial() + "\n         C.I/RUC: " + getCliente().getIdentificacion()
-                    + "\n" + "         Dirección: " + getCliente().getDireccion() + "\n         Celular: " + getCliente().getCelular()
+            String datosCl = "         Cliente: " + cliente2.getRazonSocial() + "\n         C.I/RUC: " + cliente2.getIdentificacion()
+                    + "\n" + "         Dirección: " + cliente2.getDireccion() + "\n         Celular: " + cliente2.getCelular()
                     + "\n         Forma de Pago: Efectivo" + "\n\n";
             Paragraph datosCliente = new Paragraph(datosCl, datosC);
             datosCliente.setAlignment(Paragraph.ALIGN_LEFT);
@@ -203,22 +186,20 @@ public class FacturaController {
             double IVA = 0;
             double TotalIVA = 0;
             DecimalFormat df = new DecimalFormat("#.00");
-            for (int i = 0; i < getVentas().getSize(); i++) {
-                tabla.addCell(new PdfPCell(new Phrase(getVentas().consultarDatoPosicion(i).getId_Venta() + "", productos)));
-//                tabla.addCell(new PdfPCell(new Phrase(producto.getDescripcion(), productos)));
-//                tabla.addCell(new PdfPCell(new Phrase(ventas.consultarDatoPosicion(i).getNroVentas() + "", productos)));
-//                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getMonto()), productos)));
-//                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getSubTotal() * ventas.consultarDatoPosicion(i).getTotalPagar()), productos)));
-//                tabla.addCell(new PdfPCell(new Phrase(df.format(ventas.consultarDatoPosicion(i).getSubTotal() * ventas.consultarDatoPosicion(i).getTotalPagar()), productos)));
-
+            for (int i = 0; i < listaVenta.getSize(); i++) {
+                tabla.addCell(new PdfPCell(new Phrase(listaVenta.obtenerDato(i).getId_Venta() + "", productos)));
+                tabla.addCell(new PdfPCell(new Phrase(String.valueOf(listaDetalleVenta.obtenerDato(i).getId_Producto()), productos)));
+                tabla.addCell(new PdfPCell(new Phrase(String.valueOf(listaDetalleVenta.obtenerDato(i).getCantidad()) + "", productos)));
+                tabla.addCell(new PdfPCell(new Phrase(df.format(listaDetalleVenta.obtenerDato(i).getPrecioVenta()), productos)));
+                tabla.addCell(new PdfPCell(new Phrase(df.format(listaDetalleVenta.obtenerDato(i).getPrecioVenta() * listaDetalleVenta.obtenerDato(i).getCantidad()), productos)));
+                tabla.addCell(new PdfPCell(new Phrase(df.format(listaVenta.obtenerDato(i).getMonto()), productos)));
             }
             documento.add(tabla);
 
-            for (int i = 0; i < getVentas().getSize(); i++) {
-//                SubTotal = ventas.obtenerDato(i).getPrecioUnitario() + SubTotal;
-//                IVA = ventas.obtenerDato(i).getIva() + IVA;
+            for (int i = 0; i < listaVenta.getSize(); i++) {
+                SubTotal = (listaDetalleVenta.obtenerDato(i).getPrecioVenta() * listaDetalleVenta.obtenerDato(i).getCantidad()) + SubTotal;
             }
-
+            IVA = SubTotal * 0.12;
             TotalIVA = SubTotal + IVA;
 
             df.setRoundingMode(RoundingMode.FLOOR);
@@ -234,11 +215,7 @@ public class FacturaController {
 
             documento.add(total);
             documento.close();
-            if (aprobada) {
-                JOptionPane.showMessageDialog(null, "Factura creada");
-            } else {
-                JOptionPane.showMessageDialog(null, "Proforma creada");
-            }
+            JOptionPane.showMessageDialog(null, "Proforma creada");
 
         } catch (DocumentException | FileNotFoundException e) {
             System.out.println("Error en PDF " + e);
@@ -247,7 +224,7 @@ public class FacturaController {
         }
 
         try {
-            File ruta = new File("C:/Documentos/ProyectoFinal_JAVA/" + String.valueOf(getFactura().getCodigoFactura()) + ".pdf");
+            File ruta = new File("src/RecursosMultimedia" + String.valueOf(fact.getCodigoFactura()) + ".pdf");
             Desktop.getDesktop().open(ruta);
         } catch (Exception e) {
         }
@@ -256,7 +233,7 @@ public class FacturaController {
     /**
      * @return the cliente
      */
-    public Cliente getCliente() {
+    public Cliente cliente() {
         return cliente;
     }
 
@@ -268,23 +245,9 @@ public class FacturaController {
     }
 
     /**
-     * @return the ventas
-     */
-    public ListaEnlazada<Venta> getVentas() {
-        return ventas;
-    }
-
-    /**
-     * @param ventas the ventas to set
-     */
-    public void setVentas(ListaEnlazada<Venta> ventas) {
-        this.ventas = ventas;
-    }
-
-    /**
      * @return the factura
      */
-    public Factura getFactura() {
+    public Factura factura() {
         return factura;
     }
 
@@ -310,3 +273,4 @@ public class FacturaController {
     }
 
 }
+ 

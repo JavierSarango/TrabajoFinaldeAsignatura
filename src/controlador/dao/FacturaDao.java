@@ -104,7 +104,7 @@ public class FacturaDao {
             ps = con.prepareStatement(sql);
             ps.setInt(1, detalleFactura.getId_factura());
             ps.setInt(2, detalleFactura.getId_cliente());
-            ps.setDate(3, (Date) detalleFactura.getFechaEmision());
+            ps.setString(3, detalleFactura.getFechaEmision());
             ps.setInt(4, detalleFactura.getId_ventas());
             ps.executeUpdate();
         } catch (Exception e) {
@@ -128,10 +128,11 @@ public class FacturaDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 DetalleFactura detalleFactura = new DetalleFactura();
-                detalleFactura.setId_factura(rs.getInt(1));
-                detalleFactura.setId_cliente(rs.getInt(2));
-                detalleFactura.setFechaEmision(rs.getDate(3));
-                detalleFactura.setId_ventas(rs.getInt(4));
+                detalleFactura.setId(rs.getInt(1));
+                detalleFactura.setId_factura(rs.getInt(2));
+                detalleFactura.setId_cliente(rs.getInt(3));
+                detalleFactura.setFechaEmision(rs.getString(4));
+                detalleFactura.setId_ventas(rs.getInt(5));
                 lista.insertar(detalleFactura);
             }
         } catch (Exception e) {
@@ -155,7 +156,8 @@ public class FacturaDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Factura factura = new Factura();
-                factura.setId(rs.getInt(0));
+                factura.setId(rs.getInt(1));
+                factura.setCodigoFactura(rs.getString(4));
                 lista.insertar(factura);
             }
         } catch (Exception e) {
@@ -165,3 +167,4 @@ public class FacturaDao {
         return lista;
     }
 }
+ 

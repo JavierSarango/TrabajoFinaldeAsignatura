@@ -32,7 +32,6 @@ import modelo.Producto;
 import modelo.Venta;
 import vista.Principal.FrmMenuPrincipal;
 
-
 /**
  *
  * @author Gigabyte
@@ -71,7 +70,8 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
         obtenerFecha();
         generarSerie();
     }
- private void personalizacionTabla() {
+
+    private void personalizacionTabla() {
         jTable_productos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         jTable_productos.getTableHeader().setOpaque(false);
         jTable_productos.getTableHeader().setBackground(new Color(153, 153, 255));
@@ -121,7 +121,7 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
     }
 
     private void actualizarStock(Integer cantidad, Integer idproduct) {
-    
+
         String sql = "UPDATE producto SET unidades = ? WHERE codigo = ?";
         try {
             con = Conexion.getConecction();
@@ -135,8 +135,8 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
 
-       
     }
+
     private void buscarCliente() {
         String idCliente = txt_cliente_buscar.getText();
         Integer respuesta;
@@ -150,10 +150,10 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
             } else {
                 respuesta = JOptionPane.showConfirmDialog(this, "El cliente no esta Registrado, ¿Desea Hacerlo?");
                 if (respuesta == 0) {
-                   ventanaCliente = new IF_Cliente();
-                    FrmMenuPrincipal.jDesktopPane_menu.add(ventanaCliente);                   
+                    ventanaCliente = new IF_Cliente();
+                    FrmMenuPrincipal.jDesktopPane_menu.add(ventanaCliente);
                     ventanaCliente.setVisible(true);
-                   
+
                 }
             }
 
@@ -225,8 +225,7 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
                 calcularSubtotal();
                 calcularTotal();
                 limpiarAddProducto();
-                JOptionPane.showMessageDialog(this,"Producto Agregado");
-                       
+                JOptionPane.showMessageDialog(this, "Producto Agregado");
 
             } else {
 //                txtStock.setBackground(Color.red);
@@ -254,7 +253,7 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
                 c.setDireccion(rs.getString(6));
                 c.setIdentificacion(rs.getString(7));
                 c.setTipoCliente(rs.getString(8));
-               // c.setFechaNacimiento(rs.getString(9));
+                // c.setFechaNacimiento(rs.getString(9));
             }
         } catch (Exception e) {
             System.out.println("Error en listar Id cliente");
@@ -304,51 +303,57 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
 
     private void calcularTotal() {
         descuento = 0.00;
-        //Calcula el total si hay descuento y no se ha seleccionado un valor diferente de IVa
-        //valor de iva por defecto es 12%
-        if (jCheckDescuento.isSelected() && !jCheckIva.isSelected()) {
-            Double des = Double.parseDouble(cbxDescuento.getSelectedItem().toString()) / 100;
-            Double iva = 0.12;
-            //Se calcula el descuento del subtotal sin iva 
-            descuento = (subTotal * des);
-            //Se obtiene el subTotal con el descuento
-            Double subTconDescuento = subTotal - descuento;
-            //Se calcula el subTotalconiva a partir del valor con el descuento realizado
-            Double subTotalconIva12 = (subTconDescuento * iva);
-            totalPa = subTconDescuento + subTotalconIva12;
-            txt_total_pagar.setText("" + totalPa);
-        } else if (!jCheckDescuento.isSelected() && !jCheckIva.isSelected()) {
-            //Calcula el total si no hay descuento con el 12% de IVA por defecto
-            Double iva = 0.12;
-            Double subTotalconIva12 = (subTotal * iva);
-            Double subTcalculado = subTotal + subTotalconIva12;
-            totalPa = 0.00;
-            totalPa = subTcalculado;
-            txt_total_pagar.setText("" + totalPa);
+        if (txt_subtotal.getText().equals("") && txt_total_pagar.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "¡No se ha agregado ningún producto!"+"\n\n"+"Ingrese productos para continuar");
+            txtCodProducto.requestFocus();
+        } else {
+            //Calcula el total si hay descuento y no se ha seleccionado un valor diferente de IVa
+            //valor de iva por defecto es 12%
+            if (jCheckDescuento.isSelected() && !jCheckIva.isSelected()) {
+                Double des = Double.parseDouble(cbxDescuento.getSelectedItem().toString()) / 100;
+                Double iva = 0.12;
+                //Se calcula el descuento del subtotal sin iva 
+                descuento = (subTotal * des);
+                //Se obtiene el subTotal con el descuento
+                Double subTconDescuento = subTotal - descuento;
+                //Se calcula el subTotalconiva a partir del valor con el descuento realizado
+                Double subTotalconIva12 = (subTconDescuento * iva);
+                totalPa = subTconDescuento + subTotalconIva12;
+                txt_total_pagar.setText("" + totalPa);
+            } else if (!jCheckDescuento.isSelected() && !jCheckIva.isSelected()) {
+                //Calcula el total si no hay descuento con el 12% de IVA por defecto
+                Double iva = 0.12;
+                Double subTotalconIva12 = (subTotal * iva);
+                Double subTcalculado = subTotal + subTotalconIva12;
+                totalPa = 0.00;
+                totalPa = subTcalculado;
+                txt_total_pagar.setText("" + totalPa);
 
-        } else if (jCheckDescuento.isSelected() && jCheckIva.isSelected()) {
-            //Calcula el total si hay descuento y el valor del IVA es diferente a 12 %
-            Double des = Double.parseDouble(cbxDescuento.getSelectedItem().toString()) / 100;
-            Double iva = Double.parseDouble(cbxIVA.getSelectedItem().toString()) / 100;
-            descuento = (subTotal * des);
+            } else if (jCheckDescuento.isSelected() && jCheckIva.isSelected()) {
+                //Calcula el total si hay descuento y el valor del IVA es diferente a 12 %
+                Double des = Double.parseDouble(cbxDescuento.getSelectedItem().toString()) / 100;
+                Double iva = Double.parseDouble(cbxIVA.getSelectedItem().toString()) / 100;
+                descuento = (subTotal * des);
 
-            Double subTconDescuento = subTotal - descuento;
+                Double subTconDescuento = subTotal - descuento;
 
-            Double IvadelDescuento = (subTconDescuento * iva);
-            Double subTotalconIvaX = subTconDescuento + IvadelDescuento;
+                Double IvadelDescuento = (subTconDescuento * iva);
+                Double subTotalconIvaX = subTconDescuento + IvadelDescuento;
 
-            totalPa = subTotalconIvaX;
-            txt_total_pagar.setText("" + totalPa);
-        } else if (!jCheckDescuento.isSelected() && jCheckIva.isSelected()) {
-            Double iva = Double.parseDouble(cbxIVA.getSelectedItem().toString()) / 100;
-            Double subTotalconIvaX = subTotal + (subTotal * iva);
-            totalPa = 0.00;
-            totalPa = subTotalconIvaX;
-            txt_total_pagar.setText("" + totalPa);
+                totalPa = subTotalconIvaX;
+                txt_total_pagar.setText("" + totalPa);
+            } else if (!jCheckDescuento.isSelected() && jCheckIva.isSelected()) {
+                Double iva = Double.parseDouble(cbxIVA.getSelectedItem().toString()) / 100;
+                Double subTotalconIvaX = subTotal + (subTotal * iva);
+                totalPa = 0.00;
+                totalPa = subTotalconIvaX;
+                txt_total_pagar.setText("" + totalPa);
 
+            }
         }
     }
-  public void guardarVenta() {
+
+    public void guardarVenta() {
         Integer idC = cliente.getId_cliente();
         String serie = jLabelSerie.getText();
         String fecha = jLabelFecha.getText();
@@ -401,22 +406,24 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
 
         jTable_productos.setComponentPopupMenu(popuMenu);
     }
+
     private void actualizarStock() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             Producto pr = new Producto();
             idp = Integer.parseInt(jTable_productos.getValueAt(i, 1).toString());
             cantidad = Integer.parseInt(jTable_productos.getValueAt(i, 3).toString());
             pr = listarIDProducto(idp);
-            System.out.println("Lo que hay en listar producto acStock: "+listarIDProducto(idp));
-            System.out.println("Unidades: "+pr.getUnidades());
-            System.out.println("Cantidad: "+cantidad);
-            System.out.println("IdProducto: "+idp);
-                
+            System.out.println("Lo que hay en listar producto acStock: " + listarIDProducto(idp));
+            System.out.println("Unidades: " + pr.getUnidades());
+            System.out.println("Cantidad: " + cantidad);
+            System.out.println("IdProducto: " + idp);
+
             Integer stockActual = pr.getUnidades() - cantidad;
             actualizarStock(stockActual, idp);
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -845,6 +852,11 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosMultimedia/coin-delete-icon.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar);
         btnCancelar.setBounds(210, 580, 140, 40);
         jPanel1.add(jlabelPie);
@@ -991,7 +1003,7 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
     private void btnVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerClientesActionPerformed
         // TODO add your handling code here:
         ventanaCliente = new IF_Cliente();
-       FrmMenuPrincipal.jDesktopPane_menu.add(ventanaCliente);
+        FrmMenuPrincipal.jDesktopPane_menu.add(ventanaCliente);
         ventanaCliente.setVisible(true);
     }//GEN-LAST:event_btnVerClientesActionPerformed
 
@@ -1001,6 +1013,11 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
         FrmMenuPrincipal.jDesktopPane_menu.add(ventanaProducto);
         ventanaProducto.setVisible(true);
     }//GEN-LAST:event_btnVerProductosActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
     /*
     Agrega una imagen al JLabel
      */
@@ -1017,7 +1034,6 @@ public class IF_Ventas extends javax.swing.JInternalFrame {
         }
 
     }
- 
 
     class fondoPieLabel extends JLabel {
 
