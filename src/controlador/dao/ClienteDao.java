@@ -6,12 +6,14 @@
 package controlador.dao;
 
 import controlador.Conexion;
+import controlador.tda.lista.ListaEnlazada;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import modelo.Cliente;
+import modelo.Proveedor;
 
 /**
  *
@@ -79,6 +81,37 @@ public class ClienteDao extends AdaptadorDao<Cliente> {
             System.out.println("Error en guardar o modificar");
             return false;
         }
+    }
+      public ListaEnlazada listarIDProveedor() {
+        ListaEnlazada<Proveedor> listProveedor = new ListaEnlazada<>();
+
+        String sql = "Select razonSocial from proveedor";
+
+        try {
+            con = Conexion.getConecction();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Proveedor p = new Proveedor();
+                p.setRazonSocial(rs.getString("razonSocial"));
+                listProveedor.insertar(p);
+//                p.setId_Proveedor(rs.getInt(1));
+//                p.setAgente_responsable(rs.getString(2));
+//                p.setProvincia(rs.getString(3));
+//                p.setDireccion(rs.getString(4));
+//                p.setCredito(rs.getString(5));
+//                p.setPagina_web(rs.getString(6));
+//                p.setCelular(rs.getString(7));
+//                p.setBanco(rs.getString(8));
+//                p.setTipocuenta(rs.getString(9));
+//                p.setNro_cuenta(rs.getString(10));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en listar Id producto");
+            e.printStackTrace();
+        }
+        return listProveedor;
+
     }
 
     public Cliente listarIDProducto(String indentificacion) {
