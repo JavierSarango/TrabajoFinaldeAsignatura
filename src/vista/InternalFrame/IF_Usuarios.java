@@ -62,33 +62,73 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
                 || txtTelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "ERROR0", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (validacion.validaCorreo(txtCorreo.getText()) == true) {
-                ud.getUsuario().setRazonSocial(txtRazonSocial.getText());
-                ud.getUsuario().setCorreo(txtCorreo.getText());
-                ud.getUsuario().setCelular(txtCelular.getText());
-                ud.getUsuario().setTelefono(txtTelefono.getText());
-                ud.getUsuario().setNombreUsuario(txtNombreU.getText());
-                ud.getUsuario().setContrasena(txtContraseña.getText());
-                ud.getUsuario().setTipoRol(cbxR.getSelectedItem().toString());
-                ud.getUsuario().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
-                ud.getUsuario().setIdentificacion(txtIdentifiacion.getText());
-                ud.getUsuario().setDireccion(txtDireccion.getText());
-                if(ud.getUsuario().getId_usuario()== null){
-                if (ud.guardar()) {
-                    limpiar();
-                    JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                }
+            int select = cbxTipoIdentificacion.getSelectedIndex();
+            switch (select) {
+                case 0:
+                    if (validacion.validaCorreo(txtCorreo.getText()) == true) {
+                        ud.getUsuario().setRazonSocial(txtRazonSocial.getText());
+                        ud.getUsuario().setCorreo(txtCorreo.getText());
+                        ud.getUsuario().setCelular(txtCelular.getText());
+                        ud.getUsuario().setTelefono(txtTelefono.getText());
+                        ud.getUsuario().setNombreUsuario(txtNombreU.getText());
+                        ud.getUsuario().setContrasena(txtContraseña.getText());
+                        ud.getUsuario().setTipoRol(cbxR.getSelectedItem().toString());
+                        ud.getUsuario().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                        ud.getUsuario().setIdentificacion(txtIdentifiacion.getText());
+                        ud.getUsuario().setDireccion(txtDireccion.getText());
+                        if (ud.getUsuario().getId_usuario() == null) {
+                            if (ud.guardar()) {
+                                limpiar();
+                                JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Error correo", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error correo", "Error", JOptionPane.ERROR_MESSAGE);
 
+                    }
+                    break;
+                    
+                 case  1:
+                     if (validacion.validarCedula(txtIdentifiacion.getText()) == true) {
+                      if (validacion.validaCorreo(txtCorreo.getText()) == true) {
+                        ud.getUsuario().setRazonSocial(txtRazonSocial.getText());
+                        ud.getUsuario().setCorreo(txtCorreo.getText());
+                        ud.getUsuario().setCelular(txtCelular.getText());
+                        ud.getUsuario().setTelefono(txtTelefono.getText());
+                        ud.getUsuario().setNombreUsuario(txtNombreU.getText());
+                        ud.getUsuario().setContrasena(txtContraseña.getText());
+                        ud.getUsuario().setTipoRol(cbxR.getSelectedItem().toString());
+                        ud.getUsuario().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                        ud.getUsuario().setIdentificacion(txtIdentifiacion.getText());
+                        ud.getUsuario().setDireccion(txtDireccion.getText());
+                        if (ud.getUsuario().getId_usuario() == null) {
+                            if (ud.guardar()) {
+                                limpiar();
+                                JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error correo", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    }
+                     }else{
+                         JOptionPane.showMessageDialog(null, "Error cedula", "Error", JOptionPane.ERROR_MESSAGE);
+                     }
+               
+                     break;
+                 default:
             }
-        }
 
+        }
     }
+
+    
 
     private void modificarrrrr() throws Exception {
 
@@ -580,11 +620,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
-        char c = evt.getKeyChar();
 
-        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
-            evt.consume();
-        }
     }//GEN-LAST:event_txtRazonSocialKeyTyped
 
 

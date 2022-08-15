@@ -683,11 +683,7 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
-    char c = evt.getKeyChar();
-        
-        if ((c < 'a' || c > 'z')&&(c < 'A' || c > 'Z')) {
-            evt.consume();
-        }        
+    
     }//GEN-LAST:event_txtRazonSocialKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
