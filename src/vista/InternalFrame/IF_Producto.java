@@ -4,6 +4,7 @@
  */
 package vista.InternalFrame;
 
+import Validacion.Validacion;
 import controlador.dao.ProductoDao;
 import controlador.dao.ProveedorDao;
 import controlador.services.ServicioProducto;
@@ -157,9 +158,9 @@ public class IF_Producto extends javax.swing.JInternalFrame {
                 productoDao.getProducto().setPrecioCompra(Double.parseDouble(txt_precioCompra.getText()));
                 productoDao.getProducto().setPrecioVenta(Double.parseDouble(txt_precioVenta.getText()));
                 productoDao.getProducto().setProveedor(cbx_proveedor.getSelectedItem().toString());
-                
+
                 productoDao.modificarArreglado(
-                        productoDao.getProducto().getCodigo(), 
+                        productoDao.getProducto().getCodigo(),
                         productoDao.getProducto().getNombre(),
                         productoDao.getProducto().getDescripcion(),
                         productoDao.getProducto().getPrecioCompra(),
@@ -167,13 +168,11 @@ public class IF_Producto extends javax.swing.JInternalFrame {
                         productoDao.getProducto().getUnidades(),
                         productoDao.getProducto().getProveedor(),
                         productoDao.getProducto().getIdProducto()
-                        );
+                );
                 cargarTabla();
             } catch (Exception ex) {
             }
- 
 
-             
         }
     }
 
@@ -387,6 +386,17 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         });
         jPanel3.add(btn_guardar);
         btn_guardar.setBounds(270, 140, 90, 19);
+
+        txt_precioCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_precioCompraActionPerformed(evt);
+            }
+        });
+        txt_precioCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_precioCompraKeyTyped(evt);
+            }
+        });
         jPanel3.add(txt_precioCompra);
         txt_precioCompra.setBounds(10, 90, 90, 22);
 
@@ -405,6 +415,11 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         txt_precioVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_precioVentaActionPerformed(evt);
+            }
+        });
+        txt_precioVenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_precioVentaKeyTyped(evt);
             }
         });
         jPanel3.add(txt_precioVenta);
@@ -443,6 +458,12 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         jLabel14.setText("Unidades:");
         jPanel3.add(jLabel14);
         jLabel14.setBounds(10, 120, 70, 20);
+
+        txt_unidades.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_unidadesKeyTyped(evt);
+            }
+        });
         jPanel3.add(txt_unidades);
         txt_unidades.setBounds(10, 140, 90, 22);
 
@@ -646,8 +667,15 @@ public class IF_Producto extends javax.swing.JInternalFrame {
     private void bnt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_eliminarActionPerformed
         // TODO add your handling code here:
         //int aux = tbl_producto.getSelectedRow();
-        productoDao.eliminarmejorado(productoDao.getProducto().getIdProducto(), "idProducto");
-        cargarTabla();
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de ELIMINAR registro?", "ADVERTENCIA ELIMINAR", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            productoDao.eliminarmejorado(productoDao.getProducto().getIdProducto(), "idProducto");
+            JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Se cancelo proceso de eliminación", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_bnt_eliminarActionPerformed
 
     private void radioAItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioAItemStateChanged
@@ -687,12 +715,21 @@ public class IF_Producto extends javax.swing.JInternalFrame {
 
     private void btn_moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_moddActionPerformed
         // TODO add your handling code here:
-        try {
-            modificarrrrr();
-            btn_guardar.setEnabled(true);
-            limpiar();
-        } catch (Exception e) {
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de MODIFICAR el producto?", "Advertencia Modificar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            try {
+                modificarrrrr();
+                btn_guardar.setEnabled(true);
+                limpiar();
+            } catch (Exception e) {
+            }
+            JOptionPane.showMessageDialog(null, "Se MODIFICO correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Se cancelo proceso de modificación", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+
     }//GEN-LAST:event_btn_moddActionPerformed
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
@@ -749,6 +786,31 @@ public class IF_Producto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         seleccionarEliminar();
     }//GEN-LAST:event_tbl_productoMouseClicked
+
+    private void txt_precioCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_precioCompraActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_txt_precioCompraActionPerformed
+
+    private void txt_precioCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precioCompraKeyTyped
+        // TODO add your handling code here:
+        Validacion validacion = new Validacion();
+        validacion.valNumReal(evt, txt_precioCompra, 10);
+    }//GEN-LAST:event_txt_precioCompraKeyTyped
+
+    private void txt_precioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precioVentaKeyTyped
+        // TODO add your handling code here:
+        Validacion validacion = new Validacion();
+        validacion.valNumReal(evt, txt_precioVenta, 10);
+
+    }//GEN-LAST:event_txt_precioVentaKeyTyped
+
+    private void txt_unidadesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_unidadesKeyTyped
+        // TODO add your handling code here:
+        Validacion validacion = new Validacion();
+        validacion.valNumReal(evt, txt_unidades, 10);
+    }//GEN-LAST:event_txt_unidadesKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
