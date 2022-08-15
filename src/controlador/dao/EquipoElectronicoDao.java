@@ -11,6 +11,7 @@ import controlador.utiles.enums.TipoEquipo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import modelo.Cliente;
 import modelo.equipo;
 import modelo.Proveedor;
 
@@ -22,6 +23,7 @@ public class EquipoElectronicoDao extends AdaptadorDao<equipo> {
 
     private equipo equipoElectronico;
     private ListaEnlazada<Proveedor> listaequipos;
+    private Cliente cliente;
 
     public equipo getEquipoElectronico() {
         if (equipoElectronico == null) {
@@ -158,6 +160,11 @@ public class EquipoElectronicoDao extends AdaptadorDao<equipo> {
             System.out.println("Error en guardar " + ex);
         }
        
+    }
+    public Cliente consultaCliente(String cedula) {
+        ClienteDao clienteDao = new ClienteDao();
+        cliente = clienteDao.listarIDProducto(cedula);
+        return cliente;
     }
 
 
