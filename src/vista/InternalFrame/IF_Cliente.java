@@ -195,10 +195,10 @@ private void modificarrrrr() throws Exception {
         String criterio = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
 
         if (radioA.isSelected()) {
-            mtc.setLista(cc.listar().shellListaEnlazada(criterio, TipoOrdenacion.ASCENDENTE));
+            mtc.setLista(cc.listar().shellListaEnlazada("razonSocial", TipoOrdenacion.ASCENDENTE));
             System.out.println("se ordeno ascendente");
         } else if (radioD.isSelected()) {
-            mtc.setLista(cc.listar().shellListaEnlazada(criterio, TipoOrdenacion.DESCENDENTE));
+            mtc.setLista(cc.listar().shellListaEnlazada("razonSocial", TipoOrdenacion.DESCENDENTE));
             System.out.println("se ordeno ascendente");
 
         }
@@ -397,7 +397,7 @@ private void modificarrrrr() throws Exception {
             }
         });
         jPanel3.add(jButton3);
-        jButton3.setBounds(400, 190, 150, 30);
+        jButton3.setBounds(390, 190, 150, 30);
 
         txtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -587,10 +587,16 @@ private void modificarrrrr() throws Exception {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            modificarrrrr();
-        } catch (Exception ex) {
-            Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                  int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de modificar ?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+                      try {
+                          modificarrrrr();
+                      } catch (Exception ex) {
+                          Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+            JOptionPane.showMessageDialog(null, "Se modifico correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -619,8 +625,15 @@ private void modificarrrrr() throws Exception {
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        cc.eliminarmejorado(cc.getCliente().getId_cliente(), "id_cliente");
-        cargarTabla();// TODO add your handling code here:
+       
+        
+               int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+                 cc.eliminarmejorado(cc.getCliente().getId_cliente(), "id_cliente");
+            JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccionMouseClicked

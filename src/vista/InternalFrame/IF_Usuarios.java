@@ -159,10 +159,10 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         String criterio = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
 
         if (radioA.isSelected()) {
-            mtu.setLista(ud.listar().shellListaEnlazada(criterio, TipoOrdenacion.ASCENDENTE));
+            mtu.setLista(ud.listar().shellListaEnlazada("razonSocial", TipoOrdenacion.ASCENDENTE));
             System.out.println("se ordeno ascendente");
         } else if (radioD.isSelected()) {
-            mtu.setLista(ud.listar().shellListaEnlazada(criterio, TipoOrdenacion.DESCENDENTE));
+            mtu.setLista(ud.listar().shellListaEnlazada("razonSocial", TipoOrdenacion.DESCENDENTE));
             System.out.println("se ordeno ascendente");
 
         }
@@ -503,16 +503,27 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            modificarrrrr();
-        } catch (Exception ex) {
-            Logger.getLogger(IF_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                  int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de modificar ?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+                      try {
+                          modificarrrrr();
+                      } catch (Exception ex) {
+                          Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+            JOptionPane.showMessageDialog(null, "Se modifico correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ud.eliminarmejorado(ud.getUsuario().getId_usuario(), "id_usuario");
-        cargarTabla();        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+                  ud.eliminarmejorado(ud.getUsuario().getId_usuario(), "id_usuario");
+            JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -552,21 +563,21 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tablaUsuarioMouseClicked
 
     private void txtIdentifiacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentifiacionKeyTyped
-validacion.validaSeaNumero(evt, txtIdentifiacion, 20);          // TODO add your handling code here:
+        validacion.validaSeaNumero(evt, txtIdentifiacion, 20);          // TODO add your handling code here:
     }//GEN-LAST:event_txtIdentifiacionKeyTyped
 
     private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
-validacion.validaSeaNumero(evt, txtCelular, 20);          // TODO add your handling code here:
+        validacion.validaSeaNumero(evt, txtCelular, 20);          // TODO add your handling code here:
     }//GEN-LAST:event_txtCelularKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-validacion.validaSeaNumero(evt, txtTelefono, 20);          // TODO add your handling code here:
+        validacion.validaSeaNumero(evt, txtTelefono, 20);          // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
         char c = evt.getKeyChar();
-        
-        if ((c < 'a' || c > 'z')&&(c < 'A' || c > 'Z')) {
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
             evt.consume();
         }
     }//GEN-LAST:event_txtRazonSocialKeyTyped
