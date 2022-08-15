@@ -11,6 +11,6 @@ package controlador.utiles;
  */
 public enum TipoIndentificacion {
     
-    RUC,CEDULA,PASPORTE;
+    RUC,CEDULA;
     
 }
