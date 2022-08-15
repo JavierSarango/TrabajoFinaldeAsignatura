@@ -131,31 +131,29 @@ private void modificarrrrr() throws Exception {
 
         } else {
             try {
-                               cc.getCliente().setRazonSocial(txtRazonSocial.getText());
-                            cc.getCliente().setCorreo(txtCorreo.getText());
-                            cc.getCliente().setCelular(txtCelular.getText());
-                            cc.getCliente().setTelefono(txtTelefono.getText());
-                            cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
-                            cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
-                            cc.getCliente().setIdentificacion(txtIdentificacion.getText());
-                            cc.getCliente().setDireccion(txtDireccion.getText());
+                cc.getCliente().setRazonSocial(txtRazonSocial.getText());
+                cc.getCliente().setCorreo(txtCorreo.getText());
+                cc.getCliente().setCelular(txtCelular.getText());
+                cc.getCliente().setTelefono(txtTelefono.getText());
+                cc.getCliente().setTipoCliente(cbxTipoCliente.getSelectedItem().toString());
+                cc.getCliente().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                cc.getCliente().setIdentificacion(txtIdentificacion.getText());
+                cc.getCliente().setDireccion(txtDireccion.getText());
                 
-                cc.modificarArreglado(
-                        cc.getCliente().getRazonSocial(), 
-                        cc.getCliente().getTelefono(),
-                        cc.getCliente().getCelular(),
-                        cc.getCliente().getCorreo(),
-                        cc.getCliente().getDireccion(),
-                        cc.getCliente().getTipoIdentificacion(),
-                        cc.getCliente().getIdentificacion(),
-                        cc.getCliente().getTipoCliente(),
-                         cc.getCliente().getId_cliente());
+              cc.modificarArreglado(
+                cc.getCliente().getRazonSocial(), 
+                cc.getCliente().getTelefono(),
+                cc.getCliente().getCelular(),
+                cc.getCliente().getCorreo(),
+                cc.getCliente().getDireccion(),
+                cc.getCliente().getTipoIdentificacion(),
+                cc.getCliente().getIdentificacion(),
+                cc.getCliente().getTipoCliente(),
+                cc.getCliente().getId_cliente());
+                JOptionPane.showMessageDialog(null, "Modificador Correctamente", "Ok", JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
             } catch (Exception ex) {
             }
- 
-
-             
         }
     }
 
@@ -289,7 +287,7 @@ private void modificarrrrr() throws Exception {
             }
         });
         jPanel3.add(txtRazonSocial);
-        txtRazonSocial.setBounds(10, 30, 210, 22);
+        txtRazonSocial.setBounds(10, 30, 210, 30);
 
         cbxTipoIdentificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR" }));
         cbxTipoIdentificacion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -306,7 +304,7 @@ private void modificarrrrr() throws Exception {
             }
         });
         jPanel3.add(cbxTipoIdentificacion);
-        cbxTipoIdentificacion.setBounds(10, 100, 210, 22);
+        cbxTipoIdentificacion.setBounds(10, 100, 210, 30);
 
         txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -319,11 +317,11 @@ private void modificarrrrr() throws Exception {
             }
         });
         jPanel3.add(txtCorreo);
-        txtCorreo.setBounds(250, 30, 200, 22);
+        txtCorreo.setBounds(250, 30, 200, 30);
 
         cbxTipoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(cbxTipoCliente);
-        cbxTipoCliente.setBounds(250, 90, 200, 22);
+        cbxTipoCliente.setBounds(250, 90, 200, 30);
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -348,8 +346,13 @@ private void modificarrrrr() throws Exception {
                 txtIdentificacionMouseClicked(evt);
             }
         });
+        txtIdentificacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtIdentificacion);
-        txtIdentificacion.setBounds(10, 140, 210, 22);
+        txtIdentificacion.setBounds(10, 140, 210, 30);
 
         txtCelular.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -361,8 +364,13 @@ private void modificarrrrr() throws Exception {
                 txtCelularActionPerformed(evt);
             }
         });
+        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCelularKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtCelular);
-        txtCelular.setBounds(250, 140, 210, 22);
+        txtCelular.setBounds(250, 140, 210, 30);
 
         txtTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -374,8 +382,13 @@ private void modificarrrrr() throws Exception {
                 txtTelefonoActionPerformed(evt);
             }
         });
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtTelefono);
-        txtTelefono.setBounds(490, 30, 220, 22);
+        txtTelefono.setBounds(490, 30, 220, 30);
 
         jButton3.setText("Eliminar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +410,7 @@ private void modificarrrrr() throws Exception {
             }
         });
         jPanel3.add(txtDireccion);
-        txtDireccion.setBounds(490, 90, 220, 22);
+        txtDireccion.setBounds(490, 90, 220, 30);
 
         jButton5.setText("Actualizar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -660,8 +673,24 @@ private void modificarrrrr() throws Exception {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
-        // TODO add your handling code here:
+    char c = evt.getKeyChar();
+        
+        if ((c < 'a' || c > 'z')&&(c < 'A' || c > 'Z')) {
+            evt.consume();
+        }        
     }//GEN-LAST:event_txtRazonSocialKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+validacion.validaSeaNumero(evt, txtTelefono, 20);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
+validacion.validaSeaNumero(evt, txtCelular, 20);          // TODO add your handling code here:
+    }//GEN-LAST:event_txtCelularKeyTyped
+
+    private void txtIdentificacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyTyped
+validacion.validaSeaNumero(evt, txtIdentificacion, 20);          // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificacionKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

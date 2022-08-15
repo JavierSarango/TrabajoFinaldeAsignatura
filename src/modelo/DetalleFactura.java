@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import com.sun.jndi.toolkit.dir.SearchFilter;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,7 +12,7 @@ import java.util.Date;
  *
  * @author John
  */
-public class DetalleFactura implements Serializable{
+public class DetalleFactura implements Serializable {
 
     /**
      * variable identificador
@@ -30,7 +29,7 @@ public class DetalleFactura implements Serializable{
     /**
      * variable tipo Date con la fecha de Emision
      */
-    private Date fechaEmision;
+    private String fechaEmision;
     /**
      * variable con los datos de la ventas
      */
@@ -53,14 +52,14 @@ public class DetalleFactura implements Serializable{
     /**
      * @return the fechaEmision
      */
-    public Date getFechaEmision() {
+    public String getFechaEmision() {
         return fechaEmision;
     }
 
     /**
      * @param fechaEmision the fechaEmision to set
      */
-    public void setFechaEmision(Date fechaEmision) {
+    public void setFechaEmision(String fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 
@@ -91,7 +90,7 @@ public class DetalleFactura implements Serializable{
     public void setId_ventas(Integer id_ventas) {
         this.id_ventas = id_ventas;
     }
-
+ 
     /**
      * @return the id_factura
      */
