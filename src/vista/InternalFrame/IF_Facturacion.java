@@ -6,12 +6,19 @@ package vista.InternalFrame;
 
 import Validacion.Validacion;
 import controlador.FacturaController;
+import controlador.dao.FacturaDao;
 import controlador.tda.lista.ListaEnlazada;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
+import modelo.DetalleFactura;
 import modelo.DetalleVenta;
+import modelo.Factura;
 import modelo.Venta;
 import vista.ModeloTablas.ModeloTablaVentas;
 
@@ -20,11 +27,12 @@ import vista.ModeloTablas.ModeloTablaVentas;
  * @author Gigabyte
  */
 public class IF_Facturacion extends javax.swing.JInternalFrame {
-    
+
+    private FacturaDao fd = new FacturaDao();
     private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
     private Validacion validar = new Validacion();
-
+ 
     /**
      * Creates new form IF_Facturacion
      */
@@ -36,9 +44,8 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTEmail.setEnabled(false);
         jTableVentas.setEnabled(false);
         jBFacturar.setEnabled(false);
-        jBProforma.setEnabled(false);
     }
-    
+
     public void limpiar() {
         jTCedula.setText(" ");
         jTNombre.setText(" ");
@@ -46,7 +53,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTEmail.setText(" ");
         jTtelefono.setText(" ");
     }
-    
+
     public void DatosCliente() throws Exception {
         String cedula = jTCedula.getText();
         Cliente cliente = fc.consultaCliente(cedula);
@@ -55,41 +62,50 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTEmail.setText(cliente.getIdentificacion());
         jTtelefono.setText(cliente.getTelefono());
         DatosVentas(cliente.getId_cliente());
+        jTableVentas.setEnabled(true);
+        jBFacturar.setEnabled(true);
     }
-    
+
     public void DatosVentas(Integer id) throws Exception {
         ListaEnlazada<Venta> listaVentas = fc.obtenerVentas(id);
         ListaEnlazada<DetalleVenta> listaDetalleVenta = fc.obtenerDetallesVentas(listaVentas);
         cargarTableVentas(listaVentas, listaDetalleVenta);
     }
-    
+
     public void cargarTableVentas(ListaEnlazada lista1, ListaEnlazada lista2) {
         MTVentas.setListaVentas(lista1);
         MTVentas.setListaDetalle(lista2);
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
-    
+
     public void guardar() {
-        if (jTNombre.getText().trim().isEmpty() || jTCedula.getText().trim().isEmpty() || jTDireccionCliente.getText().trim().isEmpty()
-                || jTEmail.getText().trim().isEmpty() || jTtelefono.getText().trim().isEmpty()) {
+        if (jTNombre.getText().trim().isEmpty() || jTCedula.getText().trim().isEmpty() || jTEmail.getText().trim().isEmpty() || jTtelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (validar.validarCedula(jTCedula.getText())) {
-//                    if (proveedordao.getProveedores().getId_Proveedor() == null) {
-//                        if (proveedordao.guardar()) {
-//                            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-//                            limpiar();
-//                            cargarTableVentas(fc.getVenta().get);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
-//                        }
-//                    }
+            Cliente cliente1 = fc.consultaCliente(jTCedula.getText());
+            SimpleDateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+            Calendar calendar = Calendar.getInstance();
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Cedula no valida", "Error", JOptionPane.ERROR_MESSAGE);
+            Date dateObj = calendar.getTime();
+            String formattedDate = dtf.format(dateObj);
+            try {
+                ListaEnlazada<Venta> listaVentas = fc.obtenerVentas(cliente1.getId_cliente());
+                ListaEnlazada<DetalleVenta> listaDetalleVenta = fc.obtenerDetallesVentas(listaVentas);
+                Factura fact = new Factura();
+                fact.setCodigoFactura(String.valueOf(fd.listarfactura().getSize() + 1));
+                DetalleFactura detalleFact = new DetalleFactura();
+                detalleFact.setId_cliente(cliente1.getId_cliente());
+                detalleFact.setFechaEmision(formattedDate);
+                detalleFact.setId_factura(fd.listarfactura().getSize() + 1);
+                detalleFact.setId_ventas(jTableVentas.getSelectedColumn() + 1);
+                fd.GuardarFactura(fact);
+                fd.GuardarDetalleFactura(detalleFact);
+                fc.imprimirDatosFactura(cliente1, listaVentas, listaDetalleVenta, fact, detalleFact);
+                limpiar();
+            } catch (Exception ex) {
+                Logger.getLogger(IF_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
     }
 
@@ -108,9 +124,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableVentas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jBProforma = new javax.swing.JButton();
         jBFacturar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTtelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -165,15 +179,6 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jPanel8.add(jLabel6);
         jLabel6.setBounds(10, 10, 170, 16);
 
-        jBProforma.setText("Proformar");
-        jBProforma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBProformaActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jBProforma);
-        jBProforma.setBounds(610, 330, 90, 25);
-
         jBFacturar.setText("Facturar");
         jBFacturar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,16 +186,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jBFacturar);
-        jBFacturar.setBounds(470, 330, 90, 25);
-
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jButton1);
-        jButton1.setBounds(340, 330, 90, 25);
+        jBFacturar.setBounds(590, 330, 90, 25);
 
         jPanel2.add(jPanel8);
         jPanel8.setBounds(10, 240, 730, 370);
@@ -289,20 +285,12 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVentasMouseClicked
-        //        editarCarrito();
+
     }//GEN-LAST:event_jTableVentasMouseClicked
 
-    private void jBProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProformaActionPerformed
-
-    }//GEN-LAST:event_jBProformaActionPerformed
-
     private void jBFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFacturarActionPerformed
-        //        guardar(true);
+        guardar();
     }//GEN-LAST:event_jBFacturarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //        limpiar();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCedulaKeyTyped
         validar.validaSeaNumero(evt, jTCedula, 10);
@@ -317,15 +305,13 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void jTNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNombreActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTNombreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton jBFacturar;
-    private javax.swing.JButton jBProforma;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
