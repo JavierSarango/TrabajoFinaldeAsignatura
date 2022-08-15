@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Proveedor;
 import vista.CargarFoto;
-import vista.Frm_SoporteTectico;
+//import vista.Frm_SoporteTectico;
 import vista.ModeloTablas.ModeloTablaProveedores;
 
 /**
@@ -1126,7 +1126,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         try {
             seleccionar_eliminar();
         } catch (Exception ex) {
-            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tbl_tablaMouseClicked
 

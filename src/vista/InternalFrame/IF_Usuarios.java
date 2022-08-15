@@ -85,6 +85,42 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
 
     }
 
+    private void modificarrrrr() throws Exception {
+
+        if (txtRazonSocial.getText().trim().isEmpty() || txtCelular.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty()
+                || txtNombreU.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios", "ERROR0", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            try {
+                ud.getUsuario().setRazonSocial(txtRazonSocial.getText());
+                ud.getUsuario().setCorreo(txtCorreo.getText());
+                ud.getUsuario().setCelular(txtCelular.getText());
+                ud.getUsuario().setTelefono(txtTelefono.getText());
+                ud.getUsuario().setTipoRol(cbxR.getSelectedItem().toString());
+                ud.getUsuario().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
+                ud.getUsuario().setIdentificacion(txtIdentifiacion.getText());
+                ud.getUsuario().setDireccion(txtDireccion.getText());
+
+                ud.modificarArreglado(
+                        ud.getUsuario().getRazonSocial(),
+                        ud.getUsuario().getTelefono(),
+                        ud.getUsuario().getCelular(),
+                        ud.getUsuario().getCorreo(),
+                        ud.getUsuario().getDireccion(),
+                        ud.getUsuario().getTipoIdentificacion(),
+                        ud.getUsuario().getIdentificacion(),
+                        ud.getUsuario().getTipoRol(),
+                        ud.getUsuario().getNombreUsuario(),
+                        ud.getUsuario().getContrasena(),
+                        ud.getUsuario().getId_usuario());
+                JOptionPane.showMessageDialog(null, "Modificador Correctamente", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                cargarTabla();
+            } catch (Exception ex) {
+            }
+        }
+    }
+
     private void limpiar() {
 
         txtCelular.setText("");
@@ -97,7 +133,6 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         cargarTabla();
 
     }
-
 
     public void seleccionar() {
         int seleccionar = tablaUsuario.getSelectedRow();
@@ -120,15 +155,14 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
 
     }
 
-
     private void ordenar() throws Exception {
         String criterio = cbx_datoBusqueda.getSelectedItem().toString().toLowerCase();
 
         if (radioA.isSelected()) {
-            mtu.setLista(ud.listar().shellListaEnlazada(criterio, TipoOrdenacion.ASCENDENTE));
+            mtu.setLista(ud.listar().shellListaEnlazada("razonSocial", TipoOrdenacion.ASCENDENTE));
             System.out.println("se ordeno ascendente");
         } else if (radioD.isSelected()) {
-            mtu.setLista(ud.listar().shellListaEnlazada(criterio, TipoOrdenacion.DESCENDENTE));
+            mtu.setLista(ud.listar().shellListaEnlazada("razonSocial", TipoOrdenacion.DESCENDENTE));
             System.out.println("se ordeno ascendente");
 
         }
@@ -208,8 +242,14 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         jLabel3.setText("REGISTRO DE USUARIO");
         jPanel3.add(jLabel3);
         jLabel3.setBounds(50, 20, 610, 50);
+
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtRazonSocial);
-        txtRazonSocial.setBounds(10, 120, 230, 22);
+        txtRazonSocial.setBounds(10, 120, 230, 30);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de Identificacion");
@@ -238,7 +278,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         jPanel3.add(cbxTipoIdentificacion);
         cbxTipoIdentificacion.setBounds(10, 170, 230, 22);
         jPanel3.add(txtCorreo);
-        txtCorreo.setBounds(10, 250, 230, 22);
+        txtCorreo.setBounds(10, 250, 230, 30);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Telefono");
@@ -250,9 +290,15 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel10);
         jLabel10.setBounds(280, 100, 170, 16);
         jPanel3.add(txtContraseña);
-        txtContraseña.setBounds(280, 170, 190, 22);
+        txtContraseña.setBounds(280, 170, 190, 30);
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtTelefono);
-        txtTelefono.setBounds(500, 180, 180, 22);
+        txtTelefono.setBounds(500, 180, 180, 30);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Tipo de Rol");
@@ -270,7 +316,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(jButton1);
-        jButton1.setBounds(10, 280, 170, 30);
+        jButton1.setBounds(20, 290, 170, 30);
 
         jButton2.setText("Modificar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -279,9 +325,15 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(jButton2);
-        jButton2.setBounds(190, 280, 150, 30);
+        jButton2.setBounds(200, 290, 150, 30);
+
+        txtIdentifiacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentifiacionKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtIdentifiacion);
-        txtIdentifiacion.setBounds(10, 200, 230, 22);
+        txtIdentifiacion.setBounds(10, 200, 230, 30);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Correo");
@@ -298,9 +350,15 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel13);
         jLabel13.setBounds(280, 150, 200, 16);
         jPanel3.add(txtNombreU);
-        txtNombreU.setBounds(280, 120, 190, 22);
+        txtNombreU.setBounds(280, 120, 190, 30);
+
+        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCelularKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtCelular);
-        txtCelular.setBounds(500, 120, 180, 22);
+        txtCelular.setBounds(500, 120, 180, 30);
 
         jButton3.setText("Eliminar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -309,7 +367,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(jButton3);
-        jButton3.setBounds(350, 280, 170, 30);
+        jButton3.setBounds(360, 290, 170, 30);
 
         jButton4.setText("Actualizar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -318,9 +376,9 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(jButton4);
-        jButton4.setBounds(530, 280, 150, 30);
+        jButton4.setBounds(540, 290, 150, 30);
         jPanel3.add(txtDireccion);
-        txtDireccion.setBounds(280, 220, 190, 22);
+        txtDireccion.setBounds(280, 220, 190, 30);
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("Direccion");
@@ -333,7 +391,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
         jLabel5.setBounds(10, 100, 230, 16);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(14, 0, 750, 320);
+        jPanel3.setBounds(14, 0, 750, 330);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.setLayout(null);
@@ -445,14 +503,27 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//    ud.modificarCliente(ud.getUsuario().getId_usuario(), "id_usuario");
-//        cargarTabla();   
-     //   modificar();
+                  int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de modificar ?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+                      try {
+                          modificarrrrr();
+                      } catch (Exception ex) {
+                          Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+            JOptionPane.showMessageDialog(null, "Se modifico correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ud.eliminarmejorado(ud.getUsuario().getId_usuario(), "id_usuario");
-        cargarTabla();        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+                  ud.eliminarmejorado(ud.getUsuario().getId_usuario(), "id_usuario");
+            JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+        } else if (opcion == JOptionPane.NO_OPTION) {
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -490,6 +561,26 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     private void tablaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuarioMouseClicked
         seleccionar();        // TODO add your handling code here:
     }//GEN-LAST:event_tablaUsuarioMouseClicked
+
+    private void txtIdentifiacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentifiacionKeyTyped
+        validacion.validaSeaNumero(evt, txtIdentifiacion, 20);          // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentifiacionKeyTyped
+
+    private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
+        validacion.validaSeaNumero(evt, txtCelular, 20);          // TODO add your handling code here:
+    }//GEN-LAST:event_txtCelularKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        validacion.validaSeaNumero(evt, txtTelefono, 20);          // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRazonSocialKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

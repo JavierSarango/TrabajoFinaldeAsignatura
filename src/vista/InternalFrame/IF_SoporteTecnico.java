@@ -6,13 +6,15 @@ package vista.InternalFrame;
 
 import Validacion.Validacion;
 import controlador.dao.EquipoElectronicoDao;
+import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.Utilidades;
 import controlador.utiles.enums.TipoEquipo;
 import controlador.utiles.enums.TipoOrdenacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import vista.Frm_SoporteTectico;
+import modelo.Cliente;
+import modelo.equipo;
 import vista.ModeloTablas.ModeloTablaEquipos;
 
 /**
@@ -88,6 +90,16 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
 
+    }
+    
+    public void DatosCliente() throws Exception {
+        String cedula = txtRazonSocial.getText();
+        Cliente cliente = ee.consultaCliente(cedula);
+        txtcliente.setText(cliente.getRazonSocial());
+//        jTDireccionCliente.setText(cliente.getDireccion());
+//        jTEmail.setText(cliente.getIdentificacion());
+//        jTtelefono.setText(cliente.getTelefono());
+//        DatosVentas(cliente.getId_cliente());
     }
 
     public void seleccionar() {
@@ -180,7 +192,6 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtmarca = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtRazonSocial = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtestadoIngreso = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -195,6 +206,8 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         btneliminar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         cbcargador = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        txtRazonSocial = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_tabla = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -203,7 +216,8 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         btnbuscar = new javax.swing.JButton();
         radioA = new javax.swing.JRadioButton();
         radioD = new javax.swing.JRadioButton();
-        jButton3 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtcliente = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -236,8 +250,6 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         jLabel1.setText("Cliente:");
         jPanel2.add(jLabel1);
         jLabel1.setBounds(20, 10, 60, 19);
-        jPanel2.add(txtRazonSocial);
-        txtRazonSocial.setBounds(90, 10, 150, 25);
 
         jLabel5.setText("Modelo:");
         jPanel2.add(jLabel5);
@@ -280,7 +292,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnmodificar);
-        btnmodificar.setBounds(360, 160, 120, 25);
+        btnmodificar.setBounds(520, 160, 120, 25);
 
         btnguarnar1.setText("Guardar");
         btnguarnar1.addActionListener(new java.awt.event.ActionListener() {
@@ -289,7 +301,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnguarnar1);
-        btnguarnar1.setBounds(20, 160, 120, 25);
+        btnguarnar1.setBounds(390, 160, 120, 25);
 
         btneliminar.setText("Eliminar");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -307,6 +319,17 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         cbcargador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No tiene", "Si tiene" }));
         jPanel2.add(cbcargador);
         cbcargador.setBounds(700, 90, 150, 25);
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+        jButton1.setBounds(20, 160, 120, 25);
+        jPanel2.add(txtRazonSocial);
+        txtRazonSocial.setBounds(90, 10, 150, 25);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 60, 860, 200);
@@ -330,17 +353,17 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tbl_tabla);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 340, 780, 210);
+        jScrollPane1.setBounds(30, 400, 820, 160);
 
         jLabel2.setText("Buscar segun:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 260, 100, 20);
+        jLabel2.setBounds(20, 330, 100, 20);
 
         cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Razon_Social", "Tipo_Equipo", "Marca", "Modelo" }));
         jPanel1.add(cbx_datoBusqueda);
-        cbx_datoBusqueda.setBounds(20, 290, 120, 25);
+        cbx_datoBusqueda.setBounds(20, 360, 120, 25);
         jPanel1.add(txt_busqueda);
-        txt_busqueda.setBounds(170, 290, 130, 25);
+        txt_busqueda.setBounds(150, 360, 130, 25);
 
         btnbuscar.setText("Buscar");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -349,7 +372,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(btnbuscar);
-        btnbuscar.setBounds(310, 290, 100, 25);
+        btnbuscar.setBounds(290, 360, 100, 25);
 
         radioA.setText("A");
         radioA.addItemListener(new java.awt.event.ItemListener() {
@@ -363,7 +386,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(radioA);
-        radioA.setBounds(450, 290, 32, 23);
+        radioA.setBounds(400, 360, 32, 23);
 
         radioD.setText("D");
         radioD.addItemListener(new java.awt.event.ItemListener() {
@@ -382,27 +405,24 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(radioD);
-        radioD.setBounds(510, 290, 50, 23);
+        radioD.setBounds(460, 360, 50, 23);
 
-        jButton3.setText("ordenar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3);
-        jButton3.setBounds(570, 290, 82, 25);
+        jLabel10.setText("Nombre  Cliente:");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(540, 360, 120, 19);
+        jPanel1.add(txtcliente);
+        txtcliente.setBounds(670, 360, 160, 25);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -463,7 +483,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         try {
             seleccionar();
         } catch (Exception ex) {
-            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tbl_tablaMouseClicked
 
@@ -505,15 +525,21 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnbuscarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void txtprecioServicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioServicioKeyTyped
         // TODO add your handling code here:
-        vali.validaSeaNumero(evt, txtprecioServicio, 10);
+       
+        vali.valNumReal(evt, txtmarca, 0);
 
     }//GEN-LAST:event_txtprecioServicioKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            DatosCliente();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "fallo al obtener cliente y ventas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -524,8 +550,9 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbcargador;
     private javax.swing.JComboBox<String> cbx_datoBusqueda;
     private javax.swing.JComboBox<String> cbxtipoEquipo;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -544,6 +571,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_tabla;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txt_busqueda;
+    private javax.swing.JTextField txtcliente;
     private javax.swing.JTextField txtdescripProblema;
     private javax.swing.JTextField txtestadoIngreso;
     private javax.swing.JTextField txtmarca;

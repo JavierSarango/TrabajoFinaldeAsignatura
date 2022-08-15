@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import modelo.Usuario;
 
 
@@ -45,6 +47,23 @@ import modelo.Usuario;
             System.out.println("Error en guardar o modificar");
             return false;
         }
+    }
+    
+        public void modificarArreglado(String razonSocial, String telefono, String celular, String correo, String direccion, String tipoIdentificacion, String identificacion, String tipoRol,String nombreUsuario,String contrasena,Integer id_usuario) throws Exception {
+        
+        
+        System.out.println("ingreso a modificar");
+        String update = "Update usuario set razonSocial ='" + razonSocial + "',telefono ='" + telefono + "',celular ='" + celular + "',correo ='" + correo + "',direccion='" + direccion + "',tipoIdentificacion ='" + tipoIdentificacion + "',tipoRol ='"+ tipoRol+"',nombreUsuario ='"+ nombreUsuario+"',contrasena ='"+ contrasena+"' where id_usuario = '" + id_usuario + "'";
+
+
+        try {
+            PreparedStatement stmt = getConexion().prepareStatement(update);
+            stmt.executeUpdate();
+            //OptionPane.showMessageDialog(null, "actualizado correctamente");
+        } catch (SQLException ex) {
+            System.out.println("Error en guardar " + ex);
+        }
+       
     }
 
 }
