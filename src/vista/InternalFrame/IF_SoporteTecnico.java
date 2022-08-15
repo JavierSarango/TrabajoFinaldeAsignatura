@@ -10,8 +10,12 @@ import controlador.tda.lista.ListaEnlazada;
 import controlador.utiles.Utilidades;
 import controlador.utiles.enums.TipoEquipo;
 import controlador.utiles.enums.TipoOrdenacion;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.equipo;
@@ -27,6 +31,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private ModeloTablaEquipos mte = new ModeloTablaEquipos();
     private EquipoElectronicoDao aux = new EquipoElectronicoDao();
     private Integer id_equipo;
+    foto f = new foto();
     private TipoEquipo tipoequipo;
     Validacion vali = new Validacion();
 
@@ -174,6 +179,19 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         tbl_tabla.updateUI();
 
     }
+    class foto extends JLabel {
+
+        private Image foto;
+
+        @Override
+        public void paint(Graphics g) {
+            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-03.jpg")).getImage();
+            g.drawImage(foto, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,8 +203,6 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -218,42 +234,37 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         radioD = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         txtcliente = new javax.swing.JTextField();
+        jLabel11 =  new foto();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Equipos Electronicos");
-        jPanel1.add(jLabel15);
-        jLabel15.setBounds(290, 10, 243, 33);
-        jPanel1.add(jSeparator1);
-        jSeparator1.setBounds(30, 40, 840, 10);
-
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(null);
 
         jLabel4.setText("Marca:");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(20, 50, 60, 19);
+        jLabel4.setBounds(20, 50, 60, 16);
 
         jLabel3.setText("Precio Servicio:");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(590, 50, 110, 30);
         jPanel2.add(txtmarca);
-        txtmarca.setBounds(90, 50, 150, 25);
+        txtmarca.setBounds(90, 50, 150, 22);
 
         jLabel1.setText("Cliente:");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(20, 10, 60, 19);
+        jLabel1.setBounds(20, 10, 60, 16);
 
         jLabel5.setText("Modelo:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(20, 90, 60, 19);
+        jLabel5.setBounds(20, 90, 60, 16);
         jPanel2.add(txtestadoIngreso);
         txtestadoIngreso.setBounds(410, 10, 150, 50);
 
@@ -267,7 +278,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(txtprecioServicio);
-        txtprecioServicio.setBounds(700, 50, 150, 25);
+        txtprecioServicio.setBounds(700, 50, 150, 22);
         jPanel2.add(txtdescripProblema);
         txtdescripProblema.setBounds(410, 80, 150, 50);
 
@@ -275,7 +286,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel7);
         jLabel7.setBounds(270, 80, 130, 30);
         jPanel2.add(txtmodelo);
-        txtmodelo.setBounds(90, 90, 150, 25);
+        txtmodelo.setBounds(90, 90, 150, 22);
 
         jLabel8.setText("Estado Ingreso:");
         jPanel2.add(jLabel8);
@@ -283,7 +294,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
 
         cbxtipoEquipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(cbxtipoEquipo);
-        cbxtipoEquipo.setBounds(700, 10, 150, 25);
+        cbxtipoEquipo.setBounds(700, 10, 150, 22);
 
         btnmodificar.setText("Modificar");
         btnmodificar.addActionListener(new java.awt.event.ActionListener() {
@@ -292,7 +303,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnmodificar);
-        btnmodificar.setBounds(520, 160, 120, 25);
+        btnmodificar.setBounds(520, 160, 120, 22);
 
         btnguarnar1.setText("Guardar");
         btnguarnar1.addActionListener(new java.awt.event.ActionListener() {
@@ -301,7 +312,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnguarnar1);
-        btnguarnar1.setBounds(390, 160, 120, 25);
+        btnguarnar1.setBounds(390, 160, 120, 22);
 
         btneliminar.setText("Eliminar");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -310,15 +321,15 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btneliminar);
-        btneliminar.setBounds(660, 160, 86, 25);
+        btneliminar.setBounds(660, 160, 73, 22);
 
         jLabel9.setText("Cargador:");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(590, 90, 80, 19);
+        jLabel9.setBounds(590, 90, 80, 16);
 
         cbcargador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No tiene", "Si tiene" }));
         jPanel2.add(cbcargador);
-        cbcargador.setBounds(700, 90, 150, 25);
+        cbcargador.setBounds(700, 90, 150, 22);
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -327,12 +338,12 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(jButton1);
-        jButton1.setBounds(20, 160, 120, 25);
+        jButton1.setBounds(20, 160, 120, 22);
         jPanel2.add(txtRazonSocial);
-        txtRazonSocial.setBounds(90, 10, 150, 25);
+        txtRazonSocial.setBounds(90, 10, 150, 22);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 60, 860, 200);
+        jPanel2.setBounds(10, 100, 860, 190);
 
         tbl_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -361,9 +372,9 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
 
         cbx_datoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Razon_Social", "Tipo_Equipo", "Marca", "Modelo" }));
         jPanel1.add(cbx_datoBusqueda);
-        cbx_datoBusqueda.setBounds(20, 360, 120, 25);
+        cbx_datoBusqueda.setBounds(20, 360, 120, 22);
         jPanel1.add(txt_busqueda);
-        txt_busqueda.setBounds(150, 360, 130, 25);
+        txt_busqueda.setBounds(150, 360, 130, 22);
 
         btnbuscar.setText("Buscar");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -372,7 +383,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(btnbuscar);
-        btnbuscar.setBounds(290, 360, 100, 25);
+        btnbuscar.setBounds(290, 360, 100, 22);
 
         radioA.setText("A");
         radioA.addItemListener(new java.awt.event.ItemListener() {
@@ -386,7 +397,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(radioA);
-        radioA.setBounds(400, 360, 32, 23);
+        radioA.setBounds(400, 360, 31, 20);
 
         radioD.setText("D");
         radioD.addItemListener(new java.awt.event.ItemListener() {
@@ -405,13 +416,15 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(radioD);
-        radioD.setBounds(460, 360, 50, 23);
+        radioD.setBounds(460, 360, 50, 20);
 
         jLabel10.setText("Nombre  Cliente:");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(540, 360, 120, 19);
+        jLabel10.setBounds(540, 360, 120, 16);
         jPanel1.add(txtcliente);
-        txtcliente.setBounds(670, 360, 160, 25);
+        txtcliente.setBounds(670, 360, 160, 22);
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(0, 0, 880, 70);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -553,7 +566,7 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -565,7 +578,6 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JRadioButton radioA;
     private javax.swing.JRadioButton radioD;
     private javax.swing.JTable tbl_tabla;
