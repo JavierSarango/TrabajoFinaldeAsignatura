@@ -178,41 +178,20 @@ public class ProveedorDao extends AdaptadorDao<Proveedor> {
         }
     }
     
-   public  boolean dbexisteRegistro(Connection Conn, String id_Proveedor){
-         Statement oSt = null;
-         ResultSet oRs = null;
-         String sSQL= " ";
-         boolean dbexisteRegistro= false; 
-
-         try{
-             Conn.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-             sSQL = "SELECT * FROM proveedor WHERE id_Proveedor ='" + id_Proveedor + "'";
-             oSt = Conn.createStatement();
-             oRs = oSt.executeQuery(sSQL);
-
-             if(oRs.next()){
-                if(oRs.getRow() > 0){
-                    dbexisteRegistro= true;
-                }
-             }
-             if (oSt != null) {oSt.close();oSt = null;}
-             if (oRs != null) {oRs.close();oRs = null;}
-         }catch(SQLException err){
-
-             oSt = null;
-             oRs = null;
-             sSQL=null;
-         }catch(Exception err){
-
-             oSt = null;
-             oRs = null;
-             sSQL=null;  
-         }finally{
-             oSt = null;
-             oRs = null;
-             sSQL=null;
-         }
-         return dbexisteRegistro;
- }
-
+   public boolean verificarexistente(String RUC) {        
+        boolean res = false;       
+        String verificar = "SELECT 5 FROM proveedor WHERE identificacion = "+RUC;
+        try{
+            ps = c.getConecction().prepareStatement(verificar);            
+            rs = ps.executeQuery();        
+            if(rs.next())
+                res = true;
+        } catch(Exception e){
+            System.err.print("Ha ocurrido un error: "+ e.getMessage());
+        } 
+        finally{
+            ps = null;
+        }        
+        return res;
+    }
 }

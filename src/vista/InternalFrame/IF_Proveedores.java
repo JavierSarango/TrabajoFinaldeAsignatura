@@ -111,7 +111,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         txtCuenta.setText("");
         txtemail.setText("");
         txtpaginaweb.setText("");
-        BtnGuardar.setText("");
         proveedordao.setProveedores(null);
     }
 
@@ -147,31 +146,20 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             System.out.print("Llega 3");
             if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
                 if (proveedordao.getProveedores().getId_Proveedor() == null) {
-                    if (proveedordao.guardar()) {
-                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                        limpiar();
-                        cargarTabla();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                        if (proveedordao.guardar()) {
+                            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                            limpiar();
+                            cargarTabla();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    
                 }
             } else {//ACTUALIZA LOS DATOS
                 try {
-//                    modi();
-//                    proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
-//                            proveedordao.getProveedores().getProvincia(), proveedordao.getProveedores().getDireccion(),
-//                            proveedordao.getProveedores().getIdentificacion(), proveedordao.getProveedores().getRazonSocial(),
-//                            proveedordao.getProveedores().getTelefono(), proveedordao.getProveedores().getCelular(), proveedordao.getProveedores().getTelefono_opcional(),
-//                            proveedordao.getProveedores().getCorreo(),
-//                            proveedordao.getProveedores().getPagina_web(), proveedordao.getProveedores().getBanco(),
-//                            proveedordao.getProveedores().getTipocuenta(), proveedordao.getProveedores().getNro_cuenta(),
-////                            proveedordao.getProveedores().getCredito(),
-////                            proveedordao.getProveedores().getId_Proveedor());
-//                    JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-//                    limpiar();
-//                    cargarTabla();
+
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
+                    
                 }
             }
 
@@ -305,7 +293,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         if (seleccionar >= 0) {
             Integer id = Integer.parseInt(String.valueOf(tbl_tabla.getValueAt(seleccionar, 0)));
             proveedordao.getProveedores().setId_Proveedor(id);
-            BtnGuardar.setText("Actualizar");
+//            BtnGuardar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -342,8 +330,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         }
 
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
