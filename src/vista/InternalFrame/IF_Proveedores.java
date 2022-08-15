@@ -281,7 +281,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 aux = proveedordao.busquedasecuencial(txtbuscar.getText(), 4);
                 break;
             default:
-                proveedordao.ordenar();
+//                proveedordao.ordenar();
                 aux = modelotablaproveedor.getLista();
         }
         modelotablaproveedor.setLista(aux);
