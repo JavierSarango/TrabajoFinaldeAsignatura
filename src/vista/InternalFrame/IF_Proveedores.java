@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Proveedor;
 import vista.CargarFoto;
@@ -43,17 +44,17 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     fondoLabel logotipo = new fondoLabel();
     fondoPieLabel pie = new fondoPieLabel();
     foto foto = new foto();
-    
+
     //Variables
     private int pos = -1;
     File fichero;
     private int fila = -1;
-    
+
     //Conexion base de datos
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    
+
     //Iconos a botones
     ImageIcon guardar = new ImageIcon("src/RecursosMultimedia/fac_save.png");
     ImageIcon eliminar = new ImageIcon("src/RecursosMultimedia/fac_remove.png");
@@ -62,6 +63,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     ImageIcon lbl = new ImageIcon("src/RecursosMultimedia/user-icon.png");
     ImageIcon bu = new ImageIcon("src/RecursosMultimedia/buscar.gif");
     ImageIcon editar = new ImageIcon("src/RecursosMultimedia/Actions-user-properties-icon.png");
+    ImageIcon act = new ImageIcon("src/RecursosMultimedia/symbol-check-icon.png");
 
     /**
      * Creates new form IF_Proveedores
@@ -70,7 +72,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         initComponents();
         cargarTabla();
         Iconos();
-        restricciones();
     }
 
     /**
@@ -83,6 +84,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         BtnModificar.setIcon(editar);
         BtnCargarFoto.setIcon(cargar);
         Btnbuscar.setIcon(bu);
+        modd.setIcon(act);
         icono.setIcon(lbl);
     }
 
@@ -111,7 +113,6 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         txtCuenta.setText("");
         txtemail.setText("");
         txtpaginaweb.setText("");
-        BtnGuardar.setText("");
         proveedordao.setProveedores(null);
     }
 
@@ -147,24 +148,20 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             System.out.print("Llega 3");
             if ((BtnGuardar.getText().equalsIgnoreCase("GUARDAR"))) {
                 if (proveedordao.getProveedores().getId_Proveedor() == null) {
-                    if (proveedordao.guardar()) {
-                        JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                        limpiar();
-                        cargarTabla();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                        if (proveedordao.guardar()) {
+                            JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                            limpiar();
+                            cargarTabla();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    
                 }
             } else {//ACTUALIZA LOS DATOS
                 try {
-//                    if (proveedordao.actualizar(txtAresponsable.getText(), cbxProvincia.getSelectedItem().toString(), txtdireccion.getText(), txtRuc.getText(), txtRazonS.getText(), txttfijo.getText(),
-//                            txtcelular.getText(), txtTelefonoop.getText(), txtemail.getText(), txtpaginaweb.getText(), cbxBanco.getSelectedItem().toString(), cbxTipo.getSelectedItem().toString(), txtCuenta.getText(), cbxcredito.getSelectedItem().toString(), p.obtenerDato(0).getId_Proveedor())) {
-//                        JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-//                        limpiar();
-//                        cargarTabla();
-//                    }
+
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "NO SE HA PODIDO ACTUALIZAR LOS DATOS");
+                    
                 }
             }
 
@@ -219,51 +216,49 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         }
     }
 
-    private boolean modi() throws SQLException {
-        Connection con = null;
-        String sql = ("UPDATE proveedor SET agente_responsable =?, provincia =?, direccion =?, identificacion =?, razonSocial =?, "
-                + "telefono =?, celular =?,telefono_opcional =?, correo=?, pagina_web=?, banco=?, tipocuenta=?, nro_cuenta=?, credito=? WHERE id_Proveedor =?");
-        ps = con.prepareStatement(sql);
+    private void modi() throws Exception {
         try {
-            int id = 0;
-            for (int i = 0; i < modelotablaproveedor.getRowCount(); i++) {
-                id = Integer.parseInt(tbl_tabla.getValueAt(i, 1).toString());
+            if (txtAresponsable.getText().trim().isEmpty() || txtdireccion.getText().trim().isEmpty() || txtcelular.getText().trim().isEmpty()
+                    || txtCuenta.getText().trim().isEmpty() || txtRuc.getText().trim().isEmpty() || txttfijo.getText().trim().isEmpty() || txtTelefonoop.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+
+                proveedordao.getProveedores().setAgente_responsable(txtAresponsable.getText());
+                proveedordao.getProveedores().setProvincia(cbxProvincia.getSelectedItem().toString());
+                proveedordao.getProveedores().setDireccion(txtdireccion.getText());
+                proveedordao.getProveedores().setIdentificacion(txtRuc.getText());
+                proveedordao.getProveedores().setRazonSocial(txtRazonS.getText());
+                proveedordao.getProveedores().setTelefono(txttfijo.getText());
+                proveedordao.getProveedores().setTelefono_opcional(txtTelefonoop.getText());
+                proveedordao.getProveedores().setCelular(txtcelular.getText());
+                proveedordao.getProveedores().setCorreo(txtemail.getText());
+                proveedordao.getProveedores().setPagina_web(txtpaginaweb.getText());
+                proveedordao.getProveedores().setBanco(cbxBanco.getSelectedItem().toString());
+                proveedordao.getProveedores().setTipocuenta(cbxTipo.getSelectedItem().toString());
+                proveedordao.getProveedores().setNro_cuenta(txtCuenta.getText());
+                proveedordao.getProveedores().setCredito((cbxcredito.getSelectedItem().toString()));
+
+                proveedordao.actualizar(proveedordao.getProveedores().getAgente_responsable(),
+                        proveedordao.getProveedores().getProvincia(),
+                        proveedordao.getProveedores().getDireccion(),
+                        proveedordao.getProveedores().getIdentificacion(),
+                        proveedordao.getProveedores().getRazonSocial(),
+                        proveedordao.getProveedores().getTelefono(),
+                        proveedordao.getProveedores().getCelular(),
+                        proveedordao.getProveedores().getTelefono_opcional(),
+                        proveedordao.getProveedores().getCorreo(),
+                        proveedordao.getProveedores().getPagina_web(),
+                        proveedordao.getProveedores().getBanco(),
+                        proveedordao.getProveedores().getTipocuenta(),
+                        proveedordao.getProveedores().getNro_cuenta(),
+                        proveedordao.getProveedores().getCredito(),
+                        proveedordao.getProveedores().getId_Proveedor());
+                cargarTabla();
+
             }
-            ps.setInt(1, id);
-            ps.setString(2, txtAresponsable.getText());
-            ps.setString(3, cbxProvincia.getSelectedItem().toString());
-            ps.setString(4, txtdireccion.getText());
-            ps.setString(5, txtRuc.getText());
-            ps.setString(6, txtRazonS.getText());
-            ps.setString(7, txttfijo.getText());
-            ps.setString(8, txtcelular.getText());
-            ps.setString(9, txtTelefonoop.getText());
-            ps.setString(10, txtemail.getText());
-            ps.setString(11, txtpaginaweb.getText());
-            ps.setString(12, cbxBanco.getSelectedItem().toString());
-            ps.setString(13, cbxTipo.getSelectedItem().toString());
-            ps.setString(14, txtCuenta.getText());
-            ps.setString(15, cbxcredito.getSelectedItem().toString());
-            ps.executeUpdate();
-            ps.close();
-            return true;
+        } catch (Exception e) {
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            return false;
         }
-
-    }
-
-    public void restricciones() {
-        RestrictedTextField i = new RestrictedTextField(txtRuc);
-        i.setLimit(13);
-        RestrictedTextField n = new RestrictedTextField(txtcelular);
-        n.setLimit(10);
-        RestrictedTextField a = new RestrictedTextField(txttfijo);
-        a.setLimit(10);
-        RestrictedTextField c = new RestrictedTextField(txtTelefonoop);
-        c.setLimit(10);
     }
 
     /**
@@ -286,7 +281,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
                 aux = proveedordao.busquedasecuencial(txtbuscar.getText(), 4);
                 break;
             default:
-                proveedordao.ordenar();
+//                proveedordao.ordenar();
                 aux = modelotablaproveedor.getLista();
         }
         modelotablaproveedor.setLista(aux);
@@ -294,13 +289,13 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         tbl_tabla.updateUI();
     }
 
-    public void seleccionar() {
+    public void seleccionar_eliminar() {
         int seleccionar = tbl_tabla.getSelectedRow();
 
         if (seleccionar >= 0) {
             Integer id = Integer.parseInt(String.valueOf(tbl_tabla.getValueAt(seleccionar, 0)));
             proveedordao.getProveedores().setId_Proveedor(id);
-            BtnGuardar.setText("Actualizar");
+//            BtnGuardar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -315,6 +310,8 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         limpiar();
         int seleccionar = tbl_tabla.getSelectedRow();
         if (seleccionar >= 0) {
+            Integer id = Integer.parseInt(String.valueOf(tbl_tabla.getValueAt(seleccionar, 0)));
+            proveedordao.getProveedores().setId_Proveedor(id);
             txtAresponsable.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 1)));
             cbxProvincia.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 2)));
             txtdireccion.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 3)));
@@ -384,6 +381,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         cbxBanco = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtRazonS = new javax.swing.JTextField();
+        modd = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_tabla = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -544,7 +542,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             }
         });
         jPanel5.add(BtnModificar);
-        BtnModificar.setBounds(330, 270, 160, 53);
+        BtnModificar.setBounds(230, 270, 160, 53);
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -810,6 +808,17 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
         jPanel5.add(txtRazonS);
         txtRazonS.setBounds(280, 220, 187, 26);
 
+        modd.setBackground(new java.awt.Color(153, 204, 255));
+        modd.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        modd.setText("ACTUALIZAR");
+        modd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moddActionPerformed(evt);
+            }
+        });
+        jPanel5.add(modd);
+        modd.setBounds(420, 270, 160, 53);
+
         tbl_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -1031,7 +1040,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         try {
             // TODO add your handling code here:
-            seleccionar();
+            editar();
         } catch (Exception ex) {
             Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1117,7 +1126,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private void tbl_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablaMouseClicked
 
         try {
-            seleccionar();
+            seleccionar_eliminar();
         } catch (Exception ex) {
 //            Logger.getLogger(Frm_SoporteTectico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1138,6 +1147,21 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private void txttfijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttfijoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txttfijoActionPerformed
+
+    private void moddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moddActionPerformed
+
+        try {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de actualizar el registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                modi();
+                JOptionPane.showMessageDialog(null, "Datos actualizados correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+                cargarTabla();
+            } else if (opcion == JOptionPane.NO_OPTION) {
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(IF_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_moddActionPerformed
     /*
     Agrega una imagen al JLabel
      */
@@ -1223,6 +1247,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jlabelPie;
     private javax.swing.JLabel lblFoto;
+    private javax.swing.JButton modd;
     private javax.swing.JTable tbl_tabla;
     private javax.swing.JTextField txtAresponsable;
     private javax.swing.JTextField txtCuenta;
