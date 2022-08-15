@@ -326,7 +326,7 @@ public class IF_Proveedores extends javax.swing.JInternalFrame {
             cbxTipo.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 12)));
             txtCuenta.setText(String.valueOf(tbl_tabla.getValueAt(seleccionar, 13)));
             cbxcredito.setSelectedItem(String.valueOf(tbl_tabla.getValueAt(seleccionar, 14)));
-            BtnGuardar.setText("Actualizar");
+//            BtnGuardar.setText("Actualizar");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar fila que desee cambiar", "Error", JOptionPane.ERROR_MESSAGE);
         }
