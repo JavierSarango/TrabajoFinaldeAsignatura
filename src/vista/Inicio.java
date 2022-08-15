@@ -28,6 +28,7 @@ public class Inicio {
                 
                 if(i==100){
                     pre.setVisible(false);
+                    
                      Frm_Login iniciar= new Frm_Login();
                     iniciar.setVisible(true);
                 }

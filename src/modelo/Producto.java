@@ -15,8 +15,7 @@ import modelo.Proveedor;
 public class Producto implements Serializable{
     private Integer idProducto;
     private Integer codigo;
-    private String nombre;
-    //private Boolean estado;
+    private String nombre; ;
     private String descripcion; 
     private Double precioCompra;
     private Double precioVenta;
