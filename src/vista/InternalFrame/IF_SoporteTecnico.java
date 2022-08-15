@@ -527,7 +527,8 @@ public class IF_SoporteTecnico extends javax.swing.JInternalFrame {
 
     private void txtprecioServicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioServicioKeyTyped
         // TODO add your handling code here:
-        vali.validaSeaNumero(evt, txtprecioServicio, 10);
+       
+        vali.valNumReal(evt, txtmarca, 0);
 
     }//GEN-LAST:event_txtprecioServicioKeyTyped
 
