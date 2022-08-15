@@ -61,8 +61,6 @@ public class Frm_Login extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         JpanelEntrar = new javax.swing.JPanel();
         loginentrar = new javax.swing.JLabel();
-        jPanelRegistrarse = new javax.swing.JPanel();
-        loginregistrarse = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -219,7 +217,9 @@ public class Frm_Login extends javax.swing.JFrame {
         JpanelEntrar.setLayout(JpanelEntrarLayout);
         JpanelEntrarLayout.setHorizontalGroup(
             JpanelEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginentrar, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JpanelEntrarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(loginentrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         JpanelEntrarLayout.setVerticalGroup(
             JpanelEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,42 +229,7 @@ public class Frm_Login extends javax.swing.JFrame {
         );
 
         bg.add(JpanelEntrar);
-        JpanelEntrar.setBounds(400, 400, 150, 40);
-
-        jPanelRegistrarse.setBackground(new java.awt.Color(102, 205, 211));
-
-        loginregistrarse.setBackground(new java.awt.Color(153, 214, 243));
-        loginregistrarse.setFont(new java.awt.Font("Roboto Condensed", 1, 14)); // NOI18N
-        loginregistrarse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        loginregistrarse.setText("REGISTRARSE");
-        loginregistrarse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        loginregistrarse.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loginregistrarseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                loginregistrarseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                loginregistrarseMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelRegistrarseLayout = new javax.swing.GroupLayout(jPanelRegistrarse);
-        jPanelRegistrarse.setLayout(jPanelRegistrarseLayout);
-        jPanelRegistrarseLayout.setHorizontalGroup(
-            jPanelRegistrarseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginregistrarse, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-        );
-        jPanelRegistrarseLayout.setVerticalGroup(
-            jPanelRegistrarseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRegistrarseLayout.createSequentialGroup()
-                .addComponent(loginregistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        bg.add(jPanelRegistrarse);
-        jPanelRegistrarse.setBounds(630, 400, 140, 40);
+        JpanelEntrar.setBounds(490, 370, 150, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosMultimedia/Manager-icon.png"))); // NOI18N
         bg.add(jLabel1);
@@ -318,14 +283,6 @@ public class Frm_Login extends javax.swing.JFrame {
         exitTxt.setForeground(Color.black);
     }//GEN-LAST:event_exitTxtMouseExited
 
-    private void loginregistrarseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginregistrarseMouseEntered
-        jPanelRegistrarse.setBackground(new Color(0, 156, 223));
-    }//GEN-LAST:event_loginregistrarseMouseEntered
-
-    private void loginregistrarseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginregistrarseMouseExited
-        jPanelRegistrarse.setBackground(new Color(0, 134, 190));
-    }//GEN-LAST:event_loginregistrarseMouseExited
-
     private void userTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxtMousePressed
         if (userTxt.getText().equals("Ingrese su nombre de usuario")) {
             userTxt.setText("");
@@ -347,10 +304,6 @@ public class Frm_Login extends javax.swing.JFrame {
             userTxt.setForeground(Color.gray);
         }
     }//GEN-LAST:event_passTxtMousePressed
-
-    private void loginregistrarseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginregistrarseMouseClicked
-
-    }//GEN-LAST:event_loginregistrarseMouseClicked
 
     private void passTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passTxtKeyReleased
 
@@ -517,12 +470,10 @@ public class Frm_Login extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanelRegistrarse;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loginentrar;
-    private javax.swing.JLabel loginregistrarse;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel passLabel;
     private javax.swing.JPasswordField passTxt;
