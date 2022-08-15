@@ -71,7 +71,6 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
             int select = cbxTipoIdentificacion.getSelectedIndex();
             switch (select) {
                 case 0:
-                    if (validacion.validarRUC(txtIdentificacion.getText())== true) {
                         if (validacion.validaCorreo(txtCorreo.getText()) == true) {
                             cc.getCliente().setRazonSocial(txtRazonSocial.getText());
                             cc.getCliente().setCorreo(txtCorreo.getText());
@@ -90,9 +89,7 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
                         } else {
                             JOptionPane.showMessageDialog(null, "Correo invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "RUC invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                   
 
                     break;
                 case 1:
@@ -116,14 +113,14 @@ public class IF_Cliente extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(null, "Correo invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "RUC invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "CEDULA invalido", "Ok", JOptionPane.INFORMATION_MESSAGE);
                     }
                     break;
                     default:
             }
         }
     }
-private void modificarrrrr() throws Exception {
+        private void modificarrrrr() throws Exception {
 
                 if (txtRazonSocial.getText().trim().isEmpty() || txtCelular.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty()
                 || txtIdentificacion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty()) {

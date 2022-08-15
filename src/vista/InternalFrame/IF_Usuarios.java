@@ -73,12 +73,17 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
                 ud.getUsuario().setTipoIdentificacion(cbxTipoIdentificacion.getSelectedItem().toString());
                 ud.getUsuario().setIdentificacion(txtIdentifiacion.getText());
                 ud.getUsuario().setDireccion(txtDireccion.getText());
+                if(ud.getUsuario().getId_usuario()== null){
                 if (ud.guardar()) {
                     limpiar();
                     JOptionPane.showMessageDialog(null, "Registro Completo", "Ok", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al registrarse", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Error correo", "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -503,13 +508,13 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                  int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de modificar ?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de modificar ?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (opcion == JOptionPane.YES_OPTION) {
-                      try {
-                          modificarrrrr();
-                      } catch (Exception ex) {
-                          Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-                      }
+            try {
+                modificarrrrr();
+            } catch (Exception ex) {
+                Logger.getLogger(IF_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "Se modifico correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
             cargarTabla();
         } else if (opcion == JOptionPane.NO_OPTION) {
@@ -519,7 +524,7 @@ public class IF_Usuarios extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro de eliminar registro?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (opcion == JOptionPane.YES_OPTION) {
-                  ud.eliminarmejorado(ud.getUsuario().getId_usuario(), "id_usuario");
+            ud.eliminarmejorado(ud.getUsuario().getId_usuario(), "id_usuario");
             JOptionPane.showMessageDialog(null, "Se elimino correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
             cargarTabla();
         } else if (opcion == JOptionPane.NO_OPTION) {
