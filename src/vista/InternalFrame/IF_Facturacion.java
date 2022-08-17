@@ -375,7 +375,7 @@ class foto extends JLabel {
 
         @Override
         public void paint(Graphics g) {
-            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-02.jpg")).getImage();
+            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-07.jpg")).getImage();
             g.drawImage(foto, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
