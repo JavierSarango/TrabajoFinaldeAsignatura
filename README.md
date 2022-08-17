@@ -44,4 +44,4 @@ Para este proyecto se lo dividio en diferentes modulos para cada integrante del 
 | Nathaly Bravo        | Proveedores                         |
 | John Coronel         | Facturacion                         |
 | Diego Marquez        | Inventario                          |
-| Javier Sarango       | Ventas-Resumen Ventas               |
+| Javier Sarango       | Ventas                              |
