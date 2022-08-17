@@ -8,12 +8,16 @@ import Validacion.Validacion;
 import controlador.FacturaController;
 import controlador.dao.FacturaDao;
 import controlador.tda.lista.ListaEnlazada;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.DetalleFactura;
@@ -32,6 +36,8 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
     private Validacion validar = new Validacion();
+    foto f = new foto();
+    ImageIcon bu = new ImageIcon("src/RecursosMultimedia/buscar.gif");
  
     /**
      * Creates new form IF_Facturacion
@@ -44,6 +50,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTEmail.setEnabled(false);
         jTableVentas.setEnabled(false);
         jBFacturar.setEnabled(false);
+        btBuscar.setIcon(bu);
     }
 
     public void limpiar() {
@@ -118,6 +125,9 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 =  new foto();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel8 = new javax.swing.JPanel();
@@ -146,6 +156,9 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
         jPanel2.add(jSeparator1);
         jSeparator1.setBounds(20, 80, 730, 20);
@@ -156,13 +169,13 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
 
         jTableVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jTableVentas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,12 +186,16 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTableVentas);
 
         jPanel8.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 40, 690, 270);
+        jScrollPane1.setBounds(10, 40, 690, 110);
 
+        jLabel6.setFont(new java.awt.Font("Sitka Heading", 1, 12)); // NOI18N
         jLabel6.setText("Ventas Realizadas al Cliente");
         jPanel8.add(jLabel6);
         jLabel6.setBounds(10, 10, 170, 16);
 
+        jBFacturar.setBackground(new java.awt.Color(153, 204, 255));
+        jBFacturar.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        jBFacturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosMultimedia/invoice-icon.png"))); // NOI18N
         jBFacturar.setText("Facturar");
         jBFacturar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,20 +203,20 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             }
         });
         jPanel8.add(jBFacturar);
-        jBFacturar.setBounds(590, 330, 90, 25);
+        jBFacturar.setBounds(570, 170, 130, 38);
 
         jPanel2.add(jPanel8);
-        jPanel8.setBounds(10, 240, 730, 370);
+        jPanel8.setBounds(10, 250, 730, 230);
 
-        jLabel5.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel5.setText("TELEFONO MOVIL:");
+        jLabel5.setFont(new java.awt.Font("Sitka Heading", 1, 12)); // NOI18N
+        jLabel5.setText("Telefono movil:");
         jPanel2.add(jLabel5);
         jLabel5.setBounds(460, 100, 150, 30);
         jPanel2.add(jTtelefono);
-        jTtelefono.setBounds(460, 130, 160, 22);
+        jTtelefono.setBounds(460, 130, 260, 22);
 
-        jLabel7.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel7.setText("EMAIL:");
+        jLabel7.setFont(new java.awt.Font("Sitka Heading", 1, 12)); // NOI18N
+        jLabel7.setText("E-mail:");
         jPanel2.add(jLabel7);
         jLabel7.setBounds(460, 150, 100, 30);
 
@@ -209,16 +226,18 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jPanel2.add(jSeparator2);
         jSeparator2.setBounds(10, 230, 730, 20);
 
-        jLabel9.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel9.setText("DIRECCIÓN COMPRADOR:");
+        jLabel9.setFont(new java.awt.Font("Sitka Heading", 1, 12)); // NOI18N
+        jLabel9.setText("Dirección comprador:");
         jPanel2.add(jLabel9);
         jLabel9.setBounds(20, 120, 160, 30);
 
+        jLabel10.setFont(new java.awt.Font("Sitka Heading", 1, 12)); // NOI18N
         jLabel10.setText("Busqueda del Cliente");
         jPanel2.add(jLabel10);
         jLabel10.setBounds(20, 10, 190, 30);
 
-        jLabel3.setText("Identificador:");
+        jLabel3.setFont(new java.awt.Font("Sitka Heading", 1, 12)); // NOI18N
+        jLabel3.setText("Identificación:");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(20, 40, 80, 30);
 
@@ -230,6 +249,8 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jPanel2.add(jTCedula);
         jTCedula.setBounds(110, 40, 280, 30);
 
+        btBuscar.setBackground(new java.awt.Color(153, 204, 255));
+        btBuscar.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
         btBuscar.setText("Buscar");
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,9 +267,10 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jPanel2.add(jScrollPane3);
         jScrollPane3.setBounds(20, 150, 410, 70);
 
+        jLabel2.setFont(new java.awt.Font("Sitka Heading", 1, 12)); // NOI18N
         jLabel2.setText("Nombre:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(20, 90, 50, 16);
+        jLabel2.setBounds(20, 90, 80, 20);
 
         jTNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,25 +282,64 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jPanel2.add(jSeparator3);
         jSeparator3.setBounds(20, 10, 730, 20);
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(519, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 792, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -308,10 +369,23 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTNombreActionPerformed
 
+class foto extends JLabel {
 
+        private Image foto;
+
+        @Override
+        public void paint(Graphics g) {
+            foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-02.jpg")).getImage();
+            g.drawImage(foto, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton jBFacturar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -319,7 +393,9 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
