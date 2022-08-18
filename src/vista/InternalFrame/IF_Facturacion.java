@@ -7,11 +7,11 @@ package vista.InternalFrame;
 import Validacion.Validacion;
 import controlador.FacturaController;
 import controlador.dao.FacturaDao;
+import controlador.dao.ProductoDao;
 import controlador.tda.lista.ListaEnlazada;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -23,6 +23,7 @@ import modelo.Cliente;
 import modelo.DetalleFactura;
 import modelo.DetalleVenta;
 import modelo.Factura;
+import modelo.Producto;
 import modelo.Venta;
 import vista.ModeloTablas.ModeloTablaVentas;
 
@@ -36,9 +37,10 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
     private Validacion validar = new Validacion();
+    private ProductoDao pd = new ProductoDao();
     foto f = new foto();
     ImageIcon bu = new ImageIcon("src/RecursosMultimedia/buscar.gif");
- 
+
     /**
      * Creates new form IF_Facturacion
      */
@@ -68,20 +70,25 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTDireccionCliente.setText(cliente.getDireccion());
         jTEmail.setText(cliente.getIdentificacion());
         jTtelefono.setText(cliente.getTelefono());
-        DatosVentas(cliente.getId_cliente());
+        DatosVentas(cliente);
         jTableVentas.setEnabled(true);
         jBFacturar.setEnabled(true);
     }
 
-    public void DatosVentas(Integer id) throws Exception {
-        ListaEnlazada<Venta> listaVentas = fc.obtenerVentas(id);
+    public void DatosVentas(Cliente cliente) throws Exception {
+        ListaEnlazada<Venta> listaVentas = fc.obtenerVentas(cliente.getId_cliente());
         ListaEnlazada<DetalleVenta> listaDetalleVenta = fc.obtenerDetallesVentas(listaVentas);
-        cargarTableVentas(listaVentas, listaDetalleVenta);
+        ListaEnlazada<Producto> listaproducto = new ListaEnlazada<>();
+        for (int i = 0; i < listaDetalleVenta.getSize(); i++) {
+            listaproducto.insertar(pd.listarIDProducto(listaDetalleVenta.obtenerDato(i).getId_Producto()));
+        }
+        cargarTableVentas(listaVentas, listaDetalleVenta, listaproducto, cliente);
     }
 
-    public void cargarTableVentas(ListaEnlazada lista1, ListaEnlazada lista2) {
+    public void cargarTableVentas(ListaEnlazada lista1, ListaEnlazada lista2, ListaEnlazada lista3, Cliente cliente) {
         MTVentas.setListaVentas(lista1);
         MTVentas.setListaDetalle(lista2);
+        MTVentas.setListaProducto(lista3);
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
@@ -99,6 +106,10 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             try {
                 ListaEnlazada<Venta> listaVentas = fc.obtenerVentas(cliente1.getId_cliente());
                 ListaEnlazada<DetalleVenta> listaDetalleVenta = fc.obtenerDetallesVentas(listaVentas);
+                ListaEnlazada<Producto> listaproducto = new ListaEnlazada<>();
+                for (int i = 0; i < listaDetalleVenta.getSize(); i++) {
+                    listaproducto.insertar(pd.listarIDProducto(listaDetalleVenta.obtenerDato(i).getId_Producto()));
+                }
                 Factura fact = new Factura();
                 fact.setCodigoFactura(String.valueOf(fd.listarfactura().getSize() + 1));
                 DetalleFactura detalleFact = new DetalleFactura();
@@ -108,7 +119,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
                 detalleFact.setId_ventas(jTableVentas.getSelectedColumn() + 1);
                 fd.GuardarFactura(fact);
                 fd.GuardarDetalleFactura(detalleFact);
-                fc.imprimirDatosFactura(cliente1, listaVentas, listaDetalleVenta, fact, detalleFact);
+                fc.imprimirDatosFactura(listaproducto, cliente1, listaVentas, listaDetalleVenta, fact, detalleFact);
                 limpiar();
             } catch (Exception ex) {
                 Logger.getLogger(IF_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -369,7 +380,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTNombreActionPerformed
 
-class foto extends JLabel {
+    class foto extends JLabel {
 
         private Image foto;
 
