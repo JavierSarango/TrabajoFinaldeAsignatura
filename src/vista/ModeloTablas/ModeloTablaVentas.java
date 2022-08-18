@@ -85,33 +85,32 @@ public class ModeloTablaVentas extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int i, int i1) {
-        try {
-            Venta p = listaVentas.obtenerDato(i);
-            DetalleVenta q = listaDetalle.obtenerDato(i);
-            Producto z = listaProducto.obtenerDato(i);
-            Cliente x = cliente;
-            switch (i1) {
-                case 0:
-                    return (p.getId_Venta());
-                case 1:
-                    return x.getRazonSocial();
-                case 2:
-                    return p.getNrodeSerieVenta();
-                case 3:
-                    return p.getFechaVenta();
-                case 4:
-                    return z.getNombre();
-                case 5:
-                    return q.getCantidad();
-                case 6:
-                    return q.getPrecioVenta();
-                case 7:
-                    return p.getMonto();
-                default:
-                    return null;
+        for (int j = 0; j < listaVentas.getSize(); j++) {
+            try {
+                switch (i1) {
+                    case 0:
+                        return (listaVentas.obtenerDato(j).getId_Venta());
+                    case 1:
+                        return cliente.getRazonSocial();
+                    case 2:
+                        return listaVentas.obtenerDato(j).getNrodeSerieVenta();
+                    case 3:
+                        return listaVentas.obtenerDato(j).getFechaVenta();
+                    case 4:
+                        return listaProducto.obtenerDato(j).getNombre();
+                    case 5:
+                        return listaDetalle.obtenerDato(j).getCantidad();
+                    case 6:
+                        return listaDetalle.obtenerDato(j).getPrecioVenta();
+                    case 7:
+                        return listaVentas.obtenerDato(j).getMonto();
+                    default:
+                        return null;
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
         }
+
         return null;
     }
 

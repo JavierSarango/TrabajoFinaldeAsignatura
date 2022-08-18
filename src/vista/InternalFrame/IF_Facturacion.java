@@ -32,7 +32,7 @@ import vista.ModeloTablas.ModeloTablaVentas;
  * @author Gigabyte
  */
 public class IF_Facturacion extends javax.swing.JInternalFrame {
-
+    
     private FacturaDao fd = new FacturaDao();
     private FacturaController fc = new FacturaController();
     private ModeloTablaVentas MTVentas = new ModeloTablaVentas();
@@ -54,7 +54,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jBFacturar.setEnabled(false);
         btBuscar.setIcon(bu);
     }
-
+    
     public void limpiar() {
         jTCedula.setText(" ");
         jTNombre.setText(" ");
@@ -62,7 +62,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTEmail.setText(" ");
         jTtelefono.setText(" ");
     }
-
+    
     public void DatosCliente() throws Exception {
         String cedula = jTCedula.getText();
         Cliente cliente = fc.consultaCliente(cedula);
@@ -74,7 +74,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         jTableVentas.setEnabled(true);
         jBFacturar.setEnabled(true);
     }
-
+    
     public void DatosVentas(Cliente cliente) throws Exception {
         ListaEnlazada<Venta> listaVentas = fc.obtenerVentas(cliente.getId_cliente());
         ListaEnlazada<DetalleVenta> listaDetalleVenta = fc.obtenerDetallesVentas(listaVentas);
@@ -84,15 +84,16 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
         }
         cargarTableVentas(listaVentas, listaDetalleVenta, listaproducto, cliente);
     }
-
+    
     public void cargarTableVentas(ListaEnlazada lista1, ListaEnlazada lista2, ListaEnlazada lista3, Cliente cliente) {
         MTVentas.setListaVentas(lista1);
         MTVentas.setListaDetalle(lista2);
         MTVentas.setListaProducto(lista3);
+        MTVentas.setCliente(cliente);
         jTableVentas.setModel(MTVentas);
         jTableVentas.updateUI();
     }
-
+    
     public void guardar() {
         if (jTNombre.getText().trim().isEmpty() || jTCedula.getText().trim().isEmpty() || jTEmail.getText().trim().isEmpty() || jTtelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
@@ -100,7 +101,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             Cliente cliente1 = fc.consultaCliente(jTCedula.getText());
             SimpleDateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
             Calendar calendar = Calendar.getInstance();
-
+            
             Date dateObj = calendar.getTime();
             String formattedDate = dtf.format(dateObj);
             try {
@@ -379,11 +380,11 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
     private void jTNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNombreActionPerformed
 
     }//GEN-LAST:event_jTNombreActionPerformed
-
+    
     class foto extends JLabel {
-
+        
         private Image foto;
-
+        
         @Override
         public void paint(Graphics g) {
             foto = new ImageIcon(getClass().getResource("/RecursosMultimedia/encabezados-07.jpg")).getImage();
@@ -391,7 +392,7 @@ public class IF_Facturacion extends javax.swing.JInternalFrame {
             setOpaque(false);
             super.paint(g);
         }
-
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
